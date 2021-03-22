@@ -3169,6 +3169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dicePrefab: {fileID: 2254430120734593496, guid: 957848d13308c114e8466ae8fbfbb12f, type: 3}
+  dicelist: []
   dice_sum: 0
 --- !u!4 &1463108555
 Transform:
