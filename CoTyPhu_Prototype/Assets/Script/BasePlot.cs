@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasePlot : MonoBehaviour
+public abstract class BasePlot : MonoBehaviour
 {
     public int plotID = 0;
     // Start is called before the first frame update
@@ -17,12 +17,12 @@ public class BasePlot : MonoBehaviour
         
     }
 
-    public void ActivePlotPassByEffect(PlayerControl p)
+    public virtual void ActivePlotPassByEffect(PlayerControl p)
     {
         Debug.Log("Passing by " +  this.gameObject.name);
     }
 
-    public void ActivePlotEffect(PlayerControl p)
+    public virtual void ActivePlotEffect(PlayerControl p)
     {
         Debug.Log("Stop at " + this.gameObject.name);
     }
