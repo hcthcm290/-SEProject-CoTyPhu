@@ -20,6 +20,6 @@ public class Dice : MonoBehaviour
 
     public void GetValue()
     {
-        dice_result = Random.Range(1, 6);
+        dice_result = Random.Range(1, 7);
     }
 }
