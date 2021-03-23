@@ -21,6 +21,7 @@ public class PlayerControl : MonoBehaviour
     public int currentNumberOfDices;
 
     public bool state_moving = false;
+    public int state_jail = 1; //1 - not in jail, 0 - in jail
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,14 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             diceManager.Roll(currentNumberOfDices);
-            Jump(diceManager.dice_sum);
+            if(currentNumberOfDices == 2 && diceManager.IsDouble())
+            {
+                //code to gain a turn and move counter here
+
+                //
+                state_jail = 1;
+            }
+            Jump(state_jail * diceManager.dice_sum);
             state_moving = true;
         }
 
@@ -55,7 +63,7 @@ public class PlayerControl : MonoBehaviour
                 if (transform.position != next_position)
                 {
                     transform.position = next_position;
-                    plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == cur_location).SendMessage("ActivePlotPassByEffect", this);
+                    plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == cur_location).ActivePlotPassByEffect(this);
                 }
 
                 // if character not reach the end_plot, get the next plot
@@ -75,7 +83,7 @@ public class PlayerControl : MonoBehaviour
             //code when step on the plot
             if (transform.position == SetNewPostition(dest_location))
             {
-                plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == dest_location).SendMessage("ActivePlotEffect", this);
+                plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == dest_location).ActivePlotEffect(this);
                 state_moving = false;
             }
         }

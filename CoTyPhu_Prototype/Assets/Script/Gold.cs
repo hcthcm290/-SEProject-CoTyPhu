@@ -22,7 +22,7 @@ public class Gold : MonoBehaviour
         amount += num;
     }
 
-    public void PayGold(int num)
+    public void LoseGold(int num)
     {
         amount -= num;
     }

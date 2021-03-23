@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 
-/// </summary>
-public class Plot_Start : BasePlot
+public class Plot_Tax : BasePlot
 {
     // Start is called before the first frame update
     void Start()
@@ -19,10 +16,10 @@ public class Plot_Start : BasePlot
         
     }
 
-    public override void ActivePlotPassByEffect(PlayerControl p)
+    public override void ActivePlotEffect(PlayerControl p)
     {
-        //base.ActivePlotPassByEffect(p);
-        p.SendMessage("GainGold", 200);
-        Debug.Log("Gained 200 Gold");
+        base.ActivePlotEffect(p);
+        p.SendMessage("LoseGold", 200);
+        Debug.Log("Lost 200 Gold");
     }
 }
