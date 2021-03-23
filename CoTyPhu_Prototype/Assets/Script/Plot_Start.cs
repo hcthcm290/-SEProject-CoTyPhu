@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public class Plot_Start : MonoBehaviour
 {
     // Start is called before the first frame update

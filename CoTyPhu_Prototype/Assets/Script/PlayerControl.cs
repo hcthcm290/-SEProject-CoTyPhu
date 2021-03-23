@@ -46,6 +46,7 @@ public class PlayerControl : MonoBehaviour
 
             if (jump_delay_count < jump_delay)
             {
+                // character move to next plot
                 jump_delay_count += Time.deltaTime;
                 transform.position += (next_position - prev_position) * Time.deltaTime / jump_delay;
             }
@@ -57,6 +58,7 @@ public class PlayerControl : MonoBehaviour
                     plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == cur_location).SendMessage("ActivePlotPassByEffect", this);
                 }
 
+                // if character not reach the end_plot, get the next plot
                 if (dest_location != cur_location)
                 {
                     prev_position = SetNewPostition(cur_location);
