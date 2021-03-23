@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BuildingPoint : MonoBehaviour
 {
-    [SerializeField] GameObject[] arrHouses;
     int currentHouseID; //id == -1 means no house is built on the point
     GameObject currentHouse;
 
+    [SerializeField]
     Transform buildPoint;
 
     // Start is called before the first frame update
@@ -34,8 +34,15 @@ public class BuildingPoint : MonoBehaviour
         if (newHouse != currentHouseID)
         {
             if (currentHouse != null) Destroy(currentHouse.gameObject);
-            currentHouse = Instantiate(arrHouses[newHouse], buildPoint.position, Quaternion.identity);
+            currentHouse = Instantiate(BuildingLibrary.sBuildings[newHouse], buildPoint.position, Quaternion.identity);
             currentHouseID = newHouse;
         }
+    }
+
+    public void Build(int type)
+    {
+        if (currentHouse != null) Destroy(currentHouse.gameObject);
+        currentHouse = Instantiate(BuildingLibrary.sBuildings[type], buildPoint.position, Quaternion.identity);
+        currentHouseID = type;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    bool Builded = false;
+
     public GameObject plotManager;
     public DiceManager diceManager;
 
@@ -85,6 +87,26 @@ public class PlayerControl : MonoBehaviour
             {
                 plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == dest_location).ActivePlotEffect(this);
                 state_moving = false;
+            }
+        }
+        else
+        {
+            if (!Builded && Input.GetKeyDown(KeyCode.B))
+            {
+                PlotManager pm = plotManager.GetComponent<PlotManager>();
+
+                BasePlot plot = pm.listPlot.Find((x) => x.plotID == cur_location);
+                if (plot is Plot_House)
+                {
+                    BuildingPoint bp = plot.GetComponent<BuildingPoint>();
+
+                    if(bp != null)
+                    {
+                        bp.Build(1);
+                        Builded = true;
+                    }
+                }
+
             }
         }
     }
