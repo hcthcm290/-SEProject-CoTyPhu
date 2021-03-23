@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gold : MonoBehaviour
+public class Plot_Start : MonoBehaviour
 {
-    public int amount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +16,9 @@ public class Gold : MonoBehaviour
         
     }
 
-    public void GainGold(int num)
+    public void ActivePlotPassByEffect(PlayerControl p)
     {
-        amount += num;
-    }
-
-    public void PayGold(int num)
-    {
-        amount -= num;
+        p.SendMessage("GainGold", 200);
+        Debug.Log("Gained 200 Gold");
     }
 }

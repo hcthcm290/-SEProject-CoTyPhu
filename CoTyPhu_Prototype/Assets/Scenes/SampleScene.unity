@@ -1115,6 +1115,7 @@ GameObject:
   - component: {fileID: 427879802}
   - component: {fileID: 427879801}
   - component: {fileID: 427879800}
+  - component: {fileID: 427879805}
   - component: {fileID: 427879804}
   m_Layer: 0
   m_Name: Player
@@ -1215,6 +1216,22 @@ MonoBehaviour:
   diceManager: {fileID: 1463108554}
   cur_location: 0
   jump_delay: 0.2
+  numberOfDices: 2
+  currentNumberOfDices: 0
+  state_moving: 0
+--- !u!114 &427879805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427879799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072c2252a6a229d4ca8398b31195d5c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 500
 --- !u!1 &445291046
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,6 +2733,7 @@ GameObject:
   - component: {fileID: 983469672}
   - component: {fileID: 983469671}
   - component: {fileID: 983469674}
+  - component: {fileID: 983469675}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -2812,6 +2830,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 0
+--- !u!114 &983469675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983469669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60fb17b14df0d0246acb495e436e1701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1089056166
 GameObject:
   m_ObjectHideFlags: 0

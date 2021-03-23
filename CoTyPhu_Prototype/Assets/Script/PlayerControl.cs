@@ -16,12 +16,19 @@ public class PlayerControl : MonoBehaviour
 
     private float jump_delay_count;
     public float jump_delay = 0.5f;
+
+    public int numberOfDices = 2;
+    public int currentNumberOfDices;
+
+    public bool state_moving = false;
+
     // Start is called before the first frame update
     void Start()
     {
         transform.position = SetNewPostition(cur_location);
         next_position = transform.position;
         jump_delay_count = jump_delay;
+        currentNumberOfDices = numberOfDices;
     }
 
     // Update is called once per frame
@@ -29,61 +36,45 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            diceManager.Roll(2);
+            diceManager.Roll(currentNumberOfDices);
             Jump(diceManager.dice_sum);
+            state_moving = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (state_moving)
         {
-            Jump(1);
-        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Jump(2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Jump(3);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            Jump(4);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            Jump(5);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            Jump(6);
-        }
-
-        if (jump_delay_count < jump_delay)
-        {
-            jump_delay_count += Time.deltaTime;
-            transform.position += (next_position - prev_position) * Time.deltaTime / jump_delay;
-        }
-        else
-        {
-            if(transform.position != next_position)
+            if (jump_delay_count < jump_delay)
             {
-                transform.position = next_position;
+                jump_delay_count += Time.deltaTime;
+                transform.position += (next_position - prev_position) * Time.deltaTime / jump_delay;
             }
-            if (dest_location != cur_location)
+            else
             {
-                prev_position = SetNewPostition(cur_location);
-                cur_location += 1;
-                if (cur_location >= 32)
+                if (transform.position != next_position)
                 {
-                    cur_location -= 32;
+                    transform.position = next_position;
+                    plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == cur_location).SendMessage("ActivePlotPassByEffect", this);
                 }
-                jump_delay_count = 0;
-                next_position = SetNewPostition(cur_location);
+
+                if (dest_location != cur_location)
+                {
+                    prev_position = SetNewPostition(cur_location);
+                    cur_location += 1;
+                    if (cur_location >= 32)
+                    {
+                        cur_location -= 32;
+                    }
+                    jump_delay_count = 0;
+                    next_position = SetNewPostition(cur_location);
+                }
+            }
+
+            //code when step on the plot
+            if (transform.position == SetNewPostition(dest_location))
+            {
+                plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == dest_location).SendMessage("ActivePlotEffect", this);
+                state_moving = false;
             }
         }
     }
@@ -106,7 +97,8 @@ public class PlayerControl : MonoBehaviour
     {
         Vector3 result = Vector3.zero;
 
-        Vector3 d = plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == id).transform.position;
+        BasePlot p = plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == id);
+        Vector3 d = p.transform.position;
         result = new Vector3(d.x, transform.position.y, d.z);
 
         return result;

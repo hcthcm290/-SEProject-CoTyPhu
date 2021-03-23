@@ -16,4 +16,14 @@ public class BasePlot : MonoBehaviour
     {
         
     }
+
+    public void ActivePlotPassByEffect(PlayerControl p)
+    {
+        Debug.Log("Passing by " +  this.gameObject.name);
+    }
+
+    public void ActivePlotEffect(PlayerControl p)
+    {
+        Debug.Log("Stop at " + this.gameObject.name);
+    }
 }
