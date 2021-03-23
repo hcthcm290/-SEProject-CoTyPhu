@@ -16,8 +16,9 @@ public class Plot_Prison : BasePlot
         
     }
 
-    public new void ActivePlotEffect(PlayerControl p)
+    public override void ActivePlotEffect(PlayerControl p)
     {
         Debug.Log("Jailed");
+        p.state_jail = 0;
     }
 }

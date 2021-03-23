@@ -21,6 +21,7 @@ public class PlayerControl : MonoBehaviour
     public int currentNumberOfDices;
 
     public bool state_moving = false;
+    public int state_jail = 1; //1 - not in jail, 0 - in jail
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,14 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             diceManager.Roll(currentNumberOfDices);
-            Jump(diceManager.dice_sum);
+            if(currentNumberOfDices == 2 && diceManager.IsDouble())
+            {
+                //code to gain a turn and move counter here
+
+                //
+                state_jail = 1;
+            }
+            Jump(state_jail * diceManager.dice_sum);
             state_moving = true;
         }
 

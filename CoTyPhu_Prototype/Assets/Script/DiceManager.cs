@@ -34,6 +34,11 @@ public class DiceManager : MonoBehaviour
         }
     }
 
+    public bool IsDouble()
+    {
+        return (dicelist[0].dice_result == dicelist[1].dice_result);
+    }
+
     public void ClearAllDice()
     {
         foreach (Dice dd in dicelist)
