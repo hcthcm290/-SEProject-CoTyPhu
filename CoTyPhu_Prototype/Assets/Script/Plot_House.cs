@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Plot_House : BasePlot
 {
+    [SerializeField]
+    private int _cost;
+    public int cost
+    {
+        get { return _cost; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

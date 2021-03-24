@@ -13,6 +13,9 @@ public class GameInit : MonoBehaviour
     [SerializeField]
     Button buildButton;
 
+    [SerializeField]
+    GoldTextUI goldTextUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,7 @@ public class GameInit : MonoBehaviour
         p1.plotManager = plotManager;
         p1.turnBaseManager = turnBaseManager;
         buildButton.onClick.AddListener(p1.BuildAHouse);
+        goldTextUI.gold = p1.GetComponent<Gold>();
 
         turnBaseManager.listPlayer.Enqueue(p1);
 

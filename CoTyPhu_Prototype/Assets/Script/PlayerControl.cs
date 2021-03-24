@@ -32,6 +32,8 @@ public class PlayerControl : MonoBehaviour
     public int turn_maximum_count = 0;
     public int turn_maximum_limit = 3;
 
+    private Gold gold;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,7 @@ public class PlayerControl : MonoBehaviour
         next_position = transform.position;
         jump_delay_count = jump_delay;
         currentNumberOfDices = numberOfDices;
+        gold = GetComponent<Gold>();
     }
 
     // Update is called once per frame
@@ -179,12 +182,18 @@ public class PlayerControl : MonoBehaviour
         BasePlot plot = pm.listPlot.Find((x) => x.plotID == cur_location);
         if (plot is Plot_House)
         {
+            if(gold.amount < (plot as Plot_House).cost)
+            {
+                Debug.LogWarning("Not enough money");
+                return;
+            }
             BuildingPoint bp = plot.GetComponent<BuildingPoint>();
 
             if (bp != null)
             {
                 bp.Build(1);
                 Builded = true;
+                gold.amount -= (plot as Plot_House).cost;
             }
         }
     }
