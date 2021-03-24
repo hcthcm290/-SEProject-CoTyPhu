@@ -8,6 +8,7 @@ public class PlayerControl : MonoBehaviour
 
     public GameObject plotManager;
     public DiceManager diceManager;
+    public TurnBaseManager turnBaseManager;
 
     public int cur_location = 0;
     private int dest_location;
@@ -22,13 +23,16 @@ public class PlayerControl : MonoBehaviour
     public int numberOfDices = 2;
     public int currentNumberOfDices;
 
-    public bool state_moving = false;
     public int state_jail = 1; //1 - not in jail, 0 - in jail
+    public int number_of_moving_turn = 0;
+
+    public int turn_maximum_count = 0;
+    public int turn_maximum_limit = 3;
 
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = SetNewPostition(cur_location);
+        transform.position = SetNewPostition(0);
         next_position = transform.position;
         jump_delay_count = jump_delay;
         currentNumberOfDices = numberOfDices;
@@ -37,57 +41,100 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if(number_of_moving_turn <= 0)
         {
-            diceManager.Roll(currentNumberOfDices);
-            if(currentNumberOfDices == 2 && diceManager.IsDouble())
-            {
-                //code to gain a turn and move counter here
 
-                //
-                state_jail = 1;
-            }
-            Jump(state_jail * diceManager.dice_sum);
-            state_moving = true;
-            Builded = false;
         }
-
-        if (state_moving)
+        if (number_of_moving_turn > 0)
         {
-
-            if (jump_delay_count < jump_delay)
+            if (turnBaseManager.phase == 0)
             {
-                // character move to next plot
-                jump_delay_count += Time.deltaTime;
-                transform.position += (next_position - prev_position) * Time.deltaTime / jump_delay;
-            }
-            else
-            {
-                if (transform.position != next_position)
+                if (Input.GetKeyDown(KeyCode.A))
                 {
-                    transform.position = next_position;
-                    plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == cur_location).ActivePlotPassByEffect(this);
-                }
-
-                // if character not reach the end_plot, get the next plot
-                if (dest_location != cur_location)
-                {
-                    prev_position = SetNewPostition(cur_location);
-                    cur_location += 1;
-                    if (cur_location >= 32)
+                    turn_maximum_count++;
+                    diceManager.Roll(currentNumberOfDices);
+                    if (currentNumberOfDices == 2 && diceManager.IsDouble())
                     {
-                        cur_location -= 32;
+                        if (turn_maximum_count >= turn_maximum_limit)
+                        {
+                            number_of_moving_turn = 1;
+                            //code to fly to prison here
+
+                            //
+                            turnBaseManager.phase = 4;
+                            return;
+                        }
+                        else
+                        {
+                            number_of_moving_turn++;
+                        }
+                        state_jail = 1;
                     }
-                    jump_delay_count = 0;
-                    next_position = SetNewPostition(cur_location);
+                    Jump(state_jail * diceManager.dice_sum);
+                    turnBaseManager.phase = 1;
                 }
+                return;
             }
 
-            //code when step on the plot
-            if (transform.position == SetNewPostition(dest_location))
+            if (turnBaseManager.phase == 1)
+            {
+                if (jump_delay_count < jump_delay)
+                {
+                    jump_delay_count += Time.deltaTime;
+                    transform.position += (next_position - prev_position) * Time.deltaTime / jump_delay;
+                }
+                else
+                {
+                    if (transform.position != next_position)
+                    {
+                        transform.position = next_position;
+                        plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == cur_location).ActivePlotPassByEffect(this);
+                    }
+
+                    if (dest_location != cur_location)
+                    {
+                        prev_position = SetNewPostition(cur_location);
+                        cur_location += 1;
+                        if (cur_location >= 32)
+                        {
+                            cur_location -= 32;
+                        }
+                        jump_delay_count = 0;
+                        next_position = SetNewPostition(cur_location);
+                    }
+                }
+
+                //code when step on the plot
+                if (transform.position == SetNewPostition(dest_location))
+                {
+                    turnBaseManager.phase = 2;
+                }
+                return;
+            }
+
+            if(turnBaseManager.phase == 2)
             {
                 plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == dest_location).ActivePlotEffect(this);
-                state_moving = false;
+                turnBaseManager.phase = 4;
+                return;
+            }
+
+            if(turnBaseManager.phase == 4)
+            {
+                number_of_moving_turn--;
+                if (number_of_moving_turn > 0)
+                {
+                    
+                }
+                else
+                {
+                    PlayerControl p = turnBaseManager.listPlayer.Dequeue();
+                    p.number_of_moving_turn++;
+                    turnBaseManager.listPlayer.Enqueue(p);
+                    turn_maximum_count = 0;
+                }
+                turnBaseManager.phase = 0;
+                return;
             }
         }
         else
