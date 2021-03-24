@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameInit : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class GameInit : MonoBehaviour
     public DiceManager diceManager;
     public TurnBaseManager turnBaseManager;
     public PlayerControl playerPrefab;
+
+    [SerializeField]
+    Button buildButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,32 +21,33 @@ public class GameInit : MonoBehaviour
         p1.diceManager = diceManager;
         p1.plotManager = plotManager;
         p1.turnBaseManager = turnBaseManager;
+        buildButton.onClick.AddListener(p1.BuildAHouse);
 
         turnBaseManager.listPlayer.Enqueue(p1);
 
-        PlayerControl p2 = Instantiate(playerPrefab, Vector3.one, Quaternion.identity);
-        p2.name = "B";
-        p2.diceManager = diceManager;
-        p2.plotManager = plotManager;
-        p2.turnBaseManager = turnBaseManager;
+        //PlayerControl p2 = Instantiate(playerPrefab, Vector3.one, Quaternion.identity);
+        //p2.name = "B";
+        //p2.diceManager = diceManager;
+        //p2.plotManager = plotManager;
+        //p2.turnBaseManager = turnBaseManager;
 
-        turnBaseManager.listPlayer.Enqueue(p2);
+        //turnBaseManager.listPlayer.Enqueue(p2);
 
-        PlayerControl p3 = Instantiate(playerPrefab, Vector3.one, Quaternion.identity);
-        p3.name = "C";
-        p3.diceManager = diceManager;
-        p3.plotManager = plotManager;
-        p3.turnBaseManager = turnBaseManager;
+        //PlayerControl p3 = Instantiate(playerPrefab, Vector3.one, Quaternion.identity);
+        //p3.name = "C";
+        //p3.diceManager = diceManager;
+        //p3.plotManager = plotManager;
+        //p3.turnBaseManager = turnBaseManager;
 
-        turnBaseManager.listPlayer.Enqueue(p3);
+        //turnBaseManager.listPlayer.Enqueue(p3);
 
-        PlayerControl p4 = Instantiate(playerPrefab, Vector3.one, Quaternion.identity);
-        p4.name = "D";
-        p4.diceManager = diceManager;
-        p4.plotManager = plotManager;
-        p4.turnBaseManager = turnBaseManager;
+        //PlayerControl p4 = Instantiate(playerPrefab, Vector3.one, Quaternion.identity);
+        //p4.name = "D";
+        //p4.diceManager = diceManager;
+        //p4.plotManager = plotManager;
+        //p4.turnBaseManager = turnBaseManager;
 
-        turnBaseManager.listPlayer.Enqueue(p4);
+        //turnBaseManager.listPlayer.Enqueue(p4);
 
         turnBaseManager.ResetGame();
     }

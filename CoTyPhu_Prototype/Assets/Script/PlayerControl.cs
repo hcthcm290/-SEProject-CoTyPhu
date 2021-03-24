@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    /// <summary>
+    /// Status show if player has build a house at its turn
+    /// </summary>
     bool Builded = false;
 
     public GameObject plotManager;
@@ -72,6 +75,11 @@ public class PlayerControl : MonoBehaviour
                     }
                     Jump(state_jail * diceManager.dice_sum);
                     turnBaseManager.phase = 1;
+                    ResetBuildStatus();
+                }
+                else if (!Builded && Input.GetKeyDown(KeyCode.B))
+                {
+                    BuildAHouse();
                 }
                 return;
             }
@@ -137,26 +145,6 @@ public class PlayerControl : MonoBehaviour
                 return;
             }
         }
-        else
-        {
-            if (!Builded && Input.GetKeyDown(KeyCode.B))
-            {
-                PlotManager pm = plotManager.GetComponent<PlotManager>();
-
-                BasePlot plot = pm.listPlot.Find((x) => x.plotID == cur_location);
-                if (plot is Plot_House)
-                {
-                    BuildingPoint bp = plot.GetComponent<BuildingPoint>();
-
-                    if(bp != null)
-                    {
-                        bp.Build(1);
-                        Builded = true;
-                    }
-                }
-
-            }
-        }
     }
 
     void Jump()
@@ -182,5 +170,30 @@ public class PlayerControl : MonoBehaviour
         result = new Vector3(d.x, transform.position.y, d.z);
 
         return result;
+    }
+
+    public void BuildAHouse()
+    {
+        PlotManager pm = plotManager.GetComponent<PlotManager>();
+
+        BasePlot plot = pm.listPlot.Find((x) => x.plotID == cur_location);
+        if (plot is Plot_House)
+        {
+            BuildingPoint bp = plot.GetComponent<BuildingPoint>();
+
+            if (bp != null)
+            {
+                bp.Build(1);
+                Builded = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// After reset, the player have the ability to build again
+    /// </summary>
+    void ResetBuildStatus()
+    {
+        Builded = false;
     }
 }
