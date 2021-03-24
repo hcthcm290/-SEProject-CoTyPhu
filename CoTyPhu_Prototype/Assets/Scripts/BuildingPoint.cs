@@ -42,7 +42,8 @@ public class BuildingPoint : MonoBehaviour
     public void Build(int type)
     {
         if (currentHouse != null) Destroy(currentHouse.gameObject);
-        currentHouse = Instantiate(BuildingLibrary.sBuildings[type], buildPoint.position, Quaternion.identity);
+        currentHouse = Instantiate(BuildingLibrary.sBuildings[type], buildPoint.position, buildPoint.rotation);
         currentHouseID = type;
+        currentHouse.transform.parent = this.transform;
     }
 }

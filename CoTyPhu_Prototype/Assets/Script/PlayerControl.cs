@@ -49,6 +49,7 @@ public class PlayerControl : MonoBehaviour
             }
             Jump(state_jail * diceManager.dice_sum);
             state_moving = true;
+            Builded = false;
         }
 
         if (state_moving)
