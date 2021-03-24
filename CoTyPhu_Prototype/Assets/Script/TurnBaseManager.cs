@@ -14,10 +14,9 @@ public class TurnBaseManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ResetGame();
     }
 
-    void ResetGame()
+    public void ResetGame()
     {
         PlayerControl p = listPlayer.Dequeue();
         p.number_of_moving_turn++;

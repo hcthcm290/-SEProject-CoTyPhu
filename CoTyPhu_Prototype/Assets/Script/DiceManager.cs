@@ -33,7 +33,7 @@ public class DiceManager : MonoBehaviour
             dicelist.Add(d);
         }
 
-        dice_sum = 1;
+        //dice_sum = 1;
     }
 
     public bool IsDouble()
