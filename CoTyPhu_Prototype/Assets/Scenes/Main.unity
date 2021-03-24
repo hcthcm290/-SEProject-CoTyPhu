@@ -365,6 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 15
+  _cost: 0
 --- !u!114 &182144037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 25
+  _cost: 0
 --- !u!114 &320823535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,6 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 29
+  _cost: 0
 --- !u!114 &396843016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1497,6 +1500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 11
+  _cost: 0
 --- !u!114 &594808602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1882,6 +1886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 1
+  _cost: 150
 --- !u!1 &686055488
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,6 +2107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 12
+  _cost: 0
 --- !u!114 &722653636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2226,6 +2232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 14
+  _cost: 0
 --- !u!114 &768134628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2541,6 +2548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 21
+  _cost: 0
 --- !u!114 &840124451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2820,6 +2828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 9
+  _cost: 0
 --- !u!114 &903817838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3333,6 +3342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 20
+  _cost: 0
 --- !u!114 &1089056172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4144,6 +4154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 6
+  _cost: 300
 --- !u!114 &1551175219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4268,6 +4279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 3
+  _cost: 500
 --- !u!114 &1599037966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4422,6 +4434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 7
+  _cost: 0
 --- !u!114 &1667383183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4628,7 +4641,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 69
+    m_FontSize: 64
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -4636,7 +4649,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 300
@@ -4887,6 +4900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 26
+  _cost: 0
 --- !u!114 &1877235909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5011,6 +5025,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 23
+  _cost: 0
 --- !u!114 &1921384163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5268,6 +5283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 17
+  _cost: 0
 --- !u!114 &1999058971
 MonoBehaviour:
   m_ObjectHideFlags: 0
