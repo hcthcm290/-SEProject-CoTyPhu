@@ -42,6 +42,8 @@ public class GameInit : MonoBehaviour
         p4.turnBaseManager = turnBaseManager;
 
         turnBaseManager.listPlayer.Enqueue(p4);
+
+        turnBaseManager.ResetGame();
     }
 
     // Update is called once per frame
