@@ -51,6 +51,7 @@ public class PlayerControl : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.A))
                 {
+                    turnBaseManager.turn_count++;
                     turn_maximum_count++;
                     diceManager.Roll(currentNumberOfDices);
                     if (currentNumberOfDices == 2 && diceManager.IsDouble())
