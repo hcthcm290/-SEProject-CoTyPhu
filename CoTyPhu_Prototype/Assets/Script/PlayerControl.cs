@@ -47,6 +47,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(turnBaseManager.phase);
         if(number_of_moving_turn <= 0)
         {
 
@@ -183,7 +184,13 @@ public class PlayerControl : MonoBehaviour
         BasePlot plot = pm.listPlot.Find((x) => x.plotID == cur_location);
         if (plot is Plot_House)
         {
-            if(gold.amount < (plot as Plot_House).cost)
+            Plot_House plot_house = (plot as Plot_House);
+            if (plot_house.owner != this && plot_house.owner != null)
+            {
+                return;
+            }
+
+            if (gold.amount < (plot as Plot_House).cost)
             {
                 Debug.LogWarning("Not enough money");
                 return;
@@ -192,7 +199,15 @@ public class PlayerControl : MonoBehaviour
 
             if (bp != null)
             {
-                bp.Build(1);
+                if (name == "A")
+                {
+                    bp.Build(1);
+                }
+                else
+                {
+                    bp.Build(2);
+                }
+                (plot as Plot_House).owner = this;
                 Builded = true;
                 gold.amount -= (plot as Plot_House).cost;
             }

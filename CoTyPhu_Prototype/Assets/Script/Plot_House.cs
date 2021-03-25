@@ -6,6 +6,9 @@ public class Plot_House : BasePlot
 {
     [SerializeField]
     private int _cost;
+    [SerializeField]
+    public PlayerControl owner;
+
     public int cost
     {
         get { return _cost; }
@@ -14,7 +17,7 @@ public class Plot_House : BasePlot
     // Start is called before the first frame update
     void Start()
     {
-        
+        owner = null;
     }
 
     // Update is called once per frame

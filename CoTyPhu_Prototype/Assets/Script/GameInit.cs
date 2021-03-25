@@ -9,6 +9,7 @@ public class GameInit : MonoBehaviour
     public DiceManager diceManager;
     public TurnBaseManager turnBaseManager;
     public PlayerControl playerPrefab;
+    public List<PlayerControl> playerPrefabs;
 
     [SerializeField]
     Button buildButton;
@@ -19,7 +20,7 @@ public class GameInit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerControl p1 = Instantiate(playerPrefab, Vector3.one, Quaternion.identity);
+        PlayerControl p1 = Instantiate(playerPrefabs[0], Vector3.one, Quaternion.identity);
         p1.name = "A";
         p1.diceManager = diceManager;
         p1.plotManager = plotManager;
@@ -29,13 +30,13 @@ public class GameInit : MonoBehaviour
 
         turnBaseManager.listPlayer.Enqueue(p1);
 
-        //PlayerControl p2 = Instantiate(playerPrefab, Vector3.one, Quaternion.identity);
-        //p2.name = "B";
-        //p2.diceManager = diceManager;
-        //p2.plotManager = plotManager;
-        //p2.turnBaseManager = turnBaseManager;
+        PlayerControl p2 = Instantiate(playerPrefabs[1], Vector3.one, Quaternion.identity);
+        p2.name = "B";
+        p2.diceManager = diceManager;
+        p2.plotManager = plotManager;
+        p2.turnBaseManager = turnBaseManager;
 
-        //turnBaseManager.listPlayer.Enqueue(p2);
+        turnBaseManager.listPlayer.Enqueue(p2);
 
         //PlayerControl p3 = Instantiate(playerPrefab, Vector3.one, Quaternion.identity);
         //p3.name = "C";
