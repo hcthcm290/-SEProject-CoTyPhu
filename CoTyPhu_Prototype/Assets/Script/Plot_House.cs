@@ -15,4 +15,9 @@ public class Plot_House : BasePlot
     {
         
     }
+
+    public int LV0_Price;
+    public int LV1_Price;
+    public int LV2_Price;
+    public int LV3_Price;
 }
