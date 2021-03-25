@@ -1,17 +1,18 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Danh sách thông tin các ô trên bàn cờ
-/// </summary>
-public class PlotManager : MonoBehaviour
+public class BuildingLibrary : MonoBehaviour
 {
-    public List<BasePlot> listPlot = new List<BasePlot>();
+    public static List<GameObject> sBuildings;
+
+    [SerializeField]
+    List<GameObject> buildings;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        sBuildings = buildings;
     }
 
     // Update is called once per frame
