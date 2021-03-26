@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2065245045194329179}
   - component: {fileID: 2065245045194329178}
   - component: {fileID: 2065245045194329183}
-  - component: {fileID: 2065245045194329182}
+  - component: {fileID: -5145506510820843290}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 500
---- !u!114 &2065245045194329182
+--- !u!114 &-5145506510820843290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,14 +119,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2065245045194329173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f4b6bd180b65d34ba49f718b8aa4cd9, type: 3}
+  m_Script: {fileID: 11500000, guid: f0d751a72c263674eab832cda31ebf40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   plotManager: {fileID: 0}
   diceManager: {fileID: 0}
   turnBaseManager: {fileID: 0}
   cur_location: 0
-  jump_delay: 0.2
+  jump_delay: 0.5
   numberOfDices: 2
   currentNumberOfDices: 0
   state_jail: 1

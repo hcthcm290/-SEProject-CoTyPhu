@@ -7,20 +7,20 @@ public class PlayerControl : MonoBehaviour
     /// <summary>
     /// Status show if player has build a house at its turn
     /// </summary>
-    bool Builded = false;
+    protected bool Builded = false;
 
     public GameObject plotManager;
     public DiceManager diceManager;
     public TurnBaseManager turnBaseManager;
 
     public int cur_location = 0;
-    private int dest_location;
+    protected int dest_location;
 
-    private Vector3 prev_position;
-    private Vector3 next_position;
+    protected Vector3 prev_position;
+    protected Vector3 next_position;
 
 
-    private float jump_delay_count;
+    protected float jump_delay_count;
     public float jump_delay = 0.5f;
 
     public int numberOfDices = 2;
@@ -45,7 +45,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         Debug.Log(turnBaseManager.phase);
         if(number_of_moving_turn <= 0)
@@ -154,12 +154,12 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    void Jump()
+    protected void Jump()
     {
         Jump(1);
     }
 
-    void Jump(int step)
+    protected void Jump(int step)
     {
         dest_location = cur_location + step;
         if (dest_location >= 32)
@@ -168,7 +168,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    Vector3 SetNewPostition(int id)
+    protected Vector3 SetNewPostition(int id)
     {
         Vector3 result = Vector3.zero;
 
@@ -232,7 +232,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    private void UpgradeAHouse(Plot_House plot_house)
+    protected void UpgradeAHouse(Plot_House plot_house)
     {
         BuildingPoint bp = plot_house.GetComponent<BuildingPoint>();
 
@@ -247,7 +247,7 @@ public class PlayerControl : MonoBehaviour
     /// <summary>
     /// After reset, the player have the ability to build again
     /// </summary>
-    void ResetBuildStatus()
+    protected void ResetBuildStatus()
     {
         Builded = false;
     }
