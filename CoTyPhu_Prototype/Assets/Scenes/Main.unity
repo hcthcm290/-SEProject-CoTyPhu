@@ -356,6 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 15
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &182144037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 548952279}
 --- !u!1 &188671001
 GameObject:
@@ -571,6 +573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 25
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &320823535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,6 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 1282592687}
 --- !u!1 &320874952
 GameObject:
@@ -835,6 +839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 29
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &396843016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,6 +852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 851386144}
 --- !u!1 &400655655
 GameObject:
@@ -1491,6 +1497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 11
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &594808602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1503,6 +1510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 2062124266}
 --- !u!1 &603771768
 GameObject:
@@ -2001,6 +2009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 1651472250}
 --- !u!114 &685767418
 MonoBehaviour:
@@ -2016,6 +2025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 1
   _cost: 150
+  owner: {fileID: 0}
 --- !u!1 &686055488
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,6 +2247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 12
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &722653636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2249,6 +2260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 983719583}
 --- !u!1 &768134622
 GameObject:
@@ -2362,6 +2374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 14
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &768134628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2374,6 +2387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 1186782726}
 --- !u!1 &790813176
 GameObject:
@@ -2678,6 +2692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 21
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &840124451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2690,6 +2705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 1676937036}
 --- !u!1 &841962966
 GameObject:
@@ -2880,6 +2896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 31
   _cost: 0
+  owner: {fileID: 0}
 --- !u!65 &870036690
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2954,6 +2971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 614794249}
 --- !u!1 &903817832
 GameObject:
@@ -3067,6 +3085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 9
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &903817838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3079,6 +3098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 631357954}
 --- !u!1 &905463043
 GameObject:
@@ -3581,6 +3601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 20
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &1089056172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3593,6 +3614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 387675621}
 --- !u!1 &1135389522
 GameObject:
@@ -3965,6 +3987,9 @@ MonoBehaviour:
   diceManager: {fileID: 1463108554}
   turnBaseManager: {fileID: 439516918}
   playerPrefab: {fileID: 2065245045194329182, guid: 113d23be386e5db45a6bedd7134a14c7, type: 3}
+  playerPrefabs:
+  - {fileID: 2065245045194329182, guid: 113d23be386e5db45a6bedd7134a14c7, type: 3}
+  - {fileID: 2065245045194329182, guid: db8bf3759704b3c4daf7880637a87766, type: 3}
   buildButton: {fileID: 1957428532}
   goldTextUI: {fileID: 1852039256}
 --- !u!4 &1340303249
@@ -4393,6 +4418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 6
   _cost: 300
+  owner: {fileID: 0}
 --- !u!114 &1551175219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4405,6 +4431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 213677049}
 --- !u!1 &1599037960
 GameObject:
@@ -4518,6 +4545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 3
   _cost: 500
+  owner: {fileID: 0}
 --- !u!114 &1599037966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4530,6 +4558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 443847084}
 --- !u!1 &1651472249
 GameObject:
@@ -4673,6 +4702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 7
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &1667383183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4685,6 +4715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 1818402671}
 --- !u!1 &1676937035
 GameObject:
@@ -4764,6 +4795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 1310063266}
 --- !u!114 &1752391385
 MonoBehaviour:
@@ -4779,6 +4811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 18
   _cost: 0
+  owner: {fileID: 0}
 --- !u!65 &1752391386
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5264,6 +5297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 26
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &1877235909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5276,6 +5310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 301583729}
 --- !u!1 &1921384157
 GameObject:
@@ -5389,6 +5424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 23
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &1921384163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5401,6 +5437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 2041318633}
 --- !u!1 &1957428530
 GameObject:
@@ -5647,6 +5684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotID: 17
   _cost: 0
+  owner: {fileID: 0}
 --- !u!114 &1999058971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5659,6 +5697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34a433938e471f409d98de8eb155e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHouseID: 0
   buildPoint: {fileID: 188671002}
 --- !u!1 &2041318632
 GameObject:

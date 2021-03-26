@@ -122,6 +122,7 @@ public class PlayerControl : MonoBehaviour
                 {
                     turnBaseManager.phase = 2;
                 }
+
                 return;
             }
 
@@ -129,6 +130,7 @@ public class PlayerControl : MonoBehaviour
             {
                 plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == dest_location).ActivePlotEffect(this);
                 turnBaseManager.phase = 4;
+
                 return;
             }
 
@@ -177,8 +179,19 @@ public class PlayerControl : MonoBehaviour
         return result;
     }
 
+    public bool CanBuild()
+    {
+        if(number_of_moving_turn > 0 && !Builded)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void BuildAHouse()
     {
+        if (!CanBuild())
+            return;
         PlotManager pm = plotManager.GetComponent<PlotManager>();
 
         BasePlot plot = pm.listPlot.Find((x) => x.plotID == cur_location);
@@ -187,6 +200,11 @@ public class PlayerControl : MonoBehaviour
             Plot_House plot_house = (plot as Plot_House);
             if (plot_house.owner != this && plot_house.owner != null)
             {
+                return;
+            }
+            else if(plot_house.owner == this)
+            {
+                UpgradeAHouse(plot_house);
                 return;
             }
 
@@ -211,6 +229,18 @@ public class PlayerControl : MonoBehaviour
                 Builded = true;
                 gold.amount -= (plot as Plot_House).cost;
             }
+        }
+    }
+
+    private void UpgradeAHouse(Plot_House plot_house)
+    {
+        BuildingPoint bp = plot_house.GetComponent<BuildingPoint>();
+
+        if (bp != null)
+        {
+            bp.Build(bp.currentHouseID + 1);
+            Builded = true;
+            gold.amount -= (plot_house as Plot_House).cost;
         }
     }
 
