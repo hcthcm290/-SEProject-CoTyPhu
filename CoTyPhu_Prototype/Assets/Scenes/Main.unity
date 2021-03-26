@@ -4149,7 +4149,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 2065245045194329182, guid: 113d23be386e5db45a6bedd7134a14c7, type: 3}
   playerPrefabs:
   - {fileID: 2065245045194329182, guid: 113d23be386e5db45a6bedd7134a14c7, type: 3}
-  - {fileID: 0}
+  - {fileID: -5145506510820843290, guid: db8bf3759704b3c4daf7880637a87766, type: 3}
   buildButton: {fileID: 1957428532}
   goldTextUI: {fileID: 1852039256}
 --- !u!4 &1340303249
