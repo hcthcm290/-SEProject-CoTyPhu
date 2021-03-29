@@ -8,6 +8,8 @@ public class GameInit : MonoBehaviour
     public DiceManager diceManager;
     public TurnBaseManager turnBaseManager;
     public PlayerControl playerPrefab;
+    public StatusManager statusPrefab;
+
     // Start is called before the first frame update
     void Start()
     {

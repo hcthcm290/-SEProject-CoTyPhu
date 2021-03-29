@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class BaseStatusDetail : MonoBehaviour
 {
+    public bool isRemoveByTurnDurationEnd;
+    public int duration_by_turn = 1;
+    public bool isRemoveByActivationTime;
+    public int number_of_max_activation = 0;
+    public bool isRemoveByNextOwnerTurn;
+
+    public PlayerControl source;
+    public int turn_start;
+    public string description;
+
     //stat for plot status
     public float percent_hire_price_change = 0;
     public float percent_buy_price_change = 0;

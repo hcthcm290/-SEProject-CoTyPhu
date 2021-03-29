@@ -2625,6 +2625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plotID: 16
+  festivalPrefab: {fileID: 608459467794909490, guid: 4906c22523b2f8b4896d738fb6a43300, type: 3}
 --- !u!1 &903817832
 GameObject:
   m_ObjectHideFlags: 0
@@ -3528,6 +3529,7 @@ MonoBehaviour:
   diceManager: {fileID: 1316601517}
   turnBaseManager: {fileID: 3987696923271646715}
   playerPrefab: {fileID: 2065245045194329182, guid: 113d23be386e5db45a6bedd7134a14c7, type: 3}
+  statusPrefab: {fileID: 1571833240}
 --- !u!4 &1340303249
 Transform:
   m_ObjectHideFlags: 0
@@ -3993,6 +3995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381531c78d9deab4f8c7c1ad3075ee03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tbm: {fileID: 3987696923271646715}
   list_status: []
 --- !u!4 &1571833241
 Transform:
@@ -4002,7 +4005,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1571833239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.212623, y: -0.011632472, z: -0.9406503}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
