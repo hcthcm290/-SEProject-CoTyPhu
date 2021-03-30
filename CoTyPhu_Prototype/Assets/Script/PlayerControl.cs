@@ -144,6 +144,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     PlayerControl p = turnBaseManager.listPlayer.Dequeue();
+                    turnBaseManager.turnOfPlayer = p;
                     p.number_of_moving_turn++;
                     turnBaseManager.listPlayer.Enqueue(p);
                     turn_maximum_count = 0;

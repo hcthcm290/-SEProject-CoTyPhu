@@ -16,6 +16,7 @@ public class GameInit : MonoBehaviour
 
     [SerializeField]
     GoldTextUI goldTextUI;
+    public StatusManager statusPrefab;
 
     // Start is called before the first frame update
     void Start()
