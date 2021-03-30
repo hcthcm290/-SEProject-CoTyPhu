@@ -5,12 +5,9 @@ using UnityEngine;
 
 public class StatusManager : MonoBehaviour
 {
-    public List<BaseStatus> list_status = new List<BaseStatus>();
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     public List<BaseStatusDetail> list_status = new List<BaseStatusDetail>();
+    // Start is called before the first frame update
+       
     // Start is called before the first frame update
     void Start()
     {

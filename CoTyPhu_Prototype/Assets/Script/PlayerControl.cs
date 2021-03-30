@@ -47,7 +47,6 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        Debug.Log(turnBaseManager.phase);
         if(number_of_moving_turn <= 0)
         {
 
