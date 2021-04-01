@@ -20,6 +20,25 @@ public class PlayerListing : MonoBehaviourPunCallbacks
         listPlayerElements = new List<PlayerElement>();
     }
 
+    public void RefreshList()
+    {
+        ClearList();
+        foreach (var item in PhotonNetwork.CurrentRoom.Players)
+        {
+            OnPlayerEnteredRoom(item.Value);
+        }
+    }
+
+    private void ClearList()
+    {
+        foreach(var element in listPlayerElements)
+        {
+            Destroy(element.gameObject);
+        }
+
+        listPlayerElements.Clear();
+    }
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         var player = Instantiate(elementPrefab, ListingTransform);

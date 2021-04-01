@@ -14,6 +14,9 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject WaitingRoomCanvas;
 
+    [SerializeField]
+    PlayerListing playerListing;
+
     private void Start()
     {
         _ins = this;
@@ -23,6 +26,7 @@ public class SceneManager : MonoBehaviour
     {
         CreateRoomCanvas.SetActive(false);
         WaitingRoomCanvas.SetActive(true);
+        playerListing.RefreshList();
     }
 
     public void MoveToCreateRoom()
