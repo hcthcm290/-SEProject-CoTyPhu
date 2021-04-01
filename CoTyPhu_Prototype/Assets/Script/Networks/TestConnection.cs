@@ -16,6 +16,7 @@ public class TestConnection: MonoBehaviourPunCallbacks
         string nickName = Random.Range(0, 9999).ToString();
         PhotonNetwork.GameVersion = gameVersion;
         PhotonNetwork.NickName = nickName;
+        PhotonNetwork.AutomaticallySyncScene = true;
         Debug.Log("Connecting using setting status: " + PhotonNetwork.ConnectUsingSettings().ToString());
         Debug.Log("Connecting to Master with Nickname: " + PhotonNetwork.LocalPlayer.NickName + " \nOn game version: " + PhotonNetwork.GameVersion);
 
@@ -31,7 +32,7 @@ public class TestConnection: MonoBehaviourPunCallbacks
         //    PhotonNetwork.Disconnect();
         //}
 
-        if(!PhotonNetwork.IsConnectedAndReady)
+        if(!PhotonNetwork.IsConnected)
         {
             PhotonNetwork.ConnectUsingSettings();
         }

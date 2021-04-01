@@ -56,4 +56,12 @@ public class PlayerListing : MonoBehaviourPunCallbacks
             Destroy(player.gameObject);
         }
     }
+
+    public void StartGame()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel(1);
+        }
+    }
 }
