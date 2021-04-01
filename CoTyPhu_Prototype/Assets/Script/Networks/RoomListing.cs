@@ -31,7 +31,7 @@ public class RoomListing : MonoBehaviourPunCallbacks
             }
 
             RoomElement element = Instantiate(elementPrefab, ListingTransform);
-            element.SetRoomName(room.Name);
+            element.SetRoomInfo(room);
 
             listRoomElements.Add(element);
         }
