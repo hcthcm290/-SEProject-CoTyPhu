@@ -30,6 +30,11 @@ public class TestConnection: MonoBehaviourPunCallbacks
         //    Debug.Log("Disconnecting from server");
         //    PhotonNetwork.Disconnect();
         //}
+
+        if(!PhotonNetwork.IsConnectedAndReady)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     public override void OnConnected()

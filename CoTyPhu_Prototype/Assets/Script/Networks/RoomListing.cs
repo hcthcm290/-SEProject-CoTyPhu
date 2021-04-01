@@ -12,6 +12,7 @@ public class RoomListing : MonoBehaviourPunCallbacks
     [SerializeField]
     RoomElement elementPrefab;
 
+    [SerializeField]
     List<RoomElement> listRoomElements;
 
     private void Start()
@@ -24,6 +25,11 @@ public class RoomListing : MonoBehaviourPunCallbacks
         CleanListRoomElements();
         foreach(var room in roomList)
         {
+            if(room.RemovedFromList)
+            {
+                continue;
+            }
+
             RoomElement element = Instantiate(elementPrefab, ListingTransform);
             element.SetRoomName(room.Name);
 
@@ -35,7 +41,7 @@ public class RoomListing : MonoBehaviourPunCallbacks
     {
         foreach(var room in listRoomElements)
         {
-            Destroy(room);
+            Destroy(room.gameObject);
         }
 
         listRoomElements.Clear();

@@ -21,12 +21,14 @@ public class CreateRoom : MonoBehaviourPunCallbacks
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 4;
         options.IsVisible = true;
+        options.EmptyRoomTtl = 0;
         PhotonNetwork.CreateRoom(RoomName.text, options, TypedLobby.Default);
     }
 
     public override void OnCreatedRoom()
     {
         Debug.Log("Room created");
+        SceneManager._ins.MoveToWaitingRoom();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
