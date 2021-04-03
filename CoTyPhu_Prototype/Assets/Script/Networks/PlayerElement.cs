@@ -13,6 +13,12 @@ public class PlayerElement : MonoBehaviour
     [SerializeField]
     Text playerName;
 
+    [SerializeField]
+    Text readyStatus;
+
+    [SerializeField]
+    bool ready = false;
+
     public void SetPlayer(Player player)
     {
         this.player = player;
@@ -26,5 +32,18 @@ public class PlayerElement : MonoBehaviour
     private void Update()
     {
         playerName.text = player.NickName;
+
+        if(ready)
+        {
+            readyStatus.text = "R";
+        }
+        else
+        {
+            readyStatus.text = "";
+        }
     }
+
+    public bool GetReadyStatus() { return ready; }
+
+    public void SetReadyStatus(bool value) { this.ready = value; }
 }
