@@ -13,6 +13,12 @@ public class PlayerElement : MonoBehaviourPunCallbacks
     [SerializeField]
     Text playerName;
 
+    [SerializeField]
+    Text readyStatus;
+
+    [SerializeField]
+    bool ready = false;
+
     public void SetPlayer(Player player)
     {
         this.player = player;
@@ -26,6 +32,15 @@ public class PlayerElement : MonoBehaviourPunCallbacks
     private void Update()
     {
         playerName.text = (string)player.CustomProperties["Basename"] + "_" + (string)player.CustomProperties["Nickname"];
+
+        if(ready)
+        {
+            readyStatus.text = "R";
+        }
+        else
+        {
+            readyStatus.text = "";
+        }
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -38,4 +53,8 @@ public class PlayerElement : MonoBehaviourPunCallbacks
             player.CustomProperties[item.Key] = item.Value;    
         }
     }
+
+    public bool GetReadyStatus() { return ready; }
+
+    public void SetReadyStatus(bool value) { this.ready = value; }
 }

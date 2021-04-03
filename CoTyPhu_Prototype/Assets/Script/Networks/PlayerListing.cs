@@ -13,13 +13,20 @@ public class PlayerListing : MonoBehaviourPunCallbacks
     PlayerElement elementPrefab;
 
     [SerializeField]
-    List<PlayerElement> listPlayerElements;
+    List<PlayerElement> listPlayerElements = new List<PlayerElement>();
+
+    bool readyStatus;
 
     ExitGames.Client.Photon.Hashtable customProp = new ExitGames.Client.Photon.Hashtable();
 
     private void Start()
     {
-        listPlayerElements = new List<PlayerElement>();
+    }
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        readyStatus = false;
     }
 
     public void RefreshList()
@@ -45,6 +52,12 @@ public class PlayerListing : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        if(listPlayerElements.Find(x => x.GetPlayer().UserId == newPlayer.UserId) != null)
+        {
+            Debug.Log("Cannot add duplicate player to list");
+            return;
+        }
+
         var player = Instantiate(elementPrefab, ListingTransform);
         player.SetPlayer(newPlayer);
 
@@ -61,6 +74,7 @@ public class PlayerListing : MonoBehaviourPunCallbacks
         }
     }
 
+    
     public void StartGame()
     {
         if(PhotonNetwork.IsMasterClient)
@@ -68,6 +82,22 @@ public class PlayerListing : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.LoadLevel(1);
+        }
+        else
+        {
+            readyStatus = !readyStatus;
+            photonView.RPC("RpcPlayerReady", RpcTarget.AllViaServer, PhotonNetwork.LocalPlayer, readyStatus);
+        }
+    }
+
+    [PunRPC]
+    void RpcPlayerReady(Player player, bool value)
+    {
+        var playerElement = listPlayerElements.Find(x => x.GetPlayer().UserId == player.UserId);
+
+        if(playerElement != null)
+        {
+            playerElement.SetReadyStatus(value);
         }
     }
 
