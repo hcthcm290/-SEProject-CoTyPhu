@@ -15,6 +15,8 @@ public class PlayerListing : MonoBehaviourPunCallbacks
     [SerializeField]
     List<PlayerElement> listPlayerElements;
 
+    ExitGames.Client.Photon.Hashtable customProp = new ExitGames.Client.Photon.Hashtable();
+
     private void Start()
     {
         listPlayerElements = new List<PlayerElement>();
@@ -35,6 +37,8 @@ public class PlayerListing : MonoBehaviourPunCallbacks
         {
             Destroy(element.gameObject);
         }
+
+        //PhotonNetwork.LocalPlayer.CustomProperties;
 
         listPlayerElements.Clear();
     }
@@ -65,5 +69,10 @@ public class PlayerListing : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.LoadLevel(1);
         }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
     }
 }

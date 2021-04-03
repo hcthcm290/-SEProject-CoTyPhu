@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Photon.Realtime;
 using Photon.Pun;
 
-public class PlayerElement : MonoBehaviour
+public class PlayerElement : MonoBehaviourPunCallbacks 
 {
     [SerializeField]
     Player player;
@@ -25,6 +25,17 @@ public class PlayerElement : MonoBehaviour
 
     private void Update()
     {
-        playerName.text = player.NickName;
+        playerName.text = (string)player.CustomProperties["Basename"] + "_" + (string)player.CustomProperties["Nickname"];
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        if (targetPlayer.UserId != player.UserId)
+            return;
+
+        foreach(var item in changedProps)
+        {
+            player.CustomProperties[item.Key] = item.Value;    
+        }
     }
 }
