@@ -118,7 +118,6 @@ public class PlayerListing : MonoBehaviourPunCallbacks
         }
     }
 
-<<<<<<< HEAD
     public bool CheckAllPlayerReady()
     {
         foreach(var player in listPlayerElements)
@@ -129,10 +128,9 @@ public class PlayerListing : MonoBehaviourPunCallbacks
             }
         }
         return true;
-=======
+    }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
->>>>>>> 253648b354cffc89c746ed1ebcfc9057d3b4b045
     }
 }
