@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2703,6 +2703,111 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &830482106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 830482108}
+  - component: {fileID: 830482107}
+  - component: {fileID: 830482109}
+  m_Layer: 0
+  m_Name: Turnbase manager network
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &830482107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830482106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9a25ee0419eca648a386e9091dea08a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ins: {fileID: 0}
+  playerPreb: {fileID: 799570310647471340, guid: 94b19dcdde0564448a35c87995083f77, type: 3}
+  startPosition: {x: 8.43, y: 1, z: -8.53}
+  points:
+  - {fileID: 983469670}
+  - {fileID: 685767413}
+  - {fileID: 686055489}
+  - {fileID: 1599037961}
+  - {fileID: 1243363355}
+  - {fileID: 400655656}
+  - {fileID: 1551175214}
+  - {fileID: 1667383178}
+  - {fileID: 490250247}
+  - {fileID: 903817833}
+  - {fileID: 614570338}
+  - {fileID: 594808597}
+  - {fileID: 722653631}
+  - {fileID: 672932294}
+  - {fileID: 768134623}
+  - {fileID: 182144032}
+  - {fileID: 841962967}
+  - {fileID: 1999058966}
+  - {fileID: 1752391383}
+  - {fileID: 1856559702}
+  - {fileID: 1089056167}
+  - {fileID: 840124446}
+  - {fileID: 1536620893}
+  - {fileID: 1921384158}
+  - {fileID: 320874953}
+  - {fileID: 320823530}
+  - {fileID: 1877235904}
+  - {fileID: 445291047}
+  - {fileID: 603771769}
+  - {fileID: 396843011}
+  - {fileID: 1262607440}
+  - {fileID: 870036688}
+  player: {fileID: 0}
+  currentPlayerIndex: 0
+  delayGame: 3
+--- !u!4 &830482108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830482106}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.8722963, y: -3.3373065, z: 4.2849245}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &830482109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830482106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &840124445
 GameObject:
   m_ObjectHideFlags: 0
