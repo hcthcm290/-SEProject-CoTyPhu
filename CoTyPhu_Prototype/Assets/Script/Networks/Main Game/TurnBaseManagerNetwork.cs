@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class TurnBaseManagerNetwork : MonoBehaviourPun
+public class TurnBaseManagerNetwork : MonoBehaviourPunCallbacks
 {
     public static TurnBaseManagerNetwork _ins;
 
@@ -35,9 +35,10 @@ public class TurnBaseManagerNetwork : MonoBehaviourPun
         currentPlayerIndex = 0;
     }
 
-    private void OnEnable()
+    private new void OnEnable()
     {
-        player = PhotonNetwork.Instantiate("player", startPosition, Quaternion.identity);
+        base.OnEnable();
+        player = PhotonNetwork.Instantiate("player", points[0].position, Quaternion.identity);
         player.GetComponent<PlayerNetwork>().points = points;
     }
 
@@ -57,7 +58,7 @@ public class TurnBaseManagerNetwork : MonoBehaviourPun
             if(delayGame <= 0)
             {
                 photonView.RPC("Move", RpcTarget.All, players[currentPlayerIndex], Random.Range(2, 12));
-                currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
+                //currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
             }
         }
     }
@@ -77,12 +78,24 @@ public class TurnBaseManagerNetwork : MonoBehaviourPun
 
     public void FinishGoTo()
     {
-        photonView.RPC("FinishTurn", RpcTarget.MasterClient);
+       photonView.RPC("FinishTurn", RpcTarget.MasterClient);
     }
 
     [PunRPC]
     private void FinishTurn()
     {
         delayGame = 3;
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log("Someone left the room");
+        if(players[currentPlayerIndex].UserId == otherPlayer.UserId)
+        {
+            players.RemoveAt(currentPlayerIndex);
+            delayGame = 3;
+            currentPlayerIndex = currentPlayerIndex % players.Count;
+        }
     }
 }
