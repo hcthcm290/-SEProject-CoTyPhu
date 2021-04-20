@@ -53,6 +53,7 @@ public class ItemBase : MonoBehaviour
     public virtual void PerformItemEffect(PlayerControl activator)
     {
         // Do its thing
+        Debug.Log("Item " + this.ToString() + " Performinging Action.");
         // Delete self
         Destroy(gameObject);
     }
@@ -60,6 +61,13 @@ public class ItemBase : MonoBehaviour
     public virtual void BuyAction(PlayerControl activator)
     {
         // Reduce player gold
+        Gold gold = activator.GetGold();
+        if (gold == null)
+        {
+            Debug.Log("Gold not found");
+            return;
+        }
+
         // Move to player item slot
     }
 

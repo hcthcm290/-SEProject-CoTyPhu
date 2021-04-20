@@ -16,6 +16,9 @@ public class PlayerControl : MonoBehaviour
     private Vector3 prev_position;
     private Vector3 next_position;
 
+    public ItemBase item1;
+    public ItemBase item2;
+    public ItemBase item3;
 
     private float jump_delay_count;
     public float jump_delay = 0.5f;
@@ -182,5 +185,13 @@ public class PlayerControl : MonoBehaviour
         result = new Vector3(d.x, transform.position.y, d.z);
 
         return result;
+    }
+
+    Gold gold;
+    public Gold GetGold()
+    {
+        if (gold == null)
+            gold = GetComponent<Gold>();
+        return gold;
     }
 }
