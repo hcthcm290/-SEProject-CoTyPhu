@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+
+public partial class Bank { };
+namespace WinCondition
+{
+    public class WinConditionBank : IWinCondition
+    {
+        public GameObject WinScreen;
+        public Bank bank;
+        static public WinConditionBank GetInstance()
+        {
+            return Singleton<WinConditionBank>.GetInstance();
+        }
+        public WinConditionBank() {
+            WinDescription = "Ngân hàng quốc tế phá sản, kinh tế đi xuống trầm trọng.\n" +
+                "Là người giàu có nhất, bạn cho các chính phủ vay tiền.\n" +
+                "Và tất nhiên, bạn nghiễm nhiên thâu tóm toàn bộ thế giới trong tay.\n" +
+                "Ở thế giới này, phép thuật thì mạnh đấy, nhưng tiền vẫn mạnh hơn cả !";
+            WinName = "Nhiều tiền có quyền chiến thắng";
+        }
+        public override bool CheckWinner()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ShowWinScreen()
+        {
+            WinScreen?.SetActive(true);
+        }
+        static Action GetWinConCheckAction()
+        {
+            return new WinConCheckAction(GetInstance());
+        }
+    }
+}
