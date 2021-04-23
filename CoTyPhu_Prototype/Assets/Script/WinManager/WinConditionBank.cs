@@ -8,10 +8,12 @@ using UnityEngine;
 public partial class Bank { };
 namespace WinCondition
 {
-    public class WinConditionBank : IWinCondition
+    public class WinConditionBank : WinCondition
     {
+        // The Win Splash screen to be shown when this victory is achieved.
         public GameObject WinScreen;
         public Bank bank;
+        // Get Singleton Instance
         static public WinConditionBank GetInstance()
         {
             return Singleton<WinConditionBank>.GetInstance();
@@ -32,6 +34,7 @@ namespace WinCondition
         {
             WinScreen?.SetActive(true);
         }
+        // Get an Action corresponding to Checking this WinCondition
         static Action GetWinConCheckAction()
         {
             return new WinConCheckAction(GetInstance());

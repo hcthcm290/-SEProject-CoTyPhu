@@ -8,11 +8,14 @@ using UnityEngine;
 public partial class PlotConstructionTemple { }
 namespace WinCondition
 {
-    public class WinConditionTemple : IWinCondition
+    public class WinConditionTemple : WinCondition
     {
+        // Which Player owns what temples
         public Dictionary<PlotConstructionTemple, Player> templeOwner;
+        // The Win Splash screen to be shown when this victory is achieved.
         public GameObject WinScreen;
 
+        // Get Singleton Instance
         static public WinConditionTemple GetInstance()
         {
             return Singleton<WinConditionTemple>.GetInstance();
@@ -35,6 +38,7 @@ namespace WinCondition
         {
             WinScreen?.SetActive(true);
         }
+        // Get an Action corresponding to Checking this WinCondition
         static Action GetWinConCheckAction()
         {
             return new WinConCheckAction(GetInstance());

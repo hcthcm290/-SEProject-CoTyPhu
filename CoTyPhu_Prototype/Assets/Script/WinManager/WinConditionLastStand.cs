@@ -8,13 +8,15 @@ using UnityEngine;
 public partial class Player { };
 namespace WinCondition
 {
-    public class WinConditionLastStand : IWinCondition
+    public class WinConditionLastStand : WinCondition
     {
         public Player[] player =
         { 
         };
+        // The Win Splash screen to be shown when this victory is achieved.
         public GameObject WinScreen;
 
+        // Get Singleton Instance
         static public WinConditionLastStand GetInstance()
         {
             return Singleton<WinConditionLastStand>.GetInstance();
@@ -33,6 +35,7 @@ namespace WinCondition
         {
             WinScreen?.SetActive(true);
         }
+        // Get an Action corresponding to Checking this WinCondition
         static Action GetWinConCheckAction()
         {
             return new WinConCheckAction(GetInstance());

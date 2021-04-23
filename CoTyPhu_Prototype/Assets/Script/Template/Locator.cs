@@ -6,7 +6,7 @@ public class Locator<T> where T:class
 {
     static public T Instance = null;
 }
-
+// Locate Marked instance
 public class Locator
 {
     static public void MarkInstance<T>(T item) where T:class
@@ -18,6 +18,7 @@ public class Locator
         return Locator<T>.Instance;
     }
 }
+// Inherit this / call GetInstance to mark as singleton
 public class Singleton<T> where T : class, new()
 {
     static public T GetInstance()

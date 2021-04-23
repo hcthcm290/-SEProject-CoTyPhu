@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace WinCondition
 {
-    public abstract class IWinCondition : MonoBehaviour
+    public abstract class WinCondition : MonoBehaviour
     {
         public string WinDescription;
         public string WinName;
@@ -22,7 +22,7 @@ namespace WinCondition
 
     public class WinManager : Singleton<WinManager>
     {
-        IWinCondition[] winConditions =
+        WinCondition[] winConditions =
         {
     };
         void CheckSingleton()
@@ -58,8 +58,8 @@ namespace WinCondition
     }
     public class WinConCheckAction : Action
     {
-        IWinCondition winCon;
-        public WinConCheckAction(IWinCondition wincon)
+        WinCondition winCon;
+        public WinConCheckAction(WinCondition wincon)
         {
             winCon = wincon;
         }

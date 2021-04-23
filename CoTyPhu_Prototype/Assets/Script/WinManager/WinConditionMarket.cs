@@ -8,12 +8,14 @@ using UnityEngine;
 public partial class PlotConstructionMarket { }
 namespace WinCondition
 {
-    public class WinConditionMarket : IWinCondition
+    public class WinConditionMarket : WinCondition
     {
         public Dictionary<PlotConstructionMarket, Player> MarketOwner;
         public List<List<PlotConstructionMarket>> Blocks;
+        // The Win Splash screen to be shown when this victory is achieved.
         public GameObject WinScreen;
 
+        // Get Singleton Instance
         static public WinConditionMarket GetInstance()
         {
             return Singleton<WinConditionMarket>.GetInstance();
@@ -36,6 +38,7 @@ namespace WinCondition
         {
             WinScreen?.SetActive(true);
         }
+        // Get an Action corresponding to Checking this WinCondition
         static Action GetWinConCheckAction()
         {
             return new WinConCheckAction(GetInstance());
