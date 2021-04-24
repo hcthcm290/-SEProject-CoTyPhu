@@ -37,9 +37,10 @@ public class PlotConstruction: Plot
 
 
 	//  Methods ---------------------------------------
-	protected override void _ActionOnEnter(Player obj)
+	public override Action _ActionOnEnter(Player obj)
     {
-        //TODO: Check Owner --> do action based on Owner state
+		//TODO: Check Owner --> do action based on Owner state
+		return null;
     }
 
 

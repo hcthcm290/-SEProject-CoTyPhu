@@ -51,13 +51,17 @@ public class PlotPrison : Plot
 		return PlayerImprisonDuration(player) * ReleaseFeePerRound;
 	}
 
-	protected override void _ActionOnEnter(Player obj)
+	public override Action _ActionOnEnter(Player obj)
     {
-		Imprison(obj);
-    }
+		return new LambdaAction(() =>
+		{
+			Imprison(obj);
+		});
+	}
 
-	protected override void _ActionOnLeave(Player obj)
+	public override Action _ActionOnLeave(Player obj)
 	{
+		return null;
 		//TODO: Check the release condition, if satisfied, Release the player, else increase PlayerImprisonDuration
 	}
 

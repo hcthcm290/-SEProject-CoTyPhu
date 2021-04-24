@@ -29,12 +29,15 @@ public class PlotFestival : Plot
 		//TODO: Increase EntryFee of a Construction by _bonusValue
 	}
 
-	protected override void _ActionOnEnter(Player obj)
+	public override Action _ActionOnEnter(Player obj)
     {
 		//TODO: Get Player's selection
 		PLOT plot = new PLOT();
-		this.ApplyFestivalEffect(plot);
-    }
+		return new LambdaAction(() =>
+		{
+			this.ApplyFestivalEffect(plot);
+		});
+	}
 
 
     //  Event Handlers --------------------------------

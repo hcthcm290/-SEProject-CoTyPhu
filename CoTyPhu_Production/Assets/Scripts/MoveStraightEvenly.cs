@@ -20,12 +20,19 @@ public class MoveStraightEvenly : MonoBehaviour
         }
         set
         {
-            _reachedTarget = false;
+            ReachedTarget = false;
             _target = value;
         }
     }
     [SerializeField]
     private Vector3 _target;
+    private bool ReachedTarget{ get=>_reachedTarget;
+        set{
+            if (value && !_reachedTarget)
+                PerformOnTargetReached();
+            _reachedTarget = value;
+        }
+    }
     private bool _reachedTarget = false;
     public float speed = 0.5f;
 
@@ -38,7 +45,7 @@ public class MoveStraightEvenly : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_reachedTarget)
+        if (ReachedTarget)
             return;
 
         Vector3 pos = transform.position;
@@ -67,7 +74,7 @@ public class MoveStraightEvenly : MonoBehaviour
                 lockX ? pos.x : Target.x,
                 lockY ? pos.y : Target.y,
                 lockZ ? pos.z : Target.z);
-            _reachedTarget = true;
+            ReachedTarget = true;
             return;
         }
 
@@ -79,5 +86,22 @@ public class MoveStraightEvenly : MonoBehaviour
     public void StartMove(Vector3 target)
     {
         Target = target;
+    }
+
+
+    List<Action> OnTargetReached;
+    public void ListenTargetReached(Action action)
+    {
+        OnTargetReached.Add(action);
+    }
+    // note: Clears OnTargetReached whenever Target is reached
+    // note: Allow Action to reregister in PerformAction()
+    private void PerformOnTargetReached()
+    {
+        List<Action> temp = OnTargetReached;
+        OnTargetReached = new List<Action>();
+
+        foreach (Action item in temp)
+            item.PerformAction();
     }
 }

@@ -48,6 +48,7 @@ public enum PLOT
 /// </summary>
 public class Plot : MonoBehaviour
 {
+    public const int PLOT_AMOUNT = 32;
     //  Events ----------------------------------------
 
 
@@ -88,30 +89,30 @@ public class Plot : MonoBehaviour
     public void ActionOnPass(dynamic obj)
     {
         // the 'this' is important for polymorphism
-        this._ActionOnPass(obj);
+        this._ActionOnPass(obj).PerformAction();
     }
-    protected virtual void _ActionOnPass(Player obj)
+    public virtual Action _ActionOnPass(Player obj)
     {
-        
+        return null;
     }
     public void ActionOnEnter(dynamic obj)
     {
         // the 'this' is important for polymorphism
-        this._ActionOnEnter(obj);
+        this._ActionOnEnter(obj).PerformAction();
     }
-    protected virtual void _ActionOnEnter(Player obj)
+    public virtual Action _ActionOnEnter(Player obj)
     {
-
+        return null;
     }
 
     public void ActionOnLeave(dynamic obj)
     {
         // the 'this' is important for polymorphism
-        this._ActionOnLeave(obj);
+        this._ActionOnLeave(obj).PerformAction();
     }
-    protected virtual void _ActionOnLeave(Player obj)
+    public virtual Action _ActionOnLeave(Player obj)
     {
-
+        return null;
     }
 
 
