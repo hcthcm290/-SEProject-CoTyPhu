@@ -51,12 +51,12 @@ public class PlotPrison : Plot
 		return PlayerImprisonDuration(player) * ReleaseFeePerRound;
 	}
 
-    public override void ActionOnEnter(dynamic obj)
+	protected override void _ActionOnEnter(Player obj)
     {
 		Imprison(obj);
     }
 
-	public override void ActionOnLeave(dynamic obj)
+	protected override void _ActionOnLeave(Player obj)
 	{
 		//TODO: Check the release condition, if satisfied, Release the player, else increase PlayerImprisonDuration
 	}

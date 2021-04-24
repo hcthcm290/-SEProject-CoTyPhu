@@ -26,7 +26,7 @@ public class PlotStart : Plot
 
 
     //  Methods ---------------------------------------
-    public override void ActionOnPass(dynamic obj)
+    protected override void _ActionOnPass(Player obj)
     {
         this.ActionOnPass(obj);
         //TODO: Give money when pass this plot

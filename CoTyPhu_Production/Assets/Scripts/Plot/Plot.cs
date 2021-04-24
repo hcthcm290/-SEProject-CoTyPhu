@@ -46,7 +46,7 @@ public enum PLOT
 /// <summary>
 /// THIS CLASS HOLD ALL PROPERTIES AND METHODS THAT ALL TYPES OF PLOT NEED
 /// </summary>
-public class Plot
+public class Plot : MonoBehaviour
 {
     //  Events ----------------------------------------
 
@@ -62,6 +62,7 @@ public class Plot
     protected string _name;
     protected string _description;
 
+    public static Dictionary<PLOT, Plot> plotDictionary;
 
     //  Initialization --------------------------------
     public Plot(PLOT id, string name, string description)
@@ -69,21 +70,46 @@ public class Plot
         this._id = id;
         this._name = name;
         this._description = description;
+
     }
 
-
+    private void Start()
+    {
+        if (!plotDictionary.ContainsKey(_id))
+            plotDictionary[_id] = this;
+        else
+            Debug.LogError("Duplicate plot id: " + this + ",\n" + plotDictionary[_id]);
+    }
+    private void Update()
+    {
+        
+    }
     //  Methods ---------------------------------------
-    public virtual void ActionOnPass(dynamic obj)
+    public void ActionOnPass(dynamic obj)
+    {
+        // the 'this' is important for polymorphism
+        this._ActionOnPass(obj);
+    }
+    protected virtual void _ActionOnPass(Player obj)
+    {
+        
+    }
+    public void ActionOnEnter(dynamic obj)
+    {
+        // the 'this' is important for polymorphism
+        this._ActionOnEnter(obj);
+    }
+    protected virtual void _ActionOnEnter(Player obj)
     {
 
     }
 
-    public virtual void ActionOnEnter(dynamic obj)
+    public void ActionOnLeave(dynamic obj)
     {
-
+        // the 'this' is important for polymorphism
+        this._ActionOnLeave(obj);
     }
-
-    public virtual void ActionOnLeave(dynamic obj)
+    protected virtual void _ActionOnLeave(Player obj)
     {
 
     }
