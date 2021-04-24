@@ -32,11 +32,13 @@ public class Player : MonoBehaviour
 
     public void EndPhase()
     {
-
+        
     }
 
     public void PausePhase()
     {
 
     }
+
+
 }
