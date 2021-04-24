@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
             UIActions.Enqueue(ActionMoveTo(cur));
 
             // Queue the action activate OnTilePass
-            Action temp = Plot.plotDictionary[cur]._ActionOnPass(this);
+            Action temp = Plot.plotDictionary[cur].ActionOnPass(this);
             // If there is an action, call the action, then ...
             if (temp != null)
                 // call the next action immediately after.

@@ -86,31 +86,31 @@ public class Plot : MonoBehaviour
         
     }
     //  Methods ---------------------------------------
-    public void ActionOnPass(dynamic obj)
+    public void ActiveOnPass(dynamic obj)
     {
         // the 'this' is important for polymorphism
-        this._ActionOnPass(obj).PerformAction();
+        this.ActionOnPass(obj).PerformAction();
     }
-    public virtual Action _ActionOnPass(Player obj)
+    public virtual Action ActionOnPass(Player obj)
     {
         return null;
     }
-    public void ActionOnEnter(dynamic obj)
+    public void ActiveOnEnter(dynamic obj)
     {
         // the 'this' is important for polymorphism
-        this._ActionOnEnter(obj).PerformAction();
+        this.ActionOnEnter(obj).PerformAction();
     }
-    public virtual Action _ActionOnEnter(Player obj)
+    public virtual Action ActionOnEnter(Player obj)
     {
         return null;
     }
 
-    public void ActionOnLeave(dynamic obj)
+    public void ActiveOnLeave(dynamic obj)
     {
         // the 'this' is important for polymorphism
-        this._ActionOnLeave(obj).PerformAction();
+        this.ActionOnLeave(obj).PerformAction();
     }
-    public virtual Action _ActionOnLeave(Player obj)
+    public virtual Action ActionOnLeave(Player obj)
     {
         return null;
     }

@@ -26,7 +26,7 @@ public class PlotStart : Plot
 
 
     //  Methods ---------------------------------------
-    public override Action _ActionOnPass(Player obj)
+    public override Action ActionOnPass(Player obj)
     {
         //TODO: Give money when pass this plot
 
