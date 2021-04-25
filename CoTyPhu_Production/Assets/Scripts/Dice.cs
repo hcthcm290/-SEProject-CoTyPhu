@@ -43,6 +43,13 @@ public class Dice: MonoBehaviourPunCallbacks
         {
             Debug.LogError("Cannot create or join room");
         }
+
+        TurnDirector.Ins.InitializePlayer();
+    }
+
+    public override void OnJoinedRoom()
+    {
+        TurnDirector.Ins.InitializePlayer();
     }
 
     #endregion

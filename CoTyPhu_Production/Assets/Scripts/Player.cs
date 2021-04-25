@@ -5,6 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDiceListener
 {
     [SerializeField] int _id;
+    public int Id
+    {
+        get { return _id; }
+        set { _id = value; }
+    }
     bool _isBroke;
     bool _notSubcribeDice = true;
 
@@ -63,4 +68,6 @@ public class Player : MonoBehaviour, IDiceListener
     {
         Debug.Log(result);
     }
+
+
 }
