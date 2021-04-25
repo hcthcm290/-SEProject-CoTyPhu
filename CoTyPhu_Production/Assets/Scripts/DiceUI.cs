@@ -13,6 +13,9 @@ public class DiceUI : MonoBehaviour
 
     bool rolled = false;
 
+    public delegate void DiceResult(int result);
+    public event DiceResult ReceiveResult;
+
     private void Update()
     {
         diceVelocity = rb.velocity;
@@ -34,21 +37,25 @@ public class DiceUI : MonoBehaviour
                 }
             }
             Debug.Log("result: " + (ListCrossVectors.IndexOf(smallestAngleVector) + 1).ToString());
+            ReceiveResult.Invoke(ListCrossVectors.IndexOf(smallestAngleVector) + 1);
             rolled = false;
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            float dirX = UnityEngine.Random.Range(0, 500);
-            float dirY = UnityEngine.Random.Range(0, 500);
-            float dirZ = UnityEngine.Random.Range(0, 500);
+    public void Roll()
+    {
+        Vector3 torque = new Vector3();
+        torque.x = UnityEngine.Random.Range(0, 500);
+        torque.y = UnityEngine.Random.Range(0, 500);
+        torque.z = UnityEngine.Random.Range(0, 500);
 
-            transform.position = new Vector3(transform.position.x, 2, transform.position.z);
-            transform.rotation = Quaternion.identity;
-            rb.AddForce(transform.up * 500);
-            rb.AddTorque(dirX, dirY, dirZ);
+        transform.position = new Vector3(transform.position.x, 2, transform.position.z);
+        transform.rotation = Quaternion.identity;
+        rb.velocity = transform.up * 6;
+        rb.AddTorque(torque);
 
-            rolled = true;
-        }
+        rolled = true;
+
+        
     }
 }
