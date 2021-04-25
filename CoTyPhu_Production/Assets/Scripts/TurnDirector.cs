@@ -13,15 +13,21 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     List<ITurnListener> _listTurnListener;
     int _count = 0;
 
+
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         if(PhotonNetwork.IsMasterClient)
         {
+            foreach(var player in _listPlayer)
+            {
+                photonView.RPC("CreateNewPlayer", newPlayer, false, player.Id);
+            }
+
             foreach(var player in PhotonNetwork.PlayerList)
             {
                 if(player.UserId == newPlayer.UserId)
                 {
-                    photonView.RPC("CreateNewPlayer", player, true, _count);
+                    photonView.RPC("CreateNewPlayer", newPlayer, true, _count);
                 }
                 else
                 {
