@@ -303,7 +303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &301148877
 RectTransform:
   m_ObjectHideFlags: 0
@@ -418,6 +418,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301148876}
   m_CullTransparentMesh: 1
+--- !u!1 &500002071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 500002073}
+  - component: {fileID: 500002072}
+  m_Layer: 0
+  m_Name: Player4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &500002072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500002071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd04b3a0964ed7a48858fa78a47cdc5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  minePlayer: 0
+  btnRoll: {fileID: 0}
+--- !u!4 &500002073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500002071}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 215.50522, y: 103.10988, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &507811589
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +589,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 0
+  minePlayer: 0
+  btnRoll: {fileID: 0}
 --- !u!4 &604367077
 Transform:
   m_ObjectHideFlags: 0
@@ -1297,6 +1345,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 0
+  minePlayer: 1
+  btnRoll: {fileID: 301148878}
 --- !u!4 &1251835173
 Transform:
   m_ObjectHideFlags: 0
@@ -1380,6 +1430,7 @@ MonoBehaviour:
   - {fileID: 1251835171}
   - {fileID: 2108327944}
   - {fileID: 604367075}
+  - {fileID: 500002071}
 --- !u!4 &1504374780
 Transform:
   m_ObjectHideFlags: 0
@@ -1424,6 +1475,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 0
+  minePlayer: 0
+  btnRoll: {fileID: 0}
 --- !u!4 &2108327946
 Transform:
   m_ObjectHideFlags: 0

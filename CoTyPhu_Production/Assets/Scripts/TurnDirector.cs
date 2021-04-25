@@ -8,7 +8,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
 {
     public static TurnDirector Ins;
     [SerializeField] List<Player> _listPlayer;
-    int _idPlayerTurn;
+    int _idPlayerTurn = -1;
     Stack<int> _playerTurnExtraPhase;
     List<ITurnListener> _listTurnListener;
     int _count = 0;
@@ -25,7 +25,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
 
             foreach(var player in PhotonNetwork.PlayerList)
             {
-                if(player.UserId == newPlayer.UserId)
+                if(player == newPlayer)
                 {
                     photonView.RPC("CreateNewPlayer", newPlayer, true, _count);
                 }
@@ -72,12 +72,20 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     void Start()
     {
         Ins = this;
+        _playerTurnExtraPhase = new Stack<int>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (_idPlayerTurn == -1 && _listPlayer.Count > 0)
+            {
+                _idPlayerTurn = 0;
+                _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(1);
+            }
+        }
     }
 
     /// <summary>
@@ -110,13 +118,31 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    private void _EndOfPhaseServer()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            _idPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
+            photonView.RPC("_StartPhase", RpcTarget.All, _idPlayerTurn, 1);
+        }
+    }
+
+    [PunRPC]
+    private void _StartPhase(int idPlayer, int phaseID)
+    {
+        Debug.Log(idPlayer.ToString() + " : " + phaseID);
+        _idPlayerTurn = idPlayer;
+        _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(phaseID);
+    }
+
     /// <summary>
     /// This function is called by the player to notify the turn director 
     /// it has finished its phase
     /// </summary>
     public void EndOfPhase()
     {
-
+        photonView.RPC("_EndOfPhaseServer", RpcTarget.MasterClient);
     }
 
     public bool IsMyTurn(int playerID)
