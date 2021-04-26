@@ -51,7 +51,7 @@ public class PlotPrison : Plot
 		return PlayerImprisonDuration(player) * ReleaseFeePerRound;
 	}
 
-	public override Action ActionOnEnter(Player obj)
+	public override IAction ActionOnEnter(Player obj)
     {
 		return new LambdaAction(() =>
 		{
@@ -59,7 +59,7 @@ public class PlotPrison : Plot
 		});
 	}
 
-	public override Action ActionOnLeave(Player obj)
+	public override IAction ActionOnLeave(Player obj)
 	{
 		return null;
 		//TODO: Check the release condition, if satisfied, Release the player, else increase PlayerImprisonDuration

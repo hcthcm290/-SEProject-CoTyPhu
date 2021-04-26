@@ -34,7 +34,7 @@ namespace WinCondition
             WinScreen?.SetActive(true);
         }
         // Get an Action corresponding to Checking this WinCondition
-        static Action GetWinConCheckAction()
+        static IAction GetWinConCheckAction()
         {
             return new WinConCheckAction(GetInstance());
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,15 +20,7 @@ public class Player : MonoBehaviour, IDiceListener
     [SerializeField] Button btnRoll;
 
     // Internal, saves the Actions the UI is supposed to do
-    Queue<Action> UIActions;
-    public Action OnUIActionComplete;
-    private void CallNextAction()
-    {
-        if (UIActions.Count > 0)
-            UIActions.Dequeue().PerformAction();
-        else
-            OnUIActionComplete?.PerformAction();
-    }
+    ActionList UIActions;
 
     // Start is called before the first frame update
     void Start()
@@ -78,27 +71,33 @@ public class Player : MonoBehaviour, IDiceListener
     /// </summary>
     /// <param name="plotID"></param>
     /// <returns></returns>
-    public Action ActionMoveTo(PLOT plotID)
+    public ICompletableAction ActionMoveTo(PLOT plotID)
     {
-        Action result = new LambdaAction(() =>
+        LambdaCompletableAction action = new LambdaCompletableAction(() =>
         {
-            // When it is done moving, Call the next action
-            moveComponent.ListenTargetReached(new LambdaAction(() =>
-            {
-                CallNextAction();
-            }));
-
             // Content of the Action
             MoveTo(plotID);
         });
-        return result;
+
+        action.preAction = () => 
+        {
+            // Before Moveto, register OnComplete to moveComponent
+            moveComponent.ListenTargetReached(new LambdaAction(action.PerformOnComplete));
+        };
+
+        return action;
     }
     /// <summary>
     /// Commands Player to move a number of Plot
     /// This WILL trigger PassBy Effect
     /// </summary>
     /// <param name="plotsToMove"></param>
-    public void Move(int plotsToMove)
+    public void MoveTo(int plotsToMove)
+    {
+        AddMovementToQueue(plotsToMove);
+        UIActions.PerformAction();
+    }
+    public void AddMovementToQueue(int plotsToMove)
     {
         int iter = ((int)Location_PlotID + 1) % Plot.PLOT_AMOUNT;
 
@@ -107,14 +106,12 @@ public class Player : MonoBehaviour, IDiceListener
             PLOT cur = (PLOT)iter;
 
             // Queue the action move to next tile
-            UIActions.Enqueue(ActionMoveTo(cur));
+            UIActions.AddBlockingAction(ActionMoveTo(cur));
 
-            // Queue the action activate OnTilePass
-            Action temp = Plot.plotDictionary[cur].ActionOnPass(this);
-            // If there is an action, call the action, then ...
+            // Queue the action activate OnTilePass, which is non-blocking
+            IAction temp = Plot.plotDictionary[cur].ActionOnPass(this);
             if (temp != null)
-                // call the next action immediately after.
-                UIActions.Enqueue(new LambdaAction(temp, CallNextAction));
+                UIActions.AddNonBlockAction(temp);
             
             // Go to next tile.
             iter = (iter + 1) % Plot.PLOT_AMOUNT;
@@ -164,12 +161,34 @@ public class Player : MonoBehaviour, IDiceListener
         Debug.Log(result.ToArray());
 
         /// Do some fancy animation here
+        /*
+        if (isdouble(result))
+        {
+            Action AnimationAction = new LambdaAction(() =>
+            {
+                SubscribeWhatever(new LambdaAction(() =>
+                {
+                    CallNextAction();
+                }));
+
+                // Animation
+            });
+            UIActions.Enqueue(AnimationAction);
+            AddMovementToQueue(result.Sum());
+            UIActions.Enqueue(AnimationAction);
+            
+        
+            if (UIActions.Count > 0)
+                UIActions.Dequeue().PerformAction();
+        }//*/
 
         // only the one who roll & that is control by me can announce end of phase
-        if(idPlayer == Id && minePlayer)
+        if (idPlayer == Id && minePlayer)
         {
             Debug.Log("end of phase");
             TurnDirector.Ins.EndOfPhase();
         }
     }
+
+    IAction OnRollResult;
 }

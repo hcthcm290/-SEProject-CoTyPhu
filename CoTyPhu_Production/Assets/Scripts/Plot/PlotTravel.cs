@@ -25,7 +25,7 @@ public class PlotTravel: Plot
         //TODO: Move immediately to destination
     }
 
-    public override Action ActionOnEnter(Player obj)
+    public override IAction ActionOnEnter(Player obj)
     {
         //TODO: Choose a plot as destination
 

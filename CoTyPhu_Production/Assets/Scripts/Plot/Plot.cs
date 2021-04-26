@@ -91,7 +91,7 @@ public class Plot : MonoBehaviour
         // the 'this' is important for polymorphism
         this.ActionOnPass(obj).PerformAction();
     }
-    public virtual Action ActionOnPass(Player obj)
+    public virtual IAction ActionOnPass(Player obj)
     {
         return null;
     }
@@ -100,7 +100,7 @@ public class Plot : MonoBehaviour
         // the 'this' is important for polymorphism
         this.ActionOnEnter(obj).PerformAction();
     }
-    public virtual Action ActionOnEnter(Player obj)
+    public virtual IAction ActionOnEnter(Player obj)
     {
         return null;
     }
@@ -110,7 +110,7 @@ public class Plot : MonoBehaviour
         // the 'this' is important for polymorphism
         this.ActionOnLeave(obj).PerformAction();
     }
-    public virtual Action ActionOnLeave(Player obj)
+    public virtual IAction ActionOnLeave(Player obj)
     {
         return null;
     }

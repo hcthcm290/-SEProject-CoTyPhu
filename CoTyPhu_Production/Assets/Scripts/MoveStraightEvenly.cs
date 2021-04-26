@@ -95,8 +95,8 @@ public class MoveStraightEvenly : MonoBehaviour
     /// Event triggers when the target reaches destination
     /// and stop moving. 
     /// </summary>
-    List<Action> OnTargetReached;
-    public void ListenTargetReached(Action action)
+    List<IAction> OnTargetReached;
+    public void ListenTargetReached(IAction action)
     {
         OnTargetReached.Add(action);
     }
@@ -105,10 +105,10 @@ public class MoveStraightEvenly : MonoBehaviour
     // Action: { ...; moveComponent.ListenTargetReached(this); ...; }
     private void PerformOnTargetReached()
     {
-        List<Action> temp = OnTargetReached;
-        OnTargetReached = new List<Action>();
+        List<IAction> temp = OnTargetReached;
+        OnTargetReached = new List<IAction>();
 
-        foreach (Action item in temp)
+        foreach (IAction item in temp)
             item.PerformAction();
     }
 }

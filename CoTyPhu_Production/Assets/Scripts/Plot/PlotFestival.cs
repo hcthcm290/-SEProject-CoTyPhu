@@ -29,7 +29,7 @@ public class PlotFestival : Plot
 		//TODO: Increase EntryFee of a Construction by _bonusValue
 	}
 
-	public override Action ActionOnEnter(Player obj)
+	public override IAction ActionOnEnter(Player obj)
     {
 		//TODO: Get Player's selection
 		PLOT plot = new PLOT();

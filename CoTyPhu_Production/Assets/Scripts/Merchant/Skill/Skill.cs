@@ -16,7 +16,7 @@ public abstract class Skill
     // Whether the skill can be activated (mana condition, special condition, ...)
     public abstract bool CanActivateSkill();
     // Activate the skill. Creates the Action of the ActiveSkill.
-    public abstract Action ActivateSkill();
+    public abstract IAction ActivateSkill();
     // Return the ActiveSkill's name.
     public abstract string GetName();
     // Return the ActiveSkill's description
