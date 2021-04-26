@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class Dice
+public class Dice: MonoBehaviourPunCallbacks
 {
     #region Singletone
 
@@ -16,50 +18,135 @@ public class Dice
     public static Dice Ins()
     {
         if (_ins == null)
-            _ins = new Dice();
+            Debug.LogError("Dice Object not loaded");
 
         return _ins;
+    }
+
+    private void Start()
+    {
+        _ins = this;
+
+        PhotonNetwork.ConnectUsingSettings();
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.SendRate = 40;
+        PhotonNetwork.SerializationRate = 40;
+
+        RoomOptions options = new RoomOptions();
+        options.MaxPlayers = 5;
+        options.PlayerTtl = 0;
+
+        if (PhotonNetwork.JoinOrCreateRoom("Basa", options, TypedLobby.Default) == false)
+        {
+            Debug.LogError("Cannot create or join room");
+        }
+
+        TurnDirector.Ins.InitializePlayer();
+    }
+
+    public override void OnJoinedRoom()
+    {
+        TurnDirector.Ins.InitializePlayer();
     }
 
     #endregion
 
     List<int> _result;
 
-    int _baseDiceCount;
+    int _baseDiceCount = 2;
+    int _resultCount;
 
     List<IDiceListener> _listDiceListener;
 
-    /// <summary>
-    /// Roll the dice
-    /// </summary>
-    /// <param name="idPlayer">player who roll he dice must provide its id</param>
-    /// <returns></returns>
-    public List<int> Roll(int idPlayer)
-    {
-        _result.Clear();
+    [SerializeField] DiceUI _dicePrefab;
+    List<DiceUI> _currentDices;
 
+    [PunRPC]
+    private void _RollServer(int idPlayer)
+    {
         int diceCount = _baseDiceCount;
-        
+
         // Send diceCount to Effects that effect number of dice
         ////////////////////////
         // Code go here
 
         ////////////////////////
 
-        // Roll the dice
-        for(int i = 0; i<diceCount; i++)
+        if (_result == null)
+            _result = new List<int>();
+
+        if (_currentDices == null)
         {
-            // reason we random up to 7 because the max is exclusive;
-            _result.Add(Random.Range(1, 7));
+            _currentDices = new List<DiceUI>();
         }
 
-        // Notify the listener
-        foreach(var listener in _listDiceListener)
+        _result.Clear();
+        _resultCount = 0;
+
+        for (int i = 0; i < diceCount; i++)
+        {
+            _result.Add(0);
+        }
+
+        // Add or destroy dice object to match dice count
+        if (diceCount > _currentDices.Count)
+        {
+            while (diceCount > _currentDices.Count)
+            {
+                DiceUI dice = PhotonNetwork.Instantiate("Dice", new Vector3(0, 0, 0), Quaternion.identity).GetComponent<DiceUI>();
+                //DiceUI dice = Instantiate(_dicePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                dice.ReceiveResult += (int result) => {
+                    _result[_resultCount] = result;
+                    _resultCount++;
+
+                    if (_resultCount == diceCount)
+                    {
+                        photonView.RPC("_ReceiveRollResult", RpcTarget.All, idPlayer, (object)(_result.ToArray()));
+                    }
+                };
+                _currentDices.Add(dice);
+            }
+        }
+        else if (diceCount < _currentDices.Count)
+        {
+            while (diceCount < _currentDices.Count)
+            {
+                DiceUI dice = _currentDices[_currentDices.Count - 1];
+                PhotonNetwork.Destroy(dice.gameObject);
+
+                _currentDices.RemoveAt(_currentDices.Count - 1);
+            }
+        }
+
+        for (int i = 0; i < diceCount; i++)
+        {
+            _currentDices[i].Roll();
+        }
+    }
+
+    [PunRPC]
+    private void _ReceiveRollResult(int idPlayer, object result)
+    {
+        _result = new List<int>(result as int[]);
+        foreach (var listener in _listDiceListener)
         {
             listener.OnRoll(idPlayer, _result);
         }
+    }
 
-        return _result;
+    
+
+    /// <summary>
+    /// Roll the dice
+    /// </summary>
+    /// <param name="idPlayer">player who roll he dice must provide its id</param>
+    /// <returns></returns>
+    public void Roll(int idPlayer)
+    {
+        photonView.RPC("_RollServer", RpcTarget.MasterClient, idPlayer);
     }
 
     List<int> GetLastResult()
@@ -69,6 +156,10 @@ public class Dice
 
     public void SubscribeDiceListener(IDiceListener listener)
     {
+        if(_listDiceListener == null)
+        {
+            _listDiceListener = new List<IDiceListener>();
+        }
         if (_listDiceListener.Contains(listener))
         {
             return;
@@ -90,4 +181,71 @@ public class Dice
             return;
         }
     }
+
+    private void Update()
+    {
+        
+    }
+
+    #region Unused Legacy Code
+    [PunRPC]
+    private void _RollClient(int idPlayer, int diceCount, object in_torques)
+    {
+        if (_result == null)
+            _result = new List<int>();
+
+        if (_currentDices == null)
+        {
+            _currentDices = new List<DiceUI>();
+        }
+
+        _result.Clear();
+        _resultCount = 0;
+
+        Vector3[] torques = in_torques as Vector3[];
+
+        for (int i = 0; i < diceCount; i++)
+        {
+            _result.Add(0);
+        }
+
+        // Add or destroy dice object to match dice count
+        if (diceCount > _currentDices.Count)
+        {
+            while (diceCount > _currentDices.Count)
+            {
+                DiceUI dice = Instantiate(_dicePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                dice.ReceiveResult += (int result) =>
+                {
+                    _result[_resultCount] = result;
+                    _resultCount++;
+
+                    if (_resultCount == diceCount)
+                    {
+                        foreach (var listener in _listDiceListener)
+                        {
+                            listener.OnRoll(idPlayer, _result);
+                        }
+                    }
+                };
+                _currentDices.Add(dice);
+            }
+        }
+        else if (diceCount < _currentDices.Count)
+        {
+            while (diceCount < _currentDices.Count)
+            {
+                DiceUI dice = _currentDices[_currentDices.Count - 1];
+                Destroy(dice.gameObject);
+
+                _currentDices.RemoveAt(_currentDices.Count - 1);
+            }
+        }
+
+        for (int i = 0; i < diceCount; i++)
+        {
+            _currentDices[i].Roll();
+        }
+    }
+    #endregion
 }
