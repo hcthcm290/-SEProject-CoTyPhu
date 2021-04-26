@@ -152,6 +152,46 @@ public class Player : MonoBehaviour, IDiceListener
 
     }
 
+    protected class ActionPlayerMove : IAction
+    {
+        public Player player;
+        public List<int> rollResult;
+        public ActionPlayerMove(Player player, List<int> rollResult) 
+        {
+            this.player = player;
+            rollResult = new List<int>(rollResult);
+        }
+
+        public void PerformAction()
+        {
+            player.MoveTo(rollResult.Sum());
+        }
+    }
+
+    public void UpdatePhaseMove()
+    {
+        switch (_currentPhaseState)
+        {
+            case PhaseState.start:
+                {
+                    // TODO: Get dice roll
+                    List<int> diceRoll = new List<int> { 5, 4 };
+
+                    // Modify dice roll Post-roll
+                    IAction action = new ActionPlayerMove(this, diceRoll);
+                    // status.ModifyAction(action)
+
+                    // 
+                    action.PerformAction();
+                }
+                break;
+            case PhaseState.ongoing:
+                break;
+            case PhaseState.end:
+                break;
+        }
+    }
+
     public void UpdatePhaseMain()
     {
         switch(_currentPhaseState)
