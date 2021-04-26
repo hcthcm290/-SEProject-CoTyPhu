@@ -27,10 +27,12 @@ public class MoveStraightEvenly : MonoBehaviour
     [SerializeField]
     private Vector3 _target;
     private bool ReachedTarget{ get=>Target == transform.position;
-        set{
-            if (value && !_reachedTarget)
-                PerformOnTargetReached();
+        set
+        {
+            bool temp = _reachedTarget;
             _reachedTarget = value;
+            if (value && !temp)
+                PerformOnTargetReached();
         }
     }
     private bool _reachedTarget = false;

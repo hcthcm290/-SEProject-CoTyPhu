@@ -46,6 +46,7 @@ public class ActionList : ICompletableAction
     public void PerformOnComplete()
     {
         OnActionComplete?.PerformAction();
+        OnActionComplete = null;
     }
 }
 

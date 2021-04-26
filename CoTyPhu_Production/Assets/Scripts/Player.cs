@@ -75,6 +75,8 @@ public class Player : MonoBehaviour, IDiceListener
     {
         Debug.Log(Plot.plotDictionary[plotID].transform.position);
         moveComponent.Target = Plot.plotDictionary[plotID].transform.position;
+
+        Location_PlotID = plotID;
     }
     /// <summary>
     /// Return an Action that commands Player to move to target Plot
