@@ -22,6 +22,17 @@ public class Player : MonoBehaviour, IDiceListener
     // Internal, saves the Actions the UI is supposed to do
     ActionList UIActions;
 
+    Plot _currentPlot; //ghi chú: tạo một method trong Plot là GetNextPlot() để truy cập tới Plot kế tiếp dễ dàng
+
+    enum PhaseState
+    {
+        start,
+        ongoing,
+        end,
+    }
+
+    PhaseState _currentPhaseState;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -141,6 +152,31 @@ public class Player : MonoBehaviour, IDiceListener
 
     }
 
+    public void UpdatePhaseMain()
+    {
+        switch(_currentPhaseState)
+        {
+            case PhaseState.start:
+                {
+                    _currentPlot.ActionOnEnter(this);
+                    _currentPhaseState++;
+                }
+                break;
+            case PhaseState.ongoing:
+                {
+
+                }
+                break;
+            case PhaseState.end:
+                {
+                    
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    
     public void Roll()
     {
         Dice.Ins().Roll(_id);

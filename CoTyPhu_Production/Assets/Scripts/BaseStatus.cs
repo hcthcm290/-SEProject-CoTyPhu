@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 //  Class Attributes ----------------------------------
 
@@ -7,7 +8,7 @@
 /// các class status khi khởi tạo sẽ kế thừa baseStatus và các interface nó cần
 /// các hàm cần gọi thuộc tính từ status kiếm tra status có interface nào trước khi gọi hàm Get
 /// </summary>
-public abstract class BaseStatus
+public abstract class BaseStatus: MonoBehaviour
 {
 	//  Events ----------------------------------------
 
@@ -39,17 +40,15 @@ public abstract class BaseStatus
 	}
 
 	//  Fields ----------------------------------------
-	private int _id;
-	private string _name;
-	private string _description;
-	private bool _isConditional;
+	protected int _id;
+	protected string _name;
+	protected string _description;
+	protected bool _isConditional;
 
 	//  Initialization --------------------------------
-	public BaseStatus(int id, string name, string description)
+	public BaseStatus()
 	{
-		_id = id;
-		_name = name;
-		_description = description;
+
 	}
 
 	//  Methods ---------------------------------------
