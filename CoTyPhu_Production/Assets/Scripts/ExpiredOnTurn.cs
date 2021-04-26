@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExpiredOnTurn
+public class ExpiredOnTurn :MonoBehaviour
 {
 	//  Events ----------------------------------------
 
@@ -28,7 +28,8 @@ public class ExpiredOnTurn
 	//  Initialization --------------------------------
 	public ExpiredOnTurn(BaseStatus status, int expiredTurn)
 	{
-
+		Status = status;
+		ExpiredTurn = expiredTurn;
 	}
 
 
@@ -39,8 +40,13 @@ public class ExpiredOnTurn
 		return true;
     }
 
-	public bool RemoveExpiredStatus()
+	public bool RemoveExpiredStatusCountDown()
 	{
+		ExpiredTurn -= 1;
+		if(ExpiredTurn <= 0)
+        {
+			Status.Remove(true);
+        }
 		return true;
 	}
 
