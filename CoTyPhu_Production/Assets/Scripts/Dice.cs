@@ -39,7 +39,7 @@ public class Dice: MonoBehaviourPunCallbacks
         options.MaxPlayers = 5;
         options.PlayerTtl = 0;
 
-        if (PhotonNetwork.JoinOrCreateRoom("Basa", options, TypedLobby.Default) == false)
+        if (PhotonNetwork.JoinOrCreateRoom("Moon", options, TypedLobby.Default) == false)
         {
             Debug.LogError("Cannot create or join room");
         }
