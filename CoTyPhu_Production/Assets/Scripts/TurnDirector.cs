@@ -139,7 +139,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     _idPhase = Phase.Move;
                     break;
                 case Phase.Move:
-                    _idPhase = Phase.Stop;
+                    _idPhase = Phase.Dice;
                     break;
                 case Phase.Stop:
                     _idPhase = Phase.Dice;
