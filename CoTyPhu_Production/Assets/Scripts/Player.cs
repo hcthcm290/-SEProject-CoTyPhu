@@ -20,7 +20,7 @@ public class Player : MonoBehaviour, IDiceListener
     [SerializeField] Button btnRoll;
 
     // Internal, saves the Actions the UI is supposed to do
-    ActionList UIActions;
+    ActionList UIActions = new ActionList();
 
     Plot _currentPlot; //ghi chú: tạo một method trong Plot là GetNextPlot() để truy cập tới Plot kế tiếp dễ dàng
 
@@ -73,6 +73,7 @@ public class Player : MonoBehaviour, IDiceListener
     /// <param name="plotID"></param>
     public void MoveTo(PLOT plotID)
     {
+        Debug.Log(Plot.plotDictionary[plotID].transform.position);
         moveComponent.Target = Plot.plotDictionary[plotID].transform.position;
     }
     /// <summary>
@@ -84,11 +85,11 @@ public class Player : MonoBehaviour, IDiceListener
     /// <returns></returns>
     public ICompletableAction ActionMoveTo(PLOT plotID)
     {
-        LambdaCompletableAction action = new LambdaCompletableAction(() =>
+        LambdaCompletableAction action = new LambdaCompletableAction(new LambdaAction(() =>
         {
             // Content of the Action
             MoveTo(plotID);
-        });
+        }), null);
 
         action.preAction = () => 
         {
@@ -131,9 +132,21 @@ public class Player : MonoBehaviour, IDiceListener
 
     public void StartPhase(int phaseID)
     {
-        if(phaseID == 1 && minePlayer)
+        if(phaseID == (int)Phase.Dice && minePlayer)
         {
             btnRoll.gameObject.SetActive(true);
+        }
+        else if(phaseID == (int)Phase.Move)
+        {
+            MoveTo(Dice.Ins().GetLastResult().Sum());
+
+            if (minePlayer)
+            {
+                UIActions.OnActionComplete = new LambdaAction(UIActions.OnActionComplete, () =>
+                {
+                    TurnDirector.Ins.EndOfPhase();
+                });
+            }
         }
     }
 

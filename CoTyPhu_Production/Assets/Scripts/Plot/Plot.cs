@@ -48,7 +48,7 @@ public enum PLOT
 /// </summary>
 public class Plot : MonoBehaviour
 {
-    public const int PLOT_AMOUNT = 32;
+    public const int PLOT_AMOUNT = 12;
     //  Events ----------------------------------------
 
 
@@ -59,11 +59,11 @@ public class Plot : MonoBehaviour
 
 
     //  Fields ----------------------------------------
-    protected PLOT _id;
-    protected string _name;
-    protected string _description;
+    [SerializeField]protected PLOT _id;
+    [SerializeField]protected string _name;
+    [SerializeField]protected string _description;
 
-    public static Dictionary<PLOT, Plot> plotDictionary;
+    public static Dictionary<PLOT, Plot> plotDictionary = new Dictionary<PLOT, Plot>();
 
     //  Initialization --------------------------------
     public Plot(PLOT id, string name, string description)

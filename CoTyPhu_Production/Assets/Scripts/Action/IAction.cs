@@ -15,7 +15,7 @@ public interface ICompletableAction : IAction
 }
 public class ActionList : ICompletableAction
 {
-    Queue<IAction> Actions;
+    Queue<IAction> Actions = new Queue<IAction>();
     private IAction _onComplete;
     public IAction OnActionComplete { get => _onComplete; set { _onComplete = value; } }
 
