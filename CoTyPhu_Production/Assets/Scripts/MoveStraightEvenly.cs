@@ -50,6 +50,7 @@ public class MoveStraightEvenly : MonoBehaviour
 
         Vector3 pos = transform.position;
 
+        // Initial vector
         Vector3 direction = Target - pos;
         float dirX = direction.x;
         float dirY = direction.y;
@@ -57,19 +58,21 @@ public class MoveStraightEvenly : MonoBehaviour
 
         //Debug.Log(direction);
 
+        // Set movement in the direction to 0
+        // if it doesn't move in that direction
         if (lockX)
             dirX = 0;
-
         if (lockY)
             dirY = 0;
-
         if (lockZ)
             dirZ = 0;
 
-        Vector3 moveDir = (new Vector3(dirX, dirY, dirZ));
+        // Movement vector
+        Vector3 moveDir = new Vector3(dirX, dirY, dirZ);
 
         if (moveDir.magnitude < speed * Time.deltaTime)
         {
+            // Final new location's coord doesn't change in the dimension that was locked.
             transform.position = new Vector3(
                 lockX ? pos.x : Target.x,
                 lockY ? pos.y : Target.y,
@@ -88,7 +91,10 @@ public class MoveStraightEvenly : MonoBehaviour
         Target = target;
     }
 
-
+    /// <summary>
+    /// Event triggers when the target reaches destination
+    /// and stop moving. 
+    /// </summary>
     List<Action> OnTargetReached;
     public void ListenTargetReached(Action action)
     {
@@ -96,6 +102,7 @@ public class MoveStraightEvenly : MonoBehaviour
     }
     // note: Clears OnTargetReached whenever Target is reached
     // note: Allow Action to reregister in PerformAction()
+    // Action: { ...; moveComponent.ListenTargetReached(this); ...; }
     private void PerformOnTargetReached()
     {
         List<Action> temp = OnTargetReached;
