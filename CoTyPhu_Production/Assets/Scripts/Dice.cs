@@ -149,7 +149,7 @@ public class Dice: MonoBehaviourPunCallbacks
         photonView.RPC("_RollServer", RpcTarget.MasterClient, idPlayer);
     }
 
-    List<int> GetLastResult()
+    public List<int> GetLastResult()
     {
         return _result;
     }

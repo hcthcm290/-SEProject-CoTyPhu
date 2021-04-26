@@ -20,13 +20,13 @@ public class MoveStraightEvenly : MonoBehaviour
         }
         set
         {
-            ReachedTarget = false;
             _target = value;
+            ReachedTarget = false;
         }
     }
     [SerializeField]
     private Vector3 _target;
-    private bool ReachedTarget{ get=>_reachedTarget;
+    private bool ReachedTarget{ get=>Target == transform.position;
         set{
             if (value && !_reachedTarget)
                 PerformOnTargetReached();
@@ -95,7 +95,7 @@ public class MoveStraightEvenly : MonoBehaviour
     /// Event triggers when the target reaches destination
     /// and stop moving. 
     /// </summary>
-    List<IAction> OnTargetReached;
+    List<IAction> OnTargetReached = new List<IAction>();
     public void ListenTargetReached(IAction action)
     {
         OnTargetReached.Add(action);
