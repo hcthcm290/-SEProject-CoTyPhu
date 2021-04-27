@@ -64,6 +64,8 @@ public class Dice: MonoBehaviourPunCallbacks
     [SerializeField] DiceUI _dicePrefab;
     List<DiceUI> _currentDices;
 
+    [SerializeField] Transform diceSpawnPosition;
+
     [PunRPC]
     private void _RollServer(int idPlayer)
     {
@@ -96,7 +98,7 @@ public class Dice: MonoBehaviourPunCallbacks
         {
             while (diceCount > _currentDices.Count)
             {
-                DiceUI dice = PhotonNetwork.Instantiate("Dice", new Vector3(0, 0, 0), Quaternion.identity).GetComponent<DiceUI>();
+                DiceUI dice = PhotonNetwork.Instantiate("Dice", diceSpawnPosition.position, Quaternion.identity).GetComponent<DiceUI>();
                 //DiceUI dice = Instantiate(_dicePrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 dice.ReceiveResult += (int result) => {
                     _result[_resultCount] = result;
