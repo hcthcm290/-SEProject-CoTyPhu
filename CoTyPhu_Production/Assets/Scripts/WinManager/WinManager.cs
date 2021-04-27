@@ -44,19 +44,19 @@ namespace WinCondition
             return false;
         }
 
-        static public Action GetWinCheckAction()
+        static public IAction GetWinCheckAction()
         {
             return new WinCheckAction();
         }
     }
-    public class WinCheckAction : Action
+    public class WinCheckAction : IAction
     {
         public virtual void PerformAction()
         {
             Locator<WinManager>.Instance.CheckWinner();
         }
     }
-    public class WinConCheckAction : Action
+    public class WinConCheckAction : IAction
     {
         WinCondition winCon;
         public WinConCheckAction(WinCondition wincon)

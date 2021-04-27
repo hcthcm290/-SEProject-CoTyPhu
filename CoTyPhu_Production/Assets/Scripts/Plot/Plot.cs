@@ -46,8 +46,9 @@ public enum PLOT
 /// <summary>
 /// THIS CLASS HOLD ALL PROPERTIES AND METHODS THAT ALL TYPES OF PLOT NEED
 /// </summary>
-public class Plot
+public class Plot : MonoBehaviour
 {
+    public const int PLOT_AMOUNT = 12;
     //  Events ----------------------------------------
 
 
@@ -58,10 +59,11 @@ public class Plot
 
 
     //  Fields ----------------------------------------
-    protected PLOT _id;
-    protected string _name;
-    protected string _description;
+    [SerializeField]protected PLOT _id;
+    [SerializeField]protected string _name;
+    [SerializeField]protected string _description;
 
+    public static Dictionary<PLOT, Plot> plotDictionary = new Dictionary<PLOT, Plot>();
 
     //  Initialization --------------------------------
     public Plot(PLOT id, string name, string description)
@@ -69,23 +71,48 @@ public class Plot
         this._id = id;
         this._name = name;
         this._description = description;
+
     }
 
-
+    private void Start()
+    {
+        if (!plotDictionary.ContainsKey(_id))
+            plotDictionary[_id] = this;
+        else
+            Debug.LogError("Duplicate plot id: " + this + ",\n" + plotDictionary[_id]);
+    }
+    private void Update()
+    {
+        
+    }
     //  Methods ---------------------------------------
-    public virtual void ActionOnPass(dynamic obj)
+    public void ActiveOnPass(dynamic obj)
     {
-
+        // the 'this' is important for polymorphism
+        this.ActionOnPass(obj).PerformAction();
+    }
+    public virtual IAction ActionOnPass(Player obj)
+    {
+        return null;
+    }
+    public void ActiveOnEnter(dynamic obj)
+    {
+        // the 'this' is important for polymorphism
+        this.ActionOnEnter(obj).PerformAction();
+    }
+    public virtual IAction ActionOnEnter(Player obj)
+    {
+        return null;
     }
 
-    public virtual void ActionOnEnter(dynamic obj)
+    public void ActiveOnLeave(dynamic obj)
     {
-
+        // the 'this' is important for polymorphism
+        this.ActionOnLeave(obj).PerformAction();
     }
-
-    public virtual void ActionOnLeave(dynamic obj)
+    public virtual IAction ActionOnLeave(Player obj)
     {
-
+        return null;
     }
 
 

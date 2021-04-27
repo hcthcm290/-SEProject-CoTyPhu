@@ -4,11 +4,20 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
+public enum Phase
+{
+    Dice,
+    Move,
+    Stop,
+    Extra,
+}
+
 public class TurnDirector : MonoBehaviourPunCallbacks
 {
     public static TurnDirector Ins;
     [SerializeField] List<Player> _listPlayer;
     int _idPlayerTurn = -1;
+    Phase _idPhase;
     Stack<int> _playerTurnExtraPhase;
     List<ITurnListener> _listTurnListener;
     int _count = 0;
@@ -83,7 +92,8 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             if (_idPlayerTurn == -1 && _listPlayer.Count > 0)
             {
                 _idPlayerTurn = 0;
-                _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(1);
+                _idPhase = Phase.Dice;
+                _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase((int)_idPhase);
             }
         }
     }
@@ -123,8 +133,25 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     {
         if(PhotonNetwork.IsMasterClient)
         {
-            _idPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
-            photonView.RPC("_StartPhase", RpcTarget.All, _idPlayerTurn, 1);
+            switch (_idPhase)
+            {
+                case Phase.Dice:
+                    _idPhase = Phase.Move;
+                    break;
+                case Phase.Move:
+                    _idPhase = Phase.Dice;
+                    break;
+                case Phase.Stop:
+                    _idPhase = Phase.Dice;
+                    _idPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
+                    break;
+                case Phase.Extra:
+                    // TODO
+                    // later
+                    break;
+            }
+
+            photonView.RPC("_StartPhase", RpcTarget.All, _idPlayerTurn, (int)_idPhase);
         }
     }
 

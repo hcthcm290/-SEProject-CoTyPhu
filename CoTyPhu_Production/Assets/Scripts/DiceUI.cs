@@ -12,6 +12,9 @@ public class DiceUI : MonoBehaviour
     public Vector3 diceVelocity;
 
     bool rolled = false;
+    // the amount of time needed to confirm the dice is no longer moving.
+    const float inactiveConfirmDelay = 0.5f;
+    float inactiveDuration;
 
     public delegate void DiceResult(int result);
     public event DiceResult ReceiveResult;
@@ -20,7 +23,7 @@ public class DiceUI : MonoBehaviour
     {
         diceVelocity = rb.velocity;
 
-        if (rolled && rb.angularVelocity == Vector3.zero && rb.velocity == Vector3.zero )
+        if (rolled && rb.angularVelocity == Vector3.zero && rb.velocity == Vector3.zero)
         {
             Vector3 smallestAngleVector = new Vector3();
             float smallestAngle = 180;
@@ -30,16 +33,22 @@ public class DiceUI : MonoBehaviour
                 var rotation = transform.rotation;
                 var csna = rotation * vector;
                 var dg = Vector3.Angle(new Vector3(0, 1, 0), rotation * vector);
-                if (Vector3.Angle(new Vector3(0, 1, 0), rotation*vector) < smallestAngle)
+                if (Vector3.Angle(new Vector3(0, 1, 0), rotation * vector) < smallestAngle)
                 {
                     smallestAngle = Vector3.Angle(new Vector3(0, 1, 0), rotation * vector);
                     smallestAngleVector = vector;
                 }
             }
-            Debug.Log("result: " + (ListCrossVectors.IndexOf(smallestAngleVector) + 1).ToString());
-            ReceiveResult.Invoke(ListCrossVectors.IndexOf(smallestAngleVector) + 1);
-            rolled = false;
+            inactiveDuration += Time.deltaTime;
+            if (inactiveDuration > inactiveConfirmDelay)
+            {
+                rolled = false;
+                Debug.Log("result: " + (ListCrossVectors.IndexOf(smallestAngleVector) + 1).ToString());
+                ReceiveResult.Invoke(ListCrossVectors.IndexOf(smallestAngleVector) + 1);
+            }
         }
+        else
+            inactiveDuration = 0;
     }
 
     public void Roll()

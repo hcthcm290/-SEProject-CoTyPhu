@@ -36,10 +36,11 @@ public class PlotConstruction: Plot
 	}
 
 
-    //  Methods ---------------------------------------
-    public override void ActionOnEnter(dynamic obj)
+	//  Methods ---------------------------------------
+	public override IAction ActionOnEnter(Player obj)
     {
-        //TODO: Check Owner --> do action based on Owner state
+		//TODO: Check Owner --> do action based on Owner state
+		return null;
     }
 
 

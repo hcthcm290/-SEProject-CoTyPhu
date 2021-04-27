@@ -25,11 +25,14 @@ public class PlotTravel: Plot
         //TODO: Move immediately to destination
     }
 
-    public override void ActionOnEnter(dynamic obj)
+    public override IAction ActionOnEnter(Player obj)
     {
         //TODO: Choose a plot as destination
+
         Plot destination = null;
-        this.PerformTravel(destination);
+        return new LambdaAction(() => {
+            this.PerformTravel(destination);
+        });
     }
 
 

@@ -26,13 +26,15 @@ public class PlotStart : Plot
 
 
     //  Methods ---------------------------------------
-    public override void ActionOnPass(dynamic obj)
+    public override IAction ActionOnPass(Player obj)
     {
-        this.ActionOnPass(obj);
         //TODO: Give money when pass this plot
+
+        //return ActionGiveMoney(...)
+        return null;
     }
 
 
     //  Event Handlers --------------------------------
-    
+
 }
