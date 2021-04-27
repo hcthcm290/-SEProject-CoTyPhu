@@ -22,6 +22,13 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     List<ITurnListener> _listTurnListener;
     int _count = 0;
 
+    public Dictionary<Phase, string> phaseName = new Dictionary<Phase, string>
+    {
+        { Phase.Dice, "Dice"},
+        { Phase.Move, "Move"},
+        { Phase.Stop, "Stop"},
+        { Phase.Extra, "Extra"}
+    };
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
@@ -139,7 +146,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     _idPhase = Phase.Move;
                     break;
                 case Phase.Move:
-                    _idPhase = Phase.Dice;
+                    _idPhase = Phase.Stop;
                     break;
                 case Phase.Stop:
                     _idPhase = Phase.Dice;
@@ -158,7 +165,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     [PunRPC]
     private void _StartPhase(int idPlayer, int phaseID)
     {
-        Debug.Log(idPlayer.ToString() + " : " + phaseID);
+        Debug.Log("Starting phase of player" + idPlayer.ToString() + " : " + phaseName[(Phase)phaseID]);
         _idPlayerTurn = idPlayer;
         _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(phaseID);
     }
