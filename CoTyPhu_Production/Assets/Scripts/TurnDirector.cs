@@ -140,6 +140,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     break;
                 case Phase.Move:
                     _idPhase = Phase.Dice;
+                    _idPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
                     break;
                 case Phase.Stop:
                     _idPhase = Phase.Dice;
