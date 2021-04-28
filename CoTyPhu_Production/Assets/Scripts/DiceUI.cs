@@ -58,7 +58,7 @@ public class DiceUI : MonoBehaviour
         torque.y = UnityEngine.Random.Range(0, 500);
         torque.z = UnityEngine.Random.Range(0, 500);
 
-        transform.position = new Vector3(transform.position.x, 2, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
         transform.rotation = Quaternion.identity;
         rb.velocity = transform.up * 6;
         rb.AddTorque(torque);

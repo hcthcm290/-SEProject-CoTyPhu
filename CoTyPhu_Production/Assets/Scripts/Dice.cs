@@ -88,11 +88,6 @@ public class Dice: MonoBehaviourPunCallbacks
         _result.Clear();
         _resultCount = 0;
 
-        for (int i = 0; i < diceCount; i++)
-        {
-            _result.Add(0);
-        }
-
         // Add or destroy dice object to match dice count
         if (diceCount > _currentDices.Count)
         {
@@ -101,7 +96,7 @@ public class Dice: MonoBehaviourPunCallbacks
                 DiceUI dice = PhotonNetwork.Instantiate("Dice", diceSpawnPosition.position, Quaternion.identity).GetComponent<DiceUI>();
                 //DiceUI dice = Instantiate(_dicePrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 dice.ReceiveResult += (int result) => {
-                    _result[_resultCount] = result;
+                    _result.Add(result);
                     _resultCount++;
 
                     if (_resultCount == diceCount)
@@ -138,8 +133,6 @@ public class Dice: MonoBehaviourPunCallbacks
             listener.OnRoll(idPlayer, _result);
         }
     }
-
-    
 
     /// <summary>
     /// Roll the dice

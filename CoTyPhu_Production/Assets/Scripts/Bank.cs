@@ -1,13 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 /// <summary>
 /// THE BANK CONTROLS ALL MONEYS FLOW IN GAME
 /// </summary>
-public class Bank
+public class Bank: MonoBehaviour
 {
 	//  Events ----------------------------------------
 
+	//	Singleton -------------------------------------
+	private static Bank _ins;
+	public static Bank Ins
+    {
+		get { return _ins; }
+    }
 
 	//  Properties ------------------------------------
 	public int MoneyBank { get => _moneyBank; }
@@ -15,10 +23,15 @@ public class Bank
 
 	//  Fields ----------------------------------------
 	private int _moneyBank;
-	private Dictionary<Player, int> _moneyPlayer = new Dictionary<Player, int>();
+	[SerializeField] private Dictionary<Player, int> _moneyPlayer = new Dictionary<Player, int>();
 
 
 	//  Initialization --------------------------------
+	public Bank()
+    {
+
+    }
+
 	public Bank(int moneyBank, Player[] arrPlayers)
 	{
 		_moneyBank = moneyBank;
@@ -28,9 +41,15 @@ public class Bank
         }
 	}
 
+    //  Unity Methods ---------------------------------
+    private void Start()
+    {
+		_ins = this;
+    }
 
-	//  Methods ---------------------------------------
-	public int MoneyPlayer(Player player)
+
+    //  Methods ---------------------------------------
+    public int MoneyPlayer(Player player)
     {
 		if (_moneyPlayer.ContainsKey(player))
 			return _moneyPlayer[player];
@@ -40,7 +59,7 @@ public class Bank
 
 	public void AddPlayer(Player player)
     {
-		_moneyPlayer.Add(player, 0);
+		_moneyPlayer.Add(player, 130);
 	}
 
 	public void RemovePlayer(Player player)
