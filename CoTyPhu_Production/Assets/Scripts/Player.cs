@@ -172,27 +172,23 @@ public class Player : MonoBehaviour, IDiceListener
                 {
                     //Debug.Log("********PhaseStop********");
                     if (minePlayer)
-                        TurnDirector.Ins.EndOfPhase();
+                    {
+                        var plot = Plot.plotDictionary[Location_PlotID];
+
+                        if (plot is PlotConstruction)
+                        {
+                            var csc = StopPhaseUI.Ins;
+                            StopPhaseUI.Ins.Activate(StopPhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
+                        }
+                        else // temporary constantly switch
+                        {
+                            TurnDirector.Ins.EndOfPhase();
+                        }
+                    }
                 }
                 break;
             case Phase.Extra:
                 break;
-        }
-        else if(phaseID == (int)Phase.Stop && minePlayer)
-        {
-
-            var plot = Plot.plotDictionary[Location_PlotID];
-
-            if(plot is PlotConstruction)
-            {
-                var csc = StopPhaseUI.Ins;
-                StopPhaseUI.Ins.Activate(StopPhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
-            }
-            else // temporary constantly switch
-            {
-                TurnDirector.Ins.EndOfPhase();
-            }
-            
         }
     }
 
