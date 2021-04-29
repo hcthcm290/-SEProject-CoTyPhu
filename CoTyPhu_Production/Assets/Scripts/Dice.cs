@@ -27,6 +27,8 @@ public class Dice: MonoBehaviourPunCallbacks
     {
         _ins = this;
 
+        PhotonNetwork.NickName = Random.Range(0, 999999).ToString();
+
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -38,6 +40,7 @@ public class Dice: MonoBehaviourPunCallbacks
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 5;
         options.PlayerTtl = 0;
+        options.PublishUserId = true;
 
         if (PhotonNetwork.JoinOrCreateRoom("Basa", options, TypedLobby.Default) == false)
         {

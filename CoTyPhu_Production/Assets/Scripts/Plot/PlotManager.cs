@@ -28,6 +28,7 @@ public class PlotManager : MonoBehaviourPun
     {
         Player player = TurnDirector.Ins.GetPlayer(playerId);
         PlotConstruction plot = Plot.plotDictionary[(PLOT)plotId] as PlotConstruction;
+        var cs = PhotonNetwork.PlayerList;
         Photon.Realtime.Player client = PhotonNetwork.PlayerList.Single(x => x.UserId == clientID);
 
         if(player == null | plot == null)

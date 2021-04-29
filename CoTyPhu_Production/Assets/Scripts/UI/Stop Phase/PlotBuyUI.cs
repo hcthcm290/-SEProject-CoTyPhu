@@ -32,6 +32,7 @@ public class PlotBuyUI : MonoBehaviour
     }
     [SerializeField] Player _player;
     [SerializeField] PlotManager _plotManager;
+    [SerializeField] bool _canClick = true;
     #endregion
 
     #region Unity Method
@@ -47,14 +48,19 @@ public class PlotBuyUI : MonoBehaviour
         _txtDescription.text = Plot?.Description;
         _txtPrice.text = "$" + Plot?.PurchasePrice.ToString();
         _txtPlayerMoney.text = "$" + Bank.Ins.MoneyPlayer(_player);
+
+        _btnBuy.enabled = _canClick;
     }
     #endregion
 
     #region Methods
     public void Buy()
     {
-        _plotManager.RequestBuy(_player, Plot);
-        _btnBuy.enabled = false;
+        if (_canClick)
+        {
+            _canClick = false;
+            _plotManager.RequestBuy(_player, Plot);
+        }
     }
 
     public void Skip()
@@ -63,19 +69,23 @@ public class PlotBuyUI : MonoBehaviour
         StopPhaseUI.Ins.Deactive(StopPhaseScreens.PlotBuyUI);
     }
 
-    private void BuySuccessCallback(Player playerId, PlotConstruction plotId)
+    private void BuySuccessCallback(Player player, PlotConstruction plot)
     {
-        Debug.Log("Buy success");
-        _btnBuy.enabled = true;
-        TurnDirector.Ins.EndOfPhase();
-        StopPhaseUI.Ins.Deactive(StopPhaseScreens.PlotBuyUI);
+        if (player.MinePlayer)
+        {
+            Debug.Log("Buy success");
+            TurnDirector.Ins.EndOfPhase();
+            StopPhaseUI.Ins.Deactive(StopPhaseScreens.PlotBuyUI);
+            _canClick = true;
+        }
     }
 
     private void BuyFailCallback(string reason)
     {
         // Show on UI the reason they cannot buy
         Debug.Log(reason);
-        _btnBuy.enabled = true;
+        _canClick = true;
+
     }
     #endregion
 }
