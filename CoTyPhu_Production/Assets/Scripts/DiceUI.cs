@@ -43,7 +43,7 @@ public class DiceUI : MonoBehaviour
             if (inactiveDuration > inactiveConfirmDelay)
             {
                 rolled = false;
-                Debug.Log("result: " + (ListCrossVectors.IndexOf(smallestAngleVector) + 1).ToString());
+                Debug.Log("Roll result: " + (ListCrossVectors.IndexOf(smallestAngleVector) + 1).ToString());
                 ReceiveResult.Invoke(ListCrossVectors.IndexOf(smallestAngleVector) + 1);
             }
         }

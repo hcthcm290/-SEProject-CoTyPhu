@@ -85,7 +85,7 @@ public class Player : MonoBehaviour, IDiceListener
     /// <param name="plotID"></param>
     public void MoveTo(PLOT plotID)
     {
-        Debug.Log(Plot.plotDictionary[plotID].transform.position);
+        //Debug.Log(Plot.plotDictionary[plotID].transform.position);
         moveComponent.Target = Plot.plotDictionary[plotID].transform.position;
 
         Location_PlotID = plotID;
@@ -146,21 +146,37 @@ public class Player : MonoBehaviour, IDiceListener
 
     public void StartPhase(int phaseID)
     {
-        if(phaseID == (int)Phase.Dice && minePlayer)
+        Phase phase = (Phase)phaseID;
+        switch (phase)
         {
-            btnRoll.gameObject.SetActive(true);
-        }
-        else if(phaseID == (int)Phase.Move)
-        {
-            MoveTo(Dice.Ins().GetLastResult().Sum());
-
-            if (minePlayer)
-            {
-                UIActions.OnActionComplete = new LambdaAction(UIActions.OnActionComplete, () =>
+            case Phase.Dice:
+                if (minePlayer)
                 {
-                    TurnDirector.Ins.EndOfPhase();
-                });
-            }
+                    btnRoll.gameObject.SetActive(true);
+                }
+                break;
+            case Phase.Move:
+                {
+                    MoveTo(Dice.Ins().GetLastResult().Sum());
+
+                    if (minePlayer)
+                    {
+                        UIActions.AddOnActionComplete(() =>
+                        {
+                            TurnDirector.Ins.EndOfPhase();
+                        });
+                    }
+                }
+                break;
+            case Phase.Stop:
+                {
+                    //Debug.Log("********PhaseStop********");
+                    if (minePlayer)
+                        TurnDirector.Ins.EndOfPhase();
+                }
+                break;
+            case Phase.Extra:
+                break;
         }
         else if(phaseID == (int)Phase.Stop && minePlayer)
         {

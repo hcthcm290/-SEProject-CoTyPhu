@@ -48,7 +48,7 @@ public enum PLOT
 /// </summary>
 public class Plot : MonoBehaviour
 {
-    public const int PLOT_AMOUNT = 12;
+    public const int PLOT_AMOUNT = 32;
     //  Events ----------------------------------------
 
 
