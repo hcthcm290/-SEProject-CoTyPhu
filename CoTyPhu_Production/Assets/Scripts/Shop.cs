@@ -8,12 +8,19 @@ using UnityEngine.UI;
 /// </summary>
 public class Shop : MonoBehaviour
 {
-	//public class TempShop
-	//{
-	//	public List<string> shop;
- //   }
-	//Singleton
-	public static Shop Ins;
+    public class TempShop
+    {
+        public List<TempItem> shop;
+    }
+
+	public class TempItem
+    {
+		public string item;
+		public int amount;
+    }
+
+    //Singleton
+    public static Shop Ins;
 	//  Events ----------------------------------------
 
 
@@ -62,28 +69,28 @@ public class Shop : MonoBehaviour
 
 	public void InitPool()
     {
-        //var jsonTextFile = Resources.Load<TextAsset>("shopdata");
+        var jsonTextFile = Resources.Load<TextAsset>("shopdata");
 
-        //      TempShop temp = JsonUtility.FromJson<TempShop>(jsonTextFile.text);
+        TempShop temp = JsonUtility.FromJson<TempShop>(jsonTextFile.text);
 
-        //Debug.Log(temp.shop[0]);
+        Debug.Log(temp.shop[0]);
 
-        //foreach ((string item, int amount) i in temp.shop)
-        //{
-        //    for (int j = 0; j < i.amount; j++)
-        //    {
-        //        AddItemToPool(Resources.Load<BaseItem>(i.item));
-        //    }
-        //}
+        foreach (TempItem i in temp.shop)
+        {
+            for (int j = 0; j < i.amount; j++)
+            {
+                AddItemToPool(Resources.Load<BaseItem>(i.item));
+            }
+        }
 
-        AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
-        AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
-        AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
-        AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
-        AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
-        AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
-        AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
-        AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
+        //AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
+        //AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
+        //AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
+        //AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
+        //AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
+        //AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
+        //AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
+        //AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
     }
 
     public void Open()
