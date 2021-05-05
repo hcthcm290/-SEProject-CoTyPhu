@@ -223,7 +223,7 @@ public class Player : MonoBehaviour, IDiceListener
         }
     }
 
-    public void UpdatePhaseMain()
+    public void UpdatePhaseStop()
     {
         switch(_currentPhaseState)
         {

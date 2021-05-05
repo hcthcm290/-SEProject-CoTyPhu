@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Base class for item
 /// </summary>
-public abstract class BaseItem
+public abstract class BaseItem : MonoBehaviour
 {
     //  Events ----------------------------------------
 
@@ -58,7 +58,7 @@ public abstract class BaseItem
 	private bool _canActivate;
 
 	//  Initialization --------------------------------
-	public BaseItem(int id, string name, int price, string description, string type)
+	public void Set(int id, string name, int price, string description, string type)
     {
 		_id = id;
 		_name = name;
