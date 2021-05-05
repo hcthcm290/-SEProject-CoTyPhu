@@ -27,6 +27,8 @@ public class Dice: MonoBehaviourPunCallbacks
     {
         _ins = this;
 
+        PhotonNetwork.NickName = Random.Range(0, 999999).ToString();
+
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -38,6 +40,7 @@ public class Dice: MonoBehaviourPunCallbacks
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 5;
         options.PlayerTtl = 0;
+        options.PublishUserId = true;
 
         if (PhotonNetwork.JoinOrCreateRoom("Basa", options, TypedLobby.Default) == false)
         {
@@ -88,11 +91,6 @@ public class Dice: MonoBehaviourPunCallbacks
         _result.Clear();
         _resultCount = 0;
 
-        for (int i = 0; i < diceCount; i++)
-        {
-            _result.Add(0);
-        }
-
         // Add or destroy dice object to match dice count
         if (diceCount > _currentDices.Count)
         {
@@ -101,7 +99,7 @@ public class Dice: MonoBehaviourPunCallbacks
                 DiceUI dice = PhotonNetwork.Instantiate("Dice", diceSpawnPosition.position, Quaternion.identity).GetComponent<DiceUI>();
                 //DiceUI dice = Instantiate(_dicePrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 dice.ReceiveResult += (int result) => {
-                    _result[_resultCount] = result;
+                    _result.Add(result);
                     _resultCount++;
 
                     if (_resultCount == diceCount)
@@ -138,8 +136,6 @@ public class Dice: MonoBehaviourPunCallbacks
             listener.OnRoll(idPlayer, _result);
         }
     }
-
-    
 
     /// <summary>
     /// Roll the dice

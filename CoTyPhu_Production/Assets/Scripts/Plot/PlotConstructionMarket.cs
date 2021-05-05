@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// PLOT CONSTRUCTION TEMPLE CONTROL ACTIONS OF "MARKET (A-H)" 
@@ -41,5 +41,18 @@ public class PlotConstructionMarket : PlotConstruction
 		//TODO: check the player money, return true or false if enough
 	}
 
-	//  Event Handlers --------------------------------
+    public override IAction ActionOnEnter(Player obj)
+    {
+		if(this.Owner == null) // nếu ô đất chưa có chủ sở hữu
+        {
+			if(obj.MinePlayer)
+            {
+				// mở bảng yêu cầu mua
+				StopPhaseUI.Ins.Activate(StopPhaseScreens.PlotBuyUI, this);
+			}
+        }
+		return null;
+    }
+
+    //  Event Handlers --------------------------------
 }

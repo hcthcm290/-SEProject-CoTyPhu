@@ -73,6 +73,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             player.gameObject.SetActive(true);
             player.Id = id;
             _listPlayer.Add(player);
+            Bank.Ins.AddPlayer(player);
         }
         else
         {
@@ -81,6 +82,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             player.gameObject.SetActive(true);
             player.Id = id;
             _listPlayer.Add(player);
+            Bank.Ins.AddPlayer(player);
         }
     }
 
@@ -165,7 +167,6 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     [PunRPC]
     private void _StartPhase(int idPlayer, int phaseID)
     {
-        Debug.Log("Starting phase of player" + idPlayer.ToString() + " : " + phaseName[(Phase)phaseID]);
         _idPlayerTurn = idPlayer;
         _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(phaseID);
     }
@@ -229,5 +230,10 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         {
             return;
         }
+    }
+
+    public Player GetPlayer(int playerID)
+    {
+        return _listPlayer.Find(x => x.Id == playerID);
     }
 }

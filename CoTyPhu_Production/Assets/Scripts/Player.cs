@@ -4,8 +4,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
 public class Player : MonoBehaviour, IDiceListener
 {
+    // Properties ------------------------------------
     [SerializeField] int _id;
     public int Id
     {
@@ -17,6 +19,10 @@ public class Player : MonoBehaviour, IDiceListener
     bool _isBroke;
     bool _notSubcribeDice = true;
     [SerializeField] bool minePlayer;
+    public bool MinePlayer
+    {
+        get { return minePlayer; }
+    }
     [SerializeField] Button btnRoll;
 
     // Internal, saves the Actions the UI is supposed to do
@@ -32,6 +38,8 @@ public class Player : MonoBehaviour, IDiceListener
     }
 
     PhaseState _currentPhaseState;
+
+    #region Unity Methods
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +73,10 @@ public class Player : MonoBehaviour, IDiceListener
             _notSubcribeDice = false;
         }
     }
+    #endregion
+
+
+    #region Methods
 
     /// <summary>
     /// Commands Player to move to target Plot
@@ -160,7 +172,19 @@ public class Player : MonoBehaviour, IDiceListener
                 {
                     //Debug.Log("********PhaseStop********");
                     if (minePlayer)
-                        TurnDirector.Ins.EndOfPhase();
+                    {
+                        var plot = Plot.plotDictionary[Location_PlotID];
+
+                        if (plot is PlotConstruction)
+                        {
+                            var csc = StopPhaseUI.Ins;
+                            StopPhaseUI.Ins.Activate(StopPhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
+                        }
+                        else // temporary constantly switch
+                        {
+                            TurnDirector.Ins.EndOfPhase();
+                        }
+                    }
                 }
                 break;
             case Phase.Extra:
@@ -297,5 +321,5 @@ public class Player : MonoBehaviour, IDiceListener
         }
     }
 
-    IAction OnRollResult;
+    #endregion
 }
