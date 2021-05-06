@@ -76,8 +76,22 @@ public class Player : MonoBehaviour, IDiceListener
     #endregion
 
 
-    #region Methods
+    #region Movement
+    protected class ActionPlayerMove : IAction
+    {
+        public Player player;
+        public List<int> rollResult;
+        public ActionPlayerMove(Player player, List<int> rollResult)
+        {
+            this.player = player;
+            this.rollResult = new List<int>(rollResult);
+        }
 
+        public void PerformAction()
+        {
+            player.MoveTo(rollResult.Sum());
+        }
+    }
     /// <summary>
     /// Commands Player to move to target Plot
     /// This will NOT move the player step-by-step.
@@ -105,7 +119,7 @@ public class Player : MonoBehaviour, IDiceListener
             MoveTo(plotID);
         }), null);
 
-        action.preAction = () => 
+        action.preAction = () =>
         {
             // Before Moveto, register OnComplete to moveComponent
             moveComponent.ListenTargetReached(new LambdaAction(action.PerformOnComplete));
@@ -121,6 +135,14 @@ public class Player : MonoBehaviour, IDiceListener
     public void MoveTo(int plotsToMove)
     {
         AddMovementToQueue(plotsToMove);
+
+
+        UIActions.AddOnActionComplete(() =>
+        {
+            _currentPhaseState = PhaseState.end;
+            UpdatePhaseMove();
+        });
+
         UIActions.PerformAction();
     }
     public void AddMovementToQueue(int plotsToMove)
@@ -138,16 +160,18 @@ public class Player : MonoBehaviour, IDiceListener
             IAction temp = Plot.plotDictionary[cur].ActionOnPass(this);
             if (temp != null)
                 UIActions.AddNonBlockAction(temp);
-            
+
             // Go to next tile.
             iter = (iter + 1) % Plot.PLOT_AMOUNT;
         }
     }
+    #endregion
 
-    public void StartPhase(int phaseID)
+    #region Phases
+    public void StartPhase(Phase phaseID)
     {
-        Phase phase = (Phase)phaseID;
-        switch (phase)
+        _currentPhaseState = PhaseState.start;
+        switch (phaseID)
         {
             case Phase.Dice:
                 if (minePlayer)
@@ -157,15 +181,7 @@ public class Player : MonoBehaviour, IDiceListener
                 break;
             case Phase.Move:
                 {
-                    MoveTo(Dice.Ins().GetLastResult().Sum());
-
-                    if (minePlayer)
-                    {
-                        UIActions.AddOnActionComplete(() =>
-                        {
-                            TurnDirector.Ins.EndOfPhase();
-                        });
-                    }
+                    UpdatePhaseMove();
                 }
                 break;
             case Phase.Stop:
@@ -179,6 +195,10 @@ public class Player : MonoBehaviour, IDiceListener
                         {
                             var csc = StopPhaseUI.Ins;
                             StopPhaseUI.Ins.Activate(StopPhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
+                        }
+                        else if (plot is PlotEvent)
+                        {
+                            plot.ActiveOnEnter(this);
                         }
                         else // temporary constantly switch
                         {
@@ -207,22 +227,6 @@ public class Player : MonoBehaviour, IDiceListener
 
     }
 
-    protected class ActionPlayerMove : IAction
-    {
-        public Player player;
-        public List<int> rollResult;
-        public ActionPlayerMove(Player player, List<int> rollResult) 
-        {
-            this.player = player;
-            rollResult = new List<int>(rollResult);
-        }
-
-        public void PerformAction()
-        {
-            player.MoveTo(rollResult.Sum());
-        }
-    }
-
     public void UpdatePhaseMove()
     {
         switch (_currentPhaseState)
@@ -230,7 +234,7 @@ public class Player : MonoBehaviour, IDiceListener
             case PhaseState.start:
                 {
                     // TODO: Get dice roll
-                    List<int> diceRoll = new List<int> { 5, 4 };
+                    List<int> diceRoll = Dice.Ins().GetLastResult();
 
                     // Modify dice roll Post-roll
                     IAction action = new ActionPlayerMove(this, diceRoll);
@@ -238,11 +242,17 @@ public class Player : MonoBehaviour, IDiceListener
 
                     // 
                     action.PerformAction();
+
+                    _currentPhaseState = PhaseState.ongoing;
                 }
                 break;
             case PhaseState.ongoing:
                 break;
             case PhaseState.end:
+                if (minePlayer)
+                {
+                    TurnDirector.Ins.EndOfPhase();
+                }
                 break;
         }
     }

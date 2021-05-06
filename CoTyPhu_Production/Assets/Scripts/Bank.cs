@@ -88,15 +88,33 @@ public class Bank: MonoBehaviour
 		if (!_moneyPlayer.ContainsKey(player)) return;
 
 		_moneyPlayer[player] += amount;
+		_moneyBank -= amount;
 	}
 
-	public void TransactBetweenPlayers(Player player1, Player player2, int amount)
+	public void TransactBetweenPlayers(Player source, Player destination, int amount)
 	{
-		if (!_moneyPlayer.ContainsKey(player1) || !_moneyPlayer.ContainsKey(player2) || player1 == player2) return;
+		if (!_moneyPlayer.ContainsKey(source) || !_moneyPlayer.ContainsKey(destination) || source == destination) return;
 
-		TakeMoney(player1, amount);
-		SendMoney(player2, amount);
+		TakeMoney(source, amount);
+		SendMoney(destination, amount);
 	}
 
 	//  Event Handlers --------------------------------
+}
+
+public interface ITransaction
+{
+	public int MoneyAmount
+    {
+		get;
+    }
+	// object Source and Destination may be a List
+	public object Source
+    {
+		get;
+    }
+	public object Destination
+    {
+		get;
+    }
 }
