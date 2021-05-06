@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 3138654906984167578}
   - component: {fileID: 3138654906984167576}
   m_Layer: 0
-  m_Name: Plot
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 7294645261839430289}
   - component: {fileID: 7294645261839430286}
   m_Layer: 0
-  m_Name: Plot (27)
+  m_Name: Temple4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 7294645261916477788}
   - component: {fileID: 7294645261916477762}
   m_Layer: 0
-  m_Name: Plot (25)
+  m_Name: G1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 7294645261936508501}
   - component: {fileID: 7294645261936508490}
   m_Layer: 0
-  m_Name: Plot (10)
+  m_Name: C2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 7294645261966338736}
   - component: {fileID: 7294645261966338738}
   m_Layer: 0
-  m_Name: Plot (13)
+  m_Name: Event2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -759,7 +759,7 @@ GameObject:
   - component: {fileID: 7294645261990804053}
   - component: {fileID: 7294645261990804042}
   m_Layer: 0
-  m_Name: Plot (9)
+  m_Name: C1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -858,7 +858,7 @@ GameObject:
   - component: {fileID: 7294645262007756706}
   - component: {fileID: 7294645262007756720}
   m_Layer: 0
-  m_Name: Plot (1)
+  m_Name: A1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -957,7 +957,7 @@ GameObject:
   - component: {fileID: 7294645262049138577}
   - component: {fileID: 7294645262049138574}
   m_Layer: 0
-  m_Name: Plot (19)
+  m_Name: Temple3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1056,7 +1056,7 @@ GameObject:
   - component: {fileID: 7294645262123260225}
   - component: {fileID: 7294645262123260254}
   m_Layer: 0
-  m_Name: Plot (11)
+  m_Name: Temple2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1155,7 +1155,7 @@ GameObject:
   - component: {fileID: 7294645262162410469}
   - component: {fileID: 7294645262162410490}
   m_Layer: 0
-  m_Name: Plot (17)
+  m_Name: E1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1254,7 +1254,7 @@ GameObject:
   - component: {fileID: 7294645262197682955}
   - component: {fileID: 7294645262197683176}
   m_Layer: 0
-  m_Name: Plot (6)
+  m_Name: B1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1353,7 +1353,7 @@ GameObject:
   - component: {fileID: 7294645262322233390}
   - component: {fileID: 7294645262322233388}
   m_Layer: 0
-  m_Name: Plot (2)
+  m_Name: Minigame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1450,7 +1450,7 @@ GameObject:
   - component: {fileID: 7294645262349816307}
   - component: {fileID: 7294645262349816288}
   m_Layer: 0
-  m_Name: Plot (16)
+  m_Name: Festival
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1547,7 +1547,7 @@ GameObject:
   - component: {fileID: 7294645262412662292}
   - component: {fileID: 7294645262412662282}
   m_Layer: 0
-  m_Name: Plot (4)
+  m_Name: Temple1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1646,7 +1646,7 @@ GameObject:
   - component: {fileID: 7294645262475079242}
   - component: {fileID: 7294645262475079240}
   m_Layer: 0
-  m_Name: Plot (21)
+  m_Name: Event3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1743,7 +1743,7 @@ GameObject:
   - component: {fileID: 7294645262521434359}
   - component: {fileID: 7294645262521434348}
   m_Layer: 0
-  m_Name: Plot (3)
+  m_Name: A2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1842,7 +1842,7 @@ GameObject:
   - component: {fileID: 7294645262529997348}
   - component: {fileID: 7294645262529997370}
   m_Layer: 0
-  m_Name: Plot (15)
+  m_Name: D2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1941,7 +1941,7 @@ GameObject:
   - component: {fileID: 7294645262704265102}
   - component: {fileID: 7294645262704265108}
   m_Layer: 0
-  m_Name: Plot (14)
+  m_Name: D1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2040,7 +2040,7 @@ GameObject:
   - component: {fileID: 7294645262710843745}
   - component: {fileID: 7294645262710843774}
   m_Layer: 0
-  m_Name: Plot (26)
+  m_Name: G2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2139,7 +2139,7 @@ GameObject:
   - component: {fileID: 7294645262859124952}
   - component: {fileID: 7294645262859124954}
   m_Layer: 0
-  m_Name: Plot (5)
+  m_Name: Event1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2236,7 +2236,7 @@ GameObject:
   - component: {fileID: 7294645262886991744}
   - component: {fileID: 7294645262886991774}
   m_Layer: 0
-  m_Name: Plot (23)
+  m_Name: F3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2335,7 +2335,7 @@ GameObject:
   - component: {fileID: 7294645262984949690}
   - component: {fileID: 7294645262984949688}
   m_Layer: 0
-  m_Name: Plot (20)
+  m_Name: F1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2434,7 +2434,7 @@ GameObject:
   - component: {fileID: 7294645263132677891}
   - component: {fileID: 7294645263132677904}
   m_Layer: 0
-  m_Name: Plot (31)
+  m_Name: H2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2533,7 +2533,7 @@ GameObject:
   - component: {fileID: 7294645263221246221}
   - component: {fileID: 7294645263221246226}
   m_Layer: 0
-  m_Name: Plot (12)
+  m_Name: C3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2632,7 +2632,7 @@ GameObject:
   - component: {fileID: 7294645263230977807}
   - component: {fileID: 7294645263230977812}
   m_Layer: 0
-  m_Name: Plot (18)
+  m_Name: E2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2731,7 +2731,7 @@ GameObject:
   - component: {fileID: 7294645263239748694}
   - component: {fileID: 7294645263239748684}
   m_Layer: 0
-  m_Name: Plot (22)
+  m_Name: F2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2830,7 +2830,7 @@ GameObject:
   - component: {fileID: 7294645263261427302}
   - component: {fileID: 7294645263261427300}
   m_Layer: 0
-  m_Name: Plot (28)
+  m_Name: Event4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2927,7 +2927,7 @@ GameObject:
   - component: {fileID: 7294645263303296796}
   - component: {fileID: 7294645263303296770}
   m_Layer: 0
-  m_Name: Plot (29)
+  m_Name: H1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3026,7 +3026,7 @@ GameObject:
   - component: {fileID: 7294645263324544637}
   - component: {fileID: 7294645263324544610}
   m_Layer: 0
-  m_Name: Plot (24)
+  m_Name: Travel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3123,7 +3123,7 @@ GameObject:
   - component: {fileID: 7294645263600253272}
   - component: {fileID: 7294645263600253254}
   m_Layer: 0
-  m_Name: Plot (8)
+  m_Name: Prison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3220,7 +3220,7 @@ GameObject:
   - component: {fileID: 7294645263771449346}
   - component: {fileID: 7294645263771449344}
   m_Layer: 0
-  m_Name: Plot (30)
+  m_Name: Tax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3317,7 +3317,7 @@ GameObject:
   - component: {fileID: 7294645263809949564}
   - component: {fileID: 7294645263809949538}
   m_Layer: 0
-  m_Name: Plot (7)
+  m_Name: B2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
