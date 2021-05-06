@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StopPhaseScreens
+public enum PhaseScreens
 {
     PlotBuyUI,
+    TempleBuyUI,
 }
 
 public class StopPhaseUI : MonoBehaviour
 {
     #region UI Properties
-    [SerializeField] PlotBuyUI _plotBuyUI;
+    [SerializeField]
+    [RequireInterface(typeof(UIScreen))]
+    List<Component> _uiScreen;
+    List<UIScreen> listUIScreen => _uiScreen.ConvertAll<UIScreen>(x => (x as UIScreen));
     #endregion
 
     #region Properties
@@ -22,24 +26,28 @@ public class StopPhaseUI : MonoBehaviour
     #endregion
 
     #region Methods
-    public void Activate(StopPhaseScreens screen, Plot plot)
+    public void Activate(PhaseScreens screenType, Plot plot)
     {
-        switch (screen)
+        foreach (var screen in listUIScreen)
         {
-            case StopPhaseScreens.PlotBuyUI:
-                _plotBuyUI.gameObject.SetActive(true);
-                _plotBuyUI.Plot = plot as PlotConstruction;
-                break;
+            if (screen.GetType() == screenType)
+            {
+                screen.SetPlot(plot);
+                screen.Activate();
+                return;
+            }
         }
     }
 
-    public void Deactive(StopPhaseScreens screen)
+    public void Deactive(PhaseScreens screenType)
     {
-        switch (screen)
+        foreach (var screen in listUIScreen)
         {
-            case StopPhaseScreens.PlotBuyUI:
-                _plotBuyUI.gameObject.SetActive(false);
-                break;
+            if (screen.GetType() == screenType)
+            {
+                screen.Deactivate();
+                return;
+            }
         }
     }
     #endregion

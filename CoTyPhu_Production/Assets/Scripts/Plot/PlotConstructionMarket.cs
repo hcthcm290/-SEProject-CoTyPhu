@@ -48,7 +48,7 @@ public class PlotConstructionMarket : PlotConstruction
 			if(obj.MinePlayer)
             {
 				// mở bảng yêu cầu mua
-				StopPhaseUI.Ins.Activate(StopPhaseScreens.PlotBuyUI, this);
+				StopPhaseUI.Ins.Activate(PhaseScreens.PlotBuyUI, this);
 			}
         }
 		return null;

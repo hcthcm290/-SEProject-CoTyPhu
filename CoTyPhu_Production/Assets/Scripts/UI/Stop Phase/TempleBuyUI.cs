@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class PlotBuyUI : MonoBehaviour, UIScreen
+public class TempleBuyUI : MonoBehaviour, UIScreen
 {
     #region UI Properties
 
@@ -18,8 +18,8 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
     #endregion
 
     #region Properties
-    PlotConstruction _plot;
-    public PlotConstruction Plot
+    PlotConstructionTemple _plot;
+    public PlotConstructionTemple Plot
     {
         get
         {
@@ -44,7 +44,7 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
     }
 
     private void Update()
-    {   
+    {
         _txtName.text = Plot?.Name;
         _txtDescription.text = Plot?.Description;
         _txtPrice.text = "$" + Plot?.PurchasePrice.ToString();
@@ -91,14 +91,14 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
 
     PhaseScreens UIScreen.GetType()
     {
-        return PhaseScreens.PlotBuyUI;
+        return PhaseScreens.TempleBuyUI;
     }
 
     public void SetPlot(Plot plot)
     {
-        if(plot is PlotConstructionMarket)
+        if(plot is PlotConstructionTemple)
         {
-            Plot = plot as PlotConstructionMarket;
+            Plot = plot as PlotConstructionTemple;
         }
         else
         {

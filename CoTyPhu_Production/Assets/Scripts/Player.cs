@@ -163,7 +163,7 @@ public class Player : MonoBehaviour, IDiceListener
                     {
                         UIActions.AddOnActionComplete(() =>
                         {
-                            TurnDirector.Ins.EndOfPhase();
+                            OnEndOfMove();
                         });
                     }
                 }
@@ -175,10 +175,56 @@ public class Player : MonoBehaviour, IDiceListener
                     {
                         var plot = Plot.plotDictionary[Location_PlotID];
 
-                        if (plot is PlotConstruction)
+                        if (plot is PlotConstructionMarket)
                         {
-                            var csc = StopPhaseUI.Ins;
-                            StopPhaseUI.Ins.Activate(StopPhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
+                            PlotConstructionMarket plot_mk = plot as PlotConstructionMarket;
+
+                            if(plot_mk.Owner == null)
+                            {
+                                StopPhaseUI.Ins.Activate(PhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
+                            }
+                            else if(plot_mk.Owner.Id == _id)
+                            {
+                                // TODO
+                                // Receive 1 mana
+
+                                // Activate Market Owner UI
+                            }
+                            else if(plot_mk.Owner.Id != _id)
+                            {
+                                // TODO
+                                // Receive 2 mana
+
+                                // Pay the rent
+
+                                // Active Market Rebuy UI
+                            }
+                        }
+                        else if(plot is PlotConstructionTemple)
+                        {
+                            PlotConstructionTemple plot_tmp = plot as PlotConstructionTemple;
+
+                            if (plot_tmp.Owner == null)
+                            {
+                                // TODO
+                                // Receive 1 mana
+
+                                // Activate Temple Buy UI
+                            }
+                            else if (plot_tmp.Owner.Id == _id)
+                            {
+                                // TODO
+                                // Receive 2 mana
+                            }
+                            else if (plot_tmp.Owner.Id != _id)
+                            {
+                                // TODO
+                                // Receive 1 mana
+
+                                // Pay the temple
+
+                                // Active Market Rebuy UI
+                            }
                         }
                         else // temporary constantly switch
                         {
@@ -245,6 +291,11 @@ public class Player : MonoBehaviour, IDiceListener
             case PhaseState.end:
                 break;
         }
+    }
+
+    public void OnEndOfMove()
+    {
+        TurnDirector.Ins.EndOfPhase();
     }
 
     public void UpdatePhaseMain()

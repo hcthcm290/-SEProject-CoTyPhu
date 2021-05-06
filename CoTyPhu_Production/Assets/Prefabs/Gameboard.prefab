@@ -548,7 +548,7 @@ MonoBehaviour:
   _id: 25
   _name: 
   _description: 
-  _price: 0
+  _price: 150
   _owner: {fileID: 0}
 --- !u!1 &7294645261936508489
 GameObject:
@@ -647,7 +647,7 @@ MonoBehaviour:
   _id: 10
   _name: 
   _description: 
-  _price: 0
+  _price: 70
   _owner: {fileID: 0}
 --- !u!1 &7294645261966338732
 GameObject:
@@ -843,7 +843,7 @@ MonoBehaviour:
   _id: 9
   _name: 
   _description: 
-  _price: 0
+  _price: 65
   _owner: {fileID: 0}
 --- !u!1 &7294645262007756734
 GameObject:
@@ -940,9 +940,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 1
-  _name: 
+  _name: Town of Exile
   _description: 
-  _price: 0
+  _price: 30
   _owner: {fileID: 0}
 --- !u!1 &7294645262049138573
 GameObject:
@@ -1041,7 +1041,7 @@ MonoBehaviour:
   _id: 19
   _name: 
   _description: 
-  _price: 0
+  _price: 200
   _owner: {fileID: 0}
 --- !u!1 &7294645262123260253
 GameObject:
@@ -1239,7 +1239,7 @@ MonoBehaviour:
   _id: 17
   _name: 
   _description: 
-  _price: 0
+  _price: 110
   _owner: {fileID: 0}
 --- !u!1 &7294645262197682967
 GameObject:
@@ -1338,7 +1338,7 @@ MonoBehaviour:
   _id: 6
   _name: 
   _description: 
-  _price: 0
+  _price: 45
   _owner: {fileID: 0}
 --- !u!1 &7294645262322233394
 GameObject:
@@ -1631,7 +1631,7 @@ MonoBehaviour:
   _id: 4
   _name: 
   _description: 
-  _price: 0
+  _price: 200
   _owner: {fileID: 0}
 --- !u!1 &7294645262475079254
 GameObject:
@@ -1827,7 +1827,7 @@ MonoBehaviour:
   _id: 3
   _name: 
   _description: 
-  _price: 0
+  _price: 35
   _owner: {fileID: 0}
 --- !u!1 &7294645262529997368
 GameObject:
@@ -1926,7 +1926,7 @@ MonoBehaviour:
   _id: 15
   _name: 
   _description: 
-  _price: 0
+  _price: 95
   _owner: {fileID: 0}
 --- !u!1 &7294645262704265106
 GameObject:
@@ -2025,7 +2025,7 @@ MonoBehaviour:
   _id: 14
   _name: 
   _description: 
-  _price: 0
+  _price: 90
   _owner: {fileID: 0}
 --- !u!1 &7294645262710843773
 GameObject:
@@ -2124,7 +2124,7 @@ MonoBehaviour:
   _id: 26
   _name: 
   _description: 
-  _price: 0
+  _price: 155
   _owner: {fileID: 0}
 --- !u!1 &7294645262859124932
 GameObject:
@@ -2320,7 +2320,7 @@ MonoBehaviour:
   _id: 23
   _name: 
   _description: 
-  _price: 0
+  _price: 140
   _owner: {fileID: 0}
 --- !u!1 &7294645262984949670
 GameObject:
@@ -2419,7 +2419,7 @@ MonoBehaviour:
   _id: 20
   _name: 
   _description: 
-  _price: 0
+  _price: 130
   _owner: {fileID: 0}
 --- !u!1 &7294645263132677919
 GameObject:
@@ -2518,7 +2518,7 @@ MonoBehaviour:
   _id: 31
   _name: 
   _description: 
-  _price: 0
+  _price: 180
   _owner: {fileID: 0}
 --- !u!1 &7294645263221246225
 GameObject:
@@ -2617,7 +2617,7 @@ MonoBehaviour:
   _id: 12
   _name: 
   _description: 
-  _price: 0
+  _price: 80
   _owner: {fileID: 0}
 --- !u!1 &7294645263230977811
 GameObject:
@@ -2716,7 +2716,7 @@ MonoBehaviour:
   _id: 18
   _name: 
   _description: 
-  _price: 0
+  _price: 115
   _owner: {fileID: 0}
 --- !u!1 &7294645263239748682
 GameObject:
@@ -2815,7 +2815,7 @@ MonoBehaviour:
   _id: 22
   _name: 
   _description: 
-  _price: 0
+  _price: 135
   _owner: {fileID: 0}
 --- !u!1 &7294645263261427322
 GameObject:
@@ -3011,7 +3011,7 @@ MonoBehaviour:
   _id: 29
   _name: 
   _description: 
-  _price: 0
+  _price: 170
   _owner: {fileID: 0}
 --- !u!1 &7294645263324544609
 GameObject:
@@ -3401,5 +3401,5 @@ MonoBehaviour:
   _id: 7
   _name: 
   _description: 
-  _price: 0
+  _price: 50
   _owner: {fileID: 0}

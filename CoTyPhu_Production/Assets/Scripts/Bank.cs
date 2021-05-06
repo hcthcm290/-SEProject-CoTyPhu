@@ -20,6 +20,14 @@ public class Bank: MonoBehaviour
 	//  Properties ------------------------------------
 	public int MoneyBank { get => _moneyBank; }
 	public Dictionary<Player,int> AllMoneyPlayers { get => _moneyPlayer; }
+	
+	[System.Serializable]
+	public class PairPlayer
+    {
+		public Player player;
+		public int money;
+    }
+	public List<PairPlayer> _moneyPlayers = new List<PairPlayer>();
 
 	//  Fields ----------------------------------------
 	private int _moneyBank;
@@ -59,7 +67,13 @@ public class Bank: MonoBehaviour
 
 	public void AddPlayer(Player player)
     {
-		_moneyPlayer.Add(player, 130);
+		if(_moneyPlayer.ContainsKey(player))
+        {
+			Debug.LogError("Player added duplicated in Bank.AddPlayer()");
+        }
+
+		_moneyPlayer.Add(player, 500);
+		_moneyPlayers.Add(new PairPlayer() { player = player, money = 500 });
 	}
 
 	public void RemovePlayer(Player player)
@@ -77,6 +91,7 @@ public class Bank: MonoBehaviour
 		if (!_moneyPlayer.ContainsKey(player)) return;
 
 		_moneyPlayer[player] -= amount;
+		_moneyPlayers.Find(x => x.player == player).money -= amount;
 		if (_moneyPlayer[player] <= 0)
         {
 			//TODO: Bankrupt the player
