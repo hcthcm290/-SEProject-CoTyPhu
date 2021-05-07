@@ -15,6 +15,7 @@ public class PlotConstructionMarket : PlotConstruction
 		set { _level = value; }
 	}
 	public float[] UpgradeOffset { get => _upgradeOffset; }
+	private Transform _buildPoint;
 
 
 	//  Fields ----------------------------------------
@@ -52,6 +53,19 @@ public class PlotConstructionMarket : PlotConstruction
 			}
         }
 		return null;
+    }
+
+    // Unity Methods ----------------------------------
+
+    public new void Start()
+    {
+		base.Start();
+		_buildPoint = transform.Find("Build Point");
+
+		if(_buildPoint == null)
+        {
+			Debug.LogError("Plot " + Id.ToString() + "does not have build point as child object");
+        }
     }
 
     //  Event Handlers --------------------------------

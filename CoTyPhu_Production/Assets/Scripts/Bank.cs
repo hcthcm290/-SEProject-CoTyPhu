@@ -72,8 +72,8 @@ public class Bank: MonoBehaviour
 			Debug.LogError("Player added duplicated in Bank.AddPlayer()");
         }
 
-		_moneyPlayer.Add(player, 500);
-		_moneyPlayers.Add(new PairPlayer() { player = player, money = 500 });
+		_moneyPlayer.Add(player, 999999);
+		_moneyPlayers.Add(new PairPlayer() { player = player, money = 999999 });
 	}
 
 	public void RemovePlayer(Player player)

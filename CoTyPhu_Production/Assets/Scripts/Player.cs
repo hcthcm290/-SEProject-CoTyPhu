@@ -188,7 +188,8 @@ public class Player : MonoBehaviour, IDiceListener
                                 // TODO
                                 // Receive 1 mana
 
-                                // Activate Market Owner UI
+                                // Activate Market Upgrade UI
+                                StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, Plot.plotDictionary[Location_PlotID]);
                             }
                             else if(plot_mk.Owner.Id != _id)
                             {

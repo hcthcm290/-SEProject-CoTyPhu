@@ -6,6 +6,7 @@ public enum PhaseScreens
 {
     PlotBuyUI,
     TempleBuyUI,
+    MarketUpgradeUI,
 }
 
 public class StopPhaseUI : MonoBehaviour

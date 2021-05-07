@@ -74,7 +74,7 @@ public class Plot : MonoBehaviour
 
     }
 
-    private void Start()
+    public void Start()
     {
         if (!plotDictionary.ContainsKey(_id))
             plotDictionary[_id] = this;
