@@ -72,7 +72,9 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
 
     private void BuySuccessCallback(Player player, PlotConstruction plot)
     {
-        if (player.MinePlayer)
+        if (gameObject.activeSelf == false) return;
+
+        if (player.MinePlayer && plot == Plot)
         {
             Debug.Log("Buy success");
             TurnDirector.Ins.EndOfPhase();
@@ -83,6 +85,8 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
 
     private void BuyFailCallback(string reason)
     {
+        if (gameObject.activeSelf == false) return;
+
         // Show on UI the reason they cannot buy
         Debug.Log(reason);
         _canClick = true;

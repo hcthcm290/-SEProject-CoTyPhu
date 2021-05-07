@@ -1401,6 +1401,10 @@ PrefabInstance:
       propertyPath: _plotManager
       value: 
       objectReference: {fileID: 930710967}
+    - target: {fileID: 3107371913673435658, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4880106657954017975, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1489,6 +1493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stop Phase UI
       objectReference: {fileID: 0}
+    - target: {fileID: 4880106657954017976, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5478706826404635365, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
       propertyPath: _player
       value: 
@@ -1497,6 +1505,30 @@ PrefabInstance:
       propertyPath: _plotManager
       value: 
       objectReference: {fileID: 930710967}
+    - target: {fileID: 5547826799798031412, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1612858487}
+    - target: {fileID: 5547826799798031412, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Buy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547826799798031412, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TempleBuyUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391098207393950740, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1612858487}
+    - target: {fileID: 7391098207393950740, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Skip
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391098207393950740, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TempleBuyUI, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
 --- !u!1 &1065896120
@@ -1883,6 +1915,17 @@ Transform:
   m_Father: {fileID: 920204561}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1612858487 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5478706826404635365, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+  m_PrefabInstance: {fileID: 1021235923}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2651a169157fc8498903f37988ebd58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2092571085 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 853595173422283609, guid: 198194ead6b781142a2ab8b1b1147d2b, type: 3}

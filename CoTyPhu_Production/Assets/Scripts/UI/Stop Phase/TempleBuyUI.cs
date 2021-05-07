@@ -67,22 +67,24 @@ public class TempleBuyUI : MonoBehaviour, UIScreen
     public void Skip()
     {
         TurnDirector.Ins.EndOfPhase();
-        StopPhaseUI.Ins.Deactive(PhaseScreens.PlotBuyUI);
+        StopPhaseUI.Ins.Deactive(PhaseScreens.TempleBuyUI);
     }
 
     private void BuySuccessCallback(Player player, PlotConstruction plot)
     {
-        if (player.MinePlayer)
+        if (gameObject.activeSelf == false) return;
+        if (player.MinePlayer && plot == Plot)
         {
             Debug.Log("Buy success");
             TurnDirector.Ins.EndOfPhase();
-            StopPhaseUI.Ins.Deactive(PhaseScreens.PlotBuyUI);
+            StopPhaseUI.Ins.Deactive(PhaseScreens.TempleBuyUI);
             _canClick = true;
         }
     }
 
     private void BuyFailCallback(string reason)
     {
+        if (gameObject.activeSelf == false) return;
         // Show on UI the reason they cannot buy
         Debug.Log(reason);
         _canClick = true;

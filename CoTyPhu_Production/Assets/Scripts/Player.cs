@@ -210,6 +210,7 @@ public class Player : MonoBehaviour, IDiceListener
                                 // Receive 1 mana
 
                                 // Activate Temple Buy UI
+                                StopPhaseUI.Ins.Activate(PhaseScreens.TempleBuyUI, Plot.plotDictionary[Location_PlotID]);
                             }
                             else if (plot_tmp.Owner.Id == _id)
                             {

@@ -72,6 +72,10 @@ public class PlotManager : MonoBehaviourPun
         {
             photonView.RPC("RequestBuyServer", RpcTarget.MasterClient, player.Id, (int)plot.Id, PhotonNetwork.LocalPlayer.UserId);
         }
+        else
+        {
+            OnBuyFailCallback?.Invoke("Not enough money");
+        }
     }
 
     #endregion

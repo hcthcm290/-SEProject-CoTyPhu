@@ -111,6 +111,8 @@ public class MoveStraightEvenly : MonoBehaviour
         OnTargetReached = new List<IAction>();
 
         foreach (IAction item in temp)
+        {
             item.PerformAction();
+        }
     }
 }
