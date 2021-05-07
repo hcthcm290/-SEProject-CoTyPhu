@@ -12,7 +12,9 @@ public class StopPhaseUI : MonoBehaviour
 {
     #region UI Properties
     [SerializeField]
+#if UNITY_EDITOR
     [RequireInterface(typeof(UIScreen))]
+#endif
     List<Component> _uiScreen;
     List<UIScreen> listUIScreen => _uiScreen.ConvertAll<UIScreen>(x => (x as UIScreen));
     #endregion

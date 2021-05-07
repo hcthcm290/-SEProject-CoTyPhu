@@ -22,6 +22,15 @@ public class PlotManager : MonoBehaviourPun
 
     #endregion
 
+    #region Unity methods
+
+    private void Update()
+    {
+        
+    }
+
+    #endregion
+
     #region Method
     [PunRPC]
     private void RequestBuyServer(int playerId, int plotId, string clientID)

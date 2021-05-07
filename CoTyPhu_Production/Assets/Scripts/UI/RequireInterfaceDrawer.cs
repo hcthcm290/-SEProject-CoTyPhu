@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(RequireInterfaceAttribute))]
 class RequireInterfaceDrawer: PropertyDrawer
 {
@@ -45,3 +46,4 @@ class RequireInterfaceDrawer: PropertyDrawer
         }
     }
 }
+#endif
