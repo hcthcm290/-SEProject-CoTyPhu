@@ -190,7 +190,12 @@ public class Player : MonoBehaviour, IDiceListener
                     if (minePlayer)
                     {
                         var plot = Plot.plotDictionary[Location_PlotID];
-
+                        /* Testing event
+                        if (!(plot is PlotPrison))
+                            Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
+                        else
+                            TurnDirector.Ins.EndOfPhase();
+                        /*/
                         if (plot is PlotConstruction)
                         {
                             var csc = StopPhaseUI.Ins;
@@ -204,6 +209,7 @@ public class Player : MonoBehaviour, IDiceListener
                         {
                             TurnDirector.Ins.EndOfPhase();
                         }
+                        //*/
                     }
                 }
                 break;

@@ -6,18 +6,29 @@ using UnityEngine;
 
 public class EventListManager : MonoBehaviourPunCallbacks
 {
-    public Queue<PlayerBasedAction> EventActions;
+    public Queue<PlayerBasedAction> EventActions = new Queue<PlayerBasedAction>();
+    public Dictionary<PlayerBasedAction, Sprite> EventSprite = new Dictionary<PlayerBasedAction, Sprite>();
+    public List<Sprite> Sprite_In;
+
+    public EventListManager()
+    {
+        Locator.MarkInstance(this);
+    }
 
     public void Awake()
     {
-        Locator.MarkInstance(this);
+        List<PlayerBasedAction> Events = new List<PlayerBasedAction>();
 
-        EventActions = new Queue<PlayerBasedAction>();
+        Events.Add(new A1Event());
+        //Events.Enqueue(new A2Event());
+        //Events.Enqueue(new A3Event());
+        //Events.Enqueue(new B1Event());
 
-        EventActions.Enqueue(new A1Event());
-        //EventActions.Enqueue(new A2Event());
-        //EventActions.Enqueue(new A3Event());
-        //EventActions.Enqueue(new B1Event());
+        for (int i = 0; i < Events.Count; i++)
+        {
+            EventActions.Enqueue(Events[i]);
+            EventSprite[Events[i]] = Sprite_In[i];
+        }
     }
 
     public static EventListManager GetInstance()
@@ -42,6 +53,7 @@ public class EventListManager : MonoBehaviourPunCallbacks
         PlayerBasedAction result = EventActions.Dequeue();
         EventActions.Enqueue(result);
         result.target = target;
+
         return result;
     }
 }
