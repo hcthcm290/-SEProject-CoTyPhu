@@ -24,7 +24,13 @@ public class StopPhaseUI : MonoBehaviour
     private static StopPhaseUI _ins;
     public static StopPhaseUI Ins
     {
-        get { return _ins; }
+        get 
+        {
+            if (_ins == null) Debug.LogWarning("Something trying to access Stop Phase UI when it's not been Init. " +
+                 "Make sure you have 1 instance of this script attach to game object and it's enabled " +
+                 "Make sure you check null before doing anything with the return instance");
+            return _ins; 
+        }
     }
     #endregion
 

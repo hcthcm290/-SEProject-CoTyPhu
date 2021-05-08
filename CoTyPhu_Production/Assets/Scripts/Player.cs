@@ -199,6 +199,8 @@ public class Player : MonoBehaviour, IDiceListener
                                 // Pay the rent
 
                                 // Active Market Rebuy UI
+
+                                TurnDirector.Ins.EndOfPhase();
                             }
                         }
                         else if(plot is PlotConstructionTemple)
@@ -217,6 +219,8 @@ public class Player : MonoBehaviour, IDiceListener
                             {
                                 // TODO
                                 // Receive 2 mana
+
+                                TurnDirector.Ins.EndOfPhase();
                             }
                             else if (plot_tmp.Owner.Id != _id)
                             {
@@ -226,6 +230,8 @@ public class Player : MonoBehaviour, IDiceListener
                                 // Pay the temple
 
                                 // Active Market Rebuy UI
+
+                                TurnDirector.Ins.EndOfPhase();
                             }
                         }
                         else // temporary constantly switch
