@@ -190,7 +190,7 @@ public class Player : MonoBehaviour, IDiceListener
                     if (minePlayer)
                     {
                         var plot = Plot.plotDictionary[Location_PlotID];
-                        /* Testing event
+                        //* Testing event
                         if (!(plot is PlotPrison))
                             Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
                         else

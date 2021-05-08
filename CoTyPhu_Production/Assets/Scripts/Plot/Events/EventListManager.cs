@@ -20,9 +20,10 @@ public class EventListManager : MonoBehaviourPunCallbacks
         List<PlayerBasedAction> Events = new List<PlayerBasedAction>();
 
         Events.Add(new A1Event());
-        //Events.Enqueue(new A2Event());
-        //Events.Enqueue(new A3Event());
-        //Events.Enqueue(new B1Event());
+        Events.Add(new A2Event());
+        //Events.Add(new A3Event());
+        //Events.Add(new B1Event());
+        //Events.Add(new B2Event());
 
         for (int i = 0; i < Events.Count; i++)
         {

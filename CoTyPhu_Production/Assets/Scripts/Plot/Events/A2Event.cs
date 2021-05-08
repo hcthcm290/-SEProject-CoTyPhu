@@ -27,5 +27,6 @@ class A2Event : PlayerBasedAction, ITransaction
     public override void PerformAction()
     {
         Bank.Ins.SendMoney(target, moneyAmount);
+        TurnDirector.Ins.EndOfPhase();
     }
 }

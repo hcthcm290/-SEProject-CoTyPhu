@@ -770,11 +770,6 @@ MonoBehaviour:
   lockZ: 0
   _target: {x: 0, y: 0, z: 0}
   speed: 10
---- !u!1 &647509708 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6233820423898900218, guid: 0f8e4969073798b4b8d1ec793559ca05, type: 3}
-  m_PrefabInstance: {fileID: 3138654907543719784}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &680422596
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,37 +2017,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6364607228407308763, guid: 80177d7d52bd71140850f47275c7ae59, type: 3}
-      propertyPath: EventDeck
-      value: 
-      objectReference: {fileID: 647509708}
-    - target: {fileID: 6364607228407308763, guid: 80177d7d52bd71140850f47275c7ae59, type: 3}
       propertyPath: Sprite_In.Array.size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 6364607228407308763, guid: 80177d7d52bd71140850f47275c7ae59, type: 3}
-      propertyPath: Sprite_In.Array.data[0]
-      value: 
-      objectReference: {fileID: 21300000, guid: d2380463c88a350408d78fdbf962484c, type: 3}
-    - target: {fileID: 6364607228407308763, guid: 80177d7d52bd71140850f47275c7ae59, type: 3}
-      propertyPath: Sprite_In.Array.data[1]
-      value: 
-      objectReference: {fileID: 21300000, guid: cfa3145d217fcaa4096bb2b40b8fb69c, type: 3}
-    - target: {fileID: 6364607228407308763, guid: 80177d7d52bd71140850f47275c7ae59, type: 3}
-      propertyPath: Sprite_In.Array.data[2]
-      value: 
-      objectReference: {fileID: 21300000, guid: cb5343cbf1e8a8b408e367b0b4675edb, type: 3}
     - target: {fileID: 6364607228407308763, guid: 80177d7d52bd71140850f47275c7ae59, type: 3}
       propertyPath: Sprite_In.Array.data[3]
       value: 
-      objectReference: {fileID: 21300000, guid: f1f53883ab6cc074e9cef389a22ffdbd, type: 3}
+      objectReference: {fileID: 21300000, guid: f9ef125379f77a34a835c0ad4609ada8, type: 3}
     - target: {fileID: 6364607228407308763, guid: 80177d7d52bd71140850f47275c7ae59, type: 3}
       propertyPath: Sprite_In.Array.data[4]
       value: 
-      objectReference: {fileID: 21300000, guid: f9ef125379f77a34a835c0ad4609ada8, type: 3}
+      objectReference: {fileID: 21300000, guid: f9bdccacd97445c47b44a300edc288f4, type: 3}
     - target: {fileID: 6364607228407308763, guid: 80177d7d52bd71140850f47275c7ae59, type: 3}
       propertyPath: Sprite_In.Array.data[5]
       value: 
-      objectReference: {fileID: 21300000, guid: f9bdccacd97445c47b44a300edc288f4, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 6364607228407308765, guid: 80177d7d52bd71140850f47275c7ae59, type: 3}
       propertyPath: m_Name
       value: EventTileManager

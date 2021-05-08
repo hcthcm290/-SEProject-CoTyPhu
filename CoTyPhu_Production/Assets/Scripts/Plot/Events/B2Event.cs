@@ -29,5 +29,7 @@ public class B2Event : PlayerBasedAction, ITransaction
     {
         foreach (Player player in (Source as List<Player>))
             Bank.Ins.TransactBetweenPlayers(player, target, moneyAmount);
+
+        TurnDirector.Ins.EndOfPhase();
     }
 }
