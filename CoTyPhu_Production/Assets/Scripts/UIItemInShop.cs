@@ -24,7 +24,7 @@ public class UIItemInShop : MonoBehaviour
 
     public void Buy()
     {
-        Debug.Log("Da mua");
+        Instantiate(value, Shop.Ins.playerUsingShop.transform);
         Shop.Ins.RemoveItemFromShop(value);
         Destroy(gameObject);
     }
