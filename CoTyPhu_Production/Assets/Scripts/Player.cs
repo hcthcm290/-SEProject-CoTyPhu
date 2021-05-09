@@ -191,15 +191,16 @@ public class Player : MonoBehaviour, IDiceListener
                     {
                         var plot = Plot.plotDictionary[Location_PlotID];
 
+
                         if (plot is PlotConstructionMarket)
                         {
                             PlotConstructionMarket plot_mk = plot as PlotConstructionMarket;
 
-                            if(plot_mk.Owner == null)
+                            if (plot_mk.Owner == null)
                             {
                                 StopPhaseUI.Ins.Activate(PhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
                             }
-                            else if(plot_mk.Owner.Id == _id)
+                            else if (plot_mk.Owner.Id == _id)
                             {
                                 // TODO
                                 // Receive 1 mana
@@ -207,7 +208,7 @@ public class Player : MonoBehaviour, IDiceListener
                                 // Activate Market Upgrade UI
                                 StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, Plot.plotDictionary[Location_PlotID]);
                             }
-                            else if(plot_mk.Owner.Id != _id)
+                            else if (plot_mk.Owner.Id != _id)
                             {
                                 // TODO
                                 // Receive 2 mana
@@ -219,7 +220,7 @@ public class Player : MonoBehaviour, IDiceListener
                                 TurnDirector.Ins.EndOfPhase();
                             }
                         }
-                        else if(plot is PlotConstructionTemple)
+                        else if (plot is PlotConstructionTemple)
                         {
                             PlotConstructionTemple plot_tmp = plot as PlotConstructionTemple;
 
@@ -249,26 +250,26 @@ public class Player : MonoBehaviour, IDiceListener
 
                                 TurnDirector.Ins.EndOfPhase();
                             }
+                        }
+                        else if(plot is PlotEvent)
+                        {
+                            // Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
+
+                            // Temporary skip this phase
+                            TurnDirector.Ins.EndOfPhase();
+                        }
+                        else
+                        {
+                            TurnDirector.Ins.EndOfPhase();
+                        }
+
                         //* Testing event
+                        /*
                         if (!(plot is PlotPrison))
                             Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
                         else
                             TurnDirector.Ins.EndOfPhase();
-                        /*/
-                        if (plot is PlotConstruction)
-                        {
-                            var csc = StopPhaseUI.Ins;
-                            StopPhaseUI.Ins.Activate(StopPhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
-                        }
-                        else if (plot is PlotEvent)
-                        {
-                            plot.ActiveOnEnter(this);
-                        }
-                        else // temporary constantly switch
-                        {
-                            TurnDirector.Ins.EndOfPhase();
-                        }
-                        //*/
+                        */
                     }
                 }
                 break;
@@ -393,8 +394,8 @@ public class Player : MonoBehaviour, IDiceListener
                 UIActions.Dequeue().PerformAction();
         }//*/
 
-        // only the one who roll & that is control by me can announce end of phase
-        if (idPlayer == Id && minePlayer)
+                        // only the one who roll & that is control by me can announce end of phase
+                        if (idPlayer == Id && minePlayer)
         {
             Debug.Log("end of phase");
             TurnDirector.Ins.EndOfPhase();
