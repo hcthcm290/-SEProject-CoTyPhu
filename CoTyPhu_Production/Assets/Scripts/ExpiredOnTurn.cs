@@ -36,7 +36,7 @@ public class ExpiredOnTurn :MonoBehaviour
 	//  Methods ---------------------------------------
 	public bool StartListen()
     {
-		//+= RemoveExpiredStatus
+		//TurnDirector.Ins.OnTurnBegin = += RemoveExpiredStatusCountDown();
 		return true;
     }
 

@@ -74,14 +74,14 @@ public class Plot : MonoBehaviour
 
     }
 
-    public void Start()
+    public virtual void Start()
     {
         if (!plotDictionary.ContainsKey(_id))
             plotDictionary[_id] = this;
         else
             Debug.LogError("Duplicate plot id: " + this + ",\n" + plotDictionary[_id]);
     }
-    private void Update()
+    public virtual void Update()
     {
         
     }

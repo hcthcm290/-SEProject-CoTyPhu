@@ -26,7 +26,7 @@ public class MoveStraightEvenly : MonoBehaviour
     }
     [SerializeField]
     private Vector3 _target;
-    private bool ReachedTarget{ get=>Target == transform.position;
+    private bool ReachedTarget{ get=>_reachedTarget;
         set
         {
             bool temp = _reachedTarget;

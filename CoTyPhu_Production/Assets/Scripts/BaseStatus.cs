@@ -40,10 +40,10 @@ public abstract class BaseStatus: MonoBehaviour
 	}
 
 	//  Fields ----------------------------------------
-	protected int _id;
-	protected string _name;
-	protected string _description;
-	protected bool _isConditional;
+	[SerializeField] protected int _id;
+	[SerializeField] protected string _name;
+	[SerializeField] protected string _description;
+	[SerializeField] protected bool _isConditional;
 
 	//  Initialization --------------------------------
 	public BaseStatus()
