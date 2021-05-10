@@ -17,13 +17,17 @@ public class PlotConstructionMarket : PlotConstruction
 	public float[] UpgradeOffset { get => _upgradeOffset; }
 
 
+	private Transform _buildPoint;
+	GameObject currentHouse;
+
 	//  Fields ----------------------------------------
-	protected int _level;
-	protected float[] _upgradeOffset = { 0.15f, };
+	[SerializeField] protected int _level;
+	protected float[] _upgradeOffset;
 
 
 	//  Initialization --------------------------------
-	public PlotConstructionMarket(PLOT id, string name, string description, int entryFee, int price) : base(id, name, description, entryFee, price) { }
+	public PlotConstructionMarket(PLOT id, string name, string description, int entryFee, int price) 
+		: base(id, name, description, entryFee, price){ }
 
 
 	//  Methods ---------------------------------------
@@ -48,11 +52,47 @@ public class PlotConstructionMarket : PlotConstruction
 			if(obj.MinePlayer)
             {
 				// mở bảng yêu cầu mua
-				StopPhaseUI.Ins.Activate(StopPhaseScreens.PlotBuyUI, this);
+				StopPhaseUI.Ins.Activate(PhaseScreens.PlotBuyUI, this);
 			}
         }
 		return null;
     }
+
+	public void Upgrade(int level)
+    {
+		var plotHousePool = PlotHousesPool.Ins;
+
+		if(plotHousePool != null)
+        {
+			var prefab = plotHousePool.GetPrefab(level);
+
+			if(prefab != null)
+            {
+				GameObject house = Instantiate(prefab, transform);
+				house.transform.position = _buildPoint.transform.position;
+				house.transform.rotation = _buildPoint.transform.rotation;
+
+				Destroy(currentHouse);
+				currentHouse = house;
+
+            }
+        }
+    }
+
+    // Unity Methods ----------------------------------
+
+    public new void Start()
+    {
+		base.Start();
+		_buildPoint = transform.Find("Build Point");
+
+		if(_buildPoint == null)
+        {
+			Debug.LogError("Plot " + Id.ToString() + "does not have build point as child object");
+        }
+
+		_upgradeOffset = new float[] { 0.15f, 0.15f, 0.15f, 0.15f, 0.15f, };
+	}
 
     //  Event Handlers --------------------------------
 }

@@ -43,6 +43,5 @@ public class PlotConstruction: Plot
 		return null;
     }
 
-
     //  Event Handlers --------------------------------
 }

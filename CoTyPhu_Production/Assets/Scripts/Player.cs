@@ -190,26 +190,86 @@ public class Player : MonoBehaviour, IDiceListener
                     if (minePlayer)
                     {
                         var plot = Plot.plotDictionary[Location_PlotID];
+
+
+                        if (plot is PlotConstructionMarket)
+                        {
+                            PlotConstructionMarket plot_mk = plot as PlotConstructionMarket;
+
+                            if (plot_mk.Owner == null)
+                            {
+                                StopPhaseUI.Ins.Activate(PhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
+                            }
+                            else if (plot_mk.Owner.Id == _id)
+                            {
+                                // TODO
+                                // Receive 1 mana
+
+                                // Activate Market Upgrade UI
+                                StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, Plot.plotDictionary[Location_PlotID]);
+                            }
+                            else if (plot_mk.Owner.Id != _id)
+                            {
+                                // TODO
+                                // Receive 2 mana
+
+                                // Pay the rent
+
+                                // Active Market Rebuy UI
+
+                                TurnDirector.Ins.EndOfPhase();
+                            }
+                        }
+                        else if (plot is PlotConstructionTemple)
+                        {
+                            PlotConstructionTemple plot_tmp = plot as PlotConstructionTemple;
+
+                            if (plot_tmp.Owner == null)
+                            {
+                                // TODO
+                                // Receive 1 mana
+
+                                // Activate Temple Buy UI
+                                StopPhaseUI.Ins.Activate(PhaseScreens.TempleBuyUI, Plot.plotDictionary[Location_PlotID]);
+                            }
+                            else if (plot_tmp.Owner.Id == _id)
+                            {
+                                // TODO
+                                // Receive 2 mana
+
+                                TurnDirector.Ins.EndOfPhase();
+                            }
+                            else if (plot_tmp.Owner.Id != _id)
+                            {
+                                // TODO
+                                // Receive 1 mana
+
+                                // Pay the temple
+
+                                // Active Market Rebuy UI
+
+                                TurnDirector.Ins.EndOfPhase();
+                            }
+                        }
+                        else if(plot is PlotEvent)
+                        {
+                            // Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
+
+                            // Temporary skip this phase
+                            TurnDirector.Ins.EndOfPhase();
+                        }
+                        else
+                        {
+                            TurnDirector.Ins.EndOfPhase();
+                        }
+
                         //* Testing event
+                        /*
                         if (!(plot is PlotPrison))
                             Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
-                        else if(MinePlayer)
+                        else
                             TurnDirector.Ins.EndOfPhase();
-                        /*/
-                        if (plot is PlotConstruction)
-                        {
-                            var csc = StopPhaseUI.Ins;
-                            StopPhaseUI.Ins.Activate(StopPhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
-                        }
-                        else if (plot is PlotEvent)
-                        {
-                            plot.ActiveOnEnter(this);
-                        }
-                        else // temporary constantly switch
-                        {
-                            TurnDirector.Ins.EndOfPhase();
-                        }
-                        //*/
+                        */
                     }
                 }
                 break;
@@ -261,6 +321,11 @@ public class Player : MonoBehaviour, IDiceListener
                 }
                 break;
         }
+    }
+
+    public void OnEndOfMove()
+    {
+        TurnDirector.Ins.EndOfPhase();
     }
 
     public void UpdatePhaseStop()
@@ -329,8 +394,8 @@ public class Player : MonoBehaviour, IDiceListener
                 UIActions.Dequeue().PerformAction();
         }//*/
 
-        // only the one who roll & that is control by me can announce end of phase
-        if (idPlayer == Id && minePlayer)
+                        // only the one who roll & that is control by me can announce end of phase
+                        if (idPlayer == Id && minePlayer)
         {
             Debug.Log("end of phase");
             TurnDirector.Ins.EndOfPhase();

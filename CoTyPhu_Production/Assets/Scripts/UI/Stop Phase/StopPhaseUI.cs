@@ -2,44 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StopPhaseScreens
+public enum PhaseScreens
 {
     PlotBuyUI,
+    TempleBuyUI,
+    MarketUpgradeUI,
 }
 
 public class StopPhaseUI : MonoBehaviour
 {
     #region UI Properties
-    [SerializeField] PlotBuyUI _plotBuyUI;
+    [SerializeField]
+#if UNITY_EDITOR
+    [RequireInterface(typeof(UIScreen))]
+#endif
+    List<Component> _uiScreen;
+    List<UIScreen> listUIScreen => _uiScreen.ConvertAll<UIScreen>(x => (x as UIScreen));
     #endregion
 
     #region Properties
     private static StopPhaseUI _ins;
     public static StopPhaseUI Ins
     {
-        get { return _ins; }
+        get 
+        {
+            if (_ins == null) Debug.LogWarning("Something trying to access Stop Phase UI when it's not been Init. " +
+                 "Make sure you have 1 instance of this script attach to game object and it's enabled " +
+                 "Make sure you check null before doing anything with the return instance");
+            return _ins; 
+        }
     }
     #endregion
 
     #region Methods
-    public void Activate(StopPhaseScreens screen, Plot plot)
+    public void Activate(PhaseScreens screenType, Plot plot)
     {
-        switch (screen)
+        foreach (var screen in listUIScreen)
         {
-            case StopPhaseScreens.PlotBuyUI:
-                _plotBuyUI.gameObject.SetActive(true);
-                _plotBuyUI.Plot = plot as PlotConstruction;
-                break;
+            if (screen.GetType() == screenType)
+            {
+                screen.SetPlot(plot);
+                screen.Activate();
+                return;
+            }
         }
     }
 
-    public void Deactive(StopPhaseScreens screen)
+    public void Deactive(PhaseScreens screenType)
     {
-        switch (screen)
+        foreach (var screen in listUIScreen)
         {
-            case StopPhaseScreens.PlotBuyUI:
-                _plotBuyUI.gameObject.SetActive(false);
-                break;
+            if (screen.GetType() == screenType)
+            {
+                screen.Deactivate();
+                return;
+            }
         }
     }
     #endregion
