@@ -6,7 +6,7 @@ using UnityEngine;
 /// Bandit
 /// You lose 1000$
 /// </summary>
-public class A3Event : PlayerBasedAction, ITransaction
+public class A3Event : EventAction, ITransaction
 {
     public int moneyAmount = 1000;
 
@@ -27,6 +27,7 @@ public class A3Event : PlayerBasedAction, ITransaction
     public override void PerformAction()
     {
         Bank.Ins.TakeMoney(target, moneyAmount);
-        TurnDirector.Ins.EndOfPhase();
+        if (target.MinePlayer)
+            TurnDirector.Ins.EndOfPhase();
     }
 }

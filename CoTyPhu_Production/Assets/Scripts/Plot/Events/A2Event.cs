@@ -6,7 +6,7 @@ using UnityEngine;
 /// Lottery
 /// You gain 1000$
 /// </summary>
-class A2Event : PlayerBasedAction, ITransaction
+class A2Event : EventAction, ITransaction
 {
     public int moneyAmount = 1000;
 
@@ -27,6 +27,7 @@ class A2Event : PlayerBasedAction, ITransaction
     public override void PerformAction()
     {
         Bank.Ins.SendMoney(target, moneyAmount);
-        TurnDirector.Ins.EndOfPhase();
+        if (target.MinePlayer)
+            TurnDirector.Ins.EndOfPhase();
     }
 }

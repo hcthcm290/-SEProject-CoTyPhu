@@ -193,7 +193,7 @@ public class Player : MonoBehaviour, IDiceListener
                         //* Testing event
                         if (!(plot is PlotPrison))
                             Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
-                        else
+                        else if(MinePlayer)
                             TurnDirector.Ins.EndOfPhase();
                         /*/
                         if (plot is PlotConstruction)

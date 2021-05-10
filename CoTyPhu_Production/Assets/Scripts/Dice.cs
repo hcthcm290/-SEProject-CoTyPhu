@@ -42,7 +42,7 @@ public class Dice: MonoBehaviourPunCallbacks
         options.PlayerTtl = 0;
         options.PublishUserId = true;
 
-        if (PhotonNetwork.JoinOrCreateRoom("Basa1", options, TypedLobby.Default) == false)
+        if (PhotonNetwork.JoinOrCreateRoom("Basab", options, TypedLobby.Default) == false)
         {
             Debug.LogError("Cannot create or join room");
         }

@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class EventListManager : MonoBehaviourPunCallbacks
 {
-    public Queue<PlayerBasedAction> EventActions = new Queue<PlayerBasedAction>();
-    public Dictionary<PlayerBasedAction, Sprite> EventSprite = new Dictionary<PlayerBasedAction, Sprite>();
+    public Queue<EventAction> EventActions = new Queue<EventAction>();
+    public Dictionary<EventAction, Sprite> EventSprite = new Dictionary<EventAction, Sprite>();
     public List<Sprite> Sprite_In;
 
     public EventListManager()
@@ -17,7 +17,7 @@ public class EventListManager : MonoBehaviourPunCallbacks
 
     public void Awake()
     {
-        List<PlayerBasedAction> Events = new List<PlayerBasedAction>();
+        List<EventAction> Events = new List<EventAction>();
 
         Events.Add(new A1Event());
         Events.Add(new A2Event());
@@ -40,7 +40,7 @@ public class EventListManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ScrambleList()
     {
-        EventActions = new Queue<PlayerBasedAction>(EventActions.OrderBy(item => UnityEngine.Random.Range(0, 500)).ToList());
+        EventActions = new Queue<EventAction>(EventActions.OrderBy(item => UnityEngine.Random.Range(0, 500)).ToList());
     }
 
     public void Start()
@@ -49,9 +49,9 @@ public class EventListManager : MonoBehaviourPunCallbacks
             photonView.RPC("ScrambleList", RpcTarget.AllBuffered);
     }
 
-    public PlayerBasedAction GetAction(Player target)
+    public EventAction GetAction(Player target)
     {
-        PlayerBasedAction result = EventActions.Dequeue();
+        EventAction result = EventActions.Dequeue();
         EventActions.Enqueue(result);
         result.target = target;
 

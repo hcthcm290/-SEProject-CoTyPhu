@@ -34,7 +34,7 @@ public class PlotEvent : Plot
     public override IAction ActionOnEnter(Player obj)
     {
         // Get specific event
-        PlayerBasedAction eventAction = EventListManager.GetInstance().GetAction(obj);
+        EventAction eventAction = EventListManager.GetInstance().GetAction(obj);
 
         // Pack UI actions
         ActionList result = new ActionList();
@@ -56,15 +56,15 @@ public class PlotEvent : Plot
                     {
                         SkipButtonUI skipButtonUI = SkipButtonUI.GetInstance();
                         
-                        skipButtonUI.gameObject.SetActive(true);                            // 2
+                        skipButtonUI.Enable();
                         // When the skip button is clicked, destroy the EventCard
                         // and hide the event deck
+                        // note: skip button UI is disabled on click
                         skipButtonUI.ListenClick(
                             new LambdaAction(() =>
                             {
                                 EventDeck.SetActive(false);                                 // 1
                                 Destroy(EventCardModel);
-                                skipButtonUI.gameObject.SetActive(false);                   // 2
                                 // Then FINALLY mark this completable action as complete
                                 action.PerformOnComplete();                                 // 3
                             }));
@@ -84,7 +84,7 @@ public class PlotEvent : Plot
     }
 }
 
-public abstract class PlayerBasedAction : IAction
+public abstract class EventAction : IAction
 {
     public Player target;
     public abstract void PerformAction();

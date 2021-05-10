@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
-public class SkipButtonUI : MonoBehaviour
+using Photon.Pun;
+public class SkipButtonUI : MonoBehaviourPunCallbacks
 {
+    public float Countdown = 0f;
+    public float MaxTime = 5f;
     public static SkipButtonUI GetInstance()
     {
         return Singleton<SkipButtonUI>.GetInstance();
@@ -23,15 +25,20 @@ public class SkipButtonUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Countdown -= Time.deltaTime;
+        if (Countdown <= 0)
+        {
+            PerformOnClickEvent();
+        }
     }
 
     public void Enable()
     {
         gameObject.SetActive(true);
+        Countdown = MaxTime;
     }
 
-    public void Disable()
+    private void Disable()
     {
         gameObject.SetActive(false);
     }
@@ -46,7 +53,20 @@ public class SkipButtonUI : MonoBehaviour
         if (!EventSystem.current.IsPointerOverGameObject())
             return;
 
-        foreach (IAction item in OnClick)
+        if (TurnDirector.Ins.IsMyTurn())
+            photonView.RPC("PerformOnClickEvent", RpcTarget.All);
+        else
+            PerformOnClickEvent();
+    } 
+    [PunRPC]
+    public void PerformOnClickEvent()
+    {
+        List<IAction> temp = OnClick;
+        OnClick = new List<IAction>();
+
+        foreach (IAction item in temp)
             item.PerformAction();
+
+        Disable();
     }
 }

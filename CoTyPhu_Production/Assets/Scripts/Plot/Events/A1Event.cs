@@ -6,7 +6,7 @@ using UnityEngine;
 /// Arrested!
 /// Move to PRISON immediately
 /// </summary>
-public class A1Event : PlayerBasedAction
+public class A1Event : EventAction
 {
     public override void PerformAction()
     {

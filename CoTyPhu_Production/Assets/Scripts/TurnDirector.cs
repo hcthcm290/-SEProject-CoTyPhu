@@ -22,6 +22,8 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     List<ITurnListener> _listTurnListener;
     int _count = 0;
 
+    int _myPlayer;
+
     public Dictionary<Phase, string> phaseName = new Dictionary<Phase, string>
     {
         { Phase.Dice, "Dice"},
@@ -44,6 +46,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                 if(player == newPlayer)
                 {
                     photonView.RPC("CreateNewPlayer", newPlayer, true, _count);
+                    _myPlayer = _count;
                 }
                 else
                 {
@@ -125,6 +128,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     if (other.UserId == player.UserId)
                     {
                         photonView.RPC("CreateNewPlayer", player, true, _count);
+                        _myPlayer = _count;
                     }
                     else
                     {
@@ -180,7 +184,10 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     {
         photonView.RPC("_EndOfPhaseServer", RpcTarget.MasterClient);
     }
-
+    public bool IsMyTurn()
+    {
+        return IsMyTurn(_myPlayer);
+    }
     public bool IsMyTurn(int playerID)
     {
         if(_playerTurnExtraPhase.Count != 0)

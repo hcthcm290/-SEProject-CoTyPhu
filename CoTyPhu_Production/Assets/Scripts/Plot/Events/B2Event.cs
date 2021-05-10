@@ -7,7 +7,7 @@ using UnityEngine;
 /// Riots
 /// All players lose 200$
 /// </summary>
-public class B2Event : PlayerBasedAction, ITransaction
+public class B2Event : EventAction, ITransaction
 {
     public int moneyAmount = 200;
 
@@ -29,7 +29,7 @@ public class B2Event : PlayerBasedAction, ITransaction
     {
         foreach (Player player in (Source as List<Player>))
             Bank.Ins.TransactBetweenPlayers(player, target, moneyAmount);
-
-        TurnDirector.Ins.EndOfPhase();
+        if (target.MinePlayer)
+            TurnDirector.Ins.EndOfPhase();
     }
 }

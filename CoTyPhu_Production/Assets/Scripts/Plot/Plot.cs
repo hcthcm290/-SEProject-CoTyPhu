@@ -63,7 +63,12 @@ public class Plot : MonoBehaviour
     [SerializeField]protected string _name;
     [SerializeField]protected string _description;
 
+    //  Plot dictionary -------------------------------
     public static Dictionary<PLOT, Plot> plotDictionary = new Dictionary<PLOT, Plot>();
+    public Plot GetNextPlot()
+    {
+        return plotDictionary[(PLOT)(((int)_id + 1) % PLOT_AMOUNT)];
+    }
 
     //  Initialization --------------------------------
     public Plot(PLOT id, string name, string description)
