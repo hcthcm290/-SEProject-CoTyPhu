@@ -22,6 +22,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     List<ITurnListener> _listTurnListener;
     int _count = 0;
 
+    // The player id corresponding to this user.
     int _myPlayer;
 
     public Dictionary<Phase, string> phaseName = new Dictionary<Phase, string>

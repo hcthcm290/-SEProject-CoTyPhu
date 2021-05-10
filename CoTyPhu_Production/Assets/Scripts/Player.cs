@@ -28,7 +28,9 @@ public class Player : MonoBehaviour, IDiceListener
     // Internal, saves the Actions the UI is supposed to do
     ActionList UIActions = new ActionList();
 
-    Plot _currentPlot; //ghi chú: tạo một method trong Plot là GetNextPlot() để truy cập tới Plot kế tiếp dễ dàng
+    Plot _currentPlot; 
+    //ghi chú: tạo một method trong Plot là GetNextPlot() để truy cập tới Plot kế tiếp dễ dàng
+    // Done! Author: Long
 
     enum PhaseState
     {
@@ -191,7 +193,8 @@ public class Player : MonoBehaviour, IDiceListener
                     {
                         var plot = Plot.plotDictionary[Location_PlotID];
 
-
+                        //*
+                        // Thắng, tại sao ko đặt cái này trong Plot.ActionOnEnter / ActiveOnEnter
                         if (plot is PlotConstructionMarket)
                         {
                             PlotConstructionMarket plot_mk = plot as PlotConstructionMarket;
@@ -253,23 +256,22 @@ public class Player : MonoBehaviour, IDiceListener
                         }
                         else if(plot is PlotEvent)
                         {
-                            // Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
+                            plot.ActiveOnEnter(this);
 
-                            // Temporary skip this phase
-                            TurnDirector.Ins.EndOfPhase();
+                            // TurnDirector.Ins.EndOfPhase();
                         }
                         else
                         {
                             TurnDirector.Ins.EndOfPhase();
                         }
 
-                        //* Testing event
-                        /*
+                        // Testing event
+                        /*/
                         if (!(plot is PlotPrison))
                             Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
                         else
                             TurnDirector.Ins.EndOfPhase();
-                        */
+                        //*/
                     }
                 }
                 break;
