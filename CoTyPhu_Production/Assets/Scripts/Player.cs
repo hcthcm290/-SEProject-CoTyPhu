@@ -189,90 +189,8 @@ public class Player : MonoBehaviour, IDiceListener
             case Phase.Stop:
                 {
                     //Debug.Log("********PhaseStop********");
-                    if (minePlayer)
-                    {
-                        var plot = Plot.plotDictionary[Location_PlotID];
-
-                        //*
-                        // Thắng, tại sao ko đặt cái này trong Plot.ActionOnEnter / ActiveOnEnter
-                        if (plot is PlotConstructionMarket)
-                        {
-                            PlotConstructionMarket plot_mk = plot as PlotConstructionMarket;
-
-                            if (plot_mk.Owner == null)
-                            {
-                                StopPhaseUI.Ins.Activate(PhaseScreens.PlotBuyUI, Plot.plotDictionary[Location_PlotID]);
-                            }
-                            else if (plot_mk.Owner.Id == _id)
-                            {
-                                // TODO
-                                // Receive 1 mana
-
-                                // Activate Market Upgrade UI
-                                StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, Plot.plotDictionary[Location_PlotID]);
-                            }
-                            else if (plot_mk.Owner.Id != _id)
-                            {
-                                // TODO
-                                // Receive 2 mana
-
-                                // Pay the rent
-
-                                // Active Market Rebuy UI
-
-                                TurnDirector.Ins.EndOfPhase();
-                            }
-                        }
-                        else if (plot is PlotConstructionTemple)
-                        {
-                            PlotConstructionTemple plot_tmp = plot as PlotConstructionTemple;
-
-                            if (plot_tmp.Owner == null)
-                            {
-                                // TODO
-                                // Receive 1 mana
-
-                                // Activate Temple Buy UI
-                                StopPhaseUI.Ins.Activate(PhaseScreens.TempleBuyUI, Plot.plotDictionary[Location_PlotID]);
-                            }
-                            else if (plot_tmp.Owner.Id == _id)
-                            {
-                                // TODO
-                                // Receive 2 mana
-
-                                TurnDirector.Ins.EndOfPhase();
-                            }
-                            else if (plot_tmp.Owner.Id != _id)
-                            {
-                                // TODO
-                                // Receive 1 mana
-
-                                // Pay the temple
-
-                                // Active Market Rebuy UI
-
-                                TurnDirector.Ins.EndOfPhase();
-                            }
-                        }
-                        else if(plot is PlotEvent)
-                        {
-                            plot.ActiveOnEnter(this);
-
-                            // TurnDirector.Ins.EndOfPhase();
-                        }
-                        else
-                        {
-                            TurnDirector.Ins.EndOfPhase();
-                        }
-
-                        // Testing event
-                        /*/
-                        if (!(plot is PlotPrison))
-                            Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
-                        else
-                            TurnDirector.Ins.EndOfPhase();
-                        //*/
-                    }
+                    var plot = Plot.plotDictionary[Location_PlotID];
+                    plot.ActiveOnEnter(this);
                 }
                 break;
             case Phase.Extra:
@@ -364,6 +282,24 @@ public class Player : MonoBehaviour, IDiceListener
             btnRoll.gameObject.SetActive(false);
         }
     }
+
+    #region Temporary Area
+
+    [SerializeField] InputField diceResultInput;
+    public void RollCheat()
+    {
+        int diceResult;
+        int.TryParse(diceResultInput.text, out diceResult);
+
+        Dice.Ins().CheatRoll(_id, diceResult);
+
+        if (TurnDirector.Ins.IsMyTurn(Id))
+        {
+            btnRoll.gameObject.SetActive(false);
+        }
+    }
+
+    #endregion
 
     /// <summary>
     /// This function receive callback result from Dice when its finish rolling

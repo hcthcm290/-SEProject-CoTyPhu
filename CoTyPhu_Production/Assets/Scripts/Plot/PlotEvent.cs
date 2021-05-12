@@ -21,8 +21,9 @@ public class PlotEvent : Plot
     // Start is called before the first frame update
     public override void Start()
     {
-        EventModel = eventModel;
-        EventDeck = eventDeck;
+        if(eventModel != null) EventModel = eventModel;
+
+        if(eventDeck != null) EventDeck = eventDeck;
         base.Start();
     }
 

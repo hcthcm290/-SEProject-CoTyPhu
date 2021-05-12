@@ -147,6 +147,13 @@ public class Dice: MonoBehaviourPunCallbacks
         photonView.RPC("_RollServer", RpcTarget.MasterClient, idPlayer);
     }
 
+    public void CheatRoll(int idPlayer, int result)
+    {
+        List<int> results = new List<int>();
+        results.Add(result);
+        photonView.RPC("_ReceiveRollResult", RpcTarget.All, idPlayer, (object)(results.ToArray()));
+    }
+
     public List<int> GetLastResult()
     {
         return _result;

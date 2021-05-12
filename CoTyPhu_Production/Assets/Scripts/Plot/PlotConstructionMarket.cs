@@ -45,15 +45,38 @@ public class PlotConstructionMarket : PlotConstruction
 		//TODO: check the player money, return true or false if enough
 	}
 
-    public override IAction ActionOnEnter(Player obj)
+    public override IAction ActionOnEnter(Player player)
     {
-		if(this.Owner == null) // nếu ô đất chưa có chủ sở hữu
+		// If this player is in client's control
+		if(player.MinePlayer)
         {
-			if(obj.MinePlayer)
-            {
-				// mở bảng yêu cầu mua
+			if (Owner == null)
+			{
 				StopPhaseUI.Ins.Activate(PhaseScreens.PlotBuyUI, this);
 			}
+			else if (Owner.Id == player.Id)
+			{
+				// TODO
+				// Receive 1 mana
+
+				// Activate Market Upgrade UI
+				StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, this);
+			}
+			else if (Owner.Id != player.Id)
+			{
+				// TODO
+				// Receive 2 mana
+
+				// Pay the rent
+
+				// Active Market Rebuy UI
+
+				TurnDirector.Ins.EndOfPhase();
+			}
+		}
+        else
+        {
+
         }
 		return null;
     }

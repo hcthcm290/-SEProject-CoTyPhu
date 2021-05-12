@@ -16,7 +16,7 @@ public class PlotPrison : Plot
 
 	//  Fields ----------------------------------------
 	protected int _releaseFeePerRound;
-	protected Dictionary<Player, int> _playerImprisonDuration = new Dictionary<Player, int>();
+	protected Dictionary<Player, int> _playerImprisonDuration;
 
 
 	//  Initialization --------------------------------
@@ -65,7 +65,12 @@ public class PlotPrison : Plot
 		//TODO: Check the release condition, if satisfied, Release the player, else increase PlayerImprisonDuration
 	}
 
+    private new void Start()
+    {
+		base.Start();
+		_playerImprisonDuration = new Dictionary<Player, int>();
+	}
 
-	//  Event Handlers --------------------------------
+    //  Event Handlers --------------------------------
 
 }

@@ -103,10 +103,14 @@ public class Plot : MonoBehaviour
     public void ActiveOnEnter(dynamic obj)
     {
         // the 'this' is important for polymorphism
-        this.ActionOnEnter(obj).PerformAction();
+        this.ActionOnEnter(obj)?.PerformAction();
     }
     public virtual IAction ActionOnEnter(Player obj)
     {
+        if(obj.MinePlayer)
+        {
+            TurnDirector.Ins.EndOfPhase();
+        }
         return null;
     }
 
