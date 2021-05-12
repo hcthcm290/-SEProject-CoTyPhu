@@ -23,7 +23,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     int _count = 0;
 
     // The player id corresponding to this user.
-    int _myPlayer;
+    [SerializeField] int _myPlayer;
 
     public Dictionary<Phase, string> phaseName = new Dictionary<Phase, string>
     {
@@ -47,7 +47,6 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                 if(player == newPlayer)
                 {
                     photonView.RPC("CreateNewPlayer", newPlayer, true, _count);
-                    _myPlayer = _count;
                 }
                 else
                 {
@@ -77,6 +76,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             player.gameObject.SetActive(true);
             player.Id = id;
             _listPlayer.Add(player);
+            _myPlayer = id;
             Bank.Ins.AddPlayer(player);
         }
         else
@@ -129,7 +129,6 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     if (other.UserId == player.UserId)
                     {
                         photonView.RPC("CreateNewPlayer", player, true, _count);
-                        _myPlayer = _count;
                     }
                     else
                     {
