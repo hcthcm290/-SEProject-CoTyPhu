@@ -79,19 +79,21 @@ public class Player : MonoBehaviour, IDiceListener
 
 
     #region Movement
-    protected class ActionPlayerMove : IAction
+    public class ActionPlayerMove : IAction
     {
         public Player player;
         public List<int> rollResult;
-        public ActionPlayerMove(Player player, List<int> rollResult)
+        System.Action onComplete;
+        public ActionPlayerMove(Player player, List<int> rollResult, System.Action onComplete)
         {
             this.player = player;
             this.rollResult = new List<int>(rollResult);
+            this.onComplete = onComplete;
         }
 
         public void PerformAction()
         {
-            player.MoveTo(rollResult.Sum());
+            player.MoveTo(rollResult.Sum(), onComplete);
         }
     }
     /// <summary>
@@ -134,16 +136,12 @@ public class Player : MonoBehaviour, IDiceListener
     /// This WILL trigger PassBy Effect
     /// </summary>
     /// <param name="plotsToMove"></param>
-    public void MoveTo(int plotsToMove)
+    public void MoveTo(int plotsToMove, System.Action onComplete)
     {
         AddMovementToQueue(plotsToMove);
 
 
-        UIActions.AddOnActionComplete(() =>
-        {
-            _currentPhaseState = PhaseState.end;
-            UpdatePhaseMove();
-        });
+        UIActions.AddOnActionComplete(onComplete);
 
         UIActions.PerformAction();
     }
@@ -194,7 +192,7 @@ public class Player : MonoBehaviour, IDiceListener
                         var plot = Plot.plotDictionary[Location_PlotID];
 
                         //*
-                        // Thắng, tại sao ko đặt cái này trong Plot.ActionOnEnter / ActiveOnEnter
+                        // Thành, tại sao ko đặt cái này trong Plot.ActionOnEnter / ActiveOnEnter
                         if (plot is PlotConstructionMarket)
                         {
                             PlotConstructionMarket plot_mk = plot as PlotConstructionMarket;
@@ -254,7 +252,7 @@ public class Player : MonoBehaviour, IDiceListener
                                 TurnDirector.Ins.EndOfPhase();
                             }
                         }
-                        else if(plot is PlotEvent)
+                        else if(plot is PlotEvent || plot is PlotTravel)
                         {
                             plot.ActiveOnEnter(this);
 
@@ -268,7 +266,7 @@ public class Player : MonoBehaviour, IDiceListener
                         // Testing event
                         /*/
                         if (!(plot is PlotPrison))
-                            Plot.plotDictionary[PLOT.EVENT1].ActiveOnEnter(this);
+                            Plot.plotDictionary[PLOT.TRAVEL].ActiveOnEnter(this);
                         else
                             TurnDirector.Ins.EndOfPhase();
                         //*/
@@ -305,7 +303,12 @@ public class Player : MonoBehaviour, IDiceListener
                     List<int> diceRoll = Dice.Ins().GetLastResult();
 
                     // Modify dice roll Post-roll
-                    IAction action = new ActionPlayerMove(this, diceRoll);
+                    System.Action onComplete = () =>
+                    {
+                        _currentPhaseState = PhaseState.end;
+                        UpdatePhaseMove();
+                    };
+                    IAction action = new ActionPlayerMove(this, diceRoll, onComplete);
                     // status.ModifyAction(action)
 
                     // 

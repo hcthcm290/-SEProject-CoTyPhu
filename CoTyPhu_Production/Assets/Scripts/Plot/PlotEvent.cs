@@ -55,7 +55,8 @@ public class PlotEvent : Plot
                     new LambdaAction(() =>
                     {
                         SkipButtonUI skipButtonUI = SkipButtonUI.GetInstance();
-                        
+
+                        skipButtonUI.MaxTime = 5f;
                         skipButtonUI.Enable();
                         // When the skip button is clicked, destroy the EventCard
                         // and hide the event deck
