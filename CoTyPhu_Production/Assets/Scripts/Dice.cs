@@ -39,7 +39,8 @@ public class Dice: MonoBehaviourPunCallbacks
 
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 5;
-        options.PlayerTtl = 0;
+        options.PlayerTtl = 80000;
+        options.EmptyRoomTtl = 0;
         options.PublishUserId = true;
 
         if (PhotonNetwork.JoinOrCreateRoom("HCTHCM290", options, TypedLobby.Default) == false)
@@ -62,13 +63,31 @@ public class Dice: MonoBehaviourPunCallbacks
     int _baseDiceCount = 2;
     int _resultCount;
 
-    List<IDiceListener> _listDiceListener;
 
     [SerializeField] DiceUI _dicePrefab;
     List<DiceUI> _currentDices;
 
     [SerializeField] Transform diceSpawnPosition;
 
+    #region Static Utility
+    public static bool IsDouble(List<int> diceResult)
+    {
+        if (diceResult.Count < 2)
+            return false;
+
+        Dictionary<int, int> diceResultCount = new Dictionary<int, int>();
+
+        foreach (int result in diceResult)
+        {
+            if (diceResultCount.ContainsKey(result)) return true;
+            else diceResultCount.Add(result, 1);
+        }
+
+        return false;
+    }
+    #endregion
+
+    #region Roll
     [PunRPC]
     private void _RollServer(int idPlayer)
     {
@@ -147,19 +166,21 @@ public class Dice: MonoBehaviourPunCallbacks
         photonView.RPC("_RollServer", RpcTarget.MasterClient, idPlayer);
     }
 
-    public void CheatRoll(int idPlayer, int result)
+    public void CheatRoll(int idPlayer, List<int> result)
     {
-        List<int> results = new List<int>();
-        results.Add(result);
-        photonView.RPC("_ReceiveRollResult", RpcTarget.All, idPlayer, (object)(results.ToArray()));
+        photonView.RPC("_ReceiveRollResult", RpcTarget.All, idPlayer, (object)(result.ToArray()));
     }
+    #endregion
 
     public List<int> GetLastResult()
     {
         return _result;
     }
 
-    public void SubscribeDiceListener(IDiceListener listener)
+    #region Dice Listener
+    static List<IDiceListener> _listDiceListener;
+
+    public static void SubscribeDiceListener(IDiceListener listener)
     {
         if(_listDiceListener == null)
         {
@@ -172,10 +193,11 @@ public class Dice: MonoBehaviourPunCallbacks
         else
         {
             _listDiceListener.Add(listener);
+            _listDiceListener.Sort((x, y) => { return System.Convert.ToInt32(x.GetDiceListenerPriority() > y.GetDiceListenerPriority()); });
         }
     }
 
-    public void UnsubscribeDiceListener(IDiceListener listener)
+    public static void UnsubscribeDiceListener(IDiceListener listener)
     {
         if (_listDiceListener.Contains(listener))
         {
@@ -186,6 +208,7 @@ public class Dice: MonoBehaviourPunCallbacks
             return;
         }
     }
+    #endregion
 
     private void Update()
     {

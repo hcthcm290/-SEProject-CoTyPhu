@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public enum PhaseScreens
     PlotBuyUI,
     TempleBuyUI,
     MarketUpgradeUI,
+    FreeCardUI,
 }
 
 public class StopPhaseUI : MonoBehaviour
@@ -34,6 +36,13 @@ public class StopPhaseUI : MonoBehaviour
     }
     #endregion
 
+    #region Callback
+
+    public delegate void OnDeactivate(PhaseScreens phaseScreens);
+    private event OnDeactivate onDeactiveCallback;
+
+    #endregion
+
     #region Methods
     public void Activate(PhaseScreens screenType, Plot plot)
     {
@@ -55,9 +64,15 @@ public class StopPhaseUI : MonoBehaviour
             if (screen.GetType() == screenType)
             {
                 screen.Deactivate();
+                onDeactiveCallback?.Invoke(screenType);
                 return;
             }
         }
+    }
+
+    public void SubcribeOnDeactive(PhaseScreens screenType, OnDeactivate functionCallback)
+    {
+        onDeactiveCallback = functionCallback;
     }
     #endregion
 

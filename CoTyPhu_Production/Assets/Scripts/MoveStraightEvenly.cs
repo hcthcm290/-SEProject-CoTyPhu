@@ -35,7 +35,7 @@ public class MoveStraightEvenly : MonoBehaviour
                 PerformOnTargetReached();
         }
     }
-    private bool _reachedTarget = false;
+    private bool _reachedTarget = true;
     public float speed = 0.5f;
 
     // Start is called before the first frame update

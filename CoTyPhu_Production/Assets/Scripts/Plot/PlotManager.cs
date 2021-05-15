@@ -26,6 +26,7 @@ public class PlotManager : MonoBehaviourPun
     public delegate void UpgradeFail(string msg);
     public event UpgradeFail OnUpgradeFail;
     #endregion
+
     #endregion
 
     #region Properties
@@ -192,5 +193,31 @@ public class PlotManager : MonoBehaviourPun
 
     #endregion
 
+    #region Imprison, Release
+
+    public delegate void ReleaseFunc(Player player);
+    public ReleaseFunc releaseFunc; // this function is for Prison Plot to set, because Imprison in PrisonPlot is private
+
+    [PunRPC]
+    private void _releaseServer(int idPlayer, string idClient)
+    {
+        photonView.RPC("_releaseClient", RpcTarget.AllBuffered, idPlayer);
+    }
+
+    [PunRPC]
+    private void _releaseClient(int idPlayer)
+    {
+        Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+
+        releaseFunc(player);
+    }
+
+    public void RequestRelease(Player player)
+    {
+        photonView.RPC("_releaseServer", RpcTarget.MasterClient, player.Id, PhotonNetwork.LocalPlayer.UserId);
+    }
+
+
+    #endregion
     #endregion
 }

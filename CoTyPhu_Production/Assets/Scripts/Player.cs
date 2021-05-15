@@ -4,6 +4,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+public partial class MonoBahaviour
+{
+
+}
+
 [System.Serializable]
 public class Player : MonoBehaviour, IDiceListener
 {
@@ -61,7 +66,7 @@ public class Player : MonoBehaviour, IDiceListener
         // Thanh:
         if (Dice.Ins() != null)
         {
-            Dice.Ins().SubscribeDiceListener(this);
+            Dice.SubscribeDiceListener(this);
             _notSubcribeDice = false;
         }
     }
@@ -71,12 +76,11 @@ public class Player : MonoBehaviour, IDiceListener
     {
         if(_notSubcribeDice)
         {
-            Dice.Ins().SubscribeDiceListener(this);
+            Dice.SubscribeDiceListener(this);
             _notSubcribeDice = false;
         }
     }
     #endregion
-
 
     #region Movement
     protected class ActionPlayerMove : IAction
@@ -178,12 +182,56 @@ public class Player : MonoBehaviour, IDiceListener
             case Phase.Dice:
                 if (minePlayer)
                 {
-                    btnRoll.gameObject.SetActive(true);
+                    if(this.Location_PlotID == PLOT.PRISON)
+                    {
+                        StopPhaseUI.Ins.Activate(PhaseScreens.FreeCardUI, Plot.plotDictionary[Location_PlotID]);
+                        StopPhaseUI.Ins.SubcribeOnDeactive(PhaseScreens.FreeCardUI, (PhaseScreens screen) =>
+                        {
+                            if(screen == PhaseScreens.FreeCardUI)
+                            {
+                                btnRoll.gameObject.SetActive(true);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        btnRoll.gameObject.SetActive(true);
+                    }
+
+
+                    /*
+                    if(obj.hasCard(FreeCard))
+                    {
+                        StopPhaseUI.Ins.Activate(PhaseScreens.FreeCardUI, this);
+                    }
+                    else
+                    {
+                        TurnDirector.Ins.EndOfPhase();
+                    }
+                    */
                 }
                 break;
             case Phase.Move:
                 {
-                    UpdatePhaseMove();
+                    var plot = Plot.plotDictionary[Location_PlotID];
+
+                    // Check if player is imprisoned, skip the phase move
+                    if (plot is PlotPrison &&
+                       (plot as PlotPrison).IsImprisoned(this))
+                    {
+                        if (MinePlayer)
+                        {
+                            TurnDirector.Ins.EndOfPhase();
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        UpdatePhaseMove();
+                    }
                 }
                 break;
             case Phase.Stop:
@@ -285,18 +333,26 @@ public class Player : MonoBehaviour, IDiceListener
 
     #region Temporary Area
 
-    [SerializeField] InputField diceResultInput;
+    [SerializeField] InputField diceResultInput1;
+    [SerializeField] InputField diceResultInput2;
     public void RollCheat()
     {
-        int diceResult;
-        int.TryParse(diceResultInput.text, out diceResult);
+        List<int> result = new List<int>();
+        int diceResult1;
+        int.TryParse(diceResultInput1.text, out diceResult1);
 
-        Dice.Ins().CheatRoll(_id, diceResult);
+        int diceResult2;
+        int.TryParse(diceResultInput2.text, out diceResult2);
+
+        result.Add(diceResult1);
+        result.Add(diceResult2);
 
         if (TurnDirector.Ins.IsMyTurn(Id))
         {
             btnRoll.gameObject.SetActive(false);
         }
+
+        Dice.Ins().CheatRoll(_id, result);
     }
 
     #endregion
@@ -332,12 +388,17 @@ public class Player : MonoBehaviour, IDiceListener
                 UIActions.Dequeue().PerformAction();
         }//*/
 
-                        // only the one who roll & that is control by me can announce end of phase
-                        if (idPlayer == Id && minePlayer)
+        // only the one who roll & that is control by me can announce end of phase
+        if (idPlayer == Id && minePlayer)
         {
             Debug.Log("end of phase");
             TurnDirector.Ins.EndOfPhase();
         }
+    }
+
+    public int GetDiceListenerPriority()
+    {
+        return 2;
     }
 
     #endregion
