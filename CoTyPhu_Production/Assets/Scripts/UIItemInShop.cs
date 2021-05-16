@@ -7,6 +7,7 @@ using static UnityEngine.UI.Button;
 public class UIItemInShop : MonoBehaviour
 {
     public BaseItem value;
+    public Player playerBuying;
 
     public void Init(BaseItem initItem)
     {
@@ -20,13 +21,19 @@ public class UIItemInShop : MonoBehaviour
         transform.Find("ItemImage").GetComponent<Image>().sprite = value.gameObject.GetComponent<Image>().sprite;
         transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();
         transform.Find("Button").GetComponent<Button>().onClick.AddListener(Buy);
+        playerBuying = Shop.Ins.playerUsingShop;
     }
 
     public void Buy()
     {
-        Instantiate(value, Shop.Ins.playerUsingShop.transform);
-        Shop.Ins.RemoveItemFromShop(value);
-        Destroy(gameObject);
+        if (playerBuying.playerItem.Count < playerBuying.itemLimit)
+        {
+            if (playerBuying.AddItem(value))
+            {
+                Shop.Ins.RemoveItemFromShop(value);
+                Destroy(gameObject);
+            }
+        }
     }
 
     // Start is called before the first frame update

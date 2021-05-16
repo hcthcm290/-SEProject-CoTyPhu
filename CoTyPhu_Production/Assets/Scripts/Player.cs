@@ -282,4 +282,67 @@ public class Player : MonoBehaviour, IDiceListener
     }
 
     IAction OnRollResult;
+
+
+    /// <summary>
+    /// GetInfomation for PlayerBox
+    /// </summary>
+    private Merchant merchant;
+    
+    public Merchant GetMerchant()
+    {
+        return merchant;
+    }
+
+    public void LockMerchant()
+    {
+        //check to active only in merchant picking
+    }
+
+    /// <summary>
+    /// Mana Process
+    /// </summary>
+    private int _mana;
+
+    public int GetMana()
+    {
+        return _mana;
+    }
+
+    public void ChangeMana(int amount)
+    {
+        _mana += amount;
+    }
+
+    public void ResetMana()
+    {
+        _mana = 0;
+    }
+
+    /// <summary>
+    /// Get Gold For UI
+    /// </summary>
+    public int Gold()
+    {
+        //Call the bank to get this player gold here
+        return 0;
+    }
+
+    /// <summary>
+    /// Item list
+    /// </summary>
+    public List<BaseItem> playerItem;
+    public int itemLimit = 3;
+
+    public bool AddItem(BaseItem item)
+    {
+        BaseItem b = Instantiate(item, this.transform);
+        b.StartListen();
+        playerItem.Add(b);
+        AddedItemToPlayer.Invoke();
+        return true;
+    }
+
+    public delegate void AddedItemHandler();
+    public event AddedItemHandler AddedItemToPlayer;
 }
