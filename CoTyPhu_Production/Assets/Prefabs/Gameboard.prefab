@@ -3791,6 +3791,7 @@ MonoBehaviour:
   _name: Prison
   _description: 
   _plotManager: {fileID: 0}
+  _releaseFeePerRound: 200
 --- !u!1 &7294645263771449374
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class PlotPrison : Plot, IDiceListener
 
 
 	//  Fields ----------------------------------------
-	protected int _releaseFeePerRound;
+	[SerializeField] protected int _releaseFeePerRound;
 	protected Dictionary<Player, int> _playerImprisonDuration;
 
 

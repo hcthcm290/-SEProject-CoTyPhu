@@ -983,7 +983,7 @@ GameObject:
   - component: {fileID: 918916806}
   - component: {fileID: 918916805}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1295,6 +1295,14 @@ PrefabInstance:
       propertyPath: _plotManager
       value: 
       objectReference: {fileID: 930710967}
+    - target: {fileID: 1021235927, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1251835172}
+    - target: {fileID: 1021235927, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: _plotManager
+      value: 
+      objectReference: {fileID: 930710967}
     - target: {fileID: 109600318158314099, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1307,14 +1315,6 @@ PrefabInstance:
       propertyPath: _plotManager
       value: 
       objectReference: {fileID: 930710967}
-    - target: {fileID: 4880106657954017974, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
-      propertyPath: _uiScreen.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880106657954017974, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
-      propertyPath: _uiScreen.Array.data[3]
-      value: 
-      objectReference: {fileID: 1021235927}
     - target: {fileID: 4880106657954017975, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1413,49 +1413,6 @@ PrefabInstance:
       objectReference: {fileID: 930710967}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
---- !u!114 &1021235924 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5667863059353107868, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
-  m_PrefabInstance: {fileID: 1021235923}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1021235925 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4560299749438543200, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
-  m_PrefabInstance: {fileID: 1021235923}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1021235926 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 109600318158314099, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
-  m_PrefabInstance: {fileID: 1021235923}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1021235927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021235926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec62600c031cb9c4a84f68e4669a6fe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _useCardButton: {fileID: 1021235925}
-  _skipButton: {fileID: 1021235924}
-  _player: {fileID: 1251835172}
-  _plotManager: {fileID: 930710967}
 --- !u!1 &1118566871
 GameObject:
   m_ObjectHideFlags: 0

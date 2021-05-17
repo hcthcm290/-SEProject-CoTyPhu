@@ -27,6 +27,16 @@ public class PlotManager : MonoBehaviourPun
     public event UpgradeFail OnUpgradeFail;
     #endregion
 
+    #region Prison Release
+
+    public delegate void OnReleaseSuccess();
+    OnReleaseSuccess _onReleaseSuccess;
+
+    public delegate void OnReleaseFail(string reason);
+    OnReleaseFail _onReleaseFail;
+
+    #endregion
+
     #endregion
 
     #region Properties
@@ -205,11 +215,62 @@ public class PlotManager : MonoBehaviourPun
     }
 
     [PunRPC]
+    private void _releaseWithMoneyServer(int idPlayer, string idClient)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+
+        int playerMoney = Bank.Ins.MoneyPlayer(player);
+        int releaseFee = (Plot.plotDictionary[PLOT.PRISON] as PlotPrison).GetReleaseFee(player);
+
+        if (playerMoney > releaseFee)
+        {
+            photonView.RPC("_releaseWithMoneyClient", RpcTarget.AllBuffered, idPlayer, (Plot.plotDictionary[PLOT.PRISON] as PlotPrison).GetReleaseFee(player));
+        }
+        else
+        {
+            var client = PhotonNetwork.PlayerList.Single(x => x.UserId == idClient);
+            photonView.RPC("_releaseWithMoneyFailClient", client, "Not enough money");
+        }
+    }
+
+    [PunRPC]
     private void _releaseClient(int idPlayer)
     {
         Player player = TurnDirector.Ins.GetPlayer(idPlayer);
 
         releaseFunc(player);
+
+        // TODO 
+        // Remove the free release card from player's inventory
+
+
+        ///////////////////////////////////////////////////////
+    }
+
+    [PunRPC]
+    private void _releaseWithMoneyClient(int idPlayer, int money)
+    {
+        Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+        Bank.Ins.TakeMoney(player, money);
+
+        if(_onReleaseSuccess != null)
+        {
+            _onReleaseSuccess();
+        }
+
+
+        releaseFunc(player);
+    }
+
+    [PunRPC]
+    private void _releaseWithMoneyFailClient(string reason)
+    {
+        if(_onReleaseFail != null)
+        {
+            _onReleaseFail(reason);
+        }
     }
 
     public void RequestRelease(Player player)
@@ -217,6 +278,14 @@ public class PlotManager : MonoBehaviourPun
         photonView.RPC("_releaseServer", RpcTarget.MasterClient, player.Id, PhotonNetwork.LocalPlayer.UserId);
     }
 
+
+    public void RequestReleaseWithMoney(Player player, OnReleaseSuccess onSuccessCallback, OnReleaseFail onFailCallback)
+    {
+        _onReleaseSuccess = onSuccessCallback;
+        _onReleaseFail = onFailCallback;
+
+        photonView.RPC("_releaseWithMoneyServer", RpcTarget.MasterClient, player.Id, PhotonNetwork.LocalPlayer.UserId);
+    }
 
     #endregion
     #endregion
