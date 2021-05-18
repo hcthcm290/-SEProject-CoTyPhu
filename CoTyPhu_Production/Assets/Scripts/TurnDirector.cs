@@ -171,6 +171,15 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     [PunRPC]
     private void _StartPhase(int idPlayer, int phaseID)
     {
+        if((Phase)phaseID == Phase.Dice)
+        {
+            foreach(var listener in _listTurnListener)
+            {
+                listener.OnEndTurn(_idPlayerTurn);
+                listener.OnBeginTurn(idPlayer);
+            }
+        }
+
         _idPlayerTurn = idPlayer;
         Phase phase = (Phase)phaseID;
         _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(phase);
@@ -218,6 +227,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
 
     public void SubscribeTurnListener(ITurnListener listener)
     {
+        if (_listTurnListener == null) _listTurnListener = new List<ITurnListener>();
         if(_listTurnListener.Contains(listener))
         {
             return;
