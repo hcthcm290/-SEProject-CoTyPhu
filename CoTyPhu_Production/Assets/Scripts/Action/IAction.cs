@@ -48,6 +48,11 @@ public class ActionList : ICompletableAction
         OnActionComplete?.PerformAction();
         OnActionComplete = null;
     }
+
+    public void AddOnActionComplete(Action action)
+    {
+        OnActionComplete = new LambdaAction(OnActionComplete, action);
+    }
 }
 
 /// <summary>

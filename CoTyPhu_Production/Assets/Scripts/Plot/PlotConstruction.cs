@@ -22,8 +22,8 @@ public class PlotConstruction: Plot
 
 	//  Fields ----------------------------------------
 	protected int _entryFee;
-	protected int _price;
-	protected Player _owner;
+	[SerializeField] protected int _price;
+	[SerializeField] protected Player _owner;
 	protected static float _reBuyOffset = 1.5f;
 
 
@@ -42,7 +42,6 @@ public class PlotConstruction: Plot
 		//TODO: Check Owner --> do action based on Owner state
 		return null;
     }
-
 
     //  Event Handlers --------------------------------
 }

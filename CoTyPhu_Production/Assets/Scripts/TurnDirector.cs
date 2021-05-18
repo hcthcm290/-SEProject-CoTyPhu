@@ -22,6 +22,16 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     List<ITurnListener> _listTurnListener;
     int _count = 0;
 
+    // The player id corresponding to this user.
+    [SerializeField] int _myPlayer;
+
+    public Dictionary<Phase, string> phaseName = new Dictionary<Phase, string>
+    {
+        { Phase.Dice, "Dice"},
+        { Phase.Move, "Move"},
+        { Phase.Stop, "Stop"},
+        { Phase.Extra, "Extra"}
+    };
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
@@ -66,6 +76,8 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             player.gameObject.SetActive(true);
             player.Id = id;
             _listPlayer.Add(player);
+            _myPlayer = id;
+            Bank.Ins.AddPlayer(player);
         }
         else
         {
@@ -74,6 +86,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             player.gameObject.SetActive(true);
             player.Id = id;
             _listPlayer.Add(player);
+            Bank.Ins.AddPlayer(player);
         }
     }
 
@@ -93,7 +106,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             {
                 _idPlayerTurn = 0;
                 _idPhase = Phase.Dice;
-                _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase((int)_idPhase);
+                _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(_idPhase);
             }
         }
     }
@@ -139,7 +152,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     _idPhase = Phase.Move;
                     break;
                 case Phase.Move:
-                    _idPhase = Phase.Dice;
+                    _idPhase = Phase.Stop;
                     break;
                 case Phase.Stop:
                     _idPhase = Phase.Dice;
@@ -158,9 +171,9 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     [PunRPC]
     private void _StartPhase(int idPlayer, int phaseID)
     {
-        Debug.Log(idPlayer.ToString() + " : " + phaseID);
         _idPlayerTurn = idPlayer;
-        _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(phaseID);
+        Phase phase = (Phase)phaseID;
+        _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(phase);
     }
 
     /// <summary>
@@ -171,7 +184,10 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     {
         photonView.RPC("_EndOfPhaseServer", RpcTarget.MasterClient);
     }
-
+    public bool IsMyTurn()
+    {
+        return IsMyTurn(_myPlayer);
+    }
     public bool IsMyTurn(int playerID)
     {
         if(_playerTurnExtraPhase.Count != 0)
@@ -222,5 +238,10 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         {
             return;
         }
+    }
+
+    public Player GetPlayer(int playerID)
+    {
+        return _listPlayer.Find(x => x.Id == playerID);
     }
 }

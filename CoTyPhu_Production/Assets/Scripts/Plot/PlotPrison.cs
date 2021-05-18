@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// PLOT.PRISON (8) MANAGE THE PROPERTIES OF PRISON PLOT WHICH BLOCK PLAYER WHEN ENTER
 /// </summary>
-public class PlotPrison : Plot
+public class PlotPrison : Plot, IDiceListener
 {
 	//  Events ----------------------------------------
 
@@ -12,11 +12,12 @@ public class PlotPrison : Plot
 	//  Properties ------------------------------------
 	public int ReleaseFeePerRound { get => _releaseFeePerRound; }
 	public Dictionary<Player, int> AllPlayerImprisonDurations { get => _playerImprisonDuration; }
+	[SerializeField] PlotManager _plotManager;
 
 
 	//  Fields ----------------------------------------
-	protected int _releaseFeePerRound;
-	protected Dictionary<Player, int> _playerImprisonDuration = new Dictionary<Player, int>();
+	[SerializeField] protected int _releaseFeePerRound;
+	protected Dictionary<Player, int> _playerImprisonDuration;
 
 
 	//  Initialization --------------------------------
@@ -24,7 +25,6 @@ public class PlotPrison : Plot
 	{
 		this._releaseFeePerRound = releaseFeePerRound;
 	}
-
 
 	//  Methods ---------------------------------------
 	public int PlayerImprisonDuration(Player player)
@@ -38,12 +38,18 @@ public class PlotPrison : Plot
 	private void Imprison(Player player)
 	{
 		//add player to playerImprisonDuration
-		_playerImprisonDuration.Add(player, 1);
+		if(!_playerImprisonDuration.ContainsKey(player))
+        {
+			_playerImprisonDuration.Add(player, 1);
+		}
 	}
 
 	private void Release(Player player)
 	{
-		_playerImprisonDuration.Remove(player);
+		if(_playerImprisonDuration.ContainsKey(player))
+        {
+			_playerImprisonDuration.Remove(player);
+		}
 	}
 
 	public int GetReleaseFee(Player player)
@@ -56,6 +62,11 @@ public class PlotPrison : Plot
 		return new LambdaAction(() =>
 		{
 			Imprison(obj);
+
+			if(obj.MinePlayer)
+            {
+				TurnDirector.Ins.EndOfPhase();
+            }
 		});
 	}
 
@@ -65,7 +76,71 @@ public class PlotPrison : Plot
 		//TODO: Check the release condition, if satisfied, Release the player, else increase PlayerImprisonDuration
 	}
 
+    private new void Start()
+    {
+		base.Start();
+		_playerImprisonDuration = new Dictionary<Player, int>();
+		Dice.SubscribeDiceListener(this);
+		_plotManager.releaseFunc = Release;
+	}
 
-	//  Event Handlers --------------------------------
+	private void FreeCardUse(Player _player)
+    {
+		this.Release(_player);
+    }
+
+    public void OnRoll(int idPlayer, List<int> result)
+    {
+		if(Dice.IsDouble(result))
+        {
+			Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+
+			this.Release(player);
+        }
+    }
+
+	public bool IsImprisoned(Player player)
+    {
+		if (player == null)
+        {
+			Debug.LogError("Cannot check imprison for null player");
+			throw new System.Exception("Cannot check imprison for null player");
+		}
+
+		if(this.PlayerImprisonDuration(player) == 0)
+        {
+			return false;
+        }
+		else
+        {
+			return true;
+        }
+    }
+
+	public bool IsImprisoned(int idPlayer)
+    {
+		Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+
+		if (player == null)
+        {
+			Debug.LogError("Cannot check imprison with id player null");
+			throw new System.Exception("Cannot check imprison with id player null");
+		}
+
+		if (this.PlayerImprisonDuration(player) == 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+    public int GetDiceListenerPriority()
+    {
+		return 1;
+    }
+    //  Event Handlers --------------------------------
 
 }

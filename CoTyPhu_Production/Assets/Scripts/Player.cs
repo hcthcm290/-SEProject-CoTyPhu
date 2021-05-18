@@ -4,8 +4,15 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+public partial class MonoBahaviour
+{
+
+}
+
+[System.Serializable]
 public class Player : MonoBehaviour, IDiceListener
 {
+    // Properties ------------------------------------
     [SerializeField] int _id;
     public int Id
     {
@@ -17,12 +24,18 @@ public class Player : MonoBehaviour, IDiceListener
     bool _isBroke;
     bool _notSubcribeDice = true;
     [SerializeField] bool minePlayer;
+    public bool MinePlayer
+    {
+        get { return minePlayer; }
+    }
     [SerializeField] Button btnRoll;
 
     // Internal, saves the Actions the UI is supposed to do
     ActionList UIActions = new ActionList();
 
-    Plot _currentPlot; //ghi chú: tạo một method trong Plot là GetNextPlot() để truy cập tới Plot kế tiếp dễ dàng
+    Plot _currentPlot; 
+    //ghi chú: tạo một method trong Plot là GetNextPlot() để truy cập tới Plot kế tiếp dễ dàng
+    // Done! Author: Long
 
     enum PhaseState
     {
@@ -32,6 +45,8 @@ public class Player : MonoBehaviour, IDiceListener
     }
 
     PhaseState _currentPhaseState;
+
+    #region Unity Methods
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +66,7 @@ public class Player : MonoBehaviour, IDiceListener
         // Thanh:
         if (Dice.Ins() != null)
         {
-            Dice.Ins().SubscribeDiceListener(this);
+            Dice.SubscribeDiceListener(this);
             _notSubcribeDice = false;
         }
     }
@@ -61,11 +76,28 @@ public class Player : MonoBehaviour, IDiceListener
     {
         if(_notSubcribeDice)
         {
-            Dice.Ins().SubscribeDiceListener(this);
+            Dice.SubscribeDiceListener(this);
             _notSubcribeDice = false;
         }
     }
+    #endregion
 
+    #region Movement
+    protected class ActionPlayerMove : IAction
+    {
+        public Player player;
+        public List<int> rollResult;
+        public ActionPlayerMove(Player player, List<int> rollResult)
+        {
+            this.player = player;
+            this.rollResult = new List<int>(rollResult);
+        }
+
+        public void PerformAction()
+        {
+            player.MoveTo(rollResult.Sum());
+        }
+    }
     /// <summary>
     /// Commands Player to move to target Plot
     /// This will NOT move the player step-by-step.
@@ -73,7 +105,7 @@ public class Player : MonoBehaviour, IDiceListener
     /// <param name="plotID"></param>
     public void MoveTo(PLOT plotID)
     {
-        Debug.Log(Plot.plotDictionary[plotID].transform.position);
+        //Debug.Log(Plot.plotDictionary[plotID].transform.position);
         moveComponent.Target = Plot.plotDictionary[plotID].transform.position;
 
         Location_PlotID = plotID;
@@ -93,7 +125,7 @@ public class Player : MonoBehaviour, IDiceListener
             MoveTo(plotID);
         }), null);
 
-        action.preAction = () => 
+        action.preAction = () =>
         {
             // Before Moveto, register OnComplete to moveComponent
             moveComponent.ListenTargetReached(new LambdaAction(action.PerformOnComplete));
@@ -109,6 +141,14 @@ public class Player : MonoBehaviour, IDiceListener
     public void MoveTo(int plotsToMove)
     {
         AddMovementToQueue(plotsToMove);
+
+
+        UIActions.AddOnActionComplete(() =>
+        {
+            _currentPhaseState = PhaseState.end;
+            UpdatePhaseMove();
+        });
+
         UIActions.PerformAction();
     }
     public void AddMovementToQueue(int plotsToMove)
@@ -126,29 +166,83 @@ public class Player : MonoBehaviour, IDiceListener
             IAction temp = Plot.plotDictionary[cur].ActionOnPass(this);
             if (temp != null)
                 UIActions.AddNonBlockAction(temp);
-            
+
             // Go to next tile.
             iter = (iter + 1) % Plot.PLOT_AMOUNT;
         }
     }
+    #endregion
 
-    public void StartPhase(int phaseID)
+    #region Phases
+    public void StartPhase(Phase phaseID)
     {
-        if(phaseID == (int)Phase.Dice && minePlayer)
+        _currentPhaseState = PhaseState.start;
+        switch (phaseID)
         {
-            btnRoll.gameObject.SetActive(true);
-        }
-        else if(phaseID == (int)Phase.Move)
-        {
-            MoveTo(Dice.Ins().GetLastResult().Sum());
-
-            if (minePlayer)
-            {
-                UIActions.OnActionComplete = new LambdaAction(UIActions.OnActionComplete, () =>
+            case Phase.Dice:
+                if (minePlayer)
                 {
-                    TurnDirector.Ins.EndOfPhase();
-                });
-            }
+                    if(this.Location_PlotID == PLOT.PRISON)
+                    {
+                        StopPhaseUI.Ins.Activate(PhaseScreens.FreeCardUI, Plot.plotDictionary[Location_PlotID]);
+                        StopPhaseUI.Ins.SubcribeOnDeactive(PhaseScreens.FreeCardUI, (PhaseScreens screen) =>
+                        {
+                            if(screen == PhaseScreens.FreeCardUI)
+                            {
+                                btnRoll.gameObject.SetActive(true);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        btnRoll.gameObject.SetActive(true);
+                    }
+
+
+                    /*
+                    if(obj.hasCard(FreeCard))
+                    {
+                        StopPhaseUI.Ins.Activate(PhaseScreens.FreeCardUI, this);
+                    }
+                    else
+                    {
+                        TurnDirector.Ins.EndOfPhase();
+                    }
+                    */
+                }
+                break;
+            case Phase.Move:
+                {
+                    var plot = Plot.plotDictionary[Location_PlotID];
+
+                    // Check if player is imprisoned, skip the phase move
+                    if (plot is PlotPrison &&
+                       (plot as PlotPrison).IsImprisoned(this))
+                    {
+                        if (MinePlayer)
+                        {
+                            TurnDirector.Ins.EndOfPhase();
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        UpdatePhaseMove();
+                    }
+                }
+                break;
+            case Phase.Stop:
+                {
+                    //Debug.Log("********PhaseStop********");
+                    var plot = Plot.plotDictionary[Location_PlotID];
+                    plot.ActiveOnEnter(this);
+                }
+                break;
+            case Phase.Extra:
+                break;
         }
     }
 
@@ -167,22 +261,6 @@ public class Player : MonoBehaviour, IDiceListener
 
     }
 
-    protected class ActionPlayerMove : IAction
-    {
-        public Player player;
-        public List<int> rollResult;
-        public ActionPlayerMove(Player player, List<int> rollResult) 
-        {
-            this.player = player;
-            rollResult = new List<int>(rollResult);
-        }
-
-        public void PerformAction()
-        {
-            player.MoveTo(rollResult.Sum());
-        }
-    }
-
     public void UpdatePhaseMove()
     {
         switch (_currentPhaseState)
@@ -190,7 +268,7 @@ public class Player : MonoBehaviour, IDiceListener
             case PhaseState.start:
                 {
                     // TODO: Get dice roll
-                    List<int> diceRoll = new List<int> { 5, 4 };
+                    List<int> diceRoll = Dice.Ins().GetLastResult();
 
                     // Modify dice roll Post-roll
                     IAction action = new ActionPlayerMove(this, diceRoll);
@@ -198,13 +276,24 @@ public class Player : MonoBehaviour, IDiceListener
 
                     // 
                     action.PerformAction();
+
+                    _currentPhaseState = PhaseState.ongoing;
                 }
                 break;
             case PhaseState.ongoing:
                 break;
             case PhaseState.end:
+                if (minePlayer)
+                {
+                    TurnDirector.Ins.EndOfPhase();
+                }
                 break;
         }
+    }
+
+    public void OnEndOfMove()
+    {
+        TurnDirector.Ins.EndOfPhase();
     }
 
     public void UpdatePhaseStop()
@@ -241,6 +330,34 @@ public class Player : MonoBehaviour, IDiceListener
             btnRoll.gameObject.SetActive(false);
         }
     }
+
+    #endregion
+
+    #region Temporary Area
+
+    [SerializeField] InputField diceResultInput1;
+    [SerializeField] InputField diceResultInput2;
+    public void RollCheat()
+    {
+        List<int> result = new List<int>();
+        int diceResult1;
+        int.TryParse(diceResultInput1.text, out diceResult1);
+
+        int diceResult2;
+        int.TryParse(diceResultInput2.text, out diceResult2);
+
+        result.Add(diceResult1);
+        result.Add(diceResult2);
+
+        if (TurnDirector.Ins.IsMyTurn(Id))
+        {
+            btnRoll.gameObject.SetActive(false);
+        }
+
+        Dice.Ins().CheatRoll(_id, result);
+    }
+
+    #endregion
 
     /// <summary>
     /// This function receive callback result from Dice when its finish rolling
@@ -279,6 +396,11 @@ public class Player : MonoBehaviour, IDiceListener
             Debug.Log("end of phase");
             TurnDirector.Ins.EndOfPhase();
         }
+    }
+
+    public int GetDiceListenerPriority()
+    {
+        return 2;
     }
 
     IAction OnRollResult;

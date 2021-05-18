@@ -27,6 +27,8 @@ public class Dice: MonoBehaviourPunCallbacks
     {
         _ins = this;
 
+        PhotonNetwork.NickName = Random.Range(0, 999999).ToString();
+
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -37,9 +39,11 @@ public class Dice: MonoBehaviourPunCallbacks
 
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 5;
-        options.PlayerTtl = 0;
+        options.PlayerTtl = 80000;
+        options.EmptyRoomTtl = 0;
+        options.PublishUserId = true;
 
-        if (PhotonNetwork.JoinOrCreateRoom("Moon", options, TypedLobby.Default) == false)
+        if (PhotonNetwork.JoinOrCreateRoom("HCTHCM290", options, TypedLobby.Default) == false)
         {
             Debug.LogError("Cannot create or join room");
         }
@@ -59,11 +63,31 @@ public class Dice: MonoBehaviourPunCallbacks
     int _baseDiceCount = 2;
     int _resultCount;
 
-    List<IDiceListener> _listDiceListener;
 
     [SerializeField] DiceUI _dicePrefab;
     List<DiceUI> _currentDices;
 
+    [SerializeField] Transform diceSpawnPosition;
+
+    #region Static Utility
+    public static bool IsDouble(List<int> diceResult)
+    {
+        if (diceResult.Count < 2)
+            return false;
+
+        Dictionary<int, int> diceResultCount = new Dictionary<int, int>();
+
+        foreach (int result in diceResult)
+        {
+            if (diceResultCount.ContainsKey(result)) return true;
+            else diceResultCount.Add(result, 1);
+        }
+
+        return false;
+    }
+    #endregion
+
+    #region Roll
     [PunRPC]
     private void _RollServer(int idPlayer)
     {
@@ -86,20 +110,15 @@ public class Dice: MonoBehaviourPunCallbacks
         _result.Clear();
         _resultCount = 0;
 
-        for (int i = 0; i < diceCount; i++)
-        {
-            _result.Add(0);
-        }
-
         // Add or destroy dice object to match dice count
         if (diceCount > _currentDices.Count)
         {
             while (diceCount > _currentDices.Count)
             {
-                DiceUI dice = PhotonNetwork.Instantiate("Dice", new Vector3(0, 0, 0), Quaternion.identity).GetComponent<DiceUI>();
+                DiceUI dice = PhotonNetwork.Instantiate("Dice", diceSpawnPosition.position, Quaternion.identity).GetComponent<DiceUI>();
                 //DiceUI dice = Instantiate(_dicePrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 dice.ReceiveResult += (int result) => {
-                    _result[_resultCount] = result;
+                    _result.Add(result);
                     _resultCount++;
 
                     if (_resultCount == diceCount)
@@ -137,8 +156,6 @@ public class Dice: MonoBehaviourPunCallbacks
         }
     }
 
-    
-
     /// <summary>
     /// Roll the dice
     /// </summary>
@@ -149,12 +166,21 @@ public class Dice: MonoBehaviourPunCallbacks
         photonView.RPC("_RollServer", RpcTarget.MasterClient, idPlayer);
     }
 
+    public void CheatRoll(int idPlayer, List<int> result)
+    {
+        photonView.RPC("_ReceiveRollResult", RpcTarget.All, idPlayer, (object)(result.ToArray()));
+    }
+    #endregion
+
     public List<int> GetLastResult()
     {
         return _result;
     }
 
-    public void SubscribeDiceListener(IDiceListener listener)
+    #region Dice Listener
+    static List<IDiceListener> _listDiceListener;
+
+    public static void SubscribeDiceListener(IDiceListener listener)
     {
         if(_listDiceListener == null)
         {
@@ -167,10 +193,11 @@ public class Dice: MonoBehaviourPunCallbacks
         else
         {
             _listDiceListener.Add(listener);
+            _listDiceListener.Sort((x, y) => { return System.Convert.ToInt32(x.GetDiceListenerPriority() > y.GetDiceListenerPriority()); });
         }
     }
 
-    public void UnsubscribeDiceListener(IDiceListener listener)
+    public static void UnsubscribeDiceListener(IDiceListener listener)
     {
         if (_listDiceListener.Contains(listener))
         {
@@ -181,6 +208,7 @@ public class Dice: MonoBehaviourPunCallbacks
             return;
         }
     }
+    #endregion
 
     private void Update()
     {

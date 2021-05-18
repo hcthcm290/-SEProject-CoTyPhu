@@ -26,7 +26,7 @@ public class MoveStraightEvenly : MonoBehaviour
     }
     [SerializeField]
     private Vector3 _target;
-    private bool ReachedTarget{ get=>Target == transform.position;
+    private bool ReachedTarget{ get=>_reachedTarget;
         set
         {
             bool temp = _reachedTarget;
@@ -35,7 +35,7 @@ public class MoveStraightEvenly : MonoBehaviour
                 PerformOnTargetReached();
         }
     }
-    private bool _reachedTarget = false;
+    private bool _reachedTarget = true;
     public float speed = 0.5f;
 
     // Start is called before the first frame update
@@ -111,6 +111,8 @@ public class MoveStraightEvenly : MonoBehaviour
         OnTargetReached = new List<IAction>();
 
         foreach (IAction item in temp)
+        {
             item.PerformAction();
+        }
     }
 }

@@ -28,6 +28,43 @@ public class PlotConstructionTemple : PlotConstruction
 		_startBonus += _bonusIncrement;
     }
 
+    public override IAction ActionOnEnter(Player player)
+    {
+        if(player.MinePlayer)
+        {
+            if (Owner == null)
+            {
+                // TODO
+                // Receive 1 mana
 
-	//  Event Handlers --------------------------------
+                // Activate Temple Buy UI
+                StopPhaseUI.Ins.Activate(PhaseScreens.TempleBuyUI, this);
+            }
+            else if (Owner.Id == player.Id)
+            {
+                // TODO
+                // Receive 2 mana
+
+                TurnDirector.Ins.EndOfPhase();
+            }
+            else if (Owner.Id != player.Id)
+            {
+                // TODO
+                // Receive 1 mana
+
+                // Pay the temple
+
+                // Active Market Rebuy UI
+
+                TurnDirector.Ins.EndOfPhase();
+            }
+        }
+        else
+        {
+
+        }
+        
+        return null;
+    }
+    //  Event Handlers --------------------------------
 }

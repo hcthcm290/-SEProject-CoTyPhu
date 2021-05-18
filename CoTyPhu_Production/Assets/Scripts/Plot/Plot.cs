@@ -48,7 +48,7 @@ public enum PLOT
 /// </summary>
 public class Plot : MonoBehaviour
 {
-    public const int PLOT_AMOUNT = 12;
+    public const int PLOT_AMOUNT = 32;
     //  Events ----------------------------------------
 
 
@@ -63,7 +63,12 @@ public class Plot : MonoBehaviour
     [SerializeField]protected string _name;
     [SerializeField]protected string _description;
 
+    //  Plot dictionary -------------------------------
     public static Dictionary<PLOT, Plot> plotDictionary = new Dictionary<PLOT, Plot>();
+    public Plot GetNextPlot()
+    {
+        return plotDictionary[(PLOT)(((int)_id + 1) % PLOT_AMOUNT)];
+    }
 
     //  Initialization --------------------------------
     public Plot(PLOT id, string name, string description)
@@ -74,14 +79,14 @@ public class Plot : MonoBehaviour
 
     }
 
-    private void Start()
+    public virtual void Start()
     {
         if (!plotDictionary.ContainsKey(_id))
             plotDictionary[_id] = this;
         else
             Debug.LogError("Duplicate plot id: " + this + ",\n" + plotDictionary[_id]);
     }
-    private void Update()
+    public virtual void Update()
     {
         
     }
@@ -98,10 +103,14 @@ public class Plot : MonoBehaviour
     public void ActiveOnEnter(dynamic obj)
     {
         // the 'this' is important for polymorphism
-        this.ActionOnEnter(obj).PerformAction();
+        this.ActionOnEnter(obj)?.PerformAction();
     }
     public virtual IAction ActionOnEnter(Player obj)
     {
+        if(obj.MinePlayer)
+        {
+            TurnDirector.Ins.EndOfPhase();
+        }
         return null;
     }
 
