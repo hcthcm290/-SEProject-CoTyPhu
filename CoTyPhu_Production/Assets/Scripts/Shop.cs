@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -122,13 +123,20 @@ public class Shop : MonoBehaviour
 
 		foreach(UIItemInShop i in _UIitemInShop)
         {
-			Destroy(i.gameObject);
+			try
+			{
+				Destroy(i.gameObject);
+			}
+			catch(Exception e)
+            {
+
+            }
         }
 		_UIitemInShop.Clear();
 
 		while (ItemInShop.Count < maxShop && ItemPool.Count > 0)
         {
-			int index = Random.Range(0, ItemPool.Count);
+			int index = UnityEngine.Random.Range(0, ItemPool.Count);
 			BaseItem item = ItemPool[index];
 			RemoveItemFromPool(item);
 			AddItemToShop(item);

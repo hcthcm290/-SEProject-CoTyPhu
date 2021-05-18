@@ -31,6 +31,7 @@ public class UIItemInShop : MonoBehaviour
             if (playerBuying.AddItem(value))
             {
                 Shop.Ins.RemoveItemFromShop(value);
+                //Shop.Ins._UIItemInShop.Remove(value);
                 Destroy(gameObject);
             }
         }
