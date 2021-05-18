@@ -15,8 +15,10 @@ public class UIPlayerBox : MonoBehaviour
 
     public void SetInfo()
     {
-        //transform.Find("PlayerBox/ManaBar").GetComponent<Text>().text = value.Mana;
-        //transform.Find("PlayerBox/MerchantImage").GetComponent<Image>().sprite = value.gameObject.GetComponent<Image>().sprite;
+        transform.Find("PlayerBox/ManaBar/Text").GetComponent<Text>().text = player.GetMana().ToString() + "/" + player.GetMerchant().MaxMana.ToString();
+        transform.Find("PlayerBox/MerchantImage").GetComponent<Image>().sprite = player.GetMerchant().gameObject.GetComponent<Image>().sprite;
+        transform.Find("PlayerBox/NamePanel/Text").GetComponent<Text>().text = player.Name;
+
         //transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();
         //transform.Find("Button").GetComponent<Button>().onClick.AddListener(Buy);
 

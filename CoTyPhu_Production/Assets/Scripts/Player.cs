@@ -283,13 +283,17 @@ public class Player : MonoBehaviour, IDiceListener
 
     IAction OnRollResult;
 
+    /// <summary>
+    /// Get Player name for PlayerBox
+    /// </summary>
+    public string Name;
 
     /// <summary>
-    /// GetInfomation for PlayerBox
+    /// Get Merchant Infomation for PlayerBox
     /// </summary>
-    private Merchant merchant;
+    [SerializeField] private BaseMerchant merchant;
     
-    public Merchant GetMerchant()
+    public BaseMerchant GetMerchant()
     {
         return merchant;
     }
@@ -302,7 +306,7 @@ public class Player : MonoBehaviour, IDiceListener
     /// <summary>
     /// Mana Process
     /// </summary>
-    private int _mana;
+    private int _mana = 0;
 
     public int GetMana()
     {
@@ -312,6 +316,10 @@ public class Player : MonoBehaviour, IDiceListener
     public void ChangeMana(int amount)
     {
         _mana += amount;
+        if(_mana >= GetMerchant().MaxMana)
+        {
+            _mana = GetMerchant().MaxMana;
+        }
     }
 
     public void ResetMana()
