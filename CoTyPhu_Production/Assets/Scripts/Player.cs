@@ -331,6 +331,8 @@ public class Player : MonoBehaviour, IDiceListener
         }
     }
 
+    #endregion
+
     #region Temporary Area
 
     [SerializeField] InputField diceResultInput1;
