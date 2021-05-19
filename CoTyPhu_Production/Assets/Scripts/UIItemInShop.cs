@@ -28,11 +28,18 @@ public class UIItemInShop : MonoBehaviour
     {
         if (playerBuying.playerItem.Count < playerBuying.itemLimit)
         {
-            if (playerBuying.AddItem(value))
+            //if (playerBuying.AddItem(value))
+            //{
+            //    Shop.Ins.RemoveItemFromShop(value);
+            //    Destroy(gameObject);
+            //}
+
+            Future<bool> result = ItemManager.Ins.RequestBuyItem(playerBuying.Id, value.Id);
+            result.then((bool requestResult) =>
             {
                 Shop.Ins.RemoveItemFromShop(value);
                 Destroy(gameObject);
-            }
+            });
         }
     }
 

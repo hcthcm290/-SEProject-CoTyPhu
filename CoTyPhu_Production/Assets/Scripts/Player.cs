@@ -403,8 +403,6 @@ public class Player : MonoBehaviour, IDiceListener
         return 2;
     }
 
-    IAction OnRollResult;
-
     /// <summary>
     /// Get Player name for PlayerBox
     /// </summary>

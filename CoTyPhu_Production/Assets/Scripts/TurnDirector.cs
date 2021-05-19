@@ -24,6 +24,13 @@ public class TurnDirector : MonoBehaviourPunCallbacks
 
     // The player id corresponding to this user.
     [SerializeField] int _myPlayer;
+    public int MyPlayer
+    {
+        get
+        {
+            return _myPlayer;
+        }
+    }
 
     public Dictionary<Phase, string> phaseName = new Dictionary<Phase, string>
     {
@@ -55,6 +62,13 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             }
             _count++;
         }
+    }
+
+    public override void OnCreatedRoom()
+    {
+        base.OnCreatedRoom();
+
+        InitializePlayer();
     }
 
     [PunRPC]
