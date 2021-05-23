@@ -27,6 +27,8 @@ public class FutureTask<T>
 public class Future<T>
 {
     private Action<T> _callbackFunction;
+    private bool completed = false;
+    private T _t;
 
     public Future(ref Action<T> FutureTaskFunction)
     {
@@ -35,11 +37,28 @@ public class Future<T>
 
     private void Then(T t)
     {
-        _callbackFunction(t);
+        if (_callbackFunction != null && !completed)
+        {
+            _callbackFunction(t);
+        }
+        else
+        {
+            _t = t;
+        }
+
+        completed = true;
     }
 
     public void then(Action<T> callbackFunction)
     {
-        _callbackFunction = callbackFunction;
+        if(_callbackFunction == null && completed)
+        {
+            callbackFunction(_t);
+        }
+        else
+        {
+            _callbackFunction = callbackFunction;
+        }
+
     }
 }

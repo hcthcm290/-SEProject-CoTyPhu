@@ -17,6 +17,10 @@ public class UIItemInShop : MonoBehaviour
 
     public void SetInfo()
     {
+        if(value == null)
+        {
+            Debug.Log("Null value in UIItemShop");
+        }
         transform.Find("ItemName").GetComponent<Text>().text = value.Name;
         transform.Find("ItemImage").GetComponent<Image>().sprite = value.gameObject.GetComponent<Image>().sprite;
         transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();

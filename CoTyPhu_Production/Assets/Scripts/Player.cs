@@ -464,10 +464,8 @@ public class Player : MonoBehaviour, IDiceListener
 
     public bool AddItem(BaseItem item)
     {
-        BaseItem b = Instantiate(item, this.transform);
-        b.StartListen();
-        playerItem.Add(b);
-        AddedItemToPlayer.Invoke();
+        playerItem.Add(item);
+        AddedItemToPlayer?.Invoke();
         return true;
     }
 

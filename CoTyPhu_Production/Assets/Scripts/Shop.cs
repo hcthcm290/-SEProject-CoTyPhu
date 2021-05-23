@@ -68,7 +68,11 @@ public class Shop : MonoBehaviour
         {
 			initialized = true;
 
-			LoadNewShop(3);
+			ItemManager.Ins.InitShopData().then((x) => {
+				LoadNewShop(3);
+			});
+
+			
 		}
     }
 

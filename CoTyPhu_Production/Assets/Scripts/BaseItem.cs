@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Base class for item
 /// </summary>
+[System.Serializable]
 public abstract class BaseItem : MonoBehaviour
 {
     //  Events ----------------------------------------

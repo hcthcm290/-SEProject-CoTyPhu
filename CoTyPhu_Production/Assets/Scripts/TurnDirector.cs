@@ -16,6 +16,13 @@ public class TurnDirector : MonoBehaviourPunCallbacks
 {
     public static TurnDirector Ins;
     [SerializeField] List<Player> _listPlayer;
+    public List<Player> ListPlayer
+    {
+        get
+        {
+            return _listPlayer;
+        }
+    }
     int _idPlayerTurn = -1;
     Phase _idPhase;
     Stack<int> _playerTurnExtraPhase;
