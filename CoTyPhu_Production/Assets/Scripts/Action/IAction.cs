@@ -51,7 +51,8 @@ public class ActionList : ICompletableAction
 
     public void AddOnActionComplete(Action action)
     {
-        OnActionComplete = new LambdaAction(OnActionComplete, action);
+        if (action != null)
+            OnActionComplete = new LambdaAction(OnActionComplete, action);
     }
 }
 
