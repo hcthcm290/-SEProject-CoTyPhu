@@ -109,7 +109,7 @@ public class TileChooserManager : MonoBehaviourPunCallbacks
 
     public void ChooseTile(int chosenTile)
     {
-        photonView.RPC("PublishChoice", RpcTarget.MasterClient, chosenTile);
+        photonView.RPC("PublishChoiceMaster", RpcTarget.MasterClient, chosenTile);
     }
 
     #region Event
@@ -166,5 +166,17 @@ public class TileChooserManager : MonoBehaviourPunCallbacks
     public static TileChooserManager GetInstance()
     {
         return Locator.GetInstance<TileChooserManager>();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(WaitDisableFirstFrame());
+    }
+
+    private IEnumerator WaitDisableFirstFrame()
+    {
+        yield return new WaitForEndOfFrame();
+
+        this.gameObject.SetActive(false);
     }
 }
