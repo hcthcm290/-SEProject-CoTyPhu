@@ -8,12 +8,16 @@ using UnityEngine;
 [System.Serializable]
 public abstract class BaseItem : MonoBehaviour
 {
-    //  Events ----------------------------------------
+	//  Events ----------------------------------------
+	public delegate void ItemActivateHandler(int id);
+	public event ItemActivateHandler ItemActivate;
 
+	public delegate void ItemDestroyHandeler();
+	public event ItemDestroyHandeler ItemDestroy;
 
-    //  Properties ------------------------------------
+	//  Properties ------------------------------------
 
-    public int Id
+	public int Id
     {
         get { return _id; }
         //set { _id = value; }
@@ -49,14 +53,22 @@ public abstract class BaseItem : MonoBehaviour
         set { _canActivate = value; }
     }
 
+	public Player Owner
+    {
+		get { return _owner; }
+		set { _owner = value; }
+    }
+
 	//  Fields ----------------------------------------
-	private int _id;
-	private string _name;
-	private int _price;
-	private string _description;
-	private string _type;
+	[SerializeField]private int _id;
+	[SerializeField]private string _name;
+	[SerializeField]private int _price;
+	[SerializeField]private string _description;
+	[SerializeField]private string _type;
 
 	private bool _canActivate;
+
+	private Player _owner;
 
 	//  Initialization --------------------------------
 	public void Set(int id, string name, int price, string description, string type)
@@ -89,10 +101,5 @@ public abstract class BaseItem : MonoBehaviour
 	}
 
 	//  Event Handlers --------------------------------
-	public delegate void ItemActivateHandler(int id);
-	public event ItemActivateHandler ItemActivate;
-
-	public delegate void ItemDestroyHandeler();
-	public event ItemDestroyHandeler ItemDestroy;
 }
 

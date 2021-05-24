@@ -463,6 +463,7 @@ public class Player : MonoBehaviour, IDiceListener
     public bool AddItem(BaseItem item)
     {
         playerItem.Add(item);
+        item.Owner = this;
         AddedItemToPlayer?.Invoke();
         return true;
     }

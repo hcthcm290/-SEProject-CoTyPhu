@@ -98,8 +98,12 @@ public class PlotPrison : Plot, IDiceListener, ITurnListener
             }
 		});
 	}
+    public override IAction ActionOnPass(Player obj)
+    {
+        return base.ActionOnPass(obj);
+    }
 
-	public override IAction ActionOnLeave(Player obj)
+    public override IAction ActionOnLeave(Player obj)
 	{
 		return null;
 		//TODO: Check the release condition, if satisfied, Release the player, else increase PlayerImprisonDuration
