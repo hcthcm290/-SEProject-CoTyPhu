@@ -5,7 +5,7 @@ using UnityEngine;
 public class SunnarySundial : BaseItem, IPlotPassByListener
 {
     [SerializeField] int manaPerPrisoner = 1;
-    public new Player Owner
+    public override Player Owner
     {
         get
         {

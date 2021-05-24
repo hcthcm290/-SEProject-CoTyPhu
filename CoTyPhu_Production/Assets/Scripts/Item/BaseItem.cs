@@ -53,7 +53,7 @@ public abstract class BaseItem : MonoBehaviour
         set { _canActivate = value; }
     }
 
-	public Player Owner
+	public virtual Player Owner
     {
 		get { return _owner; }
 		set { _owner = value; }

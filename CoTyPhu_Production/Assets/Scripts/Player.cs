@@ -424,7 +424,7 @@ public class Player : MonoBehaviour, IDiceListener
     /// <summary>
     /// Mana Process
     /// </summary>
-    private int _mana = 0;
+    [SerializeField] private int _mana = 0;
 
     public int GetMana()
     {
