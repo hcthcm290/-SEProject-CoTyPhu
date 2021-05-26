@@ -57,10 +57,12 @@ public class PlotConstructionMarket : PlotConstruction
         {
 			player.ChangeMana(2);
 
+			Debug.Log("Pay the rent");
+			var entryFee = EntryFee;
+
 			// TODO
 			// Pay the rent
-			Bank.Ins.TakeMoney(player, EntryFee);
-			Bank.Ins.SendMoney(Owner, EntryFee);
+			Bank.Ins.TransactBetweenPlayers(player, Owner, entryFee);
 
 			NotifyPayPlotFee(player);
 		}

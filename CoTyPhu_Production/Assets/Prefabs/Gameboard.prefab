@@ -990,6 +990,7 @@ MonoBehaviour:
   _id: 27
   _name: Temple 4
   _description: 
+  _entryFee: 0
   _price: 0
   _owner: {fileID: 0}
 --- !u!1 &7294645261916477760
@@ -1090,6 +1091,7 @@ MonoBehaviour:
   _id: 25
   _name: G1
   _description: 
+  _entryFee: 0
   _price: 150
   _owner: {fileID: 0}
   _level: 0
@@ -1191,6 +1193,7 @@ MonoBehaviour:
   _id: 10
   _name: C2
   _description: 
+  _entryFee: 0
   _price: 70
   _owner: {fileID: 0}
   _level: 0
@@ -1391,6 +1394,7 @@ MonoBehaviour:
   _id: 9
   _name: C1
   _description: 
+  _entryFee: 0
   _price: 65
   _owner: {fileID: 0}
   _level: 0
@@ -1492,6 +1496,7 @@ MonoBehaviour:
   _id: 1
   _name: A1
   _description: 
+  _entryFee: 10
   _price: 30
   _owner: {fileID: 0}
   _level: 0
@@ -1592,6 +1597,7 @@ MonoBehaviour:
   _id: 19
   _name: Temple 3
   _description: 
+  _entryFee: 0
   _price: 200
   _owner: {fileID: 0}
 --- !u!1 &7294645262123260253
@@ -1691,6 +1697,7 @@ MonoBehaviour:
   _id: 11
   _name: Temple 2
   _description: 
+  _entryFee: 0
   _price: 0
   _owner: {fileID: 0}
 --- !u!1 &7294645262162410489
@@ -1791,6 +1798,7 @@ MonoBehaviour:
   _id: 17
   _name: E1
   _description: 
+  _entryFee: 0
   _price: 110
   _owner: {fileID: 0}
   _level: 0
@@ -1892,6 +1900,7 @@ MonoBehaviour:
   _id: 6
   _name: B1
   _description: 
+  _entryFee: 0
   _price: 45
   _owner: {fileID: 0}
   _level: 0
@@ -2186,6 +2195,7 @@ MonoBehaviour:
   _id: 4
   _name: Temple 1
   _description: 
+  _entryFee: 0
   _price: 200
   _owner: {fileID: 0}
 --- !u!1 &7294645262475079254
@@ -2385,6 +2395,7 @@ MonoBehaviour:
   _id: 3
   _name: A2
   _description: 
+  _entryFee: 15
   _price: 35
   _owner: {fileID: 0}
   _level: 0
@@ -2486,6 +2497,7 @@ MonoBehaviour:
   _id: 15
   _name: D2
   _description: 
+  _entryFee: 0
   _price: 95
   _owner: {fileID: 0}
   _level: 0
@@ -2587,6 +2599,7 @@ MonoBehaviour:
   _id: 14
   _name: D1
   _description: 
+  _entryFee: 0
   _price: 90
   _owner: {fileID: 0}
   _level: 0
@@ -2688,6 +2701,7 @@ MonoBehaviour:
   _id: 26
   _name: G2
   _description: 
+  _entryFee: 0
   _price: 155
   _owner: {fileID: 0}
   _level: 0
@@ -2888,6 +2902,7 @@ MonoBehaviour:
   _id: 23
   _name: F3
   _description: 
+  _entryFee: 0
   _price: 140
   _owner: {fileID: 0}
   _level: 0
@@ -2989,6 +3004,7 @@ MonoBehaviour:
   _id: 20
   _name: F1
   _description: 
+  _entryFee: 0
   _price: 130
   _owner: {fileID: 0}
   _level: 0
@@ -3090,6 +3106,7 @@ MonoBehaviour:
   _id: 31
   _name: H2
   _description: 
+  _entryFee: 0
   _price: 180
   _owner: {fileID: 0}
   _level: 0
@@ -3191,6 +3208,7 @@ MonoBehaviour:
   _id: 12
   _name: C3
   _description: 
+  _entryFee: 0
   _price: 80
   _owner: {fileID: 0}
   _level: 0
@@ -3292,6 +3310,7 @@ MonoBehaviour:
   _id: 18
   _name: E2
   _description: 
+  _entryFee: 0
   _price: 115
   _owner: {fileID: 0}
   _level: 0
@@ -3393,6 +3412,7 @@ MonoBehaviour:
   _id: 22
   _name: F2
   _description: 
+  _entryFee: 0
   _price: 135
   _owner: {fileID: 0}
   _level: 0
@@ -3593,6 +3613,7 @@ MonoBehaviour:
   _id: 29
   _name: H1
   _description: 
+  _entryFee: 0
   _price: 170
   _owner: {fileID: 0}
   _level: 0
@@ -3791,6 +3812,7 @@ MonoBehaviour:
   _name: Prison
   _description: 
   _plotManager: {fileID: 0}
+  _maxDuration: 3
   _releaseFeePerRound: 200
 --- !u!1 &7294645263771449374
 GameObject:
@@ -3987,6 +4009,7 @@ MonoBehaviour:
   _id: 7
   _name: B2
   _description: 
+  _entryFee: 0
   _price: 50
   _owner: {fileID: 0}
   _level: 0

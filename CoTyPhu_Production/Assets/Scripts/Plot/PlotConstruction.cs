@@ -7,10 +7,9 @@ using UnityEngine;
 public class PlotConstruction: Plot
 {
 	#region Status
-	[SerializeField] List<IHirePriceChange> _listStatusHirePrice;
+	[SerializeField] List<IHirePriceChange> _listStatusHirePrice = new List<IHirePriceChange>();
 
 	#endregion
-
 
 	//  Events ----------------------------------------
 	List<IPayPlotFeeListener> _payPlotListeners = new List<IPayPlotFeeListener>();
@@ -41,7 +40,7 @@ public class PlotConstruction: Plot
 
 
 	//  Fields ----------------------------------------
-	protected int _entryFee = 50;
+	[SerializeField] protected int _entryFee;
 	[SerializeField] protected int _price;
 	[SerializeField] protected Player _owner;
 	protected static float _reBuyOffset = 1.5f;
@@ -55,9 +54,19 @@ public class PlotConstruction: Plot
 		this._owner = null;
 	}
 
+    #region Unity methods
+    public new void Start()
+    {
+		base.Start();
+		_payPlotListeners = new List<IPayPlotFeeListener>();
+		_listStatusHirePrice = new List<IHirePriceChange>();
 
-	//  Methods ---------------------------------------
-	public override IAction ActionOnEnter(Player obj)
+	}
+    #endregion
+
+    #region Methods
+    //  Methods ---------------------------------------
+    public override IAction ActionOnEnter(Player obj)
     {
 		//TODO: Check Owner --> do action based on Owner state
 		return null;
@@ -105,10 +114,12 @@ public class PlotConstruction: Plot
 
 	protected void NotifyPayPlotFee(Player player)
     {
-		foreach(var listener in _payPlotListeners)
+		var listeners = new List<IPayPlotFeeListener>(_payPlotListeners);
+		foreach(var listener in listeners)
         {
 			listener.OnPayPlotFee(player, this);
         }
     }
+    #endregion
     //  Event Handlers --------------------------------
 }

@@ -12,7 +12,7 @@ public class StatusHirePriceChange : BaseStatus, IHirePriceChange
     {
         delta += hirePriceChange * basePrice;
 
-        return basePrice + delta;
+        return delta;
     }
 
     public override bool LoadData()
@@ -50,7 +50,7 @@ public class StatusHirePriceChange : BaseStatus, IHirePriceChange
     {
         targetPlot.RemoveStatus(this);
         base.Remove(triggerEvent);
-        Destroy(this);
+        Destroy(this.gameObject);
 
         return true;
     }

@@ -102,6 +102,7 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
         }
         if(player != Owner)
         {
+            activeStatus.targetPlot.UnsubcribePayPlotFee(this);
             activeStatus.Remove(true);
             Destroy(this.gameObject);
         }

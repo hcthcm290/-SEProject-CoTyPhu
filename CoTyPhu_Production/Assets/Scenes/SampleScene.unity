@@ -2779,10 +2779,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294645263600253254, guid: 0f8e4969073798b4b8d1ec793559ca05, type: 3}
-      propertyPath: _maxDuration
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7294645263600253254, guid: 0f8e4969073798b4b8d1ec793559ca05, type: 3}
       propertyPath: _plotManager
       value: 
       objectReference: {fileID: 930710967}
