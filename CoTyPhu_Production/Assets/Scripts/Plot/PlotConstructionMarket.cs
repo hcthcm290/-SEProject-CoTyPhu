@@ -47,8 +47,30 @@ public class PlotConstructionMarket : PlotConstruction
 
     public override IAction ActionOnEnter(Player player)
     {
+		NotifyPlotEnter(player);
+
+		if(Owner == null)
+        {
+
+        }
+		else if(Owner.Id != player.Id)
+        {
+			player.ChangeMana(2);
+
+			// TODO
+			// Pay the rent
+			Bank.Ins.TakeMoney(player, EntryFee);
+			Bank.Ins.SendMoney(Owner, EntryFee);
+
+			NotifyPayPlotFee(player);
+		}
+		else if(Owner.Id == player.Id)
+        {
+			player.ChangeMana(1);
+		}
+
 		// If this player is in client's control
-		if(player.MinePlayer)
+		if (player.MinePlayer)
         {
 			if (Owner == null)
 			{
@@ -56,19 +78,11 @@ public class PlotConstructionMarket : PlotConstruction
 			}
 			else if (Owner.Id == player.Id)
 			{
-				// TODO
-				// Receive 1 mana
-
 				// Activate Market Upgrade UI
 				StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, this);
 			}
 			else if (Owner.Id != player.Id)
 			{
-				// TODO
-				// Receive 2 mana
-
-				// Pay the rent
-
 				// Active Market Rebuy UI
 
 				TurnDirector.Ins.EndOfPhase();

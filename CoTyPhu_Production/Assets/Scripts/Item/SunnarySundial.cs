@@ -69,9 +69,7 @@ public class SunnarySundial : BaseItem, IPlotPassByListener
 
                 int totalBonusMana = manaPerPrisoner * prisonerCount;
 
-                int ownerCurrentMana = Owner.GetMana();
-
-                Owner.ChangeMana(ownerCurrentMana + totalBonusMana);
+                Owner.ChangeMana(totalBonusMana);
 
             }
             else

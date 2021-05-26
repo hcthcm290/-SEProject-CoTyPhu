@@ -464,10 +464,18 @@ public class Player : MonoBehaviour, IDiceListener
     {
         playerItem.Add(item);
         item.Owner = this;
-        AddedItemToPlayer?.Invoke();
+        ItemsChange?.Invoke();
         return true;
     }
 
-    public delegate void AddedItemHandler();
-    public event AddedItemHandler AddedItemToPlayer;
+    public bool RemoveItem(BaseItem item)
+    {
+        playerItem.Remove(item);
+        ItemsChange?.Invoke();
+
+        return true;
+    }
+
+    public delegate void ItemChangeHandler();
+    public event ItemChangeHandler ItemsChange;
 }

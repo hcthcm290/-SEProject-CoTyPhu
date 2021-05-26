@@ -38,7 +38,7 @@ public class UIPlayerBox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player.AddedItemToPlayer += SetInfo;
+        player.ItemsChange += SetInfo;
     }
 
     // Update is called once per frame

@@ -66,9 +66,9 @@ public abstract class BaseItem : MonoBehaviour
 	[SerializeField]private string _description;
 	[SerializeField]private string _type;
 
-	private bool _canActivate;
+	[SerializeField] bool _canActivate;
 
-	private Player _owner;
+	[SerializeField] private Player _owner;
 
 	//  Initialization --------------------------------
 	public void Set(int id, string name, int price, string description, string type)

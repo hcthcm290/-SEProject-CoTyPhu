@@ -14,6 +14,7 @@ public enum Phase
 
 public class TurnDirector : MonoBehaviourPunCallbacks
 {
+    #region Field
     public static TurnDirector Ins;
     [SerializeField] List<Player> _listPlayer;
     public List<Player> ListPlayer
@@ -46,7 +47,9 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         { Phase.Stop, "Stop"},
         { Phase.Extra, "Extra"}
     };
+    #endregion
 
+    #region Pun Callback
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         if(PhotonNetwork.IsMasterClient)
@@ -77,6 +80,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
 
         InitializePlayer();
     }
+    #endregion
 
     [PunRPC]
     private void CreateNewPlayer(bool isMine, int id)

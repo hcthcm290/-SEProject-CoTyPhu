@@ -79,7 +79,7 @@ public class ItemManager : MonoBehaviourPun
 
         //AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"), 3);
         //AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"), 3);
-        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Sundial"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Burning_Dice"), 8);
     }
 
     public bool AddItemToPool(BaseItem item)
@@ -404,6 +404,7 @@ public class ItemManager : MonoBehaviourPun
 
             _listItemInShop[idPlayer].Remove(item);
             player.AddItem(item);
+            Bank.Ins.TakeMoney(player, item.Price);
 
             requestBuyCallback?.Complete(true);
 
@@ -417,6 +418,7 @@ public class ItemManager : MonoBehaviourPun
 
                 _listItemInShop[idPlayer].Remove(item);
                 player.AddItem(item);
+                Bank.Ins.TakeMoney(player, item.Price);
 
                 requestBuyCallback?.Complete(true);
 
@@ -435,6 +437,35 @@ public class ItemManager : MonoBehaviourPun
         photonView.RPC("RequestBuyItemServer", RpcTarget.MasterClient, idPlayer, idItem);
 
         return requestBuy.GetFuture();
+    }
+    #endregion
+
+    #region Use item
+    [PunRPC]
+    private void UseItemServer(int idPlayer, int itemID)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("UseItemClient", RpcTarget.AllViaServer, idPlayer, itemID);
+    }
+
+    [PunRPC]
+    private void UseItemClient(int idPlayer, int itemID)
+    {
+        Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+        BaseItem item = player.playerItem.Find(x => x.Id == itemID);
+
+        if(item == null)
+        {
+            Debug.LogError("player dont have item to active");
+            return;
+        }
+        item.Activate("");
+    }
+
+    public void RequestUseItem(int idPlayer, int itemID)
+    {
+        photonView.RPC("UseItemServer", RpcTarget.MasterClient, idPlayer, itemID);
     }
     #endregion
 

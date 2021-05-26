@@ -51,6 +51,7 @@ public class Plot : MonoBehaviour
     public const int PLOT_AMOUNT = 32;
     //  Events ----------------------------------------
     List<IPlotPassByListener> _plotPassByListeners;
+    List<IPlotEnterListener> _plotEnterListeners;
 
     //  Properties ------------------------------------
     public PLOT Id { get => _id; }
@@ -87,6 +88,7 @@ public class Plot : MonoBehaviour
             Debug.LogError("Duplicate plot id: " + this + ",\n" + plotDictionary[_id]);
 
         _plotPassByListeners = new List<IPlotPassByListener>();
+        _plotEnterListeners = new List<IPlotEnterListener>();
     }
     public virtual void Update()
     {
@@ -141,6 +143,20 @@ public class Plot : MonoBehaviour
         _plotPassByListeners.Remove(listener);
     }
 
+    public void SubcribePlotEnter(IPlotEnterListener listener)
+    {
+        if(!_plotEnterListeners.Contains(listener))
+        {
+            _plotEnterListeners.Add(listener);
+        }
+        return;
+    }
+
+    public void UnsubcribePlotEnter(IPlotEnterListener listener)
+    {
+        _plotEnterListeners.Remove(listener);
+    }
+
     //  Event Handlers --------------------------------
     protected void NotifyPlotPassBy(Player player)
     {
@@ -149,6 +165,17 @@ public class Plot : MonoBehaviour
             if (listener == null) continue;
 
             listener.OnPlotPassBy(player, this);
+        }
+    }
+
+    protected void NotifyPlotEnter(Player player)
+    {
+        List<IPlotEnterListener> listeners = new List<IPlotEnterListener>(_plotEnterListeners);
+        foreach (var listener in listeners)
+        {
+            if (listener == null) continue;
+
+            listener.OnPlotEnter(player, this);
         }
     }
 }
