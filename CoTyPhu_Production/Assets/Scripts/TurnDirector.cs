@@ -244,4 +244,9 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     {
         return _listPlayer.Find(x => x.Id == playerID);
     }
+
+    public Player GetPlayerHaveTurn()
+    {
+        return _listPlayer.Find(x => x.Id == _idPlayerTurn);
+    }
 }
