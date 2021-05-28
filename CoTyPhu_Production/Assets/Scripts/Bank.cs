@@ -103,6 +103,7 @@ public class Bank: MonoBehaviour
 		if (!_moneyPlayer.ContainsKey(player)) return;
 
 		_moneyPlayer[player] += amount;
+		_moneyPlayers.Find(x => x.player == player).money += amount;
 		_moneyBank -= amount;
 	}
 

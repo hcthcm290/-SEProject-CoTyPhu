@@ -4062,6 +4062,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Use Release Card
       objectReference: {fileID: 0}
+    - target: {fileID: 1151461993457652483, guid: fc5cdd9bbf9607544aa0965b4961b0d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2118204771922393253, guid: fc5cdd9bbf9607544aa0965b4961b0d8, type: 3}
       propertyPath: m_Text
       value: Do you want to use the release card or pay
@@ -4163,16 +4167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &109600318158314099 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1151461993457652483, guid: fc5cdd9bbf9607544aa0965b4961b0d8, type: 3}
-  m_PrefabInstance: {fileID: 1044747691830053232}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &8082144829648036274 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 9103529234774550722, guid: fc5cdd9bbf9607544aa0965b4961b0d8, type: 3}
-  m_PrefabInstance: {fileID: 1044747691830053232}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4560299749438543200 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3546232898835635216, guid: fc5cdd9bbf9607544aa0965b4961b0d8, type: 3}
@@ -4184,6 +4178,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &8082144829648036274 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 9103529234774550722, guid: fc5cdd9bbf9607544aa0965b4961b0d8, type: 3}
+  m_PrefabInstance: {fileID: 1044747691830053232}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &109600318158314099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1151461993457652483, guid: fc5cdd9bbf9607544aa0965b4961b0d8, type: 3}
+  m_PrefabInstance: {fileID: 1044747691830053232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3827704065946373583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4191,6 +4195,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4880106657954017975}
     m_Modifications:
+    - target: {fileID: 4710837913075099778, guid: 55b9382e927203a469ad1864704dc3c8, type: 3}
+      propertyPath: text
+      value: 
+      objectReference: {fileID: 7884934745238756400}
+    - target: {fileID: 4710837913075099778, guid: 55b9382e927203a469ad1864704dc3c8, type: 3}
+      propertyPath: button
+      value: 
+      objectReference: {fileID: 7884934743552910209}
     - target: {fileID: 6373251867595995816, guid: 55b9382e927203a469ad1864704dc3c8, type: 3}
       propertyPath: m_Name
       value: Skip Button
@@ -4281,13 +4293,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55b9382e927203a469ad1864704dc3c8, type: 3}
+--- !u!114 &7884934745238756400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6373251867645448703, guid: 55b9382e927203a469ad1864704dc3c8, type: 3}
+  m_PrefabInstance: {fileID: 3827704065946373583}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &7884934745189660518 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6373251867595995817, guid: 55b9382e927203a469ad1864704dc3c8, type: 3}
+  m_PrefabInstance: {fileID: 3827704065946373583}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7884934745189660519 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6373251867595995816, guid: 55b9382e927203a469ad1864704dc3c8, type: 3}
   m_PrefabInstance: {fileID: 3827704065946373583}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &7884934745189660518 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6373251867595995817, guid: 55b9382e927203a469ad1864704dc3c8, type: 3}
+--- !u!1 &7884934743552910209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6373251869314526798, guid: 55b9382e927203a469ad1864704dc3c8, type: 3}
   m_PrefabInstance: {fileID: 3827704065946373583}
   m_PrefabAsset: {fileID: 0}

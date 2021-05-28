@@ -17,6 +17,10 @@ public class UIItemInShop : MonoBehaviour
 
     public void SetInfo()
     {
+        if(value == null)
+        {
+            Debug.Log("Null value in UIItemShop");
+        }
         transform.Find("ItemName").GetComponent<Text>().text = value.Name;
         transform.Find("ItemImage").GetComponent<Image>().sprite = value.gameObject.GetComponent<Image>().sprite;
         transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();
@@ -28,12 +32,19 @@ public class UIItemInShop : MonoBehaviour
     {
         if (playerBuying.playerItem.Count < playerBuying.itemLimit)
         {
-            if (playerBuying.AddItem(value))
+            //if (playerBuying.AddItem(value))
+            //{
+            //    Shop.Ins.RemoveItemFromShop(value);
+            //    Destroy(gameObject);
+            //}
+
+            Future<bool> result = ItemManager.Ins.RequestBuyItem(playerBuying.Id, value.Id);
+            result.then((bool requestResult) =>
             {
                 Shop.Ins.RemoveItemFromShop(value);
                 //Shop.Ins._UIItemInShop.Remove(value);
                 Destroy(gameObject);
-            }
+            });
         }
     }
 

@@ -1,10 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// PLOT.PRISON (8) MANAGE THE PROPERTIES OF PRISON PLOT WHICH BLOCK PLAYER WHEN ENTER
 /// </summary>
-public class PlotPrison : Plot, IDiceListener
+public class PlotPrison : Plot, IDiceListener, ITurnListener
 {
 	//  Events ----------------------------------------
 
@@ -13,11 +14,39 @@ public class PlotPrison : Plot, IDiceListener
 	public int ReleaseFeePerRound { get => _releaseFeePerRound; }
 	public Dictionary<Player, int> AllPlayerImprisonDurations { get => _playerImprisonDuration; }
 	[SerializeField] PlotManager _plotManager;
+	[SerializeField] int _maxDuration = 3;
 
 
 	//  Fields ----------------------------------------
 	[SerializeField] protected int _releaseFeePerRound;
 	protected Dictionary<Player, int> _playerImprisonDuration;
+
+	[System.Serializable]
+	class ImprisonDuration
+    {
+		public Player player;
+		public int duration;
+
+		public ImprisonDuration(Player p, int d)
+        {
+			player = p;
+			duration = d;
+        }
+    }
+	[SerializeField] List<ImprisonDuration> _listImprisonDuration
+    {
+        get
+        {
+			List<ImprisonDuration> l = new List<ImprisonDuration>();
+			foreach(var p in _playerImprisonDuration)
+            {
+				l.Add(new ImprisonDuration(p.Key, p.Value));
+            }
+
+			return l;
+        }
+        set { }
+    }
 
 
 	//  Initialization --------------------------------
@@ -69,8 +98,12 @@ public class PlotPrison : Plot, IDiceListener
             }
 		});
 	}
+    public override IAction ActionOnPass(Player obj)
+    {
+        return base.ActionOnPass(obj);
+    }
 
-	public override IAction ActionOnLeave(Player obj)
+    public override IAction ActionOnLeave(Player obj)
 	{
 		return null;
 		//TODO: Check the release condition, if satisfied, Release the player, else increase PlayerImprisonDuration
@@ -80,8 +113,17 @@ public class PlotPrison : Plot, IDiceListener
     {
 		base.Start();
 		_playerImprisonDuration = new Dictionary<Player, int>();
+		StartCoroutine(InitEventListener());
+	}
+
+	private IEnumerator InitEventListener()
+    {
+		// Wait for 1 frame to let all game object init its own
+		yield return 0;
+
 		Dice.SubscribeDiceListener(this);
 		_plotManager.releaseFunc = Release;
+		TurnDirector.Ins.SubscribeTurnListener(this);
 	}
 
 	private void FreeCardUse(Player _player)
@@ -89,15 +131,7 @@ public class PlotPrison : Plot, IDiceListener
 		this.Release(_player);
     }
 
-    public void OnRoll(int idPlayer, List<int> result)
-    {
-		if(Dice.IsDouble(result))
-        {
-			Player player = TurnDirector.Ins.GetPlayer(idPlayer);
-
-			this.Release(player);
-        }
-    }
+    
 
 	public bool IsImprisoned(Player player)
     {
@@ -141,6 +175,41 @@ public class PlotPrison : Plot, IDiceListener
     {
 		return 1;
     }
-    //  Event Handlers --------------------------------
 
+	//  Event Handlers --------------------------------
+	public void OnBeginTurn(int idPlayer)
+	{
+		Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+
+		if(_playerImprisonDuration.ContainsKey(player))
+        {
+			_playerImprisonDuration[player]++;
+		}
+	}
+
+	public void OnEndTurn(int idPlayer)
+	{
+	}
+
+	public void OnRoll(int idPlayer, List<int> result)
+	{
+		if (Dice.IsDouble(result))
+		{
+			Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+
+			this.Release(player);
+		}
+		else
+		{
+			Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+
+			
+			if (PlayerImprisonDuration(player) == (_maxDuration + 1)) // +1 because when init, it's value = 1
+			{
+				Bank.Ins.TakeMoney(player, GetReleaseFee(player));
+
+				this.Release(player);
+			}
+		}
+	}
 }

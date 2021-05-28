@@ -14,8 +14,16 @@ public enum Phase
 
 public class TurnDirector : MonoBehaviourPunCallbacks
 {
+    #region Field
     public static TurnDirector Ins;
     [SerializeField] List<Player> _listPlayer;
+    public List<Player> ListPlayer
+    {
+        get
+        {
+            return _listPlayer;
+        }
+    }
     int _idPlayerTurn = -1;
     Phase _idPhase;
     Stack<int> _playerTurnExtraPhase;
@@ -24,6 +32,13 @@ public class TurnDirector : MonoBehaviourPunCallbacks
 
     // The player id corresponding to this user.
     [SerializeField] int _myPlayer;
+    public int MyPlayer
+    {
+        get
+        {
+            return _myPlayer;
+        }
+    }
 
     public Dictionary<Phase, string> phaseName = new Dictionary<Phase, string>
     {
@@ -32,7 +47,9 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         { Phase.Stop, "Stop"},
         { Phase.Extra, "Extra"}
     };
+    #endregion
 
+    #region Pun Callback
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         if(PhotonNetwork.IsMasterClient)
@@ -56,6 +73,14 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             _count++;
         }
     }
+
+    public override void OnCreatedRoom()
+    {
+        base.OnCreatedRoom();
+
+        InitializePlayer();
+    }
+    #endregion
 
     [PunRPC]
     private void CreateNewPlayer(bool isMine, int id)
@@ -171,6 +196,15 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     [PunRPC]
     private void _StartPhase(int idPlayer, int phaseID)
     {
+        if((Phase)phaseID == Phase.Dice)
+        {
+            foreach(var listener in _listTurnListener)
+            {
+                listener.OnEndTurn(_idPlayerTurn);
+                listener.OnBeginTurn(idPlayer);
+            }
+        }
+
         _idPlayerTurn = idPlayer;
         Phase phase = (Phase)phaseID;
         _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(phase);
@@ -218,6 +252,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
 
     public void SubscribeTurnListener(ITurnListener listener)
     {
+        if (_listTurnListener == null) _listTurnListener = new List<ITurnListener>();
         if(_listTurnListener.Contains(listener))
         {
             return;

@@ -4,11 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class MonoBahaviour
-{
-
-}
-
 [System.Serializable]
 public class Player : MonoBehaviour, IDiceListener
 {
@@ -83,19 +78,21 @@ public class Player : MonoBehaviour, IDiceListener
     #endregion
 
     #region Movement
-    protected class ActionPlayerMove : IAction
+    public class ActionPlayerMove : IAction
     {
         public Player player;
         public List<int> rollResult;
-        public ActionPlayerMove(Player player, List<int> rollResult)
+        System.Action onComplete;
+        public ActionPlayerMove(Player player, List<int> rollResult, System.Action onComplete)
         {
             this.player = player;
             this.rollResult = new List<int>(rollResult);
+            this.onComplete = onComplete;
         }
 
         public void PerformAction()
         {
-            player.MoveTo(rollResult.Sum());
+            player.MoveTo(rollResult.Sum(), onComplete);
         }
     }
     /// <summary>
@@ -138,16 +135,12 @@ public class Player : MonoBehaviour, IDiceListener
     /// This WILL trigger PassBy Effect
     /// </summary>
     /// <param name="plotsToMove"></param>
-    public void MoveTo(int plotsToMove)
+    public void MoveTo(int plotsToMove, System.Action onComplete)
     {
         AddMovementToQueue(plotsToMove);
 
 
-        UIActions.AddOnActionComplete(() =>
-        {
-            _currentPhaseState = PhaseState.end;
-            UpdatePhaseMove();
-        });
+        UIActions.AddOnActionComplete(onComplete);
 
         UIActions.PerformAction();
     }
@@ -271,7 +264,12 @@ public class Player : MonoBehaviour, IDiceListener
                     List<int> diceRoll = Dice.Ins().GetLastResult();
 
                     // Modify dice roll Post-roll
-                    IAction action = new ActionPlayerMove(this, diceRoll);
+                    System.Action onComplete = () =>
+                    {
+                        _currentPhaseState = PhaseState.end;
+                        UpdatePhaseMove();
+                    };
+                    IAction action = new ActionPlayerMove(this, diceRoll, onComplete);
                     // status.ModifyAction(action)
 
                     // 
@@ -403,8 +401,6 @@ public class Player : MonoBehaviour, IDiceListener
         return 2;
     }
 
-    IAction OnRollResult;
-
     /// <summary>
     /// Get Player name for PlayerBox
     /// </summary>
@@ -428,7 +424,7 @@ public class Player : MonoBehaviour, IDiceListener
     /// <summary>
     /// Mana Process
     /// </summary>
-    private int _mana = 0;
+    [SerializeField] private int _mana = 0;
 
     public int GetMana()
     {
@@ -466,13 +462,20 @@ public class Player : MonoBehaviour, IDiceListener
 
     public bool AddItem(BaseItem item)
     {
-        BaseItem b = Instantiate(item, this.transform);
-        b.StartListen();
-        playerItem.Add(b);
-        AddedItemToPlayer.Invoke();
+        playerItem.Add(item);
+        item.Owner = this;
+        ItemsChange?.Invoke();
         return true;
     }
 
-    public delegate void AddedItemHandler();
-    public event AddedItemHandler AddedItemToPlayer;
+    public bool RemoveItem(BaseItem item)
+    {
+        playerItem.Remove(item);
+        ItemsChange?.Invoke();
+
+        return true;
+    }
+
+    public delegate void ItemChangeHandler();
+    public event ItemChangeHandler ItemsChange;
 }

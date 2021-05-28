@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Photon.Pun;
+using UnityEngine.UI;
+
 public class SkipButtonUI : MonoBehaviourPunCallbacks
 {
     public float Countdown = 0f;
     public float MaxTime = 5f;
+    public Text text;
+    public GameObject button;
+    public string textContent = "Skip";
     public static SkipButtonUI GetInstance()
     {
-        return Singleton<SkipButtonUI>.GetInstance();
+        return Locator.GetInstance<SkipButtonUI>();
     }
 
     public SkipButtonUI()
@@ -20,15 +25,21 @@ public class SkipButtonUI : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        if (text == null)
+            text = GetComponentInChildren<Text>();
+        if (button == null)
+            button = GetComponentInChildren<Button>().gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
         Countdown -= Time.deltaTime;
+        text.text = textContent + " " + Mathf.FloorToInt(Countdown);
         if (Countdown <= 0)
         {
-            PerformOnClickEvent();
+            if (PhotonNetwork.IsMasterClient)
+                photonView.RPC("PerformOnClickEvent", RpcTarget.All);
         }
     }
 
@@ -36,14 +47,33 @@ public class SkipButtonUI : MonoBehaviourPunCallbacks
     {
         gameObject.SetActive(true);
         Countdown = MaxTime;
+
+        if (!button.activeSelf)
+            button.SetActive(true);
     }
 
-    private void Disable()
+    public void EnableTimerOnly()
+    {
+        gameObject.SetActive(true);
+        Countdown = MaxTime;
+
+        if (button.activeSelf)
+            button.SetActive(false);
+    }
+
+    public void Disable()
     {
         gameObject.SetActive(false);
+
+        OnClick.Clear();
     }
 
+    #region Event
     List<IAction> OnClick = new List<IAction>();
+    /// <summary>
+    /// Warning: On click action list will be cleared after event taken.
+    /// </summary>
+    /// <param name="action"></param>
     public void ListenClick(IAction action)
     {
         OnClick.Add(action);
@@ -61,12 +91,10 @@ public class SkipButtonUI : MonoBehaviourPunCallbacks
     [PunRPC]
     public void PerformOnClickEvent()
     {
-        List<IAction> temp = OnClick;
-        OnClick = new List<IAction>();
-
-        foreach (IAction item in temp)
+        foreach (IAction item in OnClick)
             item.PerformAction();
 
         Disable();
     }
+    #endregion
 }

@@ -30,31 +30,41 @@ public class PlotConstructionTemple : PlotConstruction
 
     public override IAction ActionOnEnter(Player player)
     {
-        if(player.MinePlayer)
+        NotifyPlotEnter(player);
+        if(Owner == null)
+        {
+            player.ChangeMana(1);
+        }
+        else if (Owner.Id != player.Id)
+        {
+            player.ChangeMana(2);
+
+            // TODO
+            // Pay the temple
+            Bank.Ins.TakeMoney(player, EntryFee);
+            Bank.Ins.SendMoney(Owner, EntryFee);
+
+            NotifyPayPlotFee(player);
+        }
+        else if (Owner.Id == player.Id)
+        {
+            player.ChangeMana(1);
+        }
+
+        if (player.MinePlayer)
         {
             if (Owner == null)
             {
-                // TODO
-                // Receive 1 mana
-
                 // Activate Temple Buy UI
                 StopPhaseUI.Ins.Activate(PhaseScreens.TempleBuyUI, this);
             }
             else if (Owner.Id == player.Id)
             {
-                // TODO
-                // Receive 2 mana
-
                 TurnDirector.Ins.EndOfPhase();
             }
             else if (Owner.Id != player.Id)
             {
-                // TODO
-                // Receive 1 mana
-
-                // Pay the temple
-
-                // Active Market Rebuy UI
+                // Active Temple Rebuy UI
 
                 TurnDirector.Ins.EndOfPhase();
             }

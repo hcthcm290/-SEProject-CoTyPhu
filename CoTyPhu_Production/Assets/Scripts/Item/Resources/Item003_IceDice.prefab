@@ -88,3 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a59b09a163c7c0d4d8351b98f7447080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _id: 3
+  _name: Ice Dice
+  _price: 1000
+  _description: When this item is activated, all Market Plots hire price is decrease
+    by 200% its base price (not below 0) until the user next round.
+  _type: Active

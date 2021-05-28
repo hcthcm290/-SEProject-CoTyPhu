@@ -49,6 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89c881234dc85148acd30c4220be101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Countdown: 0
+  MaxTime: 5
+  text: {fileID: 0}
+  button: {fileID: 0}
+  textContent: Skip
 --- !u!1 &6373251867645448701
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,7 +88,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25, y: 0}
+  m_AnchoredPosition: {x: -24.999908, y: 0}
   m_SizeDelta: {x: -50, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6373251867645448696

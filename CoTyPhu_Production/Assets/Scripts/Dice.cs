@@ -43,17 +43,10 @@ public class Dice: MonoBehaviourPunCallbacks
         options.EmptyRoomTtl = 0;
         options.PublishUserId = true;
 
-        if (PhotonNetwork.JoinOrCreateRoom("HCTHCM290", options, TypedLobby.Default) == false)
+        if (PhotonNetwork.JoinOrCreateRoom("BasaHCTHCM290", options, TypedLobby.Default) == false)
         {
             Debug.LogError("Cannot create or join room");
         }
-
-        TurnDirector.Ins.InitializePlayer();
-    }
-
-    public override void OnJoinedRoom()
-    {
-        TurnDirector.Ins.InitializePlayer();
     }
 
     #endregion
