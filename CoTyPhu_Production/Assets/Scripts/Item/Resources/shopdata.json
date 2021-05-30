@@ -1,0 +1,12 @@
+{
+  "shop": [
+    {
+      "item": "Item001_WandererDice",
+      "amount": 5
+    },
+    {
+      "item": "Item003_IceDice",
+      "amount": 1
+    }
+  ]
+}

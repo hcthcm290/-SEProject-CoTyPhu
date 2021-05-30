@@ -7,7 +7,7 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
-\[Ll]ogs\
+[Ll]ogs/
 [Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
@@ -59,6 +59,7 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
+*.log
 
 # Crashlytics generated file
 crashlytics-build.properties
@@ -69,4 +70,3 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-*.log
