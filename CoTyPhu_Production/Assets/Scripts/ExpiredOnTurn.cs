@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExpiredOnTurn :MonoBehaviour
+public class ExpiredOnTurn :MonoBehaviour, ITurnListener
 {
 	//  Events ----------------------------------------
 
@@ -21,33 +21,40 @@ public class ExpiredOnTurn :MonoBehaviour
 	}
 
 	//  Fields ----------------------------------------
+	[SerializeField]
 	private BaseStatus _status;
+	[SerializeField]
 	private int _expiredTurn;
 
 
 	//  Initialization --------------------------------
-	public ExpiredOnTurn(BaseStatus status, int expiredTurn)
+	public void Init(BaseStatus status, int expiredTurn)
 	{
 		Status = status;
 		ExpiredTurn = expiredTurn;
+		StartListen();
 	}
 
 
 	//  Methods ---------------------------------------
 	public bool StartListen()
     {
-		//TurnDirector.Ins.OnTurnBegin = += RemoveExpiredStatusCountDown();
+		TurnDirector.Ins.SubscribeTurnListener(this);
 		return true;
     }
 
-	public bool RemoveExpiredStatusCountDown()
+	public void OnBeginTurn(int idPlayer)
 	{
 		ExpiredTurn -= 1;
-		if(ExpiredTurn <= 0)
-        {
+		if (ExpiredTurn <= 0)
+		{
 			Status.Remove(true);
-        }
-		return true;
+		}
+	}
+
+	public void OnEndTurn(int idPlayer)
+	{
+
 	}
 
 

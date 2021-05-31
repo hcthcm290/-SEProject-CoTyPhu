@@ -76,7 +76,6 @@ public class Shop : MonoBehaviour
 		}
     }
 
-
     public void Open(Player p)
     {
 		playerUsingShop = p;
