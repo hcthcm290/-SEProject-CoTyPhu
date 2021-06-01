@@ -50,7 +50,7 @@ public class MarketUpgradeUI : MonoBehaviour, UIScreen
         }
     }
 
-    PhaseScreens UIScreen.GetType()
+    PhaseScreens UIScreen.GetScreenType()
     {
         return PhaseScreens.MarketUpgradeUI;
     }

@@ -79,7 +79,7 @@ public class ItemManager : MonoBehaviourPun
 
         //AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"), 3);
         //AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"), 3);
-        AddItemToPool(Resources.Load<BaseItem>("Item_Burning_Dice"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Hobo's Lute"), 8);
     }
 
     public bool AddItemToPool(BaseItem item)
@@ -230,14 +230,6 @@ public class ItemManager : MonoBehaviourPun
             }
         }
 
-        string debug = "";
-        foreach(int id in IDsRandomSource)
-        {
-            debug += id.ToString() + ", ";
-        }
-
-        Debug.Log("source " + debug);
-
         while (randomItems.Count < itemCount)
         {
             if (IDsRandomSource.Count == 0) break;
@@ -271,8 +263,6 @@ public class ItemManager : MonoBehaviourPun
         {
             debug += id.ToString() + ", ";
         }
-
-        Debug.Log("Client" + debug);
 
 
         foreach (int id in itemsID)

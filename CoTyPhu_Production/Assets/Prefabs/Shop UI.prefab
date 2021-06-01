@@ -1063,8 +1063,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fc169baae3b704a83bec1ac050c0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemPool: []
   _itemInShop: []
+  playerUsingShop: {fileID: 0}
   ItemInShopPrefab: {fileID: 5681034162281982675, guid: e84971e7a1d4a2a43ab43e65a78eb3de, type: 3}
 --- !u!1 &2884856354595179580
 GameObject:

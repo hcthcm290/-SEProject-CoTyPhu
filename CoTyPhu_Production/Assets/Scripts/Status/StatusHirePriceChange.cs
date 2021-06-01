@@ -5,8 +5,20 @@ using UnityEngine;
 [System.Serializable]
 public class StatusHirePriceChange : BaseStatus, IHirePriceChange
 {
-    public float hirePriceChange { get; set; }
+    [SerializeField] float HirePriceChange;
     public PlotConstruction targetPlot;
+
+    public float hirePriceChange
+    {
+        get
+        {
+            return HirePriceChange;
+        }
+        set
+        {
+            HirePriceChange = value;
+        }
+    }
 
     public float GethirePriceChange(float basePrice, float delta)
     {

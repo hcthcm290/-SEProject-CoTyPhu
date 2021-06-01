@@ -8,6 +8,7 @@ public class PlotConstruction: Plot
 {
 	#region Status
 	[SerializeField] List<IHirePriceChange> _listStatusHirePrice = new List<IHirePriceChange>();
+	[SerializeField] List<IBuyBackPriceChange> _listStatusBbPrice = new List<IBuyBackPriceChange>();
 
 	#endregion
 
@@ -36,7 +37,33 @@ public class PlotConstruction: Plot
 		set { _owner = value; } 
 	}
 	public static float ReBuyOffset { get => _reBuyOffset; }
-	public int PurchasePrice { get => Mathf.RoundToInt(_price * _reBuyOffset); }
+	public int PurchasePrice { 
+		get
+		{
+			if(_owner == null)
+            {
+				return _price;
+            }
+			else
+            {
+				float basePrice = _price * _reBuyOffset;
+				float delta = 0;
+
+
+				List<IBuyBackPriceChange> listBbStatus = new List<IBuyBackPriceChange>(_listStatusBbPrice);
+				foreach(var status in listBbStatus)
+                {
+					if(status != null)
+                    {
+						delta = status.GetBuyBackPriceChange(basePrice, delta);
+                    }
+                }
+
+				return Mathf.RoundToInt(basePrice + delta);
+			}
+		}
+
+	}
 
 
 	//  Fields ----------------------------------------
@@ -60,7 +87,7 @@ public class PlotConstruction: Plot
 		base.Start();
 		_payPlotListeners = new List<IPayPlotFeeListener>();
 		_listStatusHirePrice = new List<IHirePriceChange>();
-
+		_listStatusBbPrice = new List<IBuyBackPriceChange>();
 	}
     #endregion
 
@@ -84,9 +111,26 @@ public class PlotConstruction: Plot
         }
     }
 
+	public void AddStatus(IBuyBackPriceChange newStatus)
+    {
+		if(_listStatusBbPrice == null)
+        {
+			_listStatusBbPrice = new List<IBuyBackPriceChange>();
+		}
+		if(!_listStatusBbPrice.Contains(newStatus))
+        {
+			_listStatusBbPrice.Add(newStatus);
+        }
+    }
+
 	public void RemoveStatus(IHirePriceChange status)
     {
 		_listStatusHirePrice.Remove(status);
+    }
+
+	public void RemoveStatus(IBuyBackPriceChange status)
+    {
+		_listStatusBbPrice.Remove(status);
     }
 
 	public void SubcribePayPlotFee(IPayPlotFeeListener listener)

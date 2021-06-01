@@ -289,11 +289,6 @@ public class Player : MonoBehaviour, IDiceListener
         }
     }
 
-    public void OnEndOfMove()
-    {
-        TurnDirector.Ins.EndOfPhase();
-    }
-
     public void UpdatePhaseStop()
     {
         switch(_currentPhaseState)
@@ -364,7 +359,7 @@ public class Player : MonoBehaviour, IDiceListener
     /// <param name="result"></param>
     public void OnRoll(int idPlayer, List<int> result)
     {
-        Debug.Log(result.ToArray());
+        Debug.Log(result[0] + ":" + result[1]);
 
         /// Do some fancy animation here
         /*
@@ -391,7 +386,7 @@ public class Player : MonoBehaviour, IDiceListener
         // only the one who roll & that is control by me can announce end of phase
         if (idPlayer == Id && minePlayer)
         {
-            Debug.Log("end of phase");
+
             TurnDirector.Ins.EndOfPhase();
         }
     }

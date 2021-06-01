@@ -91,7 +91,7 @@ public class TempleBuyUI : MonoBehaviour, UIScreen
 
     }
 
-    PhaseScreens UIScreen.GetType()
+    PhaseScreens UIScreen.GetScreenType()
     {
         return PhaseScreens.TempleBuyUI;
     }
