@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThreeOfSpades : BaseItem
+public class ThreeOfSpades : BaseItem, TransactionModifier
 {
     #region Base class override
 
@@ -40,10 +40,7 @@ public class ThreeOfSpades : BaseItem
 
     public override bool StartListen()
     {
-        new StatusNullifyLoseGold(Owner, new LambdaAction(
-            () => {
-                Activate("");
-            }));
+        Bank.Ins.TakeMoneyModifier.Add(this);
         return true;
     }
 
@@ -63,6 +60,19 @@ public class ThreeOfSpades : BaseItem
         activated = true;
         return base.Activate(activeCase);
     }
+
+    public bool IsActive(Player player, int baseAmount, bool IsBetweenPlayers)
+    {
+        return player == Owner && baseAmount != 0 && !IsBetweenPlayers;
+    }
+
+    public Tuple<Player, int, int> ModifyTransaction(Player target, int baseAmount, int amount)
+    {
+        Bank.Ins.TakeMoneyModifier.Remove(this);
+        Activate("");
+
+        return new Tuple<Player, int, int>(target, 0, 0);
+    }
     #endregion
     #region fields
     [SerializeField] private bool activated = false;
@@ -71,45 +81,5 @@ public class ThreeOfSpades : BaseItem
     private void Start()
     {
         LoadData();
-    }
-}
-
-public class StatusNullifyLoseGold : TransactionModifier
-{
-    Player owner;
-    IAction OnComplete;
-    public StatusNullifyLoseGold(Player owner, IAction OnComplete = null)
-    {
-        this.owner = owner;
-        this.OnComplete = OnComplete;
-        StartListen();
-    }
-
-    public bool StartListen()
-    {
-        // TODO: Bank.Subscribe(this);
-        Bank.Ins.TakeMoneyModifier.Add(this);
-
-        return true;
-    }
-
-    public bool PerformOnComplete()
-    {
-        // TODO: Bank.Unsubscribe(this);
-        Bank.Ins.TakeMoneyModifier.Remove(this);
-        OnComplete?.PerformAction();
-
-        return true;
-    }
-
-    public bool IsActive(Player player, int baseAmount, bool IsBetweenPlayers)
-    {
-        return player == owner && baseAmount != 0 && !IsBetweenPlayers;
-    }
-
-    public Tuple<Player, int, int> ModifyTransaction(Player target, int baseAmount, int amount)
-    {
-        PerformOnComplete();
-        return new Tuple<Player, int, int>(target, 0, 0);
     }
 }
