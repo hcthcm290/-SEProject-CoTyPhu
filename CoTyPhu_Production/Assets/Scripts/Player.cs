@@ -110,7 +110,7 @@ public class Player : MonoBehaviour, IDiceListener
     /// <summary>
     /// Return an Action that commands Player to move to target Plot
     /// This will NOT move the player step-by-step.
-    /// When the Player reach the target location, Will call nextAction in the UIActions list
+    /// When the Player reach the target location, Will call OnActionComplete
     /// </summary>
     /// <param name="plotID"></param>
     /// <returns></returns>
@@ -462,6 +462,7 @@ public class Player : MonoBehaviour, IDiceListener
 
     public bool AddItem(BaseItem item)
     {
+        Debug.Log("Adding item: " + item.Type);
         playerItem.Add(item);
         item.Owner = this;
         ItemsChange?.Invoke();

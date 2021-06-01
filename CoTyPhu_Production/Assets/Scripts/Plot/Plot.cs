@@ -65,7 +65,37 @@ public class Plot : MonoBehaviour
     [SerializeField]protected string _description;
 
     //  Plot dictionary -------------------------------
+    #region PlotDictionary
     public static Dictionary<PLOT, Plot> plotDictionary = new Dictionary<PLOT, Plot>();
+    public static List<PLOT> BuildingPlot = new List<PLOT>
+        {
+            PLOT.A1,
+            PLOT.A2,
+            PLOT.B1,
+            PLOT.B2,
+            PLOT.C1,
+            PLOT.C2,
+            PLOT.C3,
+            PLOT.D1,
+            PLOT.D2,
+            PLOT.E1,
+            PLOT.E2,
+            PLOT.F1,
+            PLOT.F2,
+            PLOT.F3,
+            PLOT.G1,
+            PLOT.G2,
+            PLOT.H1,
+            PLOT.H2,
+        };
+    public static List<PLOT> TemplePlot = new List<PLOT>
+        {
+            PLOT.TEMPLE1,
+            PLOT.TEMPLE2,
+            PLOT.TEMPLE3,
+            PLOT.TEMPLE4
+        };
+    #endregion
     public Plot GetNextPlot()
     {
         return plotDictionary[(PLOT)(((int)_id + 1) % PLOT_AMOUNT)];
@@ -160,7 +190,8 @@ public class Plot : MonoBehaviour
     //  Event Handlers --------------------------------
     protected void NotifyPlotPassBy(Player player)
     {
-        foreach(var listener in _plotPassByListeners)
+        List<IPlotPassByListener> listeners = new List<IPlotPassByListener>(_plotPassByListeners);
+        foreach (var listener in _plotPassByListeners)
         {
             if (listener == null) continue;
 
