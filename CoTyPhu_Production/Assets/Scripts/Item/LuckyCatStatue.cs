@@ -5,6 +5,19 @@ using UnityEngine;
 public class LuckyCatStatue : BaseItem
 {
     #region Base class
+    public override Player Owner
+    {
+        get
+        {
+            return base.Owner;
+        }
+        set
+        {
+            base.Owner = value;
+            status.Owner = value;
+            StartListen();
+        }
+    }
     public override bool LoadData()
     {
         return true;
@@ -12,19 +25,19 @@ public class LuckyCatStatue : BaseItem
 
     public override bool StartListen()
     {
+        status.StartListen();
         return true;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public override bool Remove(bool triggerEvent)
     {
-        
+        Destroy(this.gameObject);
+        base.Remove(triggerEvent);
+        return true;
     }
     #endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #region Properties
+    [SerializeField] StatusLuckyCatStatue status;
+    #endregion
 }
