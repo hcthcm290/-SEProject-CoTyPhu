@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 /// <summary>
 /// THE BANK CONTROLS ALL MONEYS FLOW IN GAME
@@ -86,8 +87,24 @@ public class Bank: MonoBehaviour
 		}
 	}
 
-	public void TakeMoney(Player player, int amount)
-    {
+	public List<TransactionModifier> TakeMoneyModifier = new List<TransactionModifier>();
+	public List<TransactionModifier> GiveMoneyModifier = new List<TransactionModifier>();
+
+	public void TakeMoney(Player player, int amount, bool IsBetweenPlayers = false)
+	{
+		int currentAmount = amount;
+		List<TransactionModifier> modifiers = new List<TransactionModifier>(TakeMoneyModifier);
+		foreach (var modifier in modifiers)
+		{
+			if (modifier.IsActive(player, amount, IsBetweenPlayers))
+			{
+				var result = modifier.ModifyTransaction(player, amount, currentAmount);
+				player = result.Item1;
+				amount = result.Item2;
+				currentAmount = result.Item3;
+			}
+		}
+
 		if (!_moneyPlayer.ContainsKey(player)) return;
 
 		_moneyPlayer[player] -= amount;
@@ -98,8 +115,21 @@ public class Bank: MonoBehaviour
         }
 	}
 
-	public void SendMoney(Player player, int amount)
+	public void SendMoney(Player player, int amount, bool IsBetweenPlayers = false)
 	{
+		int currentAmount = amount;
+		List<TransactionModifier> modifiers = new List<TransactionModifier>(TakeMoneyModifier);
+		foreach (var modifier in modifiers)
+		{
+			if (modifier.IsActive(player, amount, IsBetweenPlayers))
+			{
+				var result = modifier.ModifyTransaction(player, amount, currentAmount);
+				player			= result.Item1;
+				amount			= result.Item2;
+				currentAmount	= result.Item3;
+			}
+		}
+
 		if (!_moneyPlayer.ContainsKey(player)) return;
 
 		_moneyPlayer[player] += amount;
@@ -111,8 +141,8 @@ public class Bank: MonoBehaviour
 	{
 		if (!_moneyPlayer.ContainsKey(source) || !_moneyPlayer.ContainsKey(destination) || source == destination) return;
 
-		TakeMoney(source, amount);
-		SendMoney(destination, amount);
+		TakeMoney(source, amount, true);
+		SendMoney(destination, amount, true);
 	}
 
 	//  Event Handlers --------------------------------
@@ -133,4 +163,11 @@ public interface ITransaction
     {
 		get;
     }
+}
+
+public interface TransactionModifier
+{
+	public bool IsActive(Player player, int baseAmount, bool IsBetweenPlayers);
+	// New player target / amount
+	public Tuple<Player, int, int> ModifyTransaction(Player target, int baseAmount, int amount);
 }

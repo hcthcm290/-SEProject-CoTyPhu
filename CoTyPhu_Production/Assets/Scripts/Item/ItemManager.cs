@@ -79,8 +79,9 @@ public class ItemManager : MonoBehaviourPun
 
         //AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"), 3);
         //AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"), 3);
-        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Feather"), 8);
+        //AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Feather"), 8);
         //AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Sundial"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Three_Spades"), 8);
     }
 
     public bool AddItemToPool(BaseItem item)
@@ -404,8 +405,8 @@ public class ItemManager : MonoBehaviourPun
             var item = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
 
             _listItemInShop[idPlayer].Remove(item);
-            player.AddItem(item);
             Bank.Ins.TakeMoney(player, item.Price);
+            player.AddItem(item);
 
             requestBuyCallback?.Complete(true);
 
@@ -418,8 +419,8 @@ public class ItemManager : MonoBehaviourPun
                 var item = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
 
                 _listItemInShop[idPlayer].Remove(item);
-                player.AddItem(item);
                 Bank.Ins.TakeMoney(player, item.Price);
+                player.AddItem(item);
 
                 requestBuyCallback?.Complete(true);
 
