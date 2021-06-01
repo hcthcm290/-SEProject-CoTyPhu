@@ -181,11 +181,6 @@ public class ItemManager : MonoBehaviourPun
     {
         AddItemToPool(_listItemInShop[idPlayer]);
 
-        foreach(var item in _listItemInShop[idPlayer])
-        {
-            Destroy(item);
-        }
-
         _listItemInShop[idPlayer].Clear();
     }
 
@@ -195,9 +190,7 @@ public class ItemManager : MonoBehaviourPun
         {
             var poolItem = RemoveItemFromPool(idItem);
 
-            var shopItem = Instantiate(poolItem);
-
-            _listItemInShop[idPlayer].Add(shopItem);
+            _listItemInShop[idPlayer].Add(poolItem);
         }
         else
         {
@@ -390,7 +383,9 @@ public class ItemManager : MonoBehaviourPun
 
         if (_listItemInShop.ContainsKey(idPlayer))
         {
-            var item = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+            var itemInShop = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+
+            var item = Instantiate(itemInShop);
 
             _listItemInShop[idPlayer].Remove(item);
             player.AddItem(item);
@@ -404,7 +399,9 @@ public class ItemManager : MonoBehaviourPun
         {
             FetchShopItems(idPlayer).then((x) =>
             {
-                var item = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+                var itemInShop = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+
+                var item = Instantiate(itemInShop);
 
                 _listItemInShop[idPlayer].Remove(item);
                 player.AddItem(item);
