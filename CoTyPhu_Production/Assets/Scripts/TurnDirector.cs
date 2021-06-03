@@ -10,6 +10,7 @@ public enum Phase
     Move,
     Stop,
     Extra,
+    Shop,
 }
 
 public class TurnDirector : MonoBehaviourPunCallbacks
@@ -29,6 +30,8 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     Stack<int> _playerTurnExtraPhase;
     List<ITurnListener> _listTurnListener;
     int _count = 0;
+    bool _hasPassPlotStart = false;
+    bool _isShopStart = true;
 
     // The player id corresponding to this user.
     [SerializeField] int _myPlayer;
@@ -130,7 +133,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             if (_idPlayerTurn == -1 && _listPlayer.Count > 0)
             {
                 _idPlayerTurn = 0;
-                _idPhase = Phase.Dice;
+                _idPhase = Phase.Shop;
                 _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(_idPhase);
             }
         }
@@ -180,11 +183,34 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     nextIdPhase = Phase.Move;
                     break;
                 case Phase.Move:
-                    nextIdPhase = Phase.Stop;
-                    break;
+                    {
+                        if(_hasPassPlotStart)
+                        {
+                            nextIdPhase = Phase.Shop;
+                            _hasPassPlotStart = false;
+                        }
+                        else
+                        {
+                            nextIdPhase = Phase.Stop;
+                        }
+                        break;
+                    }
                 case Phase.Stop:
                     nextIdPhase = Phase.Dice;
                     nextIdPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
+                    break;
+                case Phase.Shop:
+                    {
+                        if(_isShopStart)
+                        {
+                            nextIdPhase = Phase.Dice;
+                            _isShopStart = false;
+                        }
+                        else
+                        {
+                            nextIdPhase = Phase.Stop;
+                        }
+                    }
                     break;
                 case Phase.Extra:
                     // TODO
@@ -242,6 +268,23 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         }
 
         return _idPlayerTurn == playerID;
+    }
+
+    [PunRPC]
+    private void HandlePassPlotStartServer(int idPlayer, string idClient)
+    {
+        if(IsMyTurn(idPlayer) && _idPhase == Phase.Move)
+        {
+            _hasPassPlotStart = true;
+        }
+    }
+
+    public void NotifyPassPlotStart(Player player)
+    {
+        if(IsMyTurn(player.Id) && _idPhase == Phase.Move)
+        {
+            photonView.RPC("HandlePassPlotStartServer", RpcTarget.MasterClient, player.Id, PhotonNetwork.LocalPlayer.UserId);
+        }
     }
 
     // function to handle Switch to next phase of current player

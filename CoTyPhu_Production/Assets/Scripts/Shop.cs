@@ -8,7 +8,7 @@ using Photon.Realtime;
 /// <summary>
 /// Code cac chuc nang cua giao dien cua hang
 /// </summary>
-public class Shop : MonoBehaviour
+public class Shop : MonoBehaviour, UIScreen
 {
 	public class DataItem
     {
@@ -56,7 +56,9 @@ public class Shop : MonoBehaviour
     public void Start()
     {
 		Ins = this;
-		transform.Find("ShopNoticeBoard/SkipButton/Image").GetComponent<Button>().onClick.AddListener(Close);
+		transform.Find("ShopNoticeBoard/SkipButton/Image").GetComponent<Button>().onClick.AddListener(() => {
+            StopPhaseUI.Ins.Deactive(PhaseScreens.ShopUI);
+        });
 		transform.Find("ShopNoticeBoard/RefreshButton/Image").GetComponent<Button>().onClick.AddListener(Reload);
 		//InitPool();
 		//LoadNewShop(3);
@@ -75,7 +77,6 @@ public class Shop : MonoBehaviour
 			
 		}
     }
-
 
     public void Open(Player p)
     {
@@ -145,84 +146,104 @@ public class Shop : MonoBehaviour
 
     }
 
-	//  Event Handlers --------------------------------
+    public PhaseScreens GetScreenType()
+    {
+        return PhaseScreens.ShopUI;
+    }
 
-	#region Legacy Code
-	//public List<BaseItem> ItemPool
-	//{
-	//	get { return _itemPool; }
-	//	//set { _itemPool = value; }
-	//}
+    public void SetPlot(Plot plot)
+    {
 
-	//public List<BaseItem> _itemPool = new List<BaseItem>();
+    }
 
-	//public bool AddItemToPool(BaseItem item)
-	//{
-	//	ItemPool.Add(item);
-	//	return true;
-	//}
+    public void Activate()
+    {
+        this.gameObject.SetActive(true);
+    }
 
-	//public bool RemoveItemFromPool(BaseItem item)
-	//{
-	//	ItemPool.Remove(item);
-	//	return true;
-	//}
+    public void Deactivate()
+    {
+        this.gameObject.SetActive(false);
+    }
 
-	//public void InitPool()
-	//{
-	//	//      var jsonTextFile = Resources.Load<TextAsset>("shopdata");
+    //  Event Handlers --------------------------------
 
-	//	//      DataItem[] temp = JsonHelper.FromJson<DataItem>(jsonTextFile.text);
-	//	//Debug.Log(JsonHelper.FromJson<DataItem>(jsonTextFile.text));
+    #region Legacy Code
+    //public List<BaseItem> ItemPool
+    //{
+    //	get { return _itemPool; }
+    //	//set { _itemPool = value; }
+    //}
 
-	//	//      foreach (DataItem i in temp)
-	//	//      {
-	//	//          for (int j = 0; j < i.amount; j++)
-	//	//          {
-	//	//              AddItemToPool(Resources.Load<BaseItem>(i.item));
-	//	//          }
-	//	//      }
+    //public List<BaseItem> _itemPool = new List<BaseItem>();
 
-	//	AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
-	//	AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
-	//	AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
-	//	AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
-	//	AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
-	//	AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
-	//	AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
-	//	AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
-	//}
+    //public bool AddItemToPool(BaseItem item)
+    //{
+    //	ItemPool.Add(item);
+    //	return true;
+    //}
 
-	//public void LoadNewShop(int maxShop)
-	//{
-	//	while (ItemInShop.Count > 0)
-	//	{
-	//		BaseItem item = ItemInShop[0];
-	//		RemoveItemFromShop(item);
-	//		//AddItemToPool(item);
-	//	}
+    //public bool RemoveItemFromPool(BaseItem item)
+    //{
+    //	ItemPool.Remove(item);
+    //	return true;
+    //}
 
-	//	foreach (UIItemInShop i in _UIitemInShop)
-	//	{
-	//		Destroy(i.gameObject);
-	//	}
-	//	_UIitemInShop.Clear();
+    //public void InitPool()
+    //{
+    //	//      var jsonTextFile = Resources.Load<TextAsset>("shopdata");
 
-	//	while (ItemInShop.Count < maxShop && ItemPool.Count > 0)
-	//	{
-	//		int index = Random.Range(0, ItemPool.Count);
-	//		BaseItem item = ItemPool[index];
-	//		RemoveItemFromPool(item);
-	//		AddItemToShop(item);
-	//	}
+    //	//      DataItem[] temp = JsonHelper.FromJson<DataItem>(jsonTextFile.text);
+    //	//Debug.Log(JsonHelper.FromJson<DataItem>(jsonTextFile.text));
 
-	//	foreach (BaseItem item in ItemInShop)
-	//	{
-	//		UIItemInShop u = Instantiate(ItemInShopPrefab, this.transform.Find("ShopNoticeBoard/Scroll View/Viewport/Content"));
-	//		u.Init(item);
-	//		_UIitemInShop.Add(u);
-	//	}
+    //	//      foreach (DataItem i in temp)
+    //	//      {
+    //	//          for (int j = 0; j < i.amount; j++)
+    //	//          {
+    //	//              AddItemToPool(Resources.Load<BaseItem>(i.item));
+    //	//          }
+    //	//      }
 
-	//}
-	#endregion
+    //	AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
+    //	AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
+    //	AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
+    //	AddItemToPool(Resources.Load<BaseItem>("Item001_WandererDice"));
+    //	AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
+    //	AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
+    //	AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
+    //	AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"));
+    //}
+
+    //public void LoadNewShop(int maxShop)
+    //{
+    //	while (ItemInShop.Count > 0)
+    //	{
+    //		BaseItem item = ItemInShop[0];
+    //		RemoveItemFromShop(item);
+    //		//AddItemToPool(item);
+    //	}
+
+    //	foreach (UIItemInShop i in _UIitemInShop)
+    //	{
+    //		Destroy(i.gameObject);
+    //	}
+    //	_UIitemInShop.Clear();
+
+    //	while (ItemInShop.Count < maxShop && ItemPool.Count > 0)
+    //	{
+    //		int index = Random.Range(0, ItemPool.Count);
+    //		BaseItem item = ItemPool[index];
+    //		RemoveItemFromPool(item);
+    //		AddItemToShop(item);
+    //	}
+
+    //	foreach (BaseItem item in ItemInShop)
+    //	{
+    //		UIItemInShop u = Instantiate(ItemInShopPrefab, this.transform.Find("ShopNoticeBoard/Scroll View/Viewport/Content"));
+    //		u.Init(item);
+    //		_UIitemInShop.Add(u);
+    //	}
+
+    //}
+    #endregion
 }
