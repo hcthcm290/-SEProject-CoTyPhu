@@ -81,8 +81,10 @@ public class ItemManager : MonoBehaviourPun
         //AddItemToPool(Resources.Load<BaseItem>("Item003_IceDice"), 3);
         //AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Feather"), 8);
         //AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Sundial"), 8);
-        AddItemToPool(Resources.Load<BaseItem>("Item_Three_Spades"), 8);
+        //AddItemToPool(Resources.Load<BaseItem>("Item_Three_Spades"), 8);
         AddItemToPool(Resources.Load<BaseItem>("Lucky Cat Statue"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Burning_Dice"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Mirror"), 8);
     }
 
     public bool AddItemToPool(BaseItem item)

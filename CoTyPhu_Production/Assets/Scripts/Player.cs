@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Player : MonoBehaviour, IDiceListener
 {
+    [SerializeField] List<IGoldReceiveChange> _listStatusGoldReceive = new List<IGoldReceiveChange>();
     // Properties ------------------------------------
     [SerializeField] int _id;
     public int Id
@@ -474,4 +475,23 @@ public class Player : MonoBehaviour, IDiceListener
 
     public delegate void ItemChangeHandler();
     public event ItemChangeHandler ItemsChange;
+
+    #region Method
+    public void AddStatus(IGoldReceiveChange newStatus)
+    {
+        if (_listStatusGoldReceive == null)
+        {
+            _listStatusGoldReceive = new List<IGoldReceiveChange>();
+        }
+        if (!_listStatusGoldReceive.Contains(newStatus))
+        {
+            _listStatusGoldReceive.Add(newStatus);
+        }
+    }
+
+    public void RemoveStatus(IGoldReceiveChange status)
+    {
+        _listStatusGoldReceive.Remove(status);
+    }
+    #endregion
 }

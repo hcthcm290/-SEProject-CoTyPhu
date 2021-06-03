@@ -28,6 +28,13 @@ public class UIPlayerBox : MonoBehaviour
             itemComponent.Enqueue("Slot" + i);
         }
 
+        for (int i = 1; i <= player.itemLimit; i++)
+        {
+            Transform b = transform.Find("PlayerBox/ItemBox/" + itemComponent.Dequeue());
+            b.GetComponent<UIItemInPlayer>().SetNull();
+            itemComponent.Enqueue("Slot" + i);
+        }
+
         foreach (BaseItem item in player.playerItem)
         {
             Transform b = transform.Find("PlayerBox/ItemBox/" + itemComponent.Dequeue());
