@@ -88,9 +88,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cb0c667b459974b92c5da00788d062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 3
+  _id: 5
   _name: Sunnary Sundial
   _price: 1000
   _description: 
   _type: 
+  _canActivate: 0
+  _owner: {fileID: 0}
   manaPerPrisoner: 1

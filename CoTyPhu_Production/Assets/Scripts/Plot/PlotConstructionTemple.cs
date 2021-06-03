@@ -41,8 +41,7 @@ public class PlotConstructionTemple : PlotConstruction
 
             // TODO
             // Pay the temple
-            Bank.Ins.TakeMoney(player, EntryFee);
-            Bank.Ins.SendMoney(Owner, EntryFee);
+            Bank.Ins.TransactBetweenPlayers(player, Owner, EntryFee);
 
             NotifyPayPlotFee(player);
         }

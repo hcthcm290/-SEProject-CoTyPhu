@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public interface UIScreen
 {
-    PhaseScreens GetType();
+    PhaseScreens GetScreenType();
     void SetPlot(Plot plot);
 
     void Activate();

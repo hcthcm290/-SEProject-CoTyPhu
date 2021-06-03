@@ -8,12 +8,12 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
 {
     #region UI Properties
 
-    [SerializeField] Text _txtName;
-    [SerializeField] Text _txtDescription;
-    [SerializeField] Button _btnBuy;
-    [SerializeField] Button _btnSkip;
-    [SerializeField] Text _txtPrice;
-    [SerializeField] Text _txtPlayerMoney;
+    [SerializeField] protected Text _txtName;
+    [SerializeField] protected Text _txtDescription;
+    [SerializeField] protected Button _btnBuy;
+    [SerializeField] protected Button _btnSkip;
+    [SerializeField] protected Text _txtPrice;
+    [SerializeField] protected Text _txtPlayerMoney;
 
     #endregion
 
@@ -37,13 +37,13 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
     #endregion
 
     #region Unity Method
-    private void Start()
+    public void Start()
     {
         _plotManager.OnBuyCallback += BuySuccessCallback;
         _plotManager.OnBuyFailCallback += BuyFailCallback;
     }
 
-    private void Update()
+    public void Update()
     {   
         _txtName.text = Plot?.Name;
         _txtDescription.text = Plot?.Description;
@@ -67,7 +67,7 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
     public void Skip()
     {
         TurnDirector.Ins.EndOfPhase();
-        StopPhaseUI.Ins.Deactive(PhaseScreens.PlotBuyUI);
+        StopPhaseUI.Ins.Deactive(GetScreenType());
     }
 
     private void BuySuccessCallback(Player player, PlotConstruction plot)
@@ -78,7 +78,7 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
         {
             Debug.Log("Buy success");
             TurnDirector.Ins.EndOfPhase();
-            StopPhaseUI.Ins.Deactive(PhaseScreens.PlotBuyUI);
+            StopPhaseUI.Ins.Deactive(GetScreenType());
             _canClick = true;
         }
     }
@@ -93,7 +93,7 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
 
     }
 
-    PhaseScreens UIScreen.GetType()
+    public virtual PhaseScreens GetScreenType()
     {
         return PhaseScreens.PlotBuyUI;
     }

@@ -8,17 +8,24 @@ using Photon.Realtime;
 /// </summary>
 public class Bank: MonoBehaviour
 {
-	//  Events ----------------------------------------
+	#region Status
+	List<ITransactionModifier> _listMoneyReceiveModify;
 
-	//	Singleton -------------------------------------
-	private static Bank _ins;
+
+    #endregion
+
+    //  Events ----------------------------------------
+
+    #region Singleton
+    private static Bank _ins;
 	public static Bank Ins
     {
 		get { return _ins; }
     }
+    #endregion
 
-	//  Properties ------------------------------------
-	public int MoneyBank { get => _moneyBank; }
+    #region Properties
+    public int MoneyBank { get => _moneyBank; }
 	public Dictionary<Player,int> AllMoneyPlayers { get => _moneyPlayer; }
 	
 	[System.Serializable]
@@ -28,19 +35,21 @@ public class Bank: MonoBehaviour
 		public int money;
     }
 	public List<PairPlayer> _moneyPlayers = new List<PairPlayer>();
+    #endregion
 
-	//  Fields ----------------------------------------
-	private int _moneyBank;
+    #region Fields
+    private int _moneyBank;
 	[SerializeField] private Dictionary<Player, int> _moneyPlayer = new Dictionary<Player, int>();
+    #endregion
 
 
-	//  Initialization --------------------------------
-	public Bank()
+    //  Initialization --------------------------------
+    public Bank()
     {
 
     }
 
-	public Bank(int moneyBank, Player[] arrPlayers)
+    public Bank(int moneyBank, Player[] arrPlayers)
 	{
 		_moneyBank = moneyBank;
 		foreach (Player player in arrPlayers)
@@ -49,14 +58,20 @@ public class Bank: MonoBehaviour
         }
 	}
 
-    //  Unity Methods ---------------------------------
-    private void Start()
+	#region Unity methods
+	//  Unity Methods ---------------------------------
+	private void Start()
     {
 		_ins = this;
-    }
+		if(_listMoneyReceiveModify == null)
+        {
+			_listMoneyReceiveModify = new List<ITransactionModifier>();
+		}
+	}
+    #endregion
 
 
-    //  Methods ---------------------------------------
+    #region Methods
     public int MoneyPlayer(Player player)
     {
 		if (_moneyPlayer.ContainsKey(player))
@@ -88,19 +103,52 @@ public class Bank: MonoBehaviour
 
 	public void TakeMoney(Player player, int amount)
     {
+		TakeMoney(player, amount, false);
+	}
+
+	public void TakeMoney(Player player, int amount, bool isBetweenPlayer)
+    {
 		if (!_moneyPlayer.ContainsKey(player)) return;
 
 		_moneyPlayer[player] -= amount;
 		_moneyPlayers.Find(x => x.player == player).money -= amount;
 		if (_moneyPlayer[player] <= 0)
-        {
+		{
 			//TODO: Bankrupt the player
-        }
+		}
 	}
 
 	public void SendMoney(Player player, int amount)
 	{
+		SendMoney(player, amount, false);
+	}
+
+	public void SendMoney(Player player, int amount, bool isBetweenPlayer)
+    {
 		if (!_moneyPlayer.ContainsKey(player)) return;
+
+		int baseAmount = amount;
+		int delta = 0;
+
+		List<ITransactionModifier> ListModifier = new List<ITransactionModifier>(_listMoneyReceiveModify);
+
+		foreach(var transactionModifier in ListModifier)
+        {
+			if (transactionModifier == null) continue;
+
+			if(transactionModifier.isActivated(player, baseAmount, isBetweenPlayer))
+            {
+				var result = transactionModifier.ModifyTransaction(player, baseAmount, delta);
+
+				(transactionModifier as BaseStatus)?.ExcuteAction();
+
+				player = result.Item1;
+				baseAmount = result.Item2;
+				delta = result.Item3;
+            }
+        }
+
+		amount = baseAmount + delta;
 
 		_moneyPlayer[player] += amount;
 		_moneyPlayers.Find(x => x.player == player).money += amount;
@@ -111,11 +159,33 @@ public class Bank: MonoBehaviour
 	{
 		if (!_moneyPlayer.ContainsKey(source) || !_moneyPlayer.ContainsKey(destination) || source == destination) return;
 
-		TakeMoney(source, amount);
-		SendMoney(destination, amount);
+		TakeMoney(source, amount, true);
+		SendMoney(destination, amount, true);
 	}
 
-	//  Event Handlers --------------------------------
+	public void AddReceiveMoneyStatus(ITransactionModifier transactionModifier)
+    {
+		if(_listMoneyReceiveModify == null)
+        {
+			_listMoneyReceiveModify = new List<ITransactionModifier>();
+        }
+		if(!_listMoneyReceiveModify.Contains(transactionModifier))
+        {
+			_listMoneyReceiveModify.Add(transactionModifier);
+        }
+    }
+
+	public void RemoveReceiveMoneyStatus(ITransactionModifier transactionModifier)
+    {
+		if (_listMoneyReceiveModify == null)
+		{
+			_listMoneyReceiveModify = new List<ITransactionModifier>();
+		}
+		_listMoneyReceiveModify.Remove(transactionModifier);
+	}
+    #endregion
+
+    //  Event Handlers --------------------------------
 }
 
 public interface ITransaction
