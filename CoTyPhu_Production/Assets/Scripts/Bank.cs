@@ -11,14 +11,15 @@ public class Bank: MonoBehaviour
 {
 	#region Status
 	List<ITransactionModifier> _listMoneyReceiveModify;
+	List<ITransactionModifier> _listMoneyTakeModify;
 
 
-    #endregion
+	#endregion
 
-    //  Events ----------------------------------------
+	//  Events ----------------------------------------
 
-    #region Singleton
-    private static Bank _ins;
+	#region Singleton
+	private static Bank _ins;
 	public static Bank Ins
     {
 		get { return _ins; }
@@ -102,25 +103,35 @@ public class Bank: MonoBehaviour
 		}
 	}
 
-	public List<TransactionModifier> TakeMoneyModifier = new List<TransactionModifier>();
-	public List<TransactionModifier> GiveMoneyModifier = new List<TransactionModifier>();
-
-	public void TakeMoney(Player player, int amount, bool IsBetweenPlayers = false)
+	public void TakeMoney(Player player, int amount, bool isBetweenPlayer = false)
 	{
-		int currentAmount = amount;
-		List<TransactionModifier> modifiers = new List<TransactionModifier>(TakeMoneyModifier);
-		foreach (var modifier in modifiers)
+		if (!_moneyPlayer.ContainsKey(player)) return;
+
+		int baseAmount = amount;
+		int delta = 0;
+
+		if (_listMoneyTakeModify != null)
 		{
-			if (modifier.IsActive(player, amount, IsBetweenPlayers))
+			List<ITransactionModifier> ListModifier = new List<ITransactionModifier>(_listMoneyTakeModify);
+
+			foreach (var transactionModifier in ListModifier)
 			{
-				var result = modifier.ModifyTransaction(player, amount, currentAmount);
-				player = result.Item1;
-				amount = result.Item2;
-				currentAmount = result.Item3;
+				if (transactionModifier == null) continue;
+
+				if (transactionModifier.isActivated(player, baseAmount, isBetweenPlayer))
+				{
+					var result = transactionModifier.ModifyTransaction(player, baseAmount, delta);
+
+					(transactionModifier as BaseStatus)?.ExcuteAction();
+
+					player = result.Item1;
+					baseAmount = result.Item2;
+					delta = result.Item3;
+				}
 			}
 		}
 
-		if (!_moneyPlayer.ContainsKey(player)) return;
+		amount = baseAmount + delta;
 
 		_moneyPlayer[player] -= amount;
 		_moneyPlayers.Find(x => x.player == player).money -= amount;
@@ -142,23 +153,26 @@ public class Bank: MonoBehaviour
 		int baseAmount = amount;
 		int delta = 0;
 
-		List<ITransactionModifier> ListModifier = new List<ITransactionModifier>(_listMoneyReceiveModify);
+		if (_listMoneyReceiveModify != null)
+		{
+			List<ITransactionModifier> ListModifier = new List<ITransactionModifier>(_listMoneyReceiveModify);
 
-		foreach(var transactionModifier in ListModifier)
-        {
-			if (transactionModifier == null) continue;
+			foreach (var transactionModifier in ListModifier)
+			{
+				if (transactionModifier == null) continue;
 
-			if(transactionModifier.isActivated(player, baseAmount, isBetweenPlayer))
-            {
-				var result = transactionModifier.ModifyTransaction(player, baseAmount, delta);
+				if (transactionModifier.isActivated(player, baseAmount, isBetweenPlayer))
+				{
+					var result = transactionModifier.ModifyTransaction(player, baseAmount, delta);
 
-				(transactionModifier as BaseStatus)?.ExcuteAction();
+					(transactionModifier as BaseStatus)?.ExcuteAction();
 
-				player = result.Item1;
-				baseAmount = result.Item2;
-				delta = result.Item3;
-            }
-        }
+					player = result.Item1;
+					baseAmount = result.Item2;
+					delta = result.Item3;
+				}
+			}
+		}
 
 		amount = baseAmount + delta;
 
@@ -195,9 +209,30 @@ public class Bank: MonoBehaviour
 		}
 		_listMoneyReceiveModify.Remove(transactionModifier);
 	}
-    #endregion
 
-    //  Event Handlers --------------------------------
+	public void AddTakeMoneyStatus(ITransactionModifier transactionModifier)
+	{
+		if (_listMoneyTakeModify == null)
+		{
+			_listMoneyTakeModify = new List<ITransactionModifier>();
+		}
+		if (!_listMoneyTakeModify.Contains(transactionModifier))
+		{
+			_listMoneyTakeModify.Add(transactionModifier);
+		}
+	}
+
+	public void RemoveTakeMoneyStatus(ITransactionModifier transactionModifier)
+	{
+		if (_listMoneyTakeModify == null)
+		{
+			_listMoneyTakeModify = new List<ITransactionModifier>();
+		}
+		_listMoneyTakeModify.Remove(transactionModifier);
+	}
+	#endregion
+
+	//  Event Handlers --------------------------------
 }
 
 public interface ITransaction
@@ -215,11 +250,4 @@ public interface ITransaction
     {
 		get;
     }
-}
-
-public interface TransactionModifier
-{
-	public bool IsActive(Player player, int baseAmount, bool IsBetweenPlayers);
-	// New player target / amount
-	public Tuple<Player, int, int> ModifyTransaction(Player target, int baseAmount, int amount);
 }

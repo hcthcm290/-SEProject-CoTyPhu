@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThreeOfSpades : BaseItem, TransactionModifier
+public class ThreeOfSpades : BaseItem, ITransactionModifier
 {
     #region Base class override
 
@@ -40,7 +40,7 @@ public class ThreeOfSpades : BaseItem, TransactionModifier
 
     public override bool StartListen()
     {
-        Bank.Ins.TakeMoneyModifier.Add(this);
+        Bank.Ins.AddTakeMoneyStatus(this);
         return true;
     }
 
@@ -52,8 +52,7 @@ public class ThreeOfSpades : BaseItem, TransactionModifier
         Debug.Log("Activate Three Of Spades.");
         // player active animation
 
-
-
+        Bank.Ins.RemoveTakeMoneyStatus(this);
 
         Owner.RemoveItem(this);
 
@@ -61,14 +60,13 @@ public class ThreeOfSpades : BaseItem, TransactionModifier
         return base.Activate(activeCase);
     }
 
-    public bool IsActive(Player player, int baseAmount, bool IsBetweenPlayers)
+    public bool isActivated(Player player, int baseAmount, bool IsBetweenPlayers)
     {
         return player == Owner && baseAmount != 0 && !IsBetweenPlayers;
     }
 
     public Tuple<Player, int, int> ModifyTransaction(Player target, int baseAmount, int amount)
     {
-        Bank.Ins.TakeMoneyModifier.Remove(this);
         Activate("");
 
         return new Tuple<Player, int, int>(target, 0, 0);
