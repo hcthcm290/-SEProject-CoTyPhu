@@ -59,6 +59,7 @@ public class PlotConstructionMarket : PlotConstruction
 
 			Debug.Log("Pay the rent");
 			var entryFee = EntryFee;
+			Debug.Log(entryFee);
 
 			// TODO
 			// Pay the rent
@@ -86,8 +87,7 @@ public class PlotConstructionMarket : PlotConstruction
 			else if (Owner.Id != player.Id)
 			{
 				// Active Market Rebuy UI
-
-				TurnDirector.Ins.EndOfPhase();
+				StopPhaseUI.Ins.Activate(PhaseScreens.PlotRebuyUI, this);
 			}
 		}
         else

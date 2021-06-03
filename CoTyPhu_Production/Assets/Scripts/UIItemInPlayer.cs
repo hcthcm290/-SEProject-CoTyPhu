@@ -25,7 +25,7 @@ public class UIItemInPlayer : MonoBehaviour
     public void Detail()
     {
         Debug.Log("Show Info");
-        if(value != null && value.CanActivate)
+        if (value != null && value.CanActivate)
         {
             ItemManager.Ins.RequestUseItem(value.Owner.Id, value.Id);
         }

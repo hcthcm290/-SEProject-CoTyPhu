@@ -169,19 +169,22 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     [PunRPC]
     private void _EndOfPhaseServer()
     {
+        var nextIdPlayerTurn = _idPlayerTurn;
+        var nextIdPhase = _idPhase;
+
         if(PhotonNetwork.IsMasterClient)
         {
             switch (_idPhase)
             {
                 case Phase.Dice:
-                    _idPhase = Phase.Move;
+                    nextIdPhase = Phase.Move;
                     break;
                 case Phase.Move:
-                    _idPhase = Phase.Stop;
+                    nextIdPhase = Phase.Stop;
                     break;
                 case Phase.Stop:
-                    _idPhase = Phase.Dice;
-                    _idPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
+                    nextIdPhase = Phase.Dice;
+                    nextIdPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
                     break;
                 case Phase.Extra:
                     // TODO
@@ -189,7 +192,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     break;
             }
 
-            photonView.RPC("_StartPhase", RpcTarget.All, _idPlayerTurn, (int)_idPhase);
+            photonView.RPC("_StartPhase", RpcTarget.All, nextIdPlayerTurn, (int)nextIdPhase);
         }
     }
 
@@ -198,16 +201,18 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     {
         if((Phase)phaseID == Phase.Dice)
         {
-            foreach(var listener in _listTurnListener)
+            List<ITurnListener> listeners = new List<ITurnListener>(_listTurnListener);
+
+            foreach(var listener in listeners)
             {
                 listener.OnEndTurn(_idPlayerTurn);
                 listener.OnBeginTurn(idPlayer);
             }
         }
-
+            
         _idPlayerTurn = idPlayer;
-        Phase phase = (Phase)phaseID;
-        _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(phase);
+        _idPhase = (Phase)phaseID;
+        _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(_idPhase);
     }
 
     /// <summary>

@@ -41,7 +41,7 @@ public class UseFreeCardUI : MonoBehaviour, UIScreen
 
     }
 
-    PhaseScreens UIScreen.GetType()
+    PhaseScreens UIScreen.GetScreenType()
     {
         return PhaseScreens.FreeCardUI;
     }

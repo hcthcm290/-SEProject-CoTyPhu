@@ -82,6 +82,7 @@ public class ItemManager : MonoBehaviourPun
         //AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Feather"), 8);
         //AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Sundial"), 8);
         AddItemToPool(Resources.Load<BaseItem>("Item_Three_Spades"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Lucky Cat Statue"), 8);
     }
 
     public bool AddItemToPool(BaseItem item)
@@ -183,11 +184,6 @@ public class ItemManager : MonoBehaviourPun
     {
         AddItemToPool(_listItemInShop[idPlayer]);
 
-        foreach(var item in _listItemInShop[idPlayer])
-        {
-            Destroy(item);
-        }
-
         _listItemInShop[idPlayer].Clear();
     }
 
@@ -197,9 +193,7 @@ public class ItemManager : MonoBehaviourPun
         {
             var poolItem = RemoveItemFromPool(idItem);
 
-            var shopItem = Instantiate(poolItem);
-
-            _listItemInShop[idPlayer].Add(shopItem);
+            _listItemInShop[idPlayer].Add(poolItem);
         }
         else
         {
@@ -231,14 +225,6 @@ public class ItemManager : MonoBehaviourPun
                 IDsRandomSource.Add(item.Key);
             }
         }
-
-        string debug = "";
-        foreach(int id in IDsRandomSource)
-        {
-            debug += id.ToString() + ", ";
-        }
-
-        Debug.Log("source " + debug);
 
         while (randomItems.Count < itemCount)
         {
@@ -273,8 +259,6 @@ public class ItemManager : MonoBehaviourPun
         {
             debug += id.ToString() + ", ";
         }
-
-        Debug.Log("Client" + debug);
 
 
         foreach (int id in itemsID)
@@ -402,7 +386,9 @@ public class ItemManager : MonoBehaviourPun
 
         if (_listItemInShop.ContainsKey(idPlayer))
         {
-            var item = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+            var itemInShop = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+
+            var item = Instantiate(itemInShop);
 
             _listItemInShop[idPlayer].Remove(item);
             Bank.Ins.TakeMoney(player, item.Price);
@@ -416,7 +402,9 @@ public class ItemManager : MonoBehaviourPun
         {
             FetchShopItems(idPlayer).then((x) =>
             {
-                var item = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+                var itemInShop = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+
+                var item = Instantiate(itemInShop);
 
                 _listItemInShop[idPlayer].Remove(item);
                 Bank.Ins.TakeMoney(player, item.Price);
