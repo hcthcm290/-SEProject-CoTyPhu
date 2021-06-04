@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7416948122511046934}
   - component: {fileID: 6046106867209352160}
   m_Layer: 0
-  m_Name: Burning Dice
+  m_Name: Item_Burning_Dice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,5 +93,7 @@ MonoBehaviour:
   _price: 200
   _description: 
   _type: 
-  _canActivate: 1
+  _canActivate: 0
+  _owner: {fileID: 0}
   _statusPrefab: {fileID: 870394057870898843, guid: da5b3119cf8dc8b4c934aadf6dad0b53, type: 3}
+  activeStatus: {fileID: 0}
