@@ -86,6 +86,8 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
 
                     StopListen();
 
+                    Owner.RemoveItem(this);
+
                     // subcribe event for handle remove status
                     plotConstruction.SubcribePayPlotFee(this);
                 }

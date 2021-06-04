@@ -68,11 +68,16 @@ public class SunnariCrown : BaseItem, IPlotPassByListener
 
                 Owner.ChangeMana(1);
 
-                Future<bool> check = ItemManager.Ins.GetRandomSunnariItem(Owner.Id);
-                check.then((condition) =>
+                if(player.MinePlayer)
                 {
-                    Owner.RemoveItem(this);
-                });
+                    Future<bool> check = ItemManager.Ins.GetRandomSunnariItem(Owner.Id);
+                }
+                //check.then((condition) =>
+                //{
+                    
+                //});
+
+                Owner.RemoveItem(this);
             }
             else
             {
