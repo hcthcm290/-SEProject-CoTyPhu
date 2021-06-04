@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -210,5 +211,10 @@ public class Plot : MonoBehaviour
 
             listener.OnPlotEnter(player, this);
         }
+    }
+
+    internal void SubcribePlotEnter(IcingDice icingDice)
+    {
+        //throw new NotImplementedException();
     }
 }
