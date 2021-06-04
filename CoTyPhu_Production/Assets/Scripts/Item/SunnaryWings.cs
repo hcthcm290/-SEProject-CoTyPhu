@@ -6,7 +6,11 @@ using UnityEngine;
 
 public class SunnaryWings : BaseItem
 {
+    static bool canActivate = true;
+
     #region Base class override
+    //public override bool CanActivate { get => canActivate; set => canActivate = value; }
+
     public override bool LoadData()
     {
         Set(
@@ -34,13 +38,22 @@ public class SunnaryWings : BaseItem
 
     public override bool Activate(string activeCase)
     {
+        if (canActivate)
+            canActivate = false;
+        else
+            return false;
+
         Debug.Log("Activate Sunnary Wings.");
 
         TileChooserManager tileChooser = TileChooserManager.GetInstance();
 
         ActionTeleport travel = new ActionTeleport(Owner);
 
-        IAction actionEndPhase = new LambdaAction(() => TurnDirector.Ins.EndOfPhase());
+        IAction actionEndPhase = new LambdaAction(
+            () => {
+                Owner.AddItem(this);
+                canActivate = true;
+            });
 
         // Not Building tiles
         List<PLOT> banned = Plot.BuildingPlot.Union(Plot.TemplePlot).ToList();
@@ -57,7 +70,11 @@ public class SunnaryWings : BaseItem
 
         // DO NOT add item back to Item pool
         // ItemManager.Ins.AddItemToPool(this);
-        Destroy(gameObject);
+        travel.OnActionComplete = travel.OnActionComplete.Add(
+            () => { 
+                Destroy(gameObject);
+                canActivate = true;
+            });
 
         return base.Activate(activeCase);
     }
@@ -101,7 +118,6 @@ class ActionTeleport : IPlotChooserAction, ICompletableAction
 
         if (plot == currentPlot)
         {
-            TurnDirector.Ins.EndOfPhase();
             PerformOnComplete();
             return;
         }
@@ -115,6 +131,8 @@ class ActionTeleport : IPlotChooserAction, ICompletableAction
         moveAction = targetPlayer.ActionMoveTo(plot.Value);
 
         moveAction.OnActionComplete = new LambdaAction(onComplete, moveAction.OnActionComplete);
+
+        moveAction.PerformAction();
     }
 
     public void PerformOnComplete()

@@ -199,6 +199,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     [PunRPC]
     private void _StartPhase(int idPlayer, int phaseID)
     {
+        Debug.Log("Start Phase " + ((Phase)phaseID).ToString() + " for player " + idPlayer.ToString());
         if((Phase)phaseID == Phase.Dice)
         {
             List<ITurnListener> listeners = new List<ITurnListener>(_listTurnListener);
