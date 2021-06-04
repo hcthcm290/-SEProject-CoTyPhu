@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SunnarySundial : SunnaryItem, IPlotPassByListener
+public class SunnariCrown : BaseItem, IPlotPassByListener
 {
-    [SerializeField] int manaPerPrisoner = 1;
     public override Player Owner
     {
         get
@@ -18,6 +17,10 @@ public class SunnarySundial : SunnaryItem, IPlotPassByListener
         }
     }
 
+    #region New
+    public List<BaseItem> ItemSunnari;
+    #endregion
+
     #region Base class override
     public override bool LoadData()
     {
@@ -27,7 +30,7 @@ public class SunnarySundial : SunnaryItem, IPlotPassByListener
     public override bool StartListen()
     {
         Debug.Log("Start Listening");
-        Plot.plotDictionary[PLOT.PRISON].SubcribePlotPassByListener(this);
+        Plot.plotDictionary[PLOT.FESTIVAL].SubcribePlotPassByListener(this);
 
         return true;
     }
@@ -48,7 +51,7 @@ public class SunnarySundial : SunnaryItem, IPlotPassByListener
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     #endregion
 
@@ -57,20 +60,24 @@ public class SunnarySundial : SunnaryItem, IPlotPassByListener
     public void OnPlotPassBy(Player player, Plot plot)
     {
         Debug.Log("Receive On Plot Pass by");
-        if(player == Owner)
+        if (player == Owner)
         {
-            if(plot.Id == PLOT.PRISON)
+            if (plot.Id == PLOT.FESTIVAL)
             {
-                Debug.Log("Activate Sunnary Sundial");
+                Debug.Log("Activate Sunnari Crown");
 
-                PlotPrison prison = plot as PlotPrison;
+                Owner.ChangeMana(1);
 
-                int prisonerCount = prison.AllPlayerImprisonDurations.Count;
+                if(player.MinePlayer)
+                {
+                    Future<bool> check = ItemManager.Ins.GetRandomSunnariItem(Owner.Id);
+                }
+                //check.then((condition) =>
+                //{
+                    
+                //});
 
-                int totalBonusMana = manaPerPrisoner * prisonerCount;
-
-                Owner.ChangeMana(totalBonusMana);
-
+                Owner.RemoveItem(this);
             }
             else
             {

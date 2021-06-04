@@ -19,12 +19,14 @@
 	//  Fields ----------------------------------------
 	private BaseStatus _status;
 	private int _expiredRound;
-	private object _player; // sẽ thay bằng class Player sau khi merge
+	private Player _player; // sẽ thay bằng class Player sau khi merge
 
 	//  Initialization --------------------------------
-	public ExpiredOnRound(BaseStatus status, int expiredTurn, object player)
+	public ExpiredOnRound(BaseStatus status, int expiredRound)
 	{
-
+		_status = status;
+		_expiredRound = expiredRound;
+		_player = TurnDirector.Ins.GetPlayerHaveTurn();
 	}
 
 

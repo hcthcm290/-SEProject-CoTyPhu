@@ -60,13 +60,13 @@ public abstract class BaseItem : MonoBehaviour
     }
 
 	//  Fields ----------------------------------------
-	[SerializeField]private int _id;
-	[SerializeField]private string _name;
-	[SerializeField]private int _price;
-	[SerializeField]private string _description;
-	[SerializeField]private string _type;
+	[SerializeField] protected int _id;
+	[SerializeField] protected string _name;
+	[SerializeField] protected int _price;
+	[SerializeField] protected string _description;
+	[SerializeField] protected string _type;
 
-	[SerializeField] bool _canActivate;
+	[SerializeField] protected bool _canActivate;
 
 	[SerializeField] private Player _owner;
 

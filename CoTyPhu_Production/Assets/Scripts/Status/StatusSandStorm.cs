@@ -19,7 +19,7 @@ public class StatusSandStorm : BaseStatus, IHirePriceChange
     {
         try
         {
-            ExpiredOnTurn e = new ExpiredOnTurn(this, 5);
+            //ExpiredOnTurn e = new ExpiredOnTurn(this, 5);
             return true;
         }
         catch (Exception e)
