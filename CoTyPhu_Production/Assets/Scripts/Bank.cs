@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 /// <summary>
 /// THE BANK CONTROLS ALL MONEYS FLOW IN GAME
@@ -10,14 +11,15 @@ public class Bank: MonoBehaviour
 {
 	#region Status
 	List<ITransactionModifier> _listMoneyReceiveModify;
+	List<ITransactionModifier> _listMoneyTakeModify;
 
 
-    #endregion
+	#endregion
 
-    //  Events ----------------------------------------
+	//  Events ----------------------------------------
 
-    #region Singleton
-    private static Bank _ins;
+	#region Singleton
+	private static Bank _ins;
 	public static Bank Ins
     {
 		get { return _ins; }
@@ -101,14 +103,35 @@ public class Bank: MonoBehaviour
 		}
 	}
 
-	public void TakeMoney(Player player, int amount)
-    {
-		TakeMoney(player, amount, false);
-	}
-
-	public void TakeMoney(Player player, int amount, bool isBetweenPlayer)
-    {
+	public void TakeMoney(Player player, int amount, bool isBetweenPlayer = false)
+	{
 		if (!_moneyPlayer.ContainsKey(player)) return;
+
+		int baseAmount = amount;
+		int delta = 0;
+
+		if (_listMoneyTakeModify != null)
+		{
+			List<ITransactionModifier> ListModifier = new List<ITransactionModifier>(_listMoneyTakeModify);
+
+			foreach (var transactionModifier in ListModifier)
+			{
+				if (transactionModifier == null) continue;
+
+				if (transactionModifier.isActivated(player, baseAmount, isBetweenPlayer))
+				{
+					var result = transactionModifier.ModifyTransaction(player, baseAmount, delta);
+
+					(transactionModifier as BaseStatus)?.ExcuteAction();
+
+					player = result.Item1;
+					baseAmount = result.Item2;
+					delta = result.Item3;
+				}
+			}
+		}
+
+		amount = baseAmount + delta;
 
 		_moneyPlayer[player] -= amount;
 		_moneyPlayers.Find(x => x.player == player).money -= amount;
@@ -130,23 +153,26 @@ public class Bank: MonoBehaviour
 		int baseAmount = amount;
 		int delta = 0;
 
-		List<ITransactionModifier> ListModifier = new List<ITransactionModifier>(_listMoneyReceiveModify);
+		if (_listMoneyReceiveModify != null)
+		{
+			List<ITransactionModifier> ListModifier = new List<ITransactionModifier>(_listMoneyReceiveModify);
 
-		foreach(var transactionModifier in ListModifier)
-        {
-			if (transactionModifier == null) continue;
+			foreach (var transactionModifier in ListModifier)
+			{
+				if (transactionModifier == null) continue;
 
-			if(transactionModifier.isActivated(player, baseAmount, isBetweenPlayer))
-            {
-				var result = transactionModifier.ModifyTransaction(player, baseAmount, delta);
+				if (transactionModifier.isActivated(player, baseAmount, isBetweenPlayer))
+				{
+					var result = transactionModifier.ModifyTransaction(player, baseAmount, delta);
 
-				(transactionModifier as BaseStatus)?.ExcuteAction();
+					(transactionModifier as BaseStatus)?.ExcuteAction();
 
-				player = result.Item1;
-				baseAmount = result.Item2;
-				delta = result.Item3;
-            }
-        }
+					player = result.Item1;
+					baseAmount = result.Item2;
+					delta = result.Item3;
+				}
+			}
+		}
 
 		amount = baseAmount + delta;
 
@@ -183,9 +209,30 @@ public class Bank: MonoBehaviour
 		}
 		_listMoneyReceiveModify.Remove(transactionModifier);
 	}
-    #endregion
 
-    //  Event Handlers --------------------------------
+	public void AddTakeMoneyStatus(ITransactionModifier transactionModifier)
+	{
+		if (_listMoneyTakeModify == null)
+		{
+			_listMoneyTakeModify = new List<ITransactionModifier>();
+		}
+		if (!_listMoneyTakeModify.Contains(transactionModifier))
+		{
+			_listMoneyTakeModify.Add(transactionModifier);
+		}
+	}
+
+	public void RemoveTakeMoneyStatus(ITransactionModifier transactionModifier)
+	{
+		if (_listMoneyTakeModify == null)
+		{
+			_listMoneyTakeModify = new List<ITransactionModifier>();
+		}
+		_listMoneyTakeModify.Remove(transactionModifier);
+	}
+	#endregion
+
+	//  Event Handlers --------------------------------
 }
 
 public interface ITransaction

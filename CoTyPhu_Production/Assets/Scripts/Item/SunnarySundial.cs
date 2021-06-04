@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SunnarySundial : BaseItem, IPlotPassByListener
+public class SunnarySundial : SunnaryItem, IPlotPassByListener
 {
     [SerializeField] int manaPerPrisoner = 1;
     public override Player Owner

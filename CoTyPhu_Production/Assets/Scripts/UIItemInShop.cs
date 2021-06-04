@@ -42,6 +42,7 @@ public class UIItemInShop : MonoBehaviour
             result.then((bool requestResult) =>
             {
                 Shop.Ins.RemoveItemFromShop(value);
+                //Shop.Ins._UIItemInShop.Remove(value);
                 Destroy(gameObject);
             });
         }

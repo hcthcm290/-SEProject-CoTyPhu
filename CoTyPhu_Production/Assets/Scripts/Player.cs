@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Player : MonoBehaviour, IDiceListener
 {
+    [SerializeField] List<IGoldReceiveChange> _listStatusGoldReceive = new List<IGoldReceiveChange>();
     // Properties ------------------------------------
     [SerializeField] int _id;
     public int Id
@@ -110,7 +111,7 @@ public class Player : MonoBehaviour, IDiceListener
     /// <summary>
     /// Return an Action that commands Player to move to target Plot
     /// This will NOT move the player step-by-step.
-    /// When the Player reach the target location, Will call nextAction in the UIActions list
+    /// When the Player reach the target location, Will call OnActionComplete
     /// </summary>
     /// <param name="plotID"></param>
     /// <returns></returns>
@@ -474,6 +475,7 @@ public class Player : MonoBehaviour, IDiceListener
 
     public bool AddItem(BaseItem item)
     {
+        Debug.Log("Adding item: " + item.Type);
         playerItem.Add(item);
         item.Owner = this;
         ItemsChange?.Invoke();
@@ -490,4 +492,23 @@ public class Player : MonoBehaviour, IDiceListener
 
     public delegate void ItemChangeHandler();
     public event ItemChangeHandler ItemsChange;
+
+    #region Method
+    public void AddStatus(IGoldReceiveChange newStatus)
+    {
+        if (_listStatusGoldReceive == null)
+        {
+            _listStatusGoldReceive = new List<IGoldReceiveChange>();
+        }
+        if (!_listStatusGoldReceive.Contains(newStatus))
+        {
+            _listStatusGoldReceive.Add(newStatus);
+        }
+    }
+
+    public void RemoveStatus(IGoldReceiveChange status)
+    {
+        _listStatusGoldReceive.Remove(status);
+    }
+    #endregion
 }

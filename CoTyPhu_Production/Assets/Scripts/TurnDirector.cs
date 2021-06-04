@@ -327,4 +327,15 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     {
         return _listPlayer.Find(x => x.Id == playerID);
     }
+
+    //Thang zone
+    public Player GetPlayerHaveTurn()
+    {
+        return _listPlayer.Find(x => x.Id == _idPlayerTurn);
+    }
+
+    public int CurrentTurn()
+    {
+        return _count;
+    }
 }

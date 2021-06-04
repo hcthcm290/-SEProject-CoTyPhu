@@ -13,13 +13,19 @@ public class UIItemInPlayer : MonoBehaviour
         if (value == null)
         {
             value = initItem;
-            SetInfo();
         }
+        SetInfo();
     }
 
     public void SetInfo()
     {
         transform.GetComponent<Image>().sprite = value.gameObject.GetComponent<Image>().sprite;
+    }
+
+    public void SetNull()
+    {
+        value = null;
+        transform.GetComponent<Image>().sprite = null;
     }
 
     public void Detail()
