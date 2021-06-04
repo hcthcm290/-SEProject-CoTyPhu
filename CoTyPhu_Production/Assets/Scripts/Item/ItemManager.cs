@@ -85,6 +85,8 @@ public class ItemManager : MonoBehaviourPun
         AddItemToPool(Resources.Load<BaseItem>("Lucky Cat Statue"), 8);
         AddItemToPool(Resources.Load<BaseItem>("Item_Burning_Dice"), 8);
         AddItemToPool(Resources.Load<BaseItem>("Item_Mirror"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnari_Crown"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Sundial"), 3);
     }
 
     public bool AddItemToPool(BaseItem item)
@@ -204,13 +206,103 @@ public class ItemManager : MonoBehaviourPun
     }
     #endregion
 
+    #region Get List Item
+    [PunRPC]
+    private void RequestItemServer(int idItem, int itemCount)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        List<int> Source = new List<int>();
+
+        var item = ItemPool.Where(key => key.Key == idItem);
+        if (item.Count() == 0 || item.Count() > 1)
+        {
+
+        }
+        else
+        {
+            for (int i = 0; i < item.First().Value.Item2; i++)
+            {
+                Source.Add(item.First().Key);
+            }
+        }
+
+        List<int> ItemList = new List<int>();
+
+        while ((ItemList.Count() < itemCount && itemCount != 0) || itemCount == 0)
+        {
+            if (Source.Count == 0) break;
+
+            ItemList.Add(Source[0]);
+            Source.RemoveAt(0);
+        }
+
+        int[] result = ItemList.ToArray();
+        //Debug.Log("result "+ result[0].ToString() + ", " + result[1].ToString() + ", " + result[2].ToString());
+
+        photonView.RPC("RequestItemClient", RpcTarget.AllBufferedViaServer, idItem, (object)(result));
+    }
+
+    [PunRPC]
+    private void RequestItemClient(int idItem, object o_itemsID)
+    {
+        int[] itemsID = o_itemsID as int[];
+
+        string debug = "";
+        foreach (int id in itemsID)
+        {
+            debug += id.ToString() + ", ";
+        }
+
+        Debug.Log("Client" + debug);
+
+        List<BaseItem> result = new List<BaseItem>();
+
+        foreach (int id in itemsID)
+        {
+            if (GetPoolItemCount(id) > 0)
+            {
+                var poolItem = RemoveItemFromPool(id);
+
+                var getItem = Instantiate(poolItem);
+
+                result.Add(getItem);
+            }
+            else
+            {
+                Debug.Log("There is not enough item in pool to move to shop");
+            }
+        }
+
+        requestItemCallback?.Complete(new List<BaseItem>(result));
+    }
+
+    private FutureTask<List<BaseItem>> requestItemCallback;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="idItem">id Item to get</param>
+    /// <param name="itemCount">Number of item get, 0 to get all item left</param>
+    /// <returns></returns>
+    public Future<List<BaseItem>> RequestItem(int idItem, int itemCount)
+    {
+        FutureTask<List<BaseItem>> futureItems = new FutureTask<List<BaseItem>>();
+        requestItemCallback = futureItems;
+
+        photonView.RPC("RequestItemServer", RpcTarget.MasterClient, idItem, itemCount);
+
+        return futureItems.GetFuture();
+    }
+    #endregion
+
     #region Renew Shop
     [PunRPC]
     private void RequestNewShopServer(int idPlayer, int itemCount)
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        if(!_listItemInShop.ContainsKey(idPlayer))
+        if (!_listItemInShop.ContainsKey(idPlayer))
         {
             _listItemInShop.Add(idPlayer, new List<BaseItem>());
         }
@@ -220,13 +312,21 @@ public class ItemManager : MonoBehaviourPun
         List<int> randomItems = new List<int>();
         List<int> IDsRandomSource = new List<int>();
 
-        foreach(var item in ItemPool)
+        foreach (var item in ItemPool)
         {
             for (int i = 0; i < item.Value.Item2; i++)
             {
                 IDsRandomSource.Add(item.Key);
             }
         }
+
+        string debug = "";
+        foreach (int id in IDsRandomSource)
+        {
+            debug += id.ToString() + ", ";
+        }
+
+        Debug.Log("source " + debug);
 
         while (randomItems.Count < itemCount)
         {
@@ -239,7 +339,7 @@ public class ItemManager : MonoBehaviourPun
         }
 
         int[] result = randomItems.ToArray();
-        Debug.Log("result "+ result[0].ToString() + ", " + result[1].ToString() + ", " + result[2].ToString());
+        Debug.Log("result " + result[0].ToString() + ", " + result[1].ToString() + ", " + result[2].ToString());
 
         photonView.RPC("RequestNewShopClient", RpcTarget.AllBufferedViaServer, idPlayer, (object)(result));
     }
@@ -461,5 +561,98 @@ public class ItemManager : MonoBehaviourPun
     }
     #endregion
 
+    #endregion
+
+    #region Get A Random Sunnari Item
+    [PunRPC]
+    private void GetRandomtSunnariItemServer(int owner)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        List<BaseItem> com = new List<BaseItem>();
+
+        Future<List<BaseItem>> b1 = ItemManager.Ins.RequestItem(5, 0);
+        b1.then((list) =>
+        {
+            foreach (var item in list)
+            {
+                com.Add(item);
+            }
+            Future<List<BaseItem>> b2 = ItemManager.Ins.RequestItem(6, 0);
+            b2.then((list) =>
+            {
+                foreach (var item in list)
+                {
+                    com.Add(item);
+                }
+                Future<List<BaseItem>> b3 = ItemManager.Ins.RequestItem(7, 0);
+                b3.then((list) =>
+                {
+                    foreach (var item in list)
+                    {
+                        com.Add(item);
+                    }
+                    Future<List<BaseItem>> b4 = ItemManager.Ins.RequestItem(8, 0);
+                    b4.then((list) =>
+                    {
+                        foreach (var item in list)
+                        {
+                            com.Add(item);
+                        }
+                        int randint = UnityEngine.Random.Range(0, com.Count);
+
+                        //
+                        string debug = "";
+                        foreach(BaseItem bi in com)
+                        {
+                            debug += bi.Id + ",";
+                        }
+                        Debug.LogWarning(debug);
+                        //
+
+                        BaseItem result = com[randint];
+                        //owner.AddItem(com[randint]);
+                        AddItemToPool(com);
+
+                        int result_id = result.Id;
+
+                        Debug.Log(result_id);
+
+                        photonView.RPC("GetRandomSunnariItemClient", RpcTarget.AllBufferedViaServer, owner, result_id);
+
+                        //owner.RemoveItem(thisitem);
+                    });
+                });
+            });
+        });
+        //Debug.Log("result "+ result[0].ToString() + ", " + result[1].ToString() + ", " + result[2].ToString());
+    }
+
+    [PunRPC]
+    private void GetRandomSunnariItemClient(int idPlayer, int gainitem)
+    {
+        Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+        var poolitem = RemoveItemFromPool(gainitem);
+        player.AddItem(poolitem);
+        getRandomSunnariItemCallback?.Complete(true);
+    }
+
+    private FutureTask<bool> getRandomSunnariItemCallback;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="idItem">id Item to get</param>
+    /// <param name="itemCount">Number of item get, 0 to get all item left</param>
+    /// <returns></returns>
+    public Future<bool> GetRandomSunnariItem(int idPlayer)
+    {
+        FutureTask<bool> futureItems = new FutureTask<bool>();
+        getRandomSunnariItemCallback = futureItems;
+
+        photonView.RPC("GetRandomtSunnariItemServer", RpcTarget.MasterClient, idPlayer);
+
+        return futureItems.GetFuture();
+    }
     #endregion
 }
