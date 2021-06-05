@@ -193,7 +193,7 @@ public class Plot : MonoBehaviour
     protected void NotifyPlotPassBy(Player player)
     {
         List<IPlotPassByListener> listeners = new List<IPlotPassByListener>(_plotPassByListeners);
-        foreach (var listener in _plotPassByListeners)
+        foreach (var listener in listeners)
         {
             if (listener == null) continue;
 
