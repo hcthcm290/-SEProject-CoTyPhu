@@ -34,6 +34,7 @@ public class SunnariNecklace : SunnaryItem, IPlotPassByListener, IPayPlotFeeList
                 }    
                 if (plotResult)
                 {
+                    player.ChangeMana(1);
                     plotResult.AddStatus(status);
                 }
                 player.RemoveItem(this);
