@@ -65,6 +65,8 @@ public class Player : MonoBehaviour, IDiceListener
             Dice.SubscribeDiceListener(this);
             _notSubcribeDice = false;
         }
+        //Thang
+        LockMerchant(merchant);
     }
 
     // Update is called once per frame
@@ -429,10 +431,17 @@ public class Player : MonoBehaviour, IDiceListener
         return merchant;
     }
 
-    public void LockMerchant()
+    public void LockMerchant(BaseMerchant get_merchant)
     {
         //check to active only in merchant picking
+        merchant = Instantiate(get_merchant, this.transform);
+        merchant.Init();
+        merchant.Skill.Owner = this;
+        MerchantLock?.Invoke();
     }
+
+    public delegate void MerchantLockHandler();
+    public event MerchantLockHandler MerchantLock;
 
     /// <summary>
     /// Mana Process
@@ -451,12 +460,17 @@ public class Player : MonoBehaviour, IDiceListener
         {
             _mana = GetMerchant().MaxMana;
         }
+        ManaChange?.Invoke();
     }
 
     public void ResetMana()
     {
         _mana = 0;
+        ManaChange?.Invoke();
     }
+
+    public delegate void ManaChangeHandler();
+    public event ManaChangeHandler ManaChange;
 
     /// <summary>
     /// Get Gold For UI
@@ -494,21 +508,33 @@ public class Player : MonoBehaviour, IDiceListener
     public event ItemChangeHandler ItemsChange;
 
     #region Method
-    public void AddStatus(IGoldReceiveChange newStatus)
+    public void AddStatus(BaseStatus newStatus)
     {
-        if (_listStatusGoldReceive == null)
+        //CanGainStatus();
+        if (newStatus is IGoldReceiveChange)
         {
-            _listStatusGoldReceive = new List<IGoldReceiveChange>();
+            if (_listStatusGoldReceive == null)
+            {
+                _listStatusGoldReceive = new List<IGoldReceiveChange>();
+            }
+            if (!_listStatusGoldReceive.Contains((IGoldReceiveChange)newStatus))
+            {
+                _listStatusGoldReceive.Add((IGoldReceiveChange)newStatus);
+            }
         }
-        if (!_listStatusGoldReceive.Contains(newStatus))
+        StatusAdding?.Invoke(newStatus);
+    }
+
+    public void RemoveStatus(BaseStatus status)
+    {
+        Destroy(status.gameObject);
+        if (status is IGoldReceiveChange)
         {
-            _listStatusGoldReceive.Add(newStatus);
+            _listStatusGoldReceive.Remove((IGoldReceiveChange)status);
         }
     }
 
-    public void RemoveStatus(IGoldReceiveChange status)
-    {
-        _listStatusGoldReceive.Remove(status);
-    }
+    public delegate void StatusAddingHandler(BaseStatus status);
+    public event StatusAddingHandler StatusAdding;
     #endregion
 }

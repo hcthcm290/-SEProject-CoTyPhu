@@ -35,6 +35,7 @@ public abstract class BaseMerchant : MonoBehaviour
 	//  Fields ----------------------------------------
 	private string _name;
 	public MerchantTag _tagName;
+	[SerializeField]
 	private BaseSkill _skill;
 	private BaseStatus _passiveSkill;
 	private int _maxMana;
@@ -50,4 +51,9 @@ public abstract class BaseMerchant : MonoBehaviour
 		_maxMana = maxMana;
 		Story = story;
 	}
+	public void Lock()
+    {
+		_skill = Instantiate(Skill, this.transform);
+    }
+	public abstract void Init();
 }

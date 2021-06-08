@@ -39,11 +39,17 @@ public abstract class BaseStatus: MonoBehaviour
 		//set { _isConditional = value; }
 	}
 
+	public string Type
+    {
+        get { return _type; }
+    }
+
 	//  Fields ----------------------------------------
 	[SerializeField] protected int _id;
 	[SerializeField] protected string _name;
 	[SerializeField] protected string _description;
 	[SerializeField] protected bool _isConditional;
+	[SerializeField] protected string _type; //negative, neutral, positive
 
 	//  Initialization --------------------------------
 	public BaseStatus()

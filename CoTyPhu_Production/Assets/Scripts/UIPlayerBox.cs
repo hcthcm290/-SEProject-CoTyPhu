@@ -13,15 +13,34 @@ public class UIPlayerBox : MonoBehaviour
         SetInfo();
     }
 
+    public void ActivateSkill()
+    {
+        player.GetMerchant().Skill.Activate();
+    }
+
     public void SetInfo()
     {
-        transform.Find("PlayerBox/ManaBar/Text").GetComponent<Text>().text = player.GetMana().ToString() + "/" + player.GetMerchant().MaxMana.ToString();
         transform.Find("PlayerBox/MerchantImage").GetComponent<Image>().sprite = player.GetMerchant().gameObject.GetComponent<Image>().sprite;
         transform.Find("PlayerBox/NamePanel/Text").GetComponent<Text>().text = player.Name;
+
+        transform.Find("Ultimate").GetComponent<Button>().onClick.AddListener(ActivateSkill);
 
         //transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();
         //transform.Find("Button").GetComponent<Button>().onClick.AddListener(Buy);
 
+        SetItems();
+        SetMana();
+    }
+    
+    public void SetMana()
+    {
+        transform.Find("PlayerBox/ManaBar/Text").GetComponent<Text>().text = player.GetMana().ToString() + "/" + player.GetMerchant().MaxMana.ToString();
+
+        transform.Find("Ultimate").GetComponent<Button>().interactable = player.GetMerchant().Skill.CanActivate();
+    }
+
+    public void SetItems()
+    {
         Queue<string> itemComponent = new Queue<string>();
         for (int i = 1; i <= player.itemLimit; i++)
         {
@@ -45,7 +64,9 @@ public class UIPlayerBox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player.ItemsChange += SetInfo;
+        player.MerchantLock += SetInfo;
+        player.ItemsChange += SetItems;
+        player.ManaChange += SetMana;
     }
 
     // Update is called once per frame
