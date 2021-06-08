@@ -7,20 +7,20 @@ public class PlayerControl : MonoBehaviour
     /// <summary>
     /// Status show if player has build a house at its turn
     /// </summary>
-    bool Builded = false;
+    protected bool Builded = false;
 
     public GameObject plotManager;
     public DiceManager diceManager;
     public TurnBaseManager turnBaseManager;
 
     public int cur_location = 0;
-    private int dest_location;
+    protected int dest_location;
 
-    private Vector3 prev_position;
-    private Vector3 next_position;
+    protected Vector3 prev_position;
+    protected Vector3 next_position;
 
 
-    private float jump_delay_count;
+    protected float jump_delay_count;
     public float jump_delay = 0.5f;
 
     public int numberOfDices = 2;
@@ -45,7 +45,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if(number_of_moving_turn <= 0)
         {
@@ -57,6 +57,7 @@ public class PlayerControl : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.A))
                 {
+                    turnBaseManager.turn_count++;
                     turn_maximum_count++;
                     diceManager.Roll(currentNumberOfDices);
                     if (currentNumberOfDices == 2 && diceManager.IsDouble())
@@ -120,6 +121,7 @@ public class PlayerControl : MonoBehaviour
                 {
                     turnBaseManager.phase = 2;
                 }
+
                 return;
             }
 
@@ -127,6 +129,7 @@ public class PlayerControl : MonoBehaviour
             {
                 plotManager.GetComponent<PlotManager>().listPlot.Find(p => p.plotID == dest_location).ActivePlotEffect(this);
                 turnBaseManager.phase = 4;
+
                 return;
             }
 
@@ -140,6 +143,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     PlayerControl p = turnBaseManager.listPlayer.Dequeue();
+                    turnBaseManager.turnOfPlayer = p;
                     p.number_of_moving_turn++;
                     turnBaseManager.listPlayer.Enqueue(p);
                     turn_maximum_count = 0;
@@ -150,12 +154,12 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    void Jump()
+    protected void Jump()
     {
         Jump(1);
     }
 
-    void Jump(int step)
+    protected void Jump(int step)
     {
         dest_location = cur_location + step;
         if (dest_location >= 32)
@@ -164,7 +168,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    Vector3 SetNewPostition(int id)
+    protected Vector3 SetNewPostition(int id)
     {
         Vector3 result = Vector3.zero;
 
@@ -175,14 +179,36 @@ public class PlayerControl : MonoBehaviour
         return result;
     }
 
+    public bool CanBuild()
+    {
+        if(number_of_moving_turn > 0 && !Builded)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void BuildAHouse()
     {
+        if (!CanBuild())
+            return;
         PlotManager pm = plotManager.GetComponent<PlotManager>();
 
         BasePlot plot = pm.listPlot.Find((x) => x.plotID == cur_location);
         if (plot is Plot_House)
         {
-            if(gold.amount < (plot as Plot_House).cost)
+            Plot_House plot_house = (plot as Plot_House);
+            if (plot_house.owner != this && plot_house.owner != null)
+            {
+                return;
+            }
+            else if(plot_house.owner == this)
+            {
+                UpgradeAHouse(plot_house);
+                return;
+            }
+
+            if (gold.amount < (plot as Plot_House).cost)
             {
                 Debug.LogWarning("Not enough money");
                 return;
@@ -191,17 +217,37 @@ public class PlayerControl : MonoBehaviour
 
             if (bp != null)
             {
-                bp.Build(1);
+                if (name == "A")
+                {
+                    bp.Build(1);
+                }
+                else
+                {
+                    bp.Build(2);
+                }
+                (plot as Plot_House).owner = this;
                 Builded = true;
                 gold.amount -= (plot as Plot_House).cost;
             }
         }
     }
 
+    protected void UpgradeAHouse(Plot_House plot_house)
+    {
+        BuildingPoint bp = plot_house.GetComponent<BuildingPoint>();
+
+        if (bp != null)
+        {
+            bp.Build(bp.currentHouseID + 1);
+            Builded = true;
+            gold.amount -= (plot_house as Plot_House).cost;
+        }
+    }
+
     /// <summary>
     /// After reset, the player have the ability to build again
     /// </summary>
-    void ResetBuildStatus()
+    protected void ResetBuildStatus()
     {
         Builded = false;
     }

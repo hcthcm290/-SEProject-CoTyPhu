@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DiceManager : MonoBehaviour
 {
     public Dice dicePrefab;
     public List<Dice> dicelist = new List<Dice>();
     public int dice_sum = 0;
+    public Text DiceUI1;
+    public Text DiceUI2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +37,10 @@ public class DiceManager : MonoBehaviour
             dicelist.Add(d);
         }
 
-        dice_sum = 1;
+        DiceUI1.text = dicelist[0].dice_result.ToString();
+        DiceUI2.text = dicelist[1].dice_result.ToString();
+
+        //dice_sum = 1;
     }
 
     public bool IsDouble()

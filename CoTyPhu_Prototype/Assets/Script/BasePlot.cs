@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class BasePlot : MonoBehaviour
 {
     public int plotID = 0;
+
     // Start is called before the first frame update
     void Start()
     {
