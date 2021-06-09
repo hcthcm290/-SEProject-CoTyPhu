@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     [SerializeField] Text messageText;
     [SerializeField] GameObject messageObj;
     [SerializeField] Button closeMessageButton;
+    [SerializeField] InputField playerNameInputField;
     #endregion
 
     #region properties
@@ -38,7 +39,13 @@ public class MainMenu : MonoBehaviourPunCallbacks
         joinPrivateGame.onClick.AddListener(JoinPrivateRoom);
         createPublicGameButton.onClick.AddListener(CreatePublicGame);
         createPrivateGameButton.onClick.AddListener(CreatePrivateGame);
+        playerNameInputField.text = PhotonNetwork.NickName;
+        playerNameInputField.onValueChanged.AddListener(OnPlayerNameChange);
+    }
 
+    public void OnPlayerNameChange(string value)
+    {
+        PhotonNetwork.NickName = value;
     }
 
     private void OpenTableCreateGame()
@@ -136,8 +143,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         FutureTask<bool> connectTask = new FutureTask<bool>();
         _connectToLobbyTask = connectTask;
-
-        PhotonNetwork.NickName = playerName.text;
 
         if(!PhotonNetwork.IsConnectedAndReady)
         {

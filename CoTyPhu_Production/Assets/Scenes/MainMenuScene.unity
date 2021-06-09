@@ -1064,6 +1064,7 @@ MonoBehaviour:
   messageText: {fileID: 118379839}
   messageObj: {fileID: 1725447484}
   closeMessageButton: {fileID: 1548344165}
+  playerNameInputField: {fileID: 75097365}
   roomNameLength: 6
 --- !u!4 &852746827
 Transform:

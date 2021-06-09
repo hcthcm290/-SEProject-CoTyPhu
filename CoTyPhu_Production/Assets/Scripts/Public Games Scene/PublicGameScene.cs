@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -40,6 +41,12 @@ public class PublicGameScene : MonoBehaviourPunCallbacks
         listRoomInfos = roomList;
     }
 
+    public void JoinRoom(string roomName)
+    {
+        Debug.Log("prepare to join room: " + roomName);
+        PhotonNetwork.JoinRoom(roomName);
+    }
+
     public void Refresh()
     {
         foreach(var item in listRoomInfoCards)
@@ -52,9 +59,24 @@ public class PublicGameScene : MonoBehaviourPunCallbacks
         {
             var newRoomInfoCard = Instantiate(RoomInfoCardPrefab, ListRoomContent.transform);
             newRoomInfoCard.SetInfo(item);
+            newRoomInfoCard.onClicked += JoinRoom;
             listRoomInfoCards.Add(newRoomInfoCard);
         }
 
         refreshButton.gameObject.SetActive(false);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        Debug.Log("joined room: " + PhotonNetwork.CurrentRoom.Name);
+        Debug.Log("prepare loading waiting room scene");
+        SceneManager.LoadScene("WaitingRoomScene");
+    }
+
+    public void goMainMenuScene()
+    {
+        Debug.Log("prepare loading main menu scene");
+        SceneManager.LoadScene("MainMenuScene");
     }
 }
