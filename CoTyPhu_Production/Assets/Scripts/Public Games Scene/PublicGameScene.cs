@@ -17,6 +17,9 @@ public class PublicGameScene : MonoBehaviourPunCallbacks
     static List<RoomInfoCard> listRoomInfoCards;
     static List<RoomInfo> listRoomInfos;
 
+    [SerializeField]
+    List<RoomInfoCard> listRoomInfoCardsDebug;
+
     private void Start()
     {
         if(listRoomInfoCards == null)
@@ -28,6 +31,10 @@ public class PublicGameScene : MonoBehaviourPunCallbacks
         {
             listRoomInfos = new List<RoomInfo>();
         }
+
+        listRoomInfoCardsDebug = listRoomInfoCards;
+
+        Refresh();
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -49,14 +56,19 @@ public class PublicGameScene : MonoBehaviourPunCallbacks
 
     public void Refresh()
     {
-        foreach(var item in listRoomInfoCards)
+        foreach (var item in listRoomInfoCards)
         {
-            Destroy(item.gameObject);
+            if(item != null)
+            {
+                Destroy(item.gameObject);
+            }
         }
         listRoomInfoCards.Clear();
 
         foreach (var item in listRoomInfos)
         {
+            if (item.PlayerCount == 0) continue;
+
             var newRoomInfoCard = Instantiate(RoomInfoCardPrefab, ListRoomContent.transform);
             newRoomInfoCard.SetInfo(item);
             newRoomInfoCard.onClicked += JoinRoom;
@@ -64,6 +76,7 @@ public class PublicGameScene : MonoBehaviourPunCallbacks
         }
 
         refreshButton.gameObject.SetActive(false);
+        listRoomInfoCardsDebug = listRoomInfoCards;
     }
 
     public override void OnJoinedRoom()
@@ -72,6 +85,12 @@ public class PublicGameScene : MonoBehaviourPunCallbacks
         Debug.Log("joined room: " + PhotonNetwork.CurrentRoom.Name);
         Debug.Log("prepare loading waiting room scene");
         SceneManager.LoadScene("WaitingRoomScene");
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        base.OnJoinRoomFailed(returnCode, message);
+        Debug.LogError(message);
     }
 
     public void goMainMenuScene()

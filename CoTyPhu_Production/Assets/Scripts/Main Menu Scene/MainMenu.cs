@@ -66,7 +66,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.IsVisible = true;
             roomOptions.MaxPlayers = 5;
-            roomOptions.PlayerTtl = 800000;
+            roomOptions.PlayerTtl = 80000;
             roomOptions.EmptyRoomTtl = 0;
             roomOptions.PublishUserId = true;
             roomOptions.CustomRoomPropertiesForLobby = new string[1];
@@ -88,7 +88,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.IsVisible = false;
             roomOptions.MaxPlayers = 5;
-            roomOptions.PlayerTtl = 800000; ;
+            roomOptions.PlayerTtl = 80000;
             roomOptions.EmptyRoomTtl = 0;
             roomOptions.PublishUserId = true;
 
@@ -167,7 +167,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         Debug.Log("joined lobby");
         base.OnJoinedLobby();
-        _connectToLobbyTask.Complete(true);
+        _connectToLobbyTask?.Complete(true);
     }
 
     public override void OnCreatedRoom()
