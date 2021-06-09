@@ -1720,7 +1720,7 @@ MonoBehaviour:
   diceResultInput1: {fileID: 1774776160}
   diceResultInput2: {fileID: 1904277175}
   Name: 
-  merchant: {fileID: -8206113330610582941, guid: 47edb04d2623e9e41b90323c35f30d9a, type: 3}
+  merchant: {fileID: 3187523295642304378, guid: bb2ecdde0fa4f2447bd86f4e4dd89f79, type: 3}
   _mana: 5
   playerItem: []
   itemLimit: 3

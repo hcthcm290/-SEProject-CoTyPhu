@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -437,6 +438,15 @@ public class Player : MonoBehaviour, IDiceListener
         merchant = Instantiate(get_merchant, this.transform);
         merchant.Init();
         merchant.Skill.Owner = this;
+        try
+        {
+            var newStatus = Instantiate(merchant.PassiveSkill, this.transform);
+            newStatus.PassiveSetup(this);
+        }
+        catch(Exception e)
+        {
+
+        }
         MerchantLock?.Invoke();
     }
 
