@@ -8,6 +8,7 @@ namespace MerchantPicking
     {
         #region UI properties
         [SerializeField] GameObject listMerchantAvatarContent;
+        [SerializeField] MerchantInfoCard merchantInfoCard;
         #endregion
 
         [SerializeField] List<BaseMerchant> listAvailableMerchant;
@@ -36,7 +37,7 @@ namespace MerchantPicking
 
         public void OnMerchantAvatarPress(BaseMerchant merchant)
         {
-            Debug.Log(merchant.Name);
+            merchantInfoCard.SetInfo(merchant);
         }
     }
 }
