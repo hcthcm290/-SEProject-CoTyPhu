@@ -74,10 +74,11 @@ public class SunnariCrown : BaseItem, IPlotPassByListener
                 }
                 //check.then((condition) =>
                 //{
-                    
+
                 //});
 
                 Owner.RemoveItem(this);
+                Plot.plotDictionary[PLOT.FESTIVAL].UnsubcribePlotPassByListner(this);
             }
             else
             {

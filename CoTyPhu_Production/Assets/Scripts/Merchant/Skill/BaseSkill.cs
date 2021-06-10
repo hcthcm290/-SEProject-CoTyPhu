@@ -35,7 +35,7 @@ public abstract class BaseSkill : MonoBehaviour
 	private int _currentManaCost;
 	private string _description;
 
-	public Player player;
+	public Player Owner;
 
 	//  Initialization --------------------------------
 	public void Set(string name, int manacost, int currentmanacost, string description)
@@ -58,5 +58,12 @@ public abstract class BaseSkill : MonoBehaviour
         //reset skill after activate to make sure buff will expire (if it need to be).
     }
 
-    public abstract bool Activate();
+    public virtual bool Activate()
+    {
+		Owner.ChangeMana(-ManaCost);
+		if (Owner.GetMana() >= 0)
+			return true;
+		else
+			return false;
+    }
 }

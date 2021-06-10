@@ -48,6 +48,7 @@ public class ExpiredOnTurn :MonoBehaviour, ITurnListener
 		ExpiredTurn -= 1;
 		if (ExpiredTurn <= 0)
 		{
+			TurnDirector.Ins.UnsubscribeTurnListener(this);
 			Status.Remove(true);
 		}
 	}

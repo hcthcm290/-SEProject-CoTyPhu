@@ -1,4 +1,8 @@
-﻿public class ExpiredOnRound
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExpiredOnRound : MonoBehaviour, ITurnListener
 {
 	//  Events ----------------------------------------
 
@@ -19,27 +23,48 @@
 	//  Fields ----------------------------------------
 	private BaseStatus _status;
 	private int _expiredRound;
-	private Player _player; // sẽ thay bằng class Player sau khi merge
+	private Player _player;
+	private bool startToCount = false;
 
 	//  Initialization --------------------------------
-	public ExpiredOnRound(BaseStatus status, int expiredRound)
+	public void Init(BaseStatus status, int expiredRound)
 	{
 		_status = status;
 		_expiredRound = expiredRound;
 		_player = TurnDirector.Ins.GetPlayerHaveTurn();
+		StartListen();
 	}
 
 
 	//  Methods ---------------------------------------
 	public bool StartListen()
 	{
-		//+= RemoveExpiredStatus
+		TurnDirector.Ins.SubscribeTurnListener(this);
 		return true;
 	}
 
-	public bool RemoveExpiredStatus()
+	public void OnBeginTurn(int idPlayer)
 	{
-		return true;
+		if(idPlayer == _player.Id)
+        {
+			if(startToCount)
+            {
+				ExpiredRound -= 1;
+				if (ExpiredRound <= 0)
+				{
+					Status.Remove(true);
+				}
+			}
+        }
+        else
+        {
+			startToCount = true;
+        }
+	}
+
+	public void OnEndTurn(int idPlayer)
+	{
+
 	}
 
 

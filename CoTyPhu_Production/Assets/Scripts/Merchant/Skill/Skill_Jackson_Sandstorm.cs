@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill_Eliyen_HerbStudy : BaseSkill
+public class Skill_Jackson_Sandstorm : BaseSkill
 {
-    [SerializeField] StatusHerbStudy _statusPrefab;
+    [SerializeField] StatusSandStormOwner _statusPrefab;
 
-    public Skill_Eliyen_HerbStudy()
+    public Skill_Jackson_Sandstorm()
     {
         Set(
-            name: "Herb Study",
-            manacost: 3,
-            currentmanacost: 3,
-            description: "Receive a shield that IMMUNE to item or skill effect ONE time. Last ONE ROUND."
+            name: "Sand storm army",
+            manacost: 5,
+            currentmanacost: 5,
+            description: "Gain STATUS SANDSTORM to all MARKET PLOTS you PASS BY in this turn."
             );
     }
 
@@ -24,7 +24,7 @@ public class Skill_Eliyen_HerbStudy : BaseSkill
     }
 
     public override bool Activate()
-	{
+    {
         if (CanActivate())
         {
             var status = Instantiate(_statusPrefab, Owner.transform);
@@ -33,5 +33,5 @@ public class Skill_Eliyen_HerbStudy : BaseSkill
             return base.Activate();
         }
         return false;
-	}
+    }
 }

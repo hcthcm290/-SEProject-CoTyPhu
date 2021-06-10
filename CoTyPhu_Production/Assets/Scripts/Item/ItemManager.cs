@@ -239,7 +239,7 @@ public class ItemManager : MonoBehaviourPun
         int[] result = ItemList.ToArray();
         //Debug.Log("result "+ result[0].ToString() + ", " + result[1].ToString() + ", " + result[2].ToString());
 
-        photonView.RPC("RequestItemClient", RpcTarget.AllBufferedViaServer, idItem, (object)(result));
+        photonView.RPC("RequestItemClient", RpcTarget.MasterClient, idItem, (object)(result));
     }
 
     [PunRPC]
@@ -263,9 +263,7 @@ public class ItemManager : MonoBehaviourPun
             {
                 var poolItem = RemoveItemFromPool(id);
 
-                var getItem = Instantiate(poolItem);
-
-                result.Add(getItem);
+                result.Add(poolItem);
             }
             else
             {
@@ -570,34 +568,39 @@ public class ItemManager : MonoBehaviourPun
 
         List<BaseItem> com = new List<BaseItem>();
 
-        Future<List<BaseItem>> b1 = ItemManager.Ins.RequestItem(5, 0);
+        Future<List<BaseItem>> b1 = RequestItem(5, 0);
         b1.then((list) =>
         {
+            Debug.Log("5");
             foreach (var item in list)
             {
                 com.Add(item);
             }
-            Future<List<BaseItem>> b2 = ItemManager.Ins.RequestItem(6, 0);
+            Future<List<BaseItem>> b2 = RequestItem(6, 0);
             b2.then((list) =>
             {
+                Debug.Log("6");
                 foreach (var item in list)
                 {
                     com.Add(item);
                 }
-                Future<List<BaseItem>> b3 = ItemManager.Ins.RequestItem(7, 0);
+                Future<List<BaseItem>> b3 = RequestItem(7, 0);
                 b3.then((list) =>
                 {
+                    Debug.Log("7");
                     foreach (var item in list)
                     {
                         com.Add(item);
                     }
-                    Future<List<BaseItem>> b4 = ItemManager.Ins.RequestItem(8, 0);
+                    Future<List<BaseItem>> b4 = RequestItem(8, 0);
                     b4.then((list) =>
                     {
+                        Debug.Log("8");
                         foreach (var item in list)
                         {
                             com.Add(item);
                         }
+
                         int randint = UnityEngine.Random.Range(0, com.Count);
 
                         //
@@ -610,7 +613,6 @@ public class ItemManager : MonoBehaviourPun
                         //
 
                         BaseItem result = com[randint];
-                        //owner.AddItem(com[randint]);
                         AddItemToPool(com);
 
                         int result_id = result.Id;
@@ -618,8 +620,6 @@ public class ItemManager : MonoBehaviourPun
                         Debug.Log(result_id);
 
                         photonView.RPC("GetRandomSunnariItemClient", RpcTarget.AllBufferedViaServer, owner, result_id);
-
-                        //owner.RemoveItem(thisitem);
                     });
                 });
             });
