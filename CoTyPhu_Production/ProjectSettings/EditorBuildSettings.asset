@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PublicGamesScene.unity
     guid: a6dd65c52de8bbb4797fb9df396eb781
+  - enabled: 1
+    path: Assets/Scenes/MerchantPickingScene.unity
+    guid: 81cfd6498a850784599c2df7ef3dd32c
   m_configObjects: {}

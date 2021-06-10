@@ -61,6 +61,7 @@ public class WaitingRoom : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-
+        Debug.Log("prepare loading merchant scene picking");
+        PhotonNetwork.LoadLevel("MerchantPickingScene");
     }
 }

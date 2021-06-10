@@ -146,6 +146,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
         if(!PhotonNetwork.IsConnectedAndReady)
         {
+            PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.ConnectUsingSettings();
         }
         else
