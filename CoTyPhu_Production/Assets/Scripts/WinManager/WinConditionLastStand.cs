@@ -9,9 +9,6 @@ namespace WinCondition
 {
     public class WinConditionLastStand : WinCondition
     {
-        public Player[] player =
-        { 
-        };
         // The Win Splash screen to be shown when this victory is achieved.
         public GameObject WinScreen;
 
@@ -24,10 +21,15 @@ namespace WinCondition
         {
             WinDescription = "Là người chơi duy nhất chưa phá sản";
             WinName = "Kẻ sống sót cuối cùng";
+            Locator.MarkInstance(this);
         }
-        public override bool CheckWinner()
+        public override bool CheckWinner(Player candidate = null)
         {
-            throw new NotImplementedException();
+            TurnDirector ins = TurnDirector.Ins;
+            if (candidate == null)
+                return ins.ListPlayer.Count(item => !item.HasLost) <= 1;
+            else
+                return ins.ListPlayer.Count(item => !item.HasLost) == 1 && !candidate.HasLost;
         }
 
         public override void ShowWinScreen()

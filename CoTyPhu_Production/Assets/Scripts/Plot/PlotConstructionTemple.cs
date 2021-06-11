@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -20,7 +21,6 @@ public class PlotConstructionTemple : PlotConstruction
 
 	//  Initialization --------------------------------
 	public PlotConstructionTemple(PLOT id, string name, string description, int entryFee, int price) : base(id, name, description, entryFee, price) { }
-
 
 	//  Methods ---------------------------------------
 	protected void IncreasePurchasePrice()

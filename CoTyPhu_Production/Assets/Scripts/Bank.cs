@@ -40,7 +40,7 @@ public class Bank: MonoBehaviour
     #endregion
 
     #region Fields
-    private int _moneyBank;
+    private int _moneyBank = 10000;
 	[SerializeField] private Dictionary<Player, int> _moneyPlayer = new Dictionary<Player, int>();
     #endregion
 
@@ -137,7 +137,7 @@ public class Bank: MonoBehaviour
 		_moneyPlayers.Find(x => x.player == player).money -= amount;
 		if (_moneyPlayer[player] <= 0)
 		{
-			//TODO: Bankrupt the player
+			TurnDirector.Ins.NotifyPlayerLose(player.Id);
 		}
 	}
 

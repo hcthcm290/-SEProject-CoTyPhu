@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace WinCondition
 {
@@ -8,7 +9,7 @@ namespace WinCondition
     {
         public string WinDescription;
         public string WinName;
-        public abstract bool CheckWinner();
+        public abstract bool CheckWinner(Player candidate = null);
         public string GetDescription()
         {
             return WinDescription;
@@ -24,7 +25,11 @@ namespace WinCondition
     {
         WinCondition[] winConditions =
         {
-    };
+            WinConditionBank.GetInstance(),
+            WinConditionLastStand.GetInstance(),
+            WinConditionMarket.GetInstance(),
+            WinConditionTemple.GetInstance()
+        };
         void CheckSingleton()
         {
 #if DEBUG
@@ -44,6 +49,39 @@ namespace WinCondition
             return false;
         }
 
+        public void EndGame()
+        {
+            if (TurnDirector.Ins.GetMyPlayer().HasLost)
+                ExitGame();
+
+            TurnDirector ins = TurnDirector.Ins;
+            Player myPlayer = ins.GetPlayer(ins.MyPlayer);
+            bool hasWon = false;
+            foreach (var item in winConditions)
+            {
+                bool won = item.CheckWinner(myPlayer);
+                if (won)
+                {
+                    if (!hasWon)
+                        item.ShowWinScreen();
+                    hasWon |= won;
+                }
+            }
+
+            // TODO: check hasWon for meta-progression
+            if (hasWon)
+                Debug.LogWarning("player has Won!");
+            // TODO: Next button move to main screen.
+            ExitGame();
+        }
+
+        public void ExitGame()
+        {
+            // TODO: Kick the player to the main screen.
+            SceneManager.CreateScene("WinScreen");
+            SceneManager.LoadScene("WinScreen");
+        }
+
         static public IAction GetWinCheckAction()
         {
             return new WinCheckAction();
@@ -53,7 +91,8 @@ namespace WinCondition
     {
         public virtual void PerformAction()
         {
-            Locator<WinManager>.Instance.CheckWinner();
+            if (Locator<WinManager>.Instance.CheckWinner())
+                Locator<WinManager>.Instance.EndGame();
         }
     }
     public class WinConCheckAction : IAction

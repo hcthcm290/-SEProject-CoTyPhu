@@ -15,6 +15,8 @@ public class Player : MonoBehaviour, IDiceListener
         get { return _id; }
         set { _id = value; }
     }
+    private bool hasLost = false;
+    public bool HasLost { get => hasLost; set => hasLost = value; }
     public MoveStraightEvenly moveComponent = null;
     public PLOT Location_PlotID;
     bool _isBroke;
@@ -24,6 +26,8 @@ public class Player : MonoBehaviour, IDiceListener
     {
         get { return minePlayer; }
     }
+
+
     [SerializeField] Button btnRoll;
 
     // Internal, saves the Actions the UI is supposed to do

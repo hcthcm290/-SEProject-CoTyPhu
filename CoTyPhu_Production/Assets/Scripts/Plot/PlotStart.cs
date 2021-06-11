@@ -29,6 +29,7 @@ public class PlotStart : Plot
     public override IAction ActionOnPass(Player obj)
     {
         //TODO: Give money when pass this plot
+        Bank.Ins.SendMoney(obj, 200);
 
         //return ActionGiveMoney(...)
         return null;
