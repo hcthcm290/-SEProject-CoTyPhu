@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Skill_Eliyen_HerbStudy : BaseSkill
 {
+    [SerializeField] StatusHerbStudy _statusPrefab;
+
     public Skill_Eliyen_HerbStudy()
     {
         Set(
@@ -14,8 +16,22 @@ public class Skill_Eliyen_HerbStudy : BaseSkill
             );
     }
 
+    public override bool CanActivate()
+    {
+        if (Owner.GetMana() >= CurrentManaCost)
+            return true;
+        return base.CanActivate();
+    }
+
     public override bool Activate()
 	{
-		return true;
+        if (CanActivate())
+        {
+            var status = Instantiate(_statusPrefab, Owner.transform);
+            status.targetPlayer = Owner;
+            status.StartListen();
+            return base.Activate();
+        }
+        return false;
 	}
 }

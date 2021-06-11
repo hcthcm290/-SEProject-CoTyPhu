@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildingPoint : MonoBehaviour
 {
-    int currentHouseID; //id == -1 means no house is built on the point
+    public int currentHouseID; //id == -1 means no house is built on the point
     GameObject currentHouse;
 
     [SerializeField]

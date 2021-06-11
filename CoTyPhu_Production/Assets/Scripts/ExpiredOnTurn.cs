@@ -35,19 +35,25 @@ public class ExpiredOnTurn :MonoBehaviour, ITurnListener
 		StartListen();
 	}
 
-
 	//  Methods ---------------------------------------
 	public bool StartListen()
     {
 		TurnDirector.Ins.SubscribeTurnListener(this);
+		Status.StatusDestroy += Unsub;
 		return true;
     }
+
+	public void Unsub()
+    {
+		TurnDirector.Ins.UnsubscribeTurnListener(this);
+	}
 
 	public void OnBeginTurn(int idPlayer)
 	{
 		ExpiredTurn -= 1;
 		if (ExpiredTurn <= 0)
 		{
+			Unsub();
 			Status.Remove(true);
 		}
 	}

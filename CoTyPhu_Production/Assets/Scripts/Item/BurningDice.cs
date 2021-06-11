@@ -25,23 +25,22 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
         return true;
     }
 
+    public override Player Owner { 
+        get => base.Owner;
+        set 
+        {
+            StartListen();
+            base.Owner = value;
+        }
+    }
+
     public override bool Activate(string activeCase)
     {
-        StartListen();
-        Owner.RemoveItem(this);
-        // player active animation
-
-
-        // Add item back to Item pool
-        ItemManager.Ins.AddItemToPool(this);
-
-        activated = true;
         return base.Activate(activeCase);
     }
     #endregion
     #region fields
     [SerializeField] StatusHirePriceChange _statusPrefab;
-    [SerializeField] private bool activated = false;
     [SerializeField] private StatusHirePriceChange activeStatus;
     #endregion
 
@@ -77,7 +76,7 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
                     // Player fancy animation
 
                     // Create status
-                    var newStatus = Instantiate(_statusPrefab);
+                    var newStatus = Instantiate(_statusPrefab, this.transform);
                     newStatus.hirePriceChange = 0.5f;
                     newStatus.targetPlot = plotConstruction;
                     newStatus.StartListen();
@@ -87,6 +86,7 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
                     StopListen();
 
                     Owner.RemoveItem(this);
+                    ItemManager.Ins.AddItemToPool(this);
 
                     // subcribe event for handle remove status
                     plotConstruction.SubcribePayPlotFee(this);

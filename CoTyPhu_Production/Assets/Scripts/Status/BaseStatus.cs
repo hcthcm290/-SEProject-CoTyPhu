@@ -4,7 +4,7 @@ using UnityEngine;
 //  Class Attributes ----------------------------------
 
 /// <summary>
-/// Base class for item
+/// Base class for status
 /// các class status khi khởi tạo sẽ kế thừa baseStatus và các interface nó cần
 /// các hàm cần gọi thuộc tính từ status kiếm tra status có interface nào trước khi gọi hàm Get
 /// </summary>
@@ -39,11 +39,17 @@ public abstract class BaseStatus: MonoBehaviour
 		//set { _isConditional = value; }
 	}
 
+	public string Type
+    {
+        get { return _type; }
+    }
+
 	//  Fields ----------------------------------------
 	[SerializeField] protected int _id;
 	[SerializeField] protected string _name;
 	[SerializeField] protected string _description;
 	[SerializeField] protected bool _isConditional;
+	[SerializeField] protected string _type; //negative, neutral, positive
 
 	//  Initialization --------------------------------
 	public BaseStatus()
@@ -67,6 +73,11 @@ public abstract class BaseStatus: MonoBehaviour
 				StatusDestroy.Invoke();
 		return true;
 	}
+
+	public virtual bool PassiveSetup(Player p)
+    {
+		return true;
+    }
 
 	//  Event Handlers --------------------------------
 	public delegate void StatusDestroyHandler();

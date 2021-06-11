@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -215,7 +216,7 @@ public class Plot : MonoBehaviour
     protected void NotifyPlotPassBy(Player player)
     {
         List<IPlotPassByListener> listeners = new List<IPlotPassByListener>(_plotPassByListeners);
-        foreach (var listener in _plotPassByListeners)
+        foreach (var listener in listeners)
         {
             if (listener == null) continue;
 
@@ -232,5 +233,10 @@ public class Plot : MonoBehaviour
 
             listener.OnPlotEnter(player, this);
         }
+    }
+
+    internal void SubcribePlotEnter(IcingDice icingDice)
+    {
+        //throw new NotImplementedException();
     }
 }

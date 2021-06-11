@@ -59,9 +59,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tagName: 1
+  _skill: {fileID: 0}
   Story: lady
   skillScript: {fileID: -6337924731659866244, guid: c8f503c42f1ba3e4aaf6816b15f003cb, type: 3}
-  passive: {fileID: 0}
+  passive: {fileID: 3831541570453092335, guid: 3facb3f3cbb24e345a921590de68c843, type: 3}
 --- !u!114 &5208238736926315889
 MonoBehaviour:
   m_ObjectHideFlags: 0
