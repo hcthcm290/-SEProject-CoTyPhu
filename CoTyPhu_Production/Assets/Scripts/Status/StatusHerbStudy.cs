@@ -10,8 +10,8 @@ public class StatusHerbStudy : BaseStatus, IOtherActivate
     public StatusHerbStudy()
     {
         _id = 2;
-        _name = "Bảo hộ thảo dược";
-        _description = "Nhận được sự bảo hộ từ thảo dược. Chống lại các STATUS NEGATIVE lên bản thân 1 lần. Tồn tại 1 round.";
+        _name = "Herb protection";
+        _description = "Remove STATUS NEGATIVE on you ONE TIME. Last for ONE ROUND.";
         _isConditional = true;
     }
 
@@ -52,6 +52,15 @@ public class StatusHerbStudy : BaseStatus, IOtherActivate
             targetPlayer.RemoveStatus(status);
             //targetPlayer.RemoveStatus(this);
         }
+    }
+
+    public override bool Remove(bool triggerEvent)
+    {
+        targetPlayer.RemoveStatus(this);
+        base.Remove(triggerEvent);
+        Destroy(this.gameObject);
+
+        return true;
     }
 
     public override bool ExcuteAction()

@@ -66,8 +66,6 @@ public class Passive_Eliyen : BaseStatus, IOtherActivate, IPlotEnterListener
                 newStatus.hirePriceChange = -0.1f;
                 newStatus.targetPlot = (PlotConstruction)plot;
                 newStatus.StartListen();
-                newStatus.gameObject.AddComponent<ExpiredOnTurn>();
-                newStatus.gameObject.GetComponent<ExpiredOnTurn>().Init(newStatus, 1);
                 //((PlotConstruction)plot).AddStatus(hire);
             }
         }

@@ -537,11 +537,11 @@ public class Player : MonoBehaviour, IDiceListener
 
     public void RemoveStatus(BaseStatus status)
     {
-        Destroy(status.gameObject);
         if (status is IGoldReceiveChange)
         {
             _listStatusGoldReceive.Remove((IGoldReceiveChange)status);
         }
+        Destroy(status.gameObject);
     }
 
     public delegate void StatusAddingHandler(BaseStatus status);

@@ -76,7 +76,6 @@ public class StatusSandStormOwner : BaseStatus, IPlotPassByListener
             Plot.plotDictionary[(PLOT)i].UnsubcribePlotPassByListner(this);
         }
         base.Remove(triggerEvent);
-        Destroy(this.gameObject);
 
         return true;
     }

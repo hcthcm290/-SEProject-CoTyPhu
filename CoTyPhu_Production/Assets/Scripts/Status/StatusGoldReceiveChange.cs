@@ -53,7 +53,8 @@ public class StatusGoldReceiveChange : BaseStatus, IGoldReceiveChange
     {
         targetPlayer.RemoveStatus(this);
         base.Remove(triggerEvent);
-        Destroy(this.gameObject);
+
+        //Destroy(this.gameObject);
 
         return true;
     }
