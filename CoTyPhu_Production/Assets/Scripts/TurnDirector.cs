@@ -227,6 +227,10 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     {
         if((Phase)phaseID == Phase.Dice)
         {
+            if(_listTurnListener == null)
+            {
+                _listTurnListener = new List<ITurnListener>();
+            }
             List<ITurnListener> listeners = new List<ITurnListener>(_listTurnListener);
 
             foreach(var listener in listeners)

@@ -23,12 +23,17 @@ public class UIPlayerBox : MonoBehaviour
         transform.Find("PlayerBox/MerchantImage").GetComponent<Image>().sprite = player.GetMerchant().gameObject.GetComponent<Image>().sprite;
         transform.Find("PlayerBox/NamePanel/Text").GetComponent<Text>().text = player.Name;
 
-        transform.Find("Ultimate").GetComponent<Button>().onClick.AddListener(ActivateSkill);
+        transform.Find("Ultimate")?.GetComponent<Button>().onClick.AddListener(ActivateSkill);
 
         //transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();
         //transform.Find("Button").GetComponent<Button>().onClick.AddListener(Buy);
 
-        SetItems();
+        if(transform.Find("PlayerBox/ItemBox") != null)
+        {
+            SetItems();
+        }
+
+
         SetMana();
     }
     
@@ -36,7 +41,11 @@ public class UIPlayerBox : MonoBehaviour
     {
         transform.Find("PlayerBox/ManaBar/Text").GetComponent<Text>().text = player.GetMana().ToString() + "/" + player.GetMerchant().MaxMana.ToString();
 
-        transform.Find("Ultimate").GetComponent<Button>().interactable = player.GetMerchant().Skill.CanActivate();
+        var ultimate = transform.Find("Ultimate");
+        if (ultimate != null)
+        {
+            ultimate.GetComponent<Button>().interactable = player.GetMerchant().Skill.CanActivate();
+        }
     }
 
     public void SetItems()
