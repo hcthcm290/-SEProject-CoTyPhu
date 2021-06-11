@@ -62,7 +62,7 @@ MonoBehaviour:
   _skill: {fileID: 0}
   Story: merchant
   skillScript: {fileID: 4929487011051906157, guid: 03c80ef34858b96449effe07808e3fb7, type: 3}
-  passive: {fileID: 0}
+  passive: {fileID: 2491515173912204536, guid: 9e0e63f86920c4542a99a840a6e13a6e, type: 3}
 --- !u!114 &3600624975597981489
 MonoBehaviour:
   m_ObjectHideFlags: 0
