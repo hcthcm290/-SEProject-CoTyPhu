@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: {fileID: 0}
+  playerBuying: {fileID: 0}
 --- !u!1 &3378387794350395287
 GameObject:
   m_ObjectHideFlags: 0
