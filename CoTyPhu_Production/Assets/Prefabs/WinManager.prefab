@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7419993695926078228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7419993695926078229}
+  - component: {fileID: 7419993695926078233}
+  - component: {fileID: 7419993695926078232}
+  - component: {fileID: 7419993695926078231}
+  - component: {fileID: 7419993695926078230}
+  m_Layer: 0
+  m_Name: WinManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7419993695926078229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419993695926078228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7419993695926078233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419993695926078228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ee69b5ee57bce042ae2df89939ce982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WinDescription: "Ng\xE2n h\xE0ng qu\u1ED1c t\u1EBF ph\xE1 s\u1EA3n, kinh t\u1EBF
+    \u0111i xu\u1ED1ng tr\u1EA7m tr\u1ECDng.\nL\xE0 ng\u01B0\u1EDDi gi\xE0u c\xF3
+    nh\u1EA5t, b\u1EA1n cho c\xE1c ch\xEDnh ph\u1EE7 vay ti\u1EC1n.\nV\xE0 t\u1EA5t
+    nhi\xEAn, b\u1EA1n nghi\u1EC5m nhi\xEAn th\xE2u t\xF3m to\xE0n b\u1ED9 th\u1EBF
+    gi\u1EDBi trong tay.\n\u1EDE th\u1EBF gi\u1EDBi n\xE0y, ph\xE9p thu\u1EADt th\xEC
+    m\u1EA1nh \u0111\u1EA5y, nh\u01B0ng ti\u1EC1n v\u1EABn m\u1EA1nh h\u01A1n c\u1EA3
+    !"
+  WinName: "Nhi\u1EC1u ti\u1EC1n c\xF3 quy\u1EC1n chi\u1EBFn th\u1EAFng"
+  WinScreen: {fileID: 0}
+  DrawScreen: {fileID: 0}
+  IsDraw: 0
+--- !u!114 &7419993695926078232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419993695926078228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be181a8fe30fe144e8583deff799b32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WinDescription: "L\xE0 ng\u01B0\u1EDDi ch\u01A1i duy nh\u1EA5t ch\u01B0a ph\xE1
+    s\u1EA3n"
+  WinName: "K\u1EBB s\u1ED1ng s\xF3t cu\u1ED1i c\xF9ng"
+  WinScreen: {fileID: 0}
+--- !u!114 &7419993695926078231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419993695926078228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8653265db3ce80a4d92da57430a15e33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WinDescription: "X\xE2y nh\xE0, kinh doanh, ph\xE1t tri\u1EC3n kinh t\u1EBF, b\u1EA1n
+    tr\u1EDF th\xE0nh ng\u01B0\u1EDDi \u0111\u01B0\u1EE3c c\xE1c ch\xEDnh ph\u1EE7
+    qu\xFD m\u1EBFn.\nHi\u1EC3u \u0111\u01B0\u1EE3c \u01B0\u1EDBc m\u01A1 \u201Ccao
+    c\u1EA3\u201D c\u1EE7a b\u1EA1n, c\xE1c ch\xEDnh ph\u1EE7 tr\xEAn \u0111\xE3
+    li\xEAn minh l\u1EA1i v\xE0 ph\xE1t \u0111\u1ED9ng m\u1ED9t cu\u1ED9c chi\u1EBFn
+    tranh tr\xEAn to\xE0n th\u1EBF gi\u1EDBi nh\u1EB1m truy\u1EC1n b\xE1 \u201Cch\u1EE7
+    ngh\u0129a\u201D c\u1EE7a b\u1EA1n ra c\xE1c qu\u1ED1c gia \u201Cngh\xE8o \u0111\xF3i\u201D
+    kia.\nTh\u1EBF gi\u1EDBi b\u1ECB cu\u1ED1n v\xE0o m\u1ED9t v\xF2ng xo\xE1y m\u1EDBi,
+    g\u01B0\u01A1m gi\xE1o, s\xFAng \u0111\u1EA1n v\xE0 ph\xE9p thu\u1EADt nh\u1EAFm
+    v\xE0o nhau \u1EDF kh\u1EAFp n\u01A1i.\nM\u1ED9t th\u1EDDi k\u1EF3 m\u1EDBi \u0111\u1EBFn,
+    nhi\u1EC1u \u0111i\u1EC1u thay \u0111\u1ED5i, tuy nhi\xEAn ng\u01B0\u1EDDi nhi\u1EC1u
+    ti\u1EC1n v\u1EABn l\xE0 k\u1EBB th\u1EAFng"
+  WinName: "M\u1EA1ng l\u01B0\u1EDBi r\u1ED9ng l\u1EDBn"
+  WinScreen: {fileID: 0}
+--- !u!114 &7419993695926078230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419993695926078228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead8090cd38b6344cb9b461b81e1ef00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WinDescription: "Sau khi s\u1EED d\u1EE5ng \u0111\u1EC1n th\u1EDD \u0111\u1EC3
+    h\u1ED3i sinh Th\u1EA7n ABCXYZ, b\u1EA1n tr\u1EDF th\xE0nh ch\u1EE7 nh\xE2n c\u1EE7a
+    h\u1EAFn.\nC\u1EA3 th\u1EBF gi\u1EDBi ph\u1EA3i quy ph\u1EE5c tr\u01B0\u1EDBc
+    b\u1EA1n, ho\u1EB7c b\u1EA1n s\u1EBD g\u1ECDi th\u1EA7n v\xE0 h\u1EE7y di\u1EC7t
+    t\u1EA5t c\u1EA3.\nB\u1EA1n v\u01A1 v\xE9t t\u1EA5t c\u1EA3, s\u1ED1ng sung s\u01B0\u1EDBng
+    gi\u1EEFa nh\u1EEFng t\xFAi ti\u1EC1n, ch\xE2u b\xE1u.\nTh\u1EDDi k\u1EF3 c\u1EE7a
+    b\u1EA1n \u0111\xE3 b\u1EAFt \u0111\u1EA7u, t\u01B0\u01A1i s\xE1ng hay \u0111en
+    t\u1ED1i c\u0169ng \u0111\xE3 r\xF5."
+  WinName: "C\xE1nh c\u1ED5ng t\u1EEB \u0111\u1ECBa ng\u1EE5c"
+  WinScreen: {fileID: 0}

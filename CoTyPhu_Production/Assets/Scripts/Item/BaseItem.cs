@@ -47,7 +47,7 @@ public abstract class BaseItem : MonoBehaviour
 		//set { _type = value; }
 	}
 
-	public bool CanActivate
+	public virtual bool CanActivate
     {
 		get { return _canActivate; }
         set { _canActivate = value; }

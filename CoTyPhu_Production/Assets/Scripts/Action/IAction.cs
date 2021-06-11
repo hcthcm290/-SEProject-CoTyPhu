@@ -102,3 +102,11 @@ public class LambdaCompletableAction : LambdaAction, ICompletableAction
     public LambdaCompletableAction(IAction wrappedAction, System.Action postAction)
         : base(wrappedAction, postAction) { }
 }
+
+public static partial class Extensions
+{
+    public static IAction Add (this IAction action, Action other)
+    {
+        return new LambdaAction(action, other);
+    }
+}

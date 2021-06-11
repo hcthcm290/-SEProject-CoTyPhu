@@ -9,8 +9,6 @@ namespace WinCondition
 {
     public class WinConditionTemple : WinCondition
     {
-        // Which Player owns what temples
-        public Dictionary<PlotConstructionTemple, Player> templeOwner;
         // The Win Splash screen to be shown when this victory is achieved.
         public GameObject WinScreen;
 
@@ -27,10 +25,26 @@ namespace WinCondition
                 "Bạn vơ vét tất cả, sống sung sướng giữa những túi tiền, châu báu.\n" +
                 "Thời kỳ của bạn đã bắt đầu, tươi sáng hay đen tối cũng đã rõ.";
             WinName = "Cánh cổng từ địa ngục";
+            Locator.MarkInstance(this);
         }
-        public override bool CheckWinner()
+        public override bool CheckWinner(Player candidate = null)
         {
-            throw new NotImplementedException();
+            foreach (PLOT plot in Plot.TemplePlot)
+            {
+                PlotConstructionTemple temple = Plot.plotDictionary[plot] as PlotConstructionTemple;
+
+                if (temple.Owner == null)
+                    return false;
+
+                if (candidate == null)
+                    candidate = temple.Owner;
+                else
+                {
+                    if (candidate != temple.Owner)
+                        return false;
+                }
+            }
+            return true;
         }
 
         public override void ShowWinScreen()

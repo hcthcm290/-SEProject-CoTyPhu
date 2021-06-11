@@ -21,9 +21,9 @@ public class EventListManager : MonoBehaviourPunCallbacks
 
         Events.Add(new A1Event());
         Events.Add(new A2Event());
-        //Events.Add(new A3Event());
-        //Events.Add(new B1Event());
-        //Events.Add(new B2Event());
+        Events.Add(new A3Event());
+        Events.Add(new B1Event());
+        Events.Add(new B2Event());
 
         for (int i = 0; i < Events.Count; i++)
         {

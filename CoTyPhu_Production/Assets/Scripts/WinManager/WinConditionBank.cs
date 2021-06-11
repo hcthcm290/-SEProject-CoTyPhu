@@ -11,7 +11,8 @@ namespace WinCondition
     {
         // The Win Splash screen to be shown when this victory is achieved.
         public GameObject WinScreen;
-        public Bank bank;
+        public GameObject DrawScreen;
+        public bool IsDraw = false;
         // Get Singleton Instance
         static public WinConditionBank GetInstance()
         {
@@ -23,10 +24,16 @@ namespace WinCondition
                 "Và tất nhiên, bạn nghiễm nhiên thâu tóm toàn bộ thế giới trong tay.\n" +
                 "Ở thế giới này, phép thuật thì mạnh đấy, nhưng tiền vẫn mạnh hơn cả !";
             WinName = "Nhiều tiền có quyền chiến thắng";
+            Locator.MarkInstance(this);
         }
-        public override bool CheckWinner()
+        public override bool CheckWinner(Player candidate = null)
         {
-            throw new NotImplementedException();
+            if (candidate != null)
+            {
+                int MaxMoney = Bank.Ins.AllMoneyPlayers.Values.Max();
+                return Bank.Ins.MoneyBank <= 0 && Bank.Ins.AllMoneyPlayers[candidate] >= MaxMoney;
+            }
+            return Bank.Ins.MoneyBank <= 0;
         }
 
         public override void ShowWinScreen()

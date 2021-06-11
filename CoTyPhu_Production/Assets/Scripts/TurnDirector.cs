@@ -55,16 +55,16 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     #region Pun Callback
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
-            foreach(var player in _listPlayer)
+            foreach (var player in _listPlayer)
             {
                 photonView.RPC("CreateNewPlayer", newPlayer, false, player.Id);
             }
 
-            foreach(var player in PhotonNetwork.PlayerList)
+            foreach (var player in PhotonNetwork.PlayerList)
             {
-                if(player == newPlayer)
+                if (player == newPlayer)
                 {
                     photonView.RPC("CreateNewPlayer", newPlayer, true, _count);
                 }
@@ -98,7 +98,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             playerPool = PlayerObjectPool.Ins;
         }
 
-        if(isMine)
+        if (isMine)
         {
             Player player = playerPool.PlayersPool[0].GetComponent<Player>();
             player.gameObject.SetActive(true);
@@ -152,7 +152,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         {
             foreach (var player in PhotonNetwork.PlayerList)
             {
-                foreach(var other in PhotonNetwork.PlayerList)
+                foreach (var other in PhotonNetwork.PlayerList)
                 {
                     if (other.UserId == player.UserId)
                     {
@@ -175,7 +175,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         var nextIdPlayerTurn = _idPlayerTurn;
         var nextIdPhase = _idPhase;
 
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             switch (_idPhase)
             {
@@ -198,6 +198,15 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                 case Phase.Stop:
                     nextIdPhase = Phase.Dice;
                     nextIdPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
+                    while (GetPlayer(nextIdPlayerTurn).HasLost && nextIdPlayerTurn != _idPlayerTurn)
+                        nextIdPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
+
+                    if (WinCondition.WinManager.GetInstance().CheckWinner())
+                    {
+                        photonView.RPC("InformWinners", RpcTarget.AllBufferedViaServer);
+                        return;
+                    }
+
                     break;
                 case Phase.Shop:
                     {
@@ -225,7 +234,8 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     [PunRPC]
     private void _StartPhase(int idPlayer, int phaseID)
     {
-        if((Phase)phaseID == Phase.Dice)
+        Debug.Log("Start Phase " + ((Phase)phaseID).ToString() + " for player " + idPlayer.ToString());
+        if ((Phase)phaseID == Phase.Dice)
         {
             if(_listTurnListener == null)
             {
@@ -233,13 +243,13 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             }
             List<ITurnListener> listeners = new List<ITurnListener>(_listTurnListener);
 
-            foreach(var listener in listeners)
+            foreach (var listener in listeners)
             {
                 listener.OnEndTurn(_idPlayerTurn);
                 listener.OnBeginTurn(idPlayer);
             }
         }
-            
+
         _idPlayerTurn = idPlayer;
         _idPhase = (Phase)phaseID;
         _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(_idPhase);
@@ -259,9 +269,9 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     }
     public bool IsMyTurn(int playerID)
     {
-        if(_playerTurnExtraPhase.Count != 0)
+        if (_playerTurnExtraPhase.Count != 0)
         {
-            if(_playerTurnExtraPhase.Peek() == playerID)
+            if (_playerTurnExtraPhase.Peek() == playerID)
             {
                 return true;
             }
@@ -289,6 +299,29 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         {
             photonView.RPC("HandlePassPlotStartServer", RpcTarget.MasterClient, player.Id, PhotonNetwork.LocalPlayer.UserId);
         }
+    }
+    
+    private void NotifyPlayerLoseClient(int id_player)
+    {
+        GetPlayer(id_player).HasLost = true;
+    }
+
+    public void NotifyPlayerLose(int id_player)
+    {
+        photonView.RPC("NotifyPlayerLoseClient", RpcTarget.AllBufferedViaServer, id_player);
+    }
+
+    [PunRPC]
+    private void InformWinners()
+    {
+        var winManager = WinCondition.WinManager.GetInstance();
+        if (!winManager.CheckWinner())
+        {
+            Debug.LogError("Server informs winner, but client can't find winner. Please check for network desync.");
+            winManager.EndGame();
+        }
+        else
+            winManager.EndGame();
     }
 
     // function to handle Switch to next phase of current player
@@ -330,6 +363,10 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     public Player GetPlayer(int playerID)
     {
         return _listPlayer.Find(x => x.Id == playerID);
+    }
+    public Player GetMyPlayer()
+    {
+        return GetPlayer(MyPlayer);
     }
 
     //Thang zone

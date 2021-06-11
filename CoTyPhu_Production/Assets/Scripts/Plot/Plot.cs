@@ -120,6 +120,28 @@ public class Plot : MonoBehaviour
 
         _plotPassByListeners = new List<IPlotPassByListener>();
         _plotEnterListeners = new List<IPlotEnterListener>();
+
+        // Align plot position.
+        // The inner size of the board
+        float boardInner = 14;
+        // The outer size of the board
+        float boardOuter = 20;
+
+        float blockMinorSide = boardInner / 7;
+        float blockMajorSide = (boardOuter - boardInner) / 2;
+        float sideCenter = 3.5f * blockMinorSide + blockMajorSide / 2;
+        float x, y;
+        int num = (int)_id;
+        if (num % 16 <= 8)
+            x = (1 - num / 16 * 2) * sideCenter;
+        else
+            x = (Mathf.Max(num, 32 - num) % 8 - 4) * blockMinorSide;
+        if (num % 16 >= 8 || num % 16 == 0)
+            y = (1 - ((num + 31) % 32) / 16 * 2) * sideCenter;
+        else
+            y = (Mathf.Min(num, 32 - num) % 8 - 4) * blockMinorSide;
+
+        transform.localPosition = new Vector3(y, 0, x);
     }
     public virtual void Update()
     {
