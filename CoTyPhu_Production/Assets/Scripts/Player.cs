@@ -239,6 +239,23 @@ public class Player : MonoBehaviour, IDiceListener
                     plot.ActiveOnEnter(this);
                 }
                 break;
+            case Phase.Shop:
+                {
+                    if(minePlayer)
+                    {
+                        // Open shop
+                        StopPhaseUI.Ins.Activate(PhaseScreens.ShopUI, null);
+
+                        StopPhaseUI.Ins.SubcribeOnDeactive(PhaseScreens.ShopUI, (PhaseScreens screen) =>
+                        {
+                            if(screen == PhaseScreens.ShopUI)
+                            {
+                                TurnDirector.Ins.EndOfPhase();
+                            }
+                        });
+                    }
+                    break;
+                }
             case Phase.Extra:
                 break;
         }

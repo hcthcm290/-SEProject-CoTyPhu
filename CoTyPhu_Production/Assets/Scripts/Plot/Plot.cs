@@ -154,8 +154,10 @@ public class Plot : MonoBehaviour
     }
     public virtual IAction ActionOnPass(Player obj)
     {
-        NotifyPlotPassBy(obj);
-        return null;
+        return new LambdaAction(() =>
+        {
+            NotifyPlotPassBy(obj);
+        });
     }
     public void ActiveOnEnter(dynamic obj)
     {

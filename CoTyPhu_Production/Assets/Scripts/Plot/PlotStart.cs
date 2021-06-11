@@ -15,7 +15,7 @@ public class PlotStart : Plot
 
 
     //  Fields ----------------------------------------
-    protected int _wageMoney;
+    [SerializeField] protected int _wageMoney;
 
 
     //  Initialization --------------------------------
@@ -28,11 +28,17 @@ public class PlotStart : Plot
     //  Methods ---------------------------------------
     public override IAction ActionOnPass(Player obj)
     {
-        //TODO: Give money when pass this plot
-        Bank.Ins.SendMoney(obj, 200);
+        return new LambdaAction(() =>
+        {
+            //Give money when pass this plot
+            Bank.Ins.SendMoney(obj, _wageMoney);
 
-        //return ActionGiveMoney(...)
-        return null;
+            // Notify turn director it's pass the start plot
+            if (obj.MinePlayer)
+            {
+                TurnDirector.Ins.NotifyPassPlotStart(obj);
+            }
+        });
     }
 
 

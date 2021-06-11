@@ -1244,6 +1244,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6860896141438205145, guid: 3b9b2226417ad534faef40d560f9bc85, type: 3}
   m_PrefabInstance: {fileID: 121702094}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &959729112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2884856354506023835, guid: b5a3b53b8d4c8c64d9fe50646f137940, type: 3}
+  m_PrefabInstance: {fileID: 1734012905}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fc169baae3b704a83bec1ac050c0e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,6 +1476,10 @@ PrefabInstance:
       propertyPath: _plotManager
       value: 
       objectReference: {fileID: 930710967}
+    - target: {fileID: 4880106657954017974, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
+      propertyPath: _uiScreen.Array.data[5]
+      value: 
+      objectReference: {fileID: 959729112}
     - target: {fileID: 4880106657954017975, guid: 039801f95ed75b74281f29eb0c555528, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

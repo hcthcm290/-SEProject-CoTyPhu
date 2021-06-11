@@ -10,6 +10,7 @@ public enum PhaseScreens
     MarketUpgradeUI,
     FreeCardUI,
     PlotRebuyUI,
+    ShopUI,
 }
 
 public class StopPhaseUI : MonoBehaviour
@@ -66,6 +67,7 @@ public class StopPhaseUI : MonoBehaviour
             {
                 screen.Deactivate();
                 onDeactiveCallback?.Invoke(screenType);
+                onDeactiveCallback = null;
                 return;
             }
         }
