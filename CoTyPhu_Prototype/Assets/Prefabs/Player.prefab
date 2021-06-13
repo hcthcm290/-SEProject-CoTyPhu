@@ -131,5 +131,3 @@ MonoBehaviour:
   currentNumberOfDices: 0
   state_jail: 1
   number_of_moving_turn: 0
-  turn_maximum_count: 0
-  turn_maximum_limit: 3
