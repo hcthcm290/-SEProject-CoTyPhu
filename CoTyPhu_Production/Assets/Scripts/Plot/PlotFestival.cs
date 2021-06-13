@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -9,17 +11,18 @@ public class PlotFestival : Plot
 
 
 	//  Properties ------------------------------------
-	public int BonusValue { get => _bonusValue; }
+	public float BonusPercentage { get => _bonusValuePercent * 100; }
+    [SerializeField] StatusHirePriceChange _statusPrefab;
 
 
-	//  Fields ----------------------------------------
-	private int _bonusValue;
+    //  Fields ----------------------------------------
+    private float _bonusValuePercent;
 
 
 	//  Initialization --------------------------------
 	public PlotFestival(PLOT id, string name, string description, int bonusValue) : base(id, name, description)
 	{
-		this._bonusValue = bonusValue;
+		this._bonusValuePercent = bonusValue;
 	}
 
 
@@ -31,14 +34,115 @@ public class PlotFestival : Plot
 
 	public override IAction ActionOnEnter(Player obj)
     {
-		//TODO: Get Player's selection
-		PLOT plot = new PLOT();
 		return new LambdaAction(() =>
 		{
-			this.ApplyFestivalEffect(plot);
-		});
+            // get Action.
+            FestivalAction action = new FestivalAction();
+            action.player = obj;
+            action.statusPrefab = this._statusPrefab;
+
+            // get Plots player owns.
+            int amountOfValidPlot = 0;
+            List<PLOT> banned = Plot.plotDictionary.Keys.ToList();
+            var candidates = Plot.BuildingPlot.Union(Plot.TemplePlot);
+            foreach (var item in candidates)
+            {
+                if (Plot.plotDictionary[item] is PlotConstruction)
+                {
+                    PlotConstruction plot = Plot.plotDictionary[item] as PlotConstruction;
+                    if (plot.Owner == obj)
+                    {
+                        amountOfValidPlot++;
+                        banned.Remove(item);
+                    }
+                }
+            }
+
+            if (amountOfValidPlot == 0)
+            {
+                Debug.Log("Festival Plot: No targets for festival. Exiting.");
+                return;
+            }
+
+            TileChooserManager.GetInstance().Listen(action, action, banned, 10f);
+        });
 	}
 
-
     //  Event Handlers --------------------------------
+}
+
+public class FestivalAction : IPlotChooserAction, ITurnListener
+{
+    PLOT? _plot = null;
+    public PLOT? plot { get => _plot; set => _plot = value; }
+    PlotConstruction target;
+    public Player player;
+    public StatusHirePriceChange statusPrefab;
+    StatusHirePriceChange activeStatus;
+
+    public void PerformAction()
+    {
+        if (plot == null)
+        {
+            Debug.LogError("Festival: Didn't choose a plot");
+            // TODO: continue with the first plot of the player
+            var candidates = Plot.BuildingPlot.Union(Plot.TemplePlot);
+            foreach (var item in candidates)
+            {
+                if (Plot.plotDictionary[item] is PlotConstruction)
+                {
+                    if ((Plot.plotDictionary[item] as PlotConstruction).Owner == player)
+                    {
+                        plot = item;
+                        break;
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Uh... why did this happen? I don't know.");
+                }
+            }
+        }
+
+        target = Plot.plotDictionary[plot.Value] as PlotConstruction;
+        if (target.Owner == player)
+        {
+            Debug.Log("Festival: OnStop action activate.");
+
+            // Plot target fancy animation
+
+            // Create status
+            var newStatus = GameObject.Instantiate(statusPrefab);
+            newStatus.hirePriceChange = 1.0f;
+            newStatus.targetPlot = target;
+            newStatus.StartListen();
+            
+            activeStatus = newStatus;
+
+            // subcribe event for handle remove status
+            TurnDirector.Ins.SubscribeTurnListener(this);
+        }
+        else
+        {
+            Debug.Log("Festival: Invalid Plot chosen.");
+        }
+
+        if (player.MinePlayer)
+            TurnDirector.Ins.EndOfPhase();
+    }
+
+    public void OnBeginTurn(int idPlayer)
+    {
+        if (player.Id == idPlayer || player.HasLost || target.Owner != player)
+        {
+            TurnDirector.Ins.UnsubscribeTurnListener(this);
+            activeStatus.Remove(true);
+            Debug.Log("Festival: player" + idPlayer + "'s festival at " + plot.ToString() + " has ended");
+        }
+    }
+
+    public void OnEndTurn(int idPlayer)
+    {
+        return;
+    }
 }

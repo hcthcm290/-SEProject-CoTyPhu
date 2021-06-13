@@ -141,7 +141,9 @@ public class Plot : MonoBehaviour
         else
             y = (Mathf.Min(num, 32 - num) % 8 - 4) * blockMinorSide;
 
-        transform.localPosition = new Vector3(y, 0, x);
+        //Debug.Log(transform.parent.parent.localScale);
+
+        transform.position = (new Vector3(y, 0, x)) + transform.parent.position;
     }
     public virtual void Update()
     {

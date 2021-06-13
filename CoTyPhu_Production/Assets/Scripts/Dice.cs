@@ -6,6 +6,7 @@ using Photon.Realtime;
 
 public class Dice: MonoBehaviourPunCallbacks
 {
+    static string room = "Alo";
     #region Singletone
 
     private static Dice _ins;
@@ -43,7 +44,7 @@ public class Dice: MonoBehaviourPunCallbacks
         options.EmptyRoomTtl = 0;
         options.PublishUserId = true;
 
-        if (PhotonNetwork.JoinOrCreateRoom("Alo", options, TypedLobby.Default) == false)
+        if (PhotonNetwork.JoinOrCreateRoom(room, options, TypedLobby.Default) == false)
         {
             Debug.LogError("Cannot create or join room");
         }
