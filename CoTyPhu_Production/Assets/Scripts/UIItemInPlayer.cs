@@ -25,7 +25,7 @@ public class UIItemInPlayer : MonoBehaviour
     public void SetNull()
     {
         value = null;
-        transform.GetComponent<Image>().sprite = null;
+        //transform.GetComponent<Image>().sprite = null;
     }
 
     public void Detail()

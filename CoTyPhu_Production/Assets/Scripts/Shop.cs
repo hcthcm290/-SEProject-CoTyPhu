@@ -108,8 +108,12 @@ public class Shop : MonoBehaviour, UIScreen
 		{
 			foreach (UIItemInShop i in _UIitemInShop)
 			{
-				Destroy(i.gameObject);
-			}
+                if(i != null)
+                {
+                    Destroy(i.gameObject);
+
+                }
+            }
 
 			_UIitemInShop.Clear();
 			ItemInShop.Clear();

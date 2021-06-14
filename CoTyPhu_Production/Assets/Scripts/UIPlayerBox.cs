@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class UIPlayerBox : MonoBehaviour
 {
+    #region UI properties
+    [SerializeField] Image merchantImage;
+    [SerializeField] Text playerName;
+    [SerializeField] Button ultimateButton;
+    [SerializeField] Text manaText;
+    #endregion
     public Player player;
 
     public void Init(Player initPlayer)
@@ -20,10 +26,10 @@ public class UIPlayerBox : MonoBehaviour
 
     public void SetInfo()
     {
-        transform.Find("PlayerBox/MerchantImage").GetComponent<Image>().sprite = player.GetMerchant().gameObject.GetComponent<Image>().sprite;
-        transform.Find("PlayerBox/NamePanel/Text").GetComponent<Text>().text = player.Name;
+        merchantImage.sprite = player.GetMerchant().gameObject.GetComponent<Image>().sprite;
+        playerName.text = player.Name;
 
-        transform.Find("Ultimate")?.GetComponent<Button>().onClick.AddListener(ActivateSkill);
+        ultimateButton.onClick.AddListener(ActivateSkill);
 
         //transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();
         //transform.Find("Button").GetComponent<Button>().onClick.AddListener(Buy);
@@ -39,13 +45,10 @@ public class UIPlayerBox : MonoBehaviour
     
     public void SetMana()
     {
-        transform.Find("PlayerBox/ManaBar/Text").GetComponent<Text>().text = player.GetMana().ToString() + "/" + player.GetMerchant().MaxMana.ToString();
+        manaText.text = player.GetMana().ToString() + "/" + player.GetMerchant().MaxMana.ToString();
 
-        var ultimate = transform.Find("Ultimate");
-        if (ultimate != null)
-        {
-            ultimate.GetComponent<Button>().interactable = player.GetMerchant().Skill.CanActivate();
-        }
+        if(ultimateButton != null)
+            ultimateButton.interactable = player.GetMerchant().Skill.CanActivate();
     }
 
     public void SetItems()
