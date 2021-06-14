@@ -135,7 +135,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.88037, y: 65}
+  m_AnchoredPosition: {x: 0.88037, y: 120}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2867940379295067084
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 26
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -222,6 +222,14 @@ PrefabInstance:
     - target: {fileID: 1841978187623097530, guid: cf94f4df850aac74a8ec4b316e07fa23, type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1841978187623097530, guid: cf94f4df850aac74a8ec4b316e07fa23, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.6374
+      objectReference: {fileID: 0}
+    - target: {fileID: 1841978187623097530, guid: cf94f4df850aac74a8ec4b316e07fa23, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7125
       objectReference: {fileID: 0}
     - target: {fileID: 1841978187623097530, guid: cf94f4df850aac74a8ec4b316e07fa23, type: 3}
       propertyPath: m_LocalPosition.x
