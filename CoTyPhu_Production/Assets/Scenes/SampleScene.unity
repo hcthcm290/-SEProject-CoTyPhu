@@ -2469,8 +2469,8 @@ MonoBehaviour:
   Location_PlotID: 0
   minePlayer: 1
   btnRoll: {fileID: 301148878}
-  diceResultInput1: {fileID: 0}
-  diceResultInput2: {fileID: 0}
+  diceResultInput1: {fileID: 4747106635616327671}
+  diceResultInput2: {fileID: 1923374646103148311}
   Name: 
   merchant: {fileID: -8206113330610582941, guid: 47edb04d2623e9e41b90323c35f30d9a,
     type: 3}
@@ -3842,6 +3842,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 198194ead6b781142a2ab8b1b1147d2b, type: 3}
+--- !u!114 &1923374646103148311 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1923374646103148311, guid: 455d8e45abd525943a91811d58d08f93,
+    type: 3}
+  m_PrefabInstance: {fileID: 4874659216538281385}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2332468627731477805
 GameObject:
   m_ObjectHideFlags: 0
@@ -3941,21 +3953,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 918916808}
     m_Modifications:
-    - target: {fileID: 1713995178389866731, guid: 78a360ada01ca4a62aaa0d1716ddfa64,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1713995178389866731, guid: 78a360ada01ca4a62aaa0d1716ddfa64,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1713995178389866731, guid: 78a360ada01ca4a62aaa0d1716ddfa64,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1713995178832167740, guid: 78a360ada01ca4a62aaa0d1716ddfa64,
         type: 3}
       propertyPath: player
@@ -4257,7 +4254,7 @@ Transform:
   m_GameObject: {fileID: 3138654908266556825}
   m_LocalRotation: {x: -0.000000081460335, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0054285713, z: 0}
-  m_LocalScale: {x: 0.005, y: 0.0028571428, z: 0.005}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 3138654907812106028}
   - {fileID: 2399666372514199780}
@@ -4303,6 +4300,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2332468627731477805}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4747106635616327671 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4747106635616327671, guid: 455d8e45abd525943a91811d58d08f93,
+    type: 3}
+  m_PrefabInstance: {fileID: 4874659216538281385}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4874659216538281385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4310,11 +4319,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1294996589}
     m_Modifications:
-    - target: {fileID: 4874659215441163612, guid: 455d8e45abd525943a91811d58d08f93,
+    - target: {fileID: 4747106635177666658, guid: 455d8e45abd525943a91811d58d08f93,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1251835172}
+    - target: {fileID: 4747106635177666658, guid: 455d8e45abd525943a91811d58d08f93,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RollCheat
+      objectReference: {fileID: 0}
     - target: {fileID: 4874659216275148644, guid: 455d8e45abd525943a91811d58d08f93,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4424,11 +4438,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BtnRollDice
-      objectReference: {fileID: 0}
-    - target: {fileID: 4874659216275148645, guid: 455d8e45abd525943a91811d58d08f93,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4874659216275148647, guid: 455d8e45abd525943a91811d58d08f93,
         type: 3}

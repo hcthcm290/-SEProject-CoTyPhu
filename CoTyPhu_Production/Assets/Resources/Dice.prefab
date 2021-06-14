@@ -71,7 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5478230469006044976, guid: e5b8da6d669cf4745ada81d291784fbd, type: 3}
+  m_Sprite: {fileID: -5478230469006044976, guid: e5b8da6d669cf4745ada81d291784fbd,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -153,7 +154,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2205863333093305225, guid: e5b8da6d669cf4745ada81d291784fbd, type: 3}
+  m_Sprite: {fileID: -2205863333093305225, guid: e5b8da6d669cf4745ada81d291784fbd,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -434,7 +436,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7934114944782325874, guid: e5b8da6d669cf4745ada81d291784fbd, type: 3}
+  m_Sprite: {fileID: 7934114944782325874, guid: e5b8da6d669cf4745ada81d291784fbd,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -516,7 +519,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -880043905950401250, guid: e5b8da6d669cf4745ada81d291784fbd, type: 3}
+  m_Sprite: {fileID: -880043905950401250, guid: e5b8da6d669cf4745ada81d291784fbd,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -598,7 +602,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5420220854288092238, guid: e5b8da6d669cf4745ada81d291784fbd, type: 3}
+  m_Sprite: {fileID: -5420220854288092238, guid: e5b8da6d669cf4745ada81d291784fbd,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -680,7 +685,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1094064525842813209, guid: e5b8da6d669cf4745ada81d291784fbd, type: 3}
+  m_Sprite: {fileID: 1094064525842813209, guid: e5b8da6d669cf4745ada81d291784fbd,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

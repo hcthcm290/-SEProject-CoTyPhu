@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class UIItemInPlayer : MonoBehaviour
 {
+    #region UI properties
+    [SerializeField] Sprite baseItemImage;
+    #endregion
     public BaseItem value;
     Button _clickField;
 
@@ -25,7 +28,7 @@ public class UIItemInPlayer : MonoBehaviour
     public void SetNull()
     {
         value = null;
-        //transform.GetComponent<Image>().sprite = null;
+        transform.GetComponent<Image>().sprite = baseItemImage;
     }
 
     public void Detail()
