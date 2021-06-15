@@ -26,27 +26,23 @@ public class Dice: MonoBehaviourPunCallbacks
     private void Start()
     {
         _ins = this;
-
-        PhotonNetwork.NickName = Random.Range(0, 999999).ToString();
-
-        PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.SendRate = 40;
-        PhotonNetwork.SerializationRate = 40;
+        //PhotonNetwork.SendRate = 40;
+        //PhotonNetwork.SerializationRate = 40;
 
-        RoomOptions options = new RoomOptions();
-        options.MaxPlayers = 5;
-        options.PlayerTtl = 80000;
-        options.EmptyRoomTtl = 0;
-        options.PublishUserId = true;
+        //RoomOptions options = new RoomOptions();
+        //options.MaxPlayers = 5;
+        //options.PlayerTtl = 80000;
+        //options.EmptyRoomTtl = 0;
+        //options.PublishUserId = true;
 
-        if (PhotonNetwork.JoinOrCreateRoom("Basa", options, TypedLobby.Default) == false)
-        {
-            Debug.LogError("Cannot create or join room");
-        }
+        //if (PhotonNetwork.JoinOrCreateRoom("Basa", options, TypedLobby.Default) == false)
+        //{
+        //    Debug.LogError("Cannot create or join room");
+        //}
     }
 
     #endregion

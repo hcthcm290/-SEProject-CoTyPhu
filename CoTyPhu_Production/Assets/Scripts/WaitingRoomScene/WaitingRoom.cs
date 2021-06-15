@@ -12,6 +12,7 @@ public class WaitingRoom : MonoBehaviourPunCallbacks
     [SerializeField] GameObject listPlayerInfoContent;
     [SerializeField] PlayerInfoCard playerInfoCardPrefab;
     [SerializeField] Text roomName;
+    [SerializeField] Button startButton;
     #endregion
 
     public List<Photon.Realtime.Player> playersInRoom;
@@ -25,6 +26,10 @@ public class WaitingRoom : MonoBehaviourPunCallbacks
         foreach (var player in PhotonNetwork.PlayerList)
         {
             OnPlayerEnteredRoom(player);
+        }
+        if(!PhotonNetwork.IsMasterClient)
+        {
+            startButton.gameObject.SetActive(false);
         }
     }
 

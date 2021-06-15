@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 namespace MerchantPicking
 {
@@ -87,7 +88,12 @@ namespace MerchantPicking
             int index = 0;
             foreach(var player in listPlayer)
             {
-                player.CustomProperties.Add("id", index);
+                ExitGames.Client.Photon.Hashtable userIdProperties = new ExitGames.Client.Photon.Hashtable();
+                userIdProperties.Add("id", index);
+
+                player.SetCustomProperties(userIdProperties);
+
+                index++;
             }
 
             Debug.Log("finish assign id to player");
@@ -131,6 +137,12 @@ namespace MerchantPicking
 
             if(PhotonNetwork.IsMasterClient)
             {
+                // Set player properties for choosen merchant
+                Photon.Realtime.Player player = PhotonNetwork.PlayerList.First(x => x.UserId == clientID);
+                ExitGames.Client.Photon.Hashtable merchantProperties = new ExitGames.Client.Photon.Hashtable();
+                merchantProperties.Add("merchantType", (int)(merchantPrefab.TagName));
+                player.SetCustomProperties(merchantProperties);
+
                 currentTurnPlayerIndex++;
 
                 if(currentTurnPlayerIndex < listPlayer.Count)
@@ -164,6 +176,12 @@ namespace MerchantPicking
                 if (curCd < 0)
                 {
                     // Todo: move to play scene
+                    foreach(var player in PhotonNetwork.PlayerList)
+                    {
+                        Debug.Log($"{player.NickName}, id: {player.CustomProperties["id"] as int?}, " +
+                            $"merchant: {(MerchantTag)(player.CustomProperties["merchantType"] as int?)}");
+                    }
+                    SceneManager.LoadScene("SampleScene");
                     return;
                 }
 

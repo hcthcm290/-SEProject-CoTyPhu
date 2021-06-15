@@ -146,6 +146,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
         if(!PhotonNetwork.IsConnectedAndReady)
         {
+            PhotonNetwork.SendRate = 60;
+            PhotonNetwork.SerializationRate = 60;
             PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.ConnectUsingSettings();
         }

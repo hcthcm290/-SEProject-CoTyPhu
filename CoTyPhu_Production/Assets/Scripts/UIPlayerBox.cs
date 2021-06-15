@@ -29,12 +29,15 @@ public class UIPlayerBox : MonoBehaviour
         merchantImage.sprite = player.GetMerchant().gameObject.GetComponent<Image>().sprite;
         playerName.text = player.Name;
 
-        ultimateButton.onClick.AddListener(ActivateSkill);
+        if(ultimateButton != null)
+        {
+            ultimateButton.onClick.AddListener(ActivateSkill);
+        }
 
         //transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();
         //transform.Find("Button").GetComponent<Button>().onClick.AddListener(Buy);
 
-        if(transform.Find("PlayerBox/ItemBox") != null)
+        if (transform.Find("PlayerBox/ItemBox") != null)
         {
             SetItems();
         }

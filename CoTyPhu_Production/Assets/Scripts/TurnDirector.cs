@@ -32,6 +32,8 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     int _count = 0;
     bool _hasPassPlotStart = false;
     bool _isShopStart = true;
+    int _playerReadyCount;
+    bool _readied = false;
 
     // The player id corresponding to this user.
     [SerializeField] int _myPlayer;
@@ -50,6 +52,8 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         { Phase.Stop, "Stop"},
         { Phase.Extra, "Extra"}
     };
+
+    [SerializeField] AvailableMerchants _availableMerchants;
     #endregion
 
     #region Pun Callback
@@ -85,8 +89,86 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     }
     #endregion
 
+
+    #region Unity methods
+    // Start is called before the first frame update
+    void Start()
+    {
+        Ins = this;
+        _playerTurnExtraPhase = new Stack<int>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    if (_idPlayerTurn == -1 && _listPlayer.Count > 0)
+        //    {
+        //        _idPlayerTurn = 0;
+        //        _idPhase = Phase.Shop;
+        //        _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(_idPhase);
+        //    }
+        //}
+
+        if (!_readied)
+        {
+            InitializePlayer();
+            Ready();
+        }
+    }
+    #endregion
+
+    #region Init game
+    /// <summary>
+    /// This function is public for test purpose, 
+    /// the reason it's public cause it has to be called after player join room, and the call back is in another class
+    /// This function may be private and called on Start in real build
+    /// main game, they already in a room
+    /// </summary>
+    public void InitializePlayer()
+    {
+        // Initialize the player object for all the client in room when game is started
+        
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    foreach (var player in PhotonNetwork.PlayerList)
+        //    {
+        //        foreach (var other in PhotonNetwork.PlayerList)
+        //        {
+        //            if (other.UserId == player.UserId)
+        //            {
+        //                photonView.RPC("CreateNewPlayer", player, true, _count);
+        //            }
+        //            else
+        //            {
+        //                photonView.RPC("CreateNewPlayer", other, false, _count);
+        //            }
+        //        }
+
+        //        _count++;
+        //    }
+        //}
+
+        foreach(var player in PhotonNetwork.PlayerList)
+        {
+            var playerProperties = player.CustomProperties;
+            int? id = playerProperties["id"] as int?;
+            int? merchantTag = playerProperties["merchantType"] as int?;
+
+            if (player.UserId == PhotonNetwork.LocalPlayer.UserId)
+            {
+                CreateNewPlayer(true, (int)id, player.NickName, (MerchantTag)merchantTag);
+            }
+            else
+            {
+                CreateNewPlayer(false, (int)id, player.NickName, (MerchantTag)merchantTag);
+            }
+        }
+    }
+
     [PunRPC]
-    private void CreateNewPlayer(bool isMine, int id)
+    private void CreateNewPlayer(bool isMine, int id, string playerName, MerchantTag merchantTag)
     {
         PlayerObjectPool playerPool;
         if (PlayerObjectPool.Ins == null)
@@ -98,76 +180,59 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             playerPool = PlayerObjectPool.Ins;
         }
 
+        BaseMerchant merchantPreb = _availableMerchants.listMerchant.Find(x => x.TagName == merchantTag);
+
+        Player player = null;
+
         if (isMine)
         {
-            Player player = playerPool.PlayersPool[0].GetComponent<Player>();
-            player.gameObject.SetActive(true);
-            player.Id = id;
-            _listPlayer.Add(player);
+            player = playerPool.PlayersPool[0].GetComponent<Player>();
             _myPlayer = id;
-            Bank.Ins.AddPlayer(player);
         }
         else
         {
-            Player player = playerPool.PlayersPool[1].GetComponent<Player>();
+            player = playerPool.PlayersPool[1].GetComponent<Player>();
             playerPool.PlayersPool.RemoveAt(1);
-            player.gameObject.SetActive(true);
-            player.Id = id;
-            _listPlayer.Add(player);
-            Bank.Ins.AddPlayer(player);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Ins = this;
-        _playerTurnExtraPhase = new Stack<int>();
+        player.gameObject.SetActive(true);
+        player.LockMerchant(merchantPreb);
+        player.Id = id;
+        player.Name = playerName;
+        _listPlayer.Add(player);
+        Bank.Ins.AddPlayer(player);
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    [PunRPC]
+    private void ReadyServer(string clientID)
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            if (_idPlayerTurn == -1 && _listPlayer.Count > 0)
+            _count++;
+            if (_count == PhotonNetwork.PlayerList.Length)
             {
-                _idPlayerTurn = 0;
-                _idPhase = Phase.Shop;
-                _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(_idPhase);
+                StartGame();
             }
         }
     }
 
-    /// <summary>
-    /// This function is public for test purpose, 
-    /// the reason it's public cause it has to be called after player join room, and the call back is in another class
-    /// This function may be private and called on Start in real build
-    /// main game, they already in a room
-    /// </summary>
-    public void InitializePlayer()
+    private void Ready()
     {
-        // Initialize the player object for all the client in room when game is started
-        if (PhotonNetwork.IsMasterClient)
-        {
-            foreach (var player in PhotonNetwork.PlayerList)
-            {
-                foreach (var other in PhotonNetwork.PlayerList)
-                {
-                    if (other.UserId == player.UserId)
-                    {
-                        photonView.RPC("CreateNewPlayer", player, true, _count);
-                    }
-                    else
-                    {
-                        photonView.RPC("CreateNewPlayer", other, false, _count);
-                    }
-                }
+        _readied = true;
+        photonView.RPC("ReadyServer", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.UserId);
+    }
 
-                _count++;
-            }
+    private void StartGame()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            _idPlayerTurn = 0;
+            _idPhase = Phase.Shop;
+
+            photonView.RPC("_StartPhase", RpcTarget.AllBufferedViaServer, _idPlayerTurn, (int)_idPhase);
         }
     }
+    #endregion
 
     [PunRPC]
     private void _EndOfPhaseServer()
