@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
+using System.Linq;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPlayerBox : MonoBehaviour
+public class UIPlayerBox : MonoBehaviourPun
 {
     public Player player;
 
@@ -13,10 +17,33 @@ public class UIPlayerBox : MonoBehaviour
         SetInfo();
     }
 
-    public void ActivateSkill()
+    #region Activate Skill
+    [PunRPC]
+    private void ActivateSkillServer(int idPlayer)
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("ActivateSkillClient", RpcTarget.AllViaServer, idPlayer);
+    }
+
+    [PunRPC]
+    private void ActivateSkillClient(int idPlayer)
+    {
+        Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+
         player.GetMerchant().Skill.Activate();
     }
+
+    public void RequestActivateSkill()
+    {
+        photonView.RPC("ActivateSkillServer", RpcTarget.MasterClient, player.Id);
+    }
+
+    //public void ActivateSkill()
+    //{
+    //    player.GetMerchant().Skill.Activate();
+    //}
+    #endregion
 
     public void SetInfo()
     {
@@ -26,7 +53,7 @@ public class UIPlayerBox : MonoBehaviour
             transform.Find("PlayerBox/MerchantImage").GetComponent<Image>().sprite = player.GetMerchant().gameObject.GetComponent<Image>().sprite;
             transform.Find("PlayerBox/NamePanel/Text").GetComponent<Text>().text = player.Name;
 
-            transform.Find("Ultimate")?.GetComponent<Button>().onClick.AddListener(ActivateSkill);
+            transform.Find("Ultimate")?.GetComponent<Button>().onClick.AddListener(RequestActivateSkill);
             
             SetItems();
 
