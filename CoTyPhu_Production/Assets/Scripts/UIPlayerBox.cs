@@ -20,21 +20,24 @@ public class UIPlayerBox : MonoBehaviour
 
     public void SetInfo()
     {
-        transform.Find("PlayerBox/MerchantImage").GetComponent<Image>().sprite = player.GetMerchant().gameObject.GetComponent<Image>().sprite;
-        transform.Find("PlayerBox/NamePanel/Text").GetComponent<Text>().text = player.Name;
-
-        transform.Find("Ultimate")?.GetComponent<Button>().onClick.AddListener(ActivateSkill);
-
-        //transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();
-        //transform.Find("Button").GetComponent<Button>().onClick.AddListener(Buy);
-
-        if(transform.Find("PlayerBox/ItemBox") != null)
+        if (player != null)
         {
+            gameObject.SetActive(true);
+            transform.Find("PlayerBox/MerchantImage").GetComponent<Image>().sprite = player.GetMerchant().gameObject.GetComponent<Image>().sprite;
+            transform.Find("PlayerBox/NamePanel/Text").GetComponent<Text>().text = player.Name;
+
+            transform.Find("Ultimate")?.GetComponent<Button>().onClick.AddListener(ActivateSkill);
+            
             SetItems();
+
+            SetMana();
+            SetGold();
         }
+    }
 
-
-        SetMana();
+    public void SetGold()
+    {
+        transform.Find("PlayerBox/GoldTable/Text").GetComponent<Text>().text = Bank.Ins.MoneyPlayer(player).ToString("#,##0");
     }
     
     public void SetMana()
@@ -50,23 +53,35 @@ public class UIPlayerBox : MonoBehaviour
 
     public void SetItems()
     {
-        Queue<string> itemComponent = new Queue<string>();
-        for (int i = 1; i <= player.itemLimit; i++)
-        {
-            itemComponent.Enqueue("Slot" + i);
-        }
 
-        for (int i = 1; i <= player.itemLimit; i++)
+        if (transform.Find("PlayerBox/ItemBox") != null)
         {
-            Transform b = transform.Find("PlayerBox/ItemBox/" + itemComponent.Dequeue());
-            b.GetComponent<UIItemInPlayer>().SetNull();
-            itemComponent.Enqueue("Slot" + i);
-        }
+            Queue<string> itemComponent = new Queue<string>();
+            for (int i = 1; i <= player.itemLimit; i++)
+            {
+                itemComponent.Enqueue("Slot" + i);
+            }
 
-        foreach (BaseItem item in player.playerItem)
+            for (int i = 1; i <= player.itemLimit; i++)
+            {
+                Transform b = transform.Find("PlayerBox/ItemBox/" + itemComponent.Dequeue());
+                b.GetComponent<UIItemInPlayer>().SetNull();
+                itemComponent.Enqueue("Slot" + i);
+            }
+
+            foreach (BaseItem item in player.playerItem)
+            {
+                Transform b = transform.Find("PlayerBox/ItemBox/" + itemComponent.Dequeue());
+                b.GetComponent<UIItemInPlayer>().Init(item);
+            }
+        }
+    }
+
+    void ListenGoldChange(Player p)
+    {
+        if(p == player)
         {
-            Transform b = transform.Find("PlayerBox/ItemBox/" + itemComponent.Dequeue());
-            b.GetComponent<UIItemInPlayer>().Init(item);
+            SetGold();
         }
     }
 
@@ -76,6 +91,7 @@ public class UIPlayerBox : MonoBehaviour
         player.MerchantLock += SetInfo;
         player.ItemsChange += SetItems;
         player.ManaChange += SetMana;
+        Bank.Ins.GoldChange += ListenGoldChange;
     }
 
     // Update is called once per frame

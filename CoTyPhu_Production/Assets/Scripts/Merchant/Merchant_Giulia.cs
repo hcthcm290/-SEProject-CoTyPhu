@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Merchant_Birger : BaseMerchant
+public class Merchant_Giulia : BaseMerchant
 {
     public BaseSkill skillScript;
     public BaseStatus passive;
@@ -10,11 +10,11 @@ public class Merchant_Birger : BaseMerchant
     public override void Init()
     {
         Set(
-            tagName: MerchantTag.Birger,
-            name: "Oldman Birger",
+            tagName: MerchantTag.Giulia,
+            name: "Devil Giulia",
             skill: skillScript,
             passive: passive,
-            maxMana: 8,
+            maxMana: 10,
             story: ""
             );
         Lock();

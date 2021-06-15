@@ -89,8 +89,13 @@ public class Bank: MonoBehaviour
 			Debug.LogError("Player added duplicated in Bank.AddPlayer()");
         }
 
-		_moneyPlayer.Add(player, 999999);
-		_moneyPlayers.Add(new PairPlayer() { player = player, money = 999999 });
+		_moneyPlayer.Add(player, 6000);
+		_moneyPlayers.Add(new PairPlayer() { player = player, money = 6000 });
+
+		if(player.GetMerchant().TagName == MerchantTag.Birger)
+        {
+			Bank.Ins.SendMoney(player, 600, false);
+		}
 	}
 
 	public void RemovePlayer(Player player)
@@ -139,6 +144,8 @@ public class Bank: MonoBehaviour
 		{
 			TurnDirector.Ins.NotifyPlayerLose(player.Id);
 		}
+
+		GoldChange.Invoke(player);
 	}
 
 	public void SendMoney(Player player, int amount)
@@ -179,6 +186,8 @@ public class Bank: MonoBehaviour
 		_moneyPlayer[player] += amount;
 		_moneyPlayers.Find(x => x.player == player).money += amount;
 		_moneyBank -= amount;
+
+		GoldChange.Invoke(player);
 	}
 
 	public void TransactBetweenPlayers(Player source, Player destination, int amount)
@@ -233,6 +242,8 @@ public class Bank: MonoBehaviour
 	#endregion
 
 	//  Event Handlers --------------------------------
+	public delegate void GoldChangeHandler(Player p);
+	public event GoldChangeHandler GoldChange;
 }
 
 public interface ITransaction

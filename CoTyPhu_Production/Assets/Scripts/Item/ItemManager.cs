@@ -84,7 +84,7 @@ public class ItemManager : MonoBehaviourPun
         //AddItemToPool(Resources.Load<BaseItem>("Item_Three_Spades"), 8);
         //AddItemToPool(Resources.Load<BaseItem>("Lucky Cat Statue"), 8);
         AddItemToPool(Resources.Load<BaseItem>("Item_Burning_Dice"), 8);
-        //AddItemToPool(Resources.Load<BaseItem>("Item_Mirror"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Mirror"), 8);
         //AddItemToPool(Resources.Load<BaseItem>("Item_Sunnari_Crown"), 8);
     }
 

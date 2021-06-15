@@ -7,5 +7,5 @@ public enum MerchantTag
     Jackson = 0,
     Eliyen = 1,
     Birger = 2,
-    Guilia = 3,
+    Giulia = 3,
 }

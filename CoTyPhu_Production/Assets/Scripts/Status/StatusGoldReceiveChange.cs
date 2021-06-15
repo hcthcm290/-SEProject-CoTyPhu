@@ -1,18 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class StatusGoldReceiveChange : BaseStatus, IGoldReceiveChange
+public class StatusGoldReceiveChange : BaseStatus, ITransactionModifier
 {
+    /// <summary>
+    /// this status for gold recveive change with no limit (change come from all sources are count)
+    /// </summary>
     public float goldReceiveChange { get; set; }
     public Player targetPlayer;
 
-    public float GetGoldReceiveChange(float basePrice, float delta)
-    {
-        delta += goldReceiveChange * basePrice;
+    //public float GetGoldReceiveChange(float basePrice, float delta)
+    //{
+    //    delta += goldReceiveChange * basePrice;
 
-        return delta;
+    //    return delta;
+    //}
+
+    public bool isActivated(Player player, int amount, bool isBetweenPlayer)
+    {
+        if (player == targetPlayer)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public Tuple<Player, int, int> ModifyTransaction(Player target, int baseAmount, int delta)
+    {
+        int newDelta = (int)(delta + baseAmount * goldReceiveChange);
+
+        Tuple<Player, int, int> result = new Tuple<Player, int, int>(target, baseAmount, newDelta);
+
+        return result;
     }
 
     public override bool LoadData()
@@ -24,7 +49,9 @@ public class StatusGoldReceiveChange : BaseStatus, IGoldReceiveChange
     {
         if(targetPlayer != null)
         {
-            targetPlayer.AddStatus(this);
+            //targetPlayer.AddStatus(this);
+            Bank.Ins.AddReceiveMoneyStatus(this);
+
             gameObject.AddComponent<ExpiredOnTurn>();
             gameObject.GetComponent<ExpiredOnTurn>().Init(this, 1);
             return true;
@@ -37,24 +64,13 @@ public class StatusGoldReceiveChange : BaseStatus, IGoldReceiveChange
 
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public override bool Remove(bool triggerEvent)
     {
-        targetPlayer.RemoveStatus(this);
+        Bank.Ins.RemoveReceiveMoneyStatus(this);
+        //targetPlayer.RemoveStatus(this);
         base.Remove(triggerEvent);
 
-        //Destroy(this.gameObject);
+        Destroy(this.gameObject);
 
         return true;
     }

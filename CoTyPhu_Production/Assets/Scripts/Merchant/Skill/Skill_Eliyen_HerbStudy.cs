@@ -18,6 +18,8 @@ public class Skill_Eliyen_HerbStudy : BaseSkill
 
     public override bool CanActivate()
     {
+        if (TurnDirector.Ins.ListPlayer.Count < 2)
+            return false;
         if (Owner.GetMana() >= CurrentManaCost)
             return true;
         return base.CanActivate();
