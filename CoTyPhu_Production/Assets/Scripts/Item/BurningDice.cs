@@ -5,6 +5,8 @@ using UnityEngine;
 public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
 {
     #region Base class override
+    public PLOT? assignedPlot;
+    public PLOT? AssignedPlot { get => assignedPlot; set => assignedPlot = value; }
     public override bool LoadData()
     {
         return true;
@@ -70,6 +72,8 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
                 if(plotConstruction.Owner == this.Owner)
                 {
                     Debug.Log("Burning Dice: on my plot enter");
+
+                    Activate("");
                     // Add 1 mana
                     Owner.ChangeMana(1);
 
@@ -79,6 +83,7 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
                     var newStatus = Instantiate(_statusPrefab, this.transform);
                     newStatus.hirePriceChange = 0.5f;
                     newStatus.targetPlot = plotConstruction;
+                    AssignedPlot = plotConstruction.Id;
                     newStatus.StartListen();
 
                     activeStatus = newStatus;

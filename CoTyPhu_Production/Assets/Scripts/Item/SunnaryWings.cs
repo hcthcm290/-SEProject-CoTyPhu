@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SunnaryWings : BaseItem
+public class SunnaryWings : BaseItem, IPlotChooserAction, ICompletableAction
 {
     static bool canActivate = true;
 
@@ -47,8 +47,6 @@ public class SunnaryWings : BaseItem
 
         TileChooserManager tileChooser = TileChooserManager.GetInstance();
 
-        ActionTeleport travel = new ActionTeleport(Owner);
-
         IAction actionEndPhase = new LambdaAction(
             () => {
                 Owner.AddItem(this);
@@ -59,7 +57,7 @@ public class SunnaryWings : BaseItem
         List<PLOT> banned = Plot.BuildingPlot.Union(Plot.TemplePlot).ToList();
         banned.Add(PLOT.TRAVEL);
 
-        tileChooser.Listen(travel,
+        tileChooser.Listen(this,
             actionEndPhase,
             banned,
             10f);
@@ -70,7 +68,7 @@ public class SunnaryWings : BaseItem
 
         // DO NOT add item back to Item pool
         // ItemManager.Ins.AddItemToPool(this);
-        travel.OnActionComplete = travel.OnActionComplete.Add(
+        OnActionComplete = OnActionComplete.Add(
             () => { 
                 Destroy(gameObject);
                 canActivate = true;
@@ -87,21 +85,12 @@ public class SunnaryWings : BaseItem
     {
         LoadData();
     }
-}
 
-class ActionTeleport : IPlotChooserAction, ICompletableAction
-{
-    Player targetPlayer;
+    Player Owner;
     PLOT? targetPlot;
-    PLOT currentPlot { get => targetPlayer.Location_PlotID; }
+    PLOT currentPlot { get => Owner.Location_PlotID; }
 
     ICompletableAction moveAction;
-
-    public ActionTeleport(Player target)
-    {
-        targetPlayer = target;
-        targetPlot = null;
-    }
 
     public PLOT? plot
     {
@@ -128,7 +117,7 @@ class ActionTeleport : IPlotChooserAction, ICompletableAction
             PerformOnComplete();
         };
 
-        moveAction = targetPlayer.ActionMoveTo(plot.Value);
+        moveAction = Owner.ActionMoveTo(plot.Value);
 
         moveAction.OnActionComplete = new LambdaAction(onComplete, moveAction.OnActionComplete);
 

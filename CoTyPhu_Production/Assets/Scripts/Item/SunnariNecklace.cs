@@ -7,6 +7,9 @@ public class SunnariNecklace : SunnaryItem, IPlotPassByListener, IPayPlotFeeList
     #region Properties
     [SerializeField] StatusHirePriceChange status;
     PlotConstruction plotResult = null;
+
+    public PLOT? assignedPlot;
+    public PLOT? AssignedPlot { get => assignedPlot; set => assignedPlot = value; }
     #endregion
     #region Handle Event
     public void OnPayPlotFee(Player player, PlotConstruction plot)
@@ -36,6 +39,7 @@ public class SunnariNecklace : SunnaryItem, IPlotPassByListener, IPayPlotFeeList
                 {
                     player.ChangeMana(1);
                     plotResult.AddStatus(status);
+                    AssignedPlot = plotResult.Id;
                 }
                 player.RemoveItem(this);
             }    

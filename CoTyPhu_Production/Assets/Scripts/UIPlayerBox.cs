@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class UIPlayerBox : MonoBehaviour
 {
+    public static Dictionary<Player, UIPlayerBox> UILocation = new Dictionary<Player, UIPlayerBox>(); 
     public Player player;
 
     public void Init(Player initPlayer)
     {
         player = initPlayer;
+        UILocation[player] = this;
         SetInfo();
     }
 

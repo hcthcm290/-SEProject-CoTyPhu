@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 //  Class Attributes ----------------------------------
@@ -8,6 +9,7 @@ using UnityEngine;
 [System.Serializable]
 public abstract class BaseItem : MonoBehaviour
 {
+	static public System.Random rng = new System.Random();
 	//  Events ----------------------------------------
 	public delegate void ItemActivateHandler(int id);
 	public event ItemActivateHandler ItemActivate;
@@ -89,6 +91,25 @@ public abstract class BaseItem : MonoBehaviour
     {
 		if(ItemActivate != null)
 			ItemActivate.Invoke(Id);
+
+		MoveToCenter(new LambdaAction(() =>
+		{
+			List<Transform> targets = TargetLocations();
+
+			var prefab = PrefabContainer.Ins.magicOrb;
+
+			foreach (var target in targets)
+            {
+				var orb = Instantiate(prefab);
+				Vector3 targetPos = orb.targetPos = target.position;
+				Vector3 pivotOffset = new Vector3(rng.Next(0,15), rng.Next(0, 15), rng.Next(0, 15));
+				Vector3 initialPos = orb.transform.position;
+				orb.pivotPos = initialPos - pivotOffset;
+				orb.MaxTime = Vector3.Angle(pivotOffset, targetPos - initialPos) / 180 + 1;
+				orb.HasStart = true;
+            }
+		}));
+
 		return true;
     }
 
@@ -101,5 +122,48 @@ public abstract class BaseItem : MonoBehaviour
 	}
 
 	//  Event Handlers --------------------------------
+
+
+	//  Splash effect on use
+	public void MoveToCenter(IAction onComplete = null)
+    {
+		if (Owner != null)
+			transform.parent = UIPlayerBox.UILocation[Owner].transform.Find("PlayerBox/MerchantImage");
+		else return;
+
+		// TODO: Add glow
+
+		MoveStraightEvenly moveComponent = gameObject.AddComponent<MoveStraightEvenly>();
+		if (onComplete != null)
+			moveComponent.ListenTargetReached(onComplete);
+		moveComponent.Target = new Vector3(0, 0, 0);
+    }
+
+	protected List<Transform> InvolvedLocations = new List<Transform>();
+	public virtual List<Transform> TargetLocations()
+    {
+		List<Transform> ans = InvolvedLocations;
+
+		if (this is IPlotChooserAction)
+        {
+			PLOT? plot = (this as IPlotChooserAction).plot;
+			if (plot != null)
+				ans.Add(Plot.plotDictionary[plot.Value].transform);
+        }
+
+		if (this is IPayPlotFeeListener)
+        {
+			PLOT? plot = (this as IPayPlotFeeListener).AssignedPlot;
+			if (plot != null)
+				ans.Add(Plot.plotDictionary[plot.Value].transform);
+		}
+
+		// If there is no Target Location found,
+		// Assume Item is Self-buff, and target the Owner
+		if (ans.Count == 0 && Owner != null)
+			ans.Add(UIPlayerBox.UILocation[Owner].transform.Find("PlayerBox/MerchantImage"));
+		
+		return ans;
+    }
 }
 
