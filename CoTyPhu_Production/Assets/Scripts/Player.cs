@@ -442,6 +442,7 @@ public class Player : MonoBehaviour, IDiceListener
 
     public void LockMerchant(BaseMerchant get_merchant)
     {
+        merchant = get_merchant;
         //check to active only in merchant picking
         merchant = Instantiate(get_merchant, this.transform);
         merchant.Init();

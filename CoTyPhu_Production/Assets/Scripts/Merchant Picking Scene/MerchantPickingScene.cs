@@ -5,6 +5,8 @@ using Photon.Realtime;
 using Photon.Pun;
 using System.Linq;
 using UnityEngine.UI;
+using TMPro;
+using DG.Tweening;
 
 namespace MerchantPicking
 {
@@ -15,6 +17,7 @@ namespace MerchantPicking
         [SerializeField] MerchantInfoCard merchantInfoCard;
         [SerializeField] GameObject listPlayerCardContent;
         [SerializeField] Button lockButton;
+        [SerializeField] TextMeshProUGUI countDownText;
         #endregion
 
         [SerializeField] List<BaseMerchant> listAvailableMerchant;
@@ -135,14 +138,52 @@ namespace MerchantPicking
                     string nextClientID = listPlayer[currentTurnPlayerIndex].UserId;
                     photonView.RPC("BeginTurn", RpcTarget.AllBufferedViaServer, nextClientID);
                 }
+                else
+                {
+                    photonView.RPC("MoveToPlayScene", RpcTarget.AllBufferedViaServer);
+
+                    photonView.RPC("BeginTurn", RpcTarget.AllBufferedViaServer, "-1");
+                }
             }
+        }
+
+        [PunRPC]
+        private void MoveToPlayScene()
+        {
+            int curCd = 4;
+            Tweener currentTweener = null;
+
+            countDownText.text = "Game Started";
+            countDownText.transform.localScale = new Vector3(2, 2, 2);
+            currentTweener = countDownText.transform.DOScale(4, 2.5f);
+
+            currentTweener.onComplete = () =>
+            {
+                curCd--;
+
+                if (curCd < 0)
+                {
+                    // Todo: move to play scene
+                    return;
+                }
+
+                Debug.Log(curCd);
+                countDownText.text = curCd.ToString();
+                var color = countDownText.color;
+                color.a = 1;
+                countDownText.color = color;
+                countDownText.transform.localScale = new Vector3(3, 3, 3);
+                countDownText.transform.DOScale(10, 1);
+                var newTweener = countDownText.DOFade(0, 1);
+                newTweener.onComplete = currentTweener.onComplete;
+                currentTweener = newTweener;
+            };
         }
 
         [PunRPC]
         public void BeginTurn(string clientID)
         {
-            var client = PhotonNetwork.PlayerList.First(x => x.UserId == clientID);
-            Debug.Log("Begin turn " + client.NickName);
+            //var client = PhotonNetwork.PlayerList.FirstOrDefault(x => x.UserId == clientID);
 
             if(PhotonNetwork.LocalPlayer.UserId == clientID)
             {

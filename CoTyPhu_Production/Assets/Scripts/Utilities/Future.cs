@@ -8,6 +8,13 @@ public class FutureTask<T>
     private Future<T> future;
     private Action<T> futureThen;
 
+    public static Future<bool> Delay(float duration)
+    {
+        var delayObject = new GameObject();
+        var delayScript = delayObject.AddComponent<DelayObject>();
+        return delayScript.Init(duration);
+    }
+
     public FutureTask()
     {
         future = new Future<T>(ref futureThen);
@@ -62,3 +69,5 @@ public class Future<T>
 
     }
 }
+
+

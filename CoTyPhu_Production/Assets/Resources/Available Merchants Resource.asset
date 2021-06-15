@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c09995b66c5ed1347b1c4262028e8f0e, type: 3}
+  m_Name: Available Merchants Resource
+  m_EditorClassIdentifier: 
+  listMerchant:
+  - {fileID: -8206113330610582941, guid: 47edb04d2623e9e41b90323c35f30d9a, type: 3}
+  - {fileID: 3187523295642304378, guid: bb2ecdde0fa4f2447bd86f4e4dd89f79, type: 3}
