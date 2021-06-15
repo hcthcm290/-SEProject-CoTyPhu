@@ -300,6 +300,9 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     private void _StartPhase(int idPlayer, int phaseID)
     {
         Debug.Log("Start Phase " + ((Phase)phaseID).ToString() + " for player " + idPlayer.ToString());
+
+        _idPlayerTurn = idPlayer;
+        _idPhase = (Phase)phaseID;
         if ((Phase)phaseID == Phase.Dice)
         {
             if(_listTurnListener == null)
@@ -315,8 +318,6 @@ public class TurnDirector : MonoBehaviourPunCallbacks
             }
         }
 
-        _idPlayerTurn = idPlayer;
-        _idPhase = (Phase)phaseID;
         _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(_idPhase);
     }
 
