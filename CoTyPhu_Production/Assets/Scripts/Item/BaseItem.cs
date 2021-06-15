@@ -105,7 +105,6 @@ public abstract class BaseItem : MonoBehaviour
 				Vector3 pivotOffset = new Vector3(rng.Next(0,15), rng.Next(0, 15), rng.Next(0, 15));
 				Vector3 initialPos = orb.transform.position;
 				orb.pivotPos = initialPos - pivotOffset;
-				orb.MaxTime = Vector3.Angle(pivotOffset, targetPos - initialPos) / 180 + 1;
 				orb.HasStart = true;
             }
 		}));
