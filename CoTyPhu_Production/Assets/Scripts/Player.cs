@@ -288,6 +288,9 @@ public class Player : MonoBehaviour, IDiceListener
                     // TODO: Get dice roll
                     List<int> diceRoll = Dice.Ins().GetLastResult();
 
+                    // Play animation
+                    merchant.MerchantAnimator.SetBool("walking", true);
+
                     // Modify dice roll Post-roll
                     System.Action onComplete = () =>
                     {
@@ -306,6 +309,7 @@ public class Player : MonoBehaviour, IDiceListener
             case PhaseState.ongoing:
                 break;
             case PhaseState.end:
+                merchant.MerchantAnimator.SetBool("walking", false);
                 if (minePlayer)
                 {
                     TurnDirector.Ins.EndOfPhase();

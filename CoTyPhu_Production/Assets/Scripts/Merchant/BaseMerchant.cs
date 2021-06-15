@@ -32,6 +32,11 @@ public abstract class BaseMerchant : MonoBehaviour
 		//set { _type = value; }
 	}
 
+	public Animator MerchantAnimator
+    {
+		get { return _merchantAnimator; }
+    }
+
 	//  Fields ----------------------------------------
 	private string _name;
 	public MerchantTag _tagName;
@@ -40,6 +45,7 @@ public abstract class BaseMerchant : MonoBehaviour
 	private BaseStatus _passiveSkill;
 	private int _maxMana;
 	public string Story;
+	[SerializeField] private Animator _merchantAnimator;
 
 	//  Initialization --------------------------------
 	public void Set(MerchantTag tagName, string name, BaseSkill skill, BaseStatus passive, int maxMana, string story)
