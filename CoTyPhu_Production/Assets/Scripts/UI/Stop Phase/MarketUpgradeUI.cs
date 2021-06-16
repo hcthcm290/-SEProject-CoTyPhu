@@ -7,6 +7,7 @@ public class MarketUpgradeUI : MonoBehaviour, UIScreen
 {
     #region UI Properties
     [SerializeField] Text[] _txtPriceLvls;
+    [SerializeField] Button[] _buttonUpgrade;
     #endregion
 
     #region Properties
@@ -37,9 +38,28 @@ public class MarketUpgradeUI : MonoBehaviour, UIScreen
                 for(int i = 0; i< _txtPriceLvls.Length; i++)
                 {
                     var txtPriceLvl = _txtPriceLvls[i];
-                    if (txtPriceLvl != null)
+
+                    if(_plot.Level <= i)
                     {
-                        txtPriceLvl.text = _plot.UpgradeFee(_plot.Level, i + 1).ToString();
+                        if (txtPriceLvl != null)
+                        {
+                            txtPriceLvl.text = _plot.UpgradeFee(_plot.Level, i + 1).ToString();
+                        }
+                        if(_buttonUpgrade[i] != null)
+                        {
+                            _buttonUpgrade[i].gameObject.SetActive(true);
+                        }
+                    }
+                    else
+                    {
+                        if (txtPriceLvl != null)
+                        {
+                            txtPriceLvl.text = "";
+                        }
+                        if (_buttonUpgrade[i] != null)
+                        {
+                            _buttonUpgrade[i].gameObject.SetActive(false);
+                        }
                     }
                 }
             }
@@ -65,6 +85,8 @@ public class MarketUpgradeUI : MonoBehaviour, UIScreen
     private void OnUpgradeSuccess(Player player, PlotConstructionMarket plot, int level)
     {
         if (gameObject.activeSelf == false) return;
+
+        Skip();
     }
 
     private void OnUpgradeFail(string msg)

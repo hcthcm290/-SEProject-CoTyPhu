@@ -19,6 +19,8 @@ public class PlotConstructionMarket : PlotConstruction
 
 	private Transform _buildPoint;
 	GameObject currentHouse;
+	static ParticleSystem Firework;
+	[SerializeField] ParticleSystem _fireworkPrefab;
 
 	//  Fields ----------------------------------------
 	[SerializeField] protected int _level;
@@ -100,6 +102,7 @@ public class PlotConstructionMarket : PlotConstruction
 	public void Upgrade(int level)
     {
 		var plotHousePool = PlotHousesPool.Ins;
+		_level = level;
 
 		if(plotHousePool != null)
         {
@@ -114,7 +117,9 @@ public class PlotConstructionMarket : PlotConstruction
 				Destroy(currentHouse);
 				currentHouse = house;
 
-            }
+				Firework.transform.position = _buildPoint.transform.position;
+				Firework.Play();
+			}
         }
     }
 
@@ -130,7 +135,13 @@ public class PlotConstructionMarket : PlotConstruction
 			Debug.LogError("Plot " + Id.ToString() + "does not have build point as child object");
         }
 
+		if(_fireworkPrefab != null && Firework == null)
+        {
+			Firework = Instantiate(_fireworkPrefab);
+        }
+
 		_upgradeOffset = new float[] { 0.15f, 0.15f, 0.15f, 0.15f, 0.15f, };
+
 	}
 
     //  Event Handlers --------------------------------
