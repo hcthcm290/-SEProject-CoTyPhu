@@ -14,6 +14,8 @@ public class UIPlayerBox : MonoBehaviourPun
     [SerializeField] Text playerName;
     [SerializeField] Button ultimateButton;
     [SerializeField] Text manaText;
+    [SerializeField] Text goldTable;
+    [SerializeField] Bank bank;
     #endregion
     public Player player;
 
@@ -58,7 +60,7 @@ public class UIPlayerBox : MonoBehaviourPun
 
         if(ultimateButton != null)
         {
-            ultimateButton.onClick.AddListener(ActivateSkill);
+            ultimateButton.onClick.AddListener(RequestActivateSkill);
         }
 
         //transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();
@@ -75,7 +77,8 @@ public class UIPlayerBox : MonoBehaviourPun
 
     public void SetGold()
     {
-        transform.Find("PlayerBox/GoldTable/Text").GetComponent<Text>().text = Bank.Ins.MoneyPlayer(player).ToString("#,##0");
+
+        goldTable.text = bank.MoneyPlayer(player).ToString("#,##0");
     }
     
     public void SetMana()
@@ -126,12 +129,11 @@ public class UIPlayerBox : MonoBehaviourPun
         player.MerchantLock += SetInfo;
         player.ItemsChange += SetItems;
         player.ManaChange += SetMana;
-        Bank.Ins.GoldChange += ListenGoldChange;
+        bank.GoldChange += ListenGoldChange;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
