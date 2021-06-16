@@ -14,7 +14,15 @@ public class PlotConstructionMarket : PlotConstruction
 		get => _level; 
 		set { _level = value; }
 	}
-	public float[] UpgradeOffset { get => _upgradeOffset; }
+    public override Player Owner { get => base.Owner; 
+		set
+		{
+			base.Owner = value;
+			Level = 0;
+			BuildHouse();
+		}
+	}
+    public float[] UpgradeOffset { get => _upgradeOffset; }
 
 
 	private Transform _buildPoint;
@@ -101,27 +109,38 @@ public class PlotConstructionMarket : PlotConstruction
 
 	public void Upgrade(int level)
     {
-		var plotHousePool = PlotHousesPool.Ins;
 		_level = level;
+		BuildHouse();
+    }
 
-		if(plotHousePool != null)
-        {
-			var prefab = plotHousePool.GetPrefab(level);
+	void BuildHouse()
+    {
+		var plotHousePool = PlotHousesPool.Ins;
 
-			if(prefab != null)
-            {
-				GameObject house = Instantiate(prefab, transform);
-				house.transform.position = _buildPoint.transform.position;
-				house.transform.rotation = _buildPoint.transform.rotation;
+		if (plotHousePool != null)
+		{
+			var prefab = plotHousePool.GetPrefab(Owner.GetMerchant().TagName, _level);
+
+			if (prefab != null)
+			{
+				GameObject wrapper = new GameObject();
+				wrapper.transform.parent = this.transform;
+				wrapper.transform.position = _buildPoint.transform.position;
+				wrapper.transform.localScale = Vector3.one;
+
+				GameObject house = Instantiate(prefab, wrapper.transform);
+				var currentRotation = house.transform.rotation.eulerAngles;
+				var targetRotationY = _buildPoint.transform.rotation.eulerAngles.y;
+				house.transform.rotation = Quaternion.Euler(currentRotation.x, targetRotationY, currentRotation.z);
 
 				Destroy(currentHouse);
-				currentHouse = house;
+				currentHouse = wrapper;
 
 				Firework.transform.position = _buildPoint.transform.position;
 				Firework.Play();
 			}
-        }
-    }
+		}
+	}
 
     // Unity Methods ----------------------------------
 

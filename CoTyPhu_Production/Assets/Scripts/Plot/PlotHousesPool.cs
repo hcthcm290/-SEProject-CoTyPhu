@@ -27,13 +27,23 @@ public class PlotHousesPool : MonoBehaviour
         public GameObject prefab;
     }
 
-    [SerializeField] List<HousePrefab> _listHousePrefab;
+    [System.Serializable]
+    private class HouseFamily
+    {
+        public MerchantTag tag;
+        [SerializeField] public List<HousePrefab> _listHousePrefab;
+    }
+    [SerializeField] List<HouseFamily> _listHouseFamily;
     #endregion
 
     #region methods
-    public GameObject GetPrefab(int level)
+    public GameObject GetPrefab(MerchantTag tag, int level)
     {
-        var housePrefab = _listHousePrefab.Find(x => x.level == level);
+        var houseFamily = _listHouseFamily.Find(x => x.tag == tag);
+
+        if (houseFamily == null) return null;
+
+        var housePrefab = houseFamily._listHousePrefab.Find(x => x.level == level);
 
         if (housePrefab != null)
         {

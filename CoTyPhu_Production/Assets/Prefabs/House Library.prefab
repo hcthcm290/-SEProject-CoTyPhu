@@ -43,12 +43,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bab0d2b0479a654d943bb433ffedc97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _listHousePrefab:
-  - level: 1
-    prefab: {fileID: 710720097229773554, guid: 87eb54f3f9ef2a94da6bc59ad35aa91d, type: 3}
-  - level: 2
-    prefab: {fileID: 5460778133042062420, guid: cc0927e38bdfe0245a556d53040ae084, type: 3}
-  - level: 3
-    prefab: {fileID: 740437802217959245, guid: 5851cc2dd1c38b74f94bdc4b74267452, type: 3}
-  - level: 4
-    prefab: {fileID: 3144928250459148851, guid: cdfe2a44df2456d4cbd0a5dab0089788, type: 3}
+  _listHouseFamily:
+  - tag: 1
+    _listHousePrefab:
+    - level: 0
+      prefab: {fileID: 5076591602295212581, guid: fc127ad3f13242546ab05ddc5225d330,
+        type: 3}
+    - level: 1
+      prefab: {fileID: 919132149155446097, guid: d8f04b0451698dc41a5f614a458e746c,
+        type: 3}
+    - level: 2
+      prefab: {fileID: 8430661995333391864, guid: 2662a3b3031e76f41b2319d0e55979a3,
+        type: 3}
+    - level: 3
+      prefab: {fileID: 2924840312840276078, guid: 9e3de1ef9e7a18d42aaf4672762b02b3,
+        type: 3}
+    - level: 4
+      prefab: {fileID: 4849149375904837964, guid: 551eccaa47846974ba161fc0f7dec3c9,
+        type: 3}
+  - tag: 0
+    _listHousePrefab:
+    - level: 0
+      prefab: {fileID: 9013414117129886485, guid: 1bf48580911b4ac4c834513fbdded7d5,
+        type: 3}
+    - level: 1
+      prefab: {fileID: 3041978778807176486, guid: 7c8ff4310349b744789d3046cc113e33,
+        type: 3}
+    - level: 2
+      prefab: {fileID: 8627577475766625004, guid: 16d6dd115ea5faa459f8a41dd6e12172,
+        type: 3}
+    - level: 3
+      prefab: {fileID: 7245429775025325718, guid: 38c6041841af8b64f8e1676dccbc8d7d,
+        type: 3}
+    - level: 4
+      prefab: {fileID: 4318082825415661026, guid: 4b91cda8f0346f14198c8e00855e2cb5,
+        type: 3}
+  - tag: 2
+    _listHousePrefab:
+    - level: 0
+      prefab: {fileID: 5122483333887039614, guid: 47b0e8e1df678e040bad6ae9aa8e4e70,
+        type: 3}
+    - level: 1
+      prefab: {fileID: 702474839984496259, guid: 744ba41cc06725c4c9c37b3179044505,
+        type: 3}
+    - level: 2
+      prefab: {fileID: 5689901231996718027, guid: 0b1f4a46ec7f14f4cb954cd032ac698a,
+        type: 3}
+    - level: 3
+      prefab: {fileID: 5925475501427049982, guid: 311a6a74c6b18144f826b69e8a6d4a16,
+        type: 3}
+    - level: 4
+      prefab: {fileID: 8372253555317945999, guid: 09e00a2e4dad0ab4ba6bc08d7c156bc2,
+        type: 3}
+  - tag: 3
+    _listHousePrefab:
+    - level: 0
+      prefab: {fileID: 6189825847645885736, guid: 66a8a70c85c9bdf4587c3a22c4708958,
+        type: 3}
+    - level: 1
+      prefab: {fileID: 3092069173366080603, guid: 36ec1eb2b8ae7f24c871c71a5fdc469c,
+        type: 3}
+    - level: 2
+      prefab: {fileID: 1628049612765031091, guid: 5a1a6858b989cb347a8d27b92021e2bf,
+        type: 3}
+    - level: 3
+      prefab: {fileID: 1028503649036418420, guid: 378a4b5a4c973494c9b0b258c8d0c2c6,
+        type: 3}
+    - level: 4
+      prefab: {fileID: 4655912385242949460, guid: 5f3cb702d30e2de43a25beeedeb9b031,
+        type: 3}

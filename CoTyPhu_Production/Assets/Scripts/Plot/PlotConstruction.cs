@@ -31,7 +31,7 @@ public class PlotConstruction: Plot
 			return baseEntryFee + deltaFee;
         } }
 	public int Price { get => _price; }
-	public Player Owner 
+	public virtual Player Owner 
 	{ 
 		get => _owner; 
 		set { _owner = value; } 
