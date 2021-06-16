@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class Player : MonoBehaviour, IDiceListener
+public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
 {
     [SerializeField] List<IGoldReceiveChange> _listStatusGoldReceive = new List<IGoldReceiveChange>();
     // Properties ------------------------------------
@@ -22,6 +22,9 @@ public class Player : MonoBehaviour, IDiceListener
     public PLOT Location_PlotID;
     bool _isBroke;
     bool _notSubcribeDice = true;
+
+    Vector3 dest_look;
+
     [SerializeField] bool minePlayer;
     public bool MinePlayer
     {
@@ -70,8 +73,13 @@ public class Player : MonoBehaviour, IDiceListener
             Dice.SubscribeDiceListener(this);
             _notSubcribeDice = false;
         }
+        Plot.plotDictionary[PLOT.START].SubcribePlotPassByListener(this);
+        Plot.plotDictionary[PLOT.PRISON].SubcribePlotPassByListener(this);
+        Plot.plotDictionary[PLOT.FESTIVAL].SubcribePlotPassByListener(this);
+        Plot.plotDictionary[PLOT.TRAVEL].SubcribePlotPassByListener(this);
         //Thang
         LockMerchant(merchant);
+        dest_look = transform.eulerAngles;
     }
 
     // Update is called once per frame
@@ -81,6 +89,31 @@ public class Player : MonoBehaviour, IDiceListener
         {
             Dice.SubscribeDiceListener(this);
             _notSubcribeDice = false;
+        }
+
+        float temp_y = transform.eulerAngles.y;
+        float old = temp_y;
+        if(dest_look.y != temp_y)
+        {
+            temp_y += Time.deltaTime * 180;
+            if (temp_y >= 360)
+            {
+                temp_y = 0;
+            }
+            if (old < 90 && temp_y > 90)
+            {
+                temp_y = 90;
+            }
+            if (old < 180 && temp_y > 180)
+            {
+                temp_y = 180;
+            }
+            if (old < 270 && temp_y > 270)
+            {
+                temp_y = 270;
+            }
+
+            transform.eulerAngles = new Vector3(0, temp_y, 0);
         }
     }
     #endregion
@@ -287,6 +320,7 @@ public class Player : MonoBehaviour, IDiceListener
                 {
                     // TODO: Get dice roll
                     List<int> diceRoll = Dice.Ins().GetLastResult();
+                    CameraManager.Ins.ShowExtraCamera(this);
 
                     // Modify dice roll Post-roll
                     System.Action onComplete = () =>
@@ -306,11 +340,14 @@ public class Player : MonoBehaviour, IDiceListener
             case PhaseState.ongoing:
                 break;
             case PhaseState.end:
-                if (minePlayer)
                 {
-                    TurnDirector.Ins.EndOfPhase();
+                    CameraManager.Ins.BackToCameraMain();
+                    if (minePlayer)
+                    {
+                        TurnDirector.Ins.EndOfPhase();
+                    }
+                    break;
                 }
-                break;
         }
     }
 
@@ -551,4 +588,27 @@ public class Player : MonoBehaviour, IDiceListener
     public delegate void StatusAddingHandler(BaseStatus status);
     public event StatusAddingHandler StatusAdding;
     #endregion
+
+    public void OnPlotPassBy(Player player, Plot plot)
+    {
+        if (player == this)
+        {
+            if (plot.Id == PLOT.START)
+            {
+                dest_look= new Vector3(0, 90, 0);
+            }
+            if (plot.Id == PLOT.PRISON)
+            {
+                dest_look = new Vector3(0, 180, 0);
+            }
+            if (plot.Id == PLOT.FESTIVAL)
+            {
+                dest_look = new Vector3(0, 270, 0);
+            }
+            if (plot.Id == PLOT.TRAVEL)
+            {
+                dest_look = new Vector3(0, 0, 0);
+            }
+        }
+    }
 }

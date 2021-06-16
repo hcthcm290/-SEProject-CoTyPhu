@@ -41,7 +41,7 @@ public class Skill_Giulia_Enchant : BaseSkill
             for (int i = 0; i < playerPool.transform.childCount; i++)
             {
                 Player p = playerPool.transform.GetChild(i).GetComponent<Player>();
-                if(p.Id == TurnDirector.Ins.MyPlayer)
+                if(p.Id == Owner.Id)
                 {
                     myPlayer = p;
                 }
