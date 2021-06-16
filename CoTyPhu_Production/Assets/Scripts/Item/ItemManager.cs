@@ -86,6 +86,7 @@ public class ItemManager : MonoBehaviourPun
         AddItemToPool(Resources.Load<BaseItem>("Item_Burning_Dice"), 8);
         AddItemToPool(Resources.Load<BaseItem>("Item_Mirror"), 8);
         //AddItemToPool(Resources.Load<BaseItem>("Item_Sunnari_Crown"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Moses_Staff"), 8);
     }
 
     public bool AddItemToPool(BaseItem item)

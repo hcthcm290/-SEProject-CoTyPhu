@@ -84,9 +84,15 @@ public class UIPlayerBox : MonoBehaviourPun
     public void SetMana()
     {
         manaText.text = player.GetMana().ToString() + "/" + player.GetMerchant().MaxMana.ToString();
+        SetActivateSkill();
+    }
 
-        if(ultimateButton != null)
+    public void SetActivateSkill()
+    {
+        if (ultimateButton != null)
+        {
             ultimateButton.interactable = player.GetMerchant().Skill.CanActivate();
+        }
     }
 
     public void SetItems()
@@ -130,6 +136,7 @@ public class UIPlayerBox : MonoBehaviourPun
         player.ItemsChange += SetItems;
         player.ManaChange += SetMana;
         bank.GoldChange += ListenGoldChange;
+        player.ActivateChange += SetActivateSkill;
     }
 
     // Update is called once per frame

@@ -49,6 +49,8 @@ public abstract class BaseSkill : MonoBehaviour
 	//  Methods ---------------------------------------
 	public virtual bool CanActivate()
 	{
+		if (!Owner.didDice)
+			return true;
 		return false;
 	}
 

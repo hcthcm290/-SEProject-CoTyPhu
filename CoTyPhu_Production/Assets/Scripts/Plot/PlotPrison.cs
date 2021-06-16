@@ -73,7 +73,7 @@ public class PlotPrison : Plot, IDiceListener, ITurnListener
 		}
 	}
 
-	private void Release(Player player)
+	public void Release(Player player)
 	{
 		if(_playerImprisonDuration.ContainsKey(player))
         {

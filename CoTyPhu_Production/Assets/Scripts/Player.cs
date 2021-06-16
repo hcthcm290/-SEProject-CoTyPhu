@@ -50,6 +50,8 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
 
     PhaseState _currentPhaseState;
 
+    public bool didDice = false;
+
     #region Unity Methods
 
     // Start is called before the first frame update
@@ -216,7 +218,9 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
             case Phase.Dice:
                 if (minePlayer)
                 {
-                    if(this.Location_PlotID == PLOT.PRISON)
+                    didDice = false;
+                    ActivateChange?.Invoke();
+                    if (this.Location_PlotID == PLOT.PRISON)
                     {
                         StopPhaseUI.Ins.Activate(PhaseScreens.FreeCardUI, Plot.plotDictionary[Location_PlotID]);
                         StopPhaseUI.Ins.SubcribeOnDeactive(PhaseScreens.FreeCardUI, (PhaseScreens screen) =>
@@ -296,6 +300,9 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
                 break;
         }
     }
+
+    public delegate void ActivateChangeHandler();
+    public event ActivateChangeHandler ActivateChange;
 
     private void StartPhaseDice()
     {
@@ -382,6 +389,8 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
     
     public void Roll()
     {
+        didDice = true;
+        ActivateChange?.Invoke();
         Dice.Ins().Roll(_id);
 
         if(TurnDirector.Ins.IsMyTurn(Id))
