@@ -70,7 +70,11 @@ public class UIPlayerBox : MonoBehaviourPun
     public void SetMana()
     {
         transform.Find("PlayerBox/ManaBar/Text").GetComponent<Text>().text = player.GetMana().ToString() + "/" + player.GetMerchant().MaxMana.ToString();
+        SetActivateSkill();
+    }
 
+    public void SetActivateSkill()
+    {
         var ultimate = transform.Find("Ultimate");
         if (ultimate != null)
         {
@@ -119,11 +123,11 @@ public class UIPlayerBox : MonoBehaviourPun
         player.ItemsChange += SetItems;
         player.ManaChange += SetMana;
         Bank.Ins.GoldChange += ListenGoldChange;
+        player.ActivateChange += SetActivateSkill;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

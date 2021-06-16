@@ -56,7 +56,12 @@ public class UseFreeCardUI : MonoBehaviour, UIScreen
     public void UseCard()
     {
         // call
-        _plotManager.RequestRelease(_player);
+        //_plotManager.RequestRelease(_player);
+
+        if(_player.playerItem.Find(b => b.Id == 25) != null)
+        {
+            ItemManager.Ins.RequestUseItem(_player.Id, 25);
+        }
 
         // Play fancy animation
 

@@ -18,9 +18,10 @@ public class Skill_Birger_JeweryDeal : BaseSkill
 
     public override bool CanActivate()
     {
+        bool r = false;
         if (Owner.GetMana() >= CurrentManaCost)
-            return true;
-        return base.CanActivate();
+            r = true;
+        return r && base.CanActivate();
     }
 
     public override bool Activate()

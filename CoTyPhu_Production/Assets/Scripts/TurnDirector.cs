@@ -379,4 +379,9 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     {
         return _count;
     }
+
+    public Phase GetPhase()
+    {
+        return _idPhase;
+    }
 }
