@@ -80,7 +80,7 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
         Plot.plotDictionary[PLOT.FESTIVAL].SubcribePlotPassByListener(this);
         Plot.plotDictionary[PLOT.TRAVEL].SubcribePlotPassByListener(this);
         //Thang
-        LockMerchant(merchant);
+        //LockMerchant(merchant);
         dest_look = transform.eulerAngles;
     }
 
