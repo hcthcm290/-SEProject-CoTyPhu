@@ -1713,6 +1713,8 @@ MonoBehaviour:
   listAvailableMerchant:
   - {fileID: -8206113330610582941, guid: 47edb04d2623e9e41b90323c35f30d9a, type: 3}
   - {fileID: 3187523295642304378, guid: bb2ecdde0fa4f2447bd86f4e4dd89f79, type: 3}
+  - {fileID: 4008834054116909688, guid: b652943d97547094b82372f86e30236b, type: 3}
+  - {fileID: 3317404543921275212, guid: 635ae5e6de15b694185ae935d9a845a8, type: 3}
   listInstantMerchant: []
   merchantAvatarPrefab: {fileID: 7047980629483739072, guid: 8777263c9bb986b4eb228eb55d6c5347,
     type: 3}
