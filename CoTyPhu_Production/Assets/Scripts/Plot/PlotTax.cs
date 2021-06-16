@@ -41,7 +41,7 @@ public class PlotTax : Plot
 
             Bank.Ins.TakeMoney(player, totalTax, false);
 
-            // Todo: move 100 dollar to Lucky draw
+            Bank.Ins.AddMoneyToLuckyDraw(100);
 
             if(player.MinePlayer)
             {

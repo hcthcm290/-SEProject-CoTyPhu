@@ -6819,7 +6819,7 @@ GameObject:
   - component: {fileID: 7294645263137986114}
   - component: {fileID: 7294645263137986142}
   - component: {fileID: 7294645263137986143}
-  - component: {fileID: 7294645263137986141}
+  - component: {fileID: 7294645263137986116}
   m_Layer: 0
   m_Name: Minigame
   m_TagString: Untagged
@@ -6827,7 +6827,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7294645263137986141
+--- !u!114 &7294645263137986116
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6836,11 +6836,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7294645263137986115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb17d2061aa10ce409bed264b07a11dc, type: 3}
+  m_Script: {fileID: 11500000, guid: c0ce32aaf31ee334d955678f312559cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 2
-  _name: Minigame
+  _name: Lucky draw
   _description: 
 --- !u!33 &7294645263137986142
 MeshFilter:

@@ -28,6 +28,7 @@ public class Bank: MonoBehaviour
 
     #region Properties
     public int MoneyBank { get => _moneyBank; }
+	public int LuckyDrawMoney { get => _luckyDrawMoney; }
 	public Dictionary<Player,int> AllMoneyPlayers { get => _moneyPlayer; }
 	
 	[System.Serializable]
@@ -41,6 +42,7 @@ public class Bank: MonoBehaviour
 
     #region Fields
     private int _moneyBank = 10000;
+	[SerializeField] private int _luckyDrawMoney = 0;
 	[SerializeField] private Dictionary<Player, int> _moneyPlayer = new Dictionary<Player, int>();
     #endregion
 
@@ -74,6 +76,21 @@ public class Bank: MonoBehaviour
 
 
     #region Methods
+	public void AddMoneyToLuckyDraw(int amount)
+    {
+		_moneyBank -= amount;
+		_luckyDrawMoney += amount;
+    }
+
+	public void TakeLuckyDrawMoney(Player player, int amount)
+    {
+		int availableAmount = (_luckyDrawMoney < amount) ? _luckyDrawMoney : amount;
+
+		SendMoney(player, availableAmount);
+		_luckyDrawMoney -= availableAmount;
+
+	}
+
     public int MoneyPlayer(Player player)
     {
 		if (_moneyPlayer.ContainsKey(player))
