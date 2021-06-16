@@ -5142,7 +5142,7 @@ GameObject:
   - component: {fileID: 7294645261890330222}
   - component: {fileID: 7294645261890330226}
   - component: {fileID: 7294645261890330227}
-  - component: {fileID: 7294645261890330225}
+  - component: {fileID: 7294645261890330224}
   m_Layer: 0
   m_Name: Tax
   m_TagString: Untagged
@@ -5150,7 +5150,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7294645261890330225
+--- !u!114 &7294645261890330224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5159,12 +5159,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7294645261890330223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb17d2061aa10ce409bed264b07a11dc, type: 3}
+  m_Script: {fileID: 11500000, guid: ee8057b5f0388ec4f853d160043dc7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 30
   _name: Tax
   _description: 
+  taxFactor: 0.1
 --- !u!33 &7294645261890330226
 MeshFilter:
   m_ObjectHideFlags: 0
