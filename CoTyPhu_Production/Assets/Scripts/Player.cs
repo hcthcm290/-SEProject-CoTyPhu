@@ -22,6 +22,19 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
     public PLOT Location_PlotID;
     bool _isBroke;
     bool _notSubcribeDice = true;
+    int _rank;
+    public int Rank
+    {
+        get => _rank;
+        set => _rank = value;
+    }
+
+    int _finalNetworth;
+    public int FinalNetworth
+    {
+        get => _finalNetworth;
+        set => _finalNetworth = value;
+    }
 
     Vector3 dest_look;
 
@@ -573,6 +586,28 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
     public event ItemChangeHandler ItemsChange;
 
     #region Method
+    public int CalculateNetworth()
+    {
+        int currentPlayerMoney = Bank.Ins.MoneyPlayer(this);
+        int totalPlotNetworth = 0;
+
+        foreach (var plotPair in Plot.plotDictionary)
+        {
+            if (plotPair.Value is PlotConstructionMarket)
+            {
+                PlotConstructionMarket plot = plotPair.Value as PlotConstructionMarket;
+
+                if (plot.Owner == this)
+                {
+                    int plotNetwork = plot.Price + (int)(0.5 * plot.UpgradeFee(0, plot.Level));
+
+                    totalPlotNetworth += plotNetwork;
+                }
+            }
+        }
+
+        return currentPlayerMoney + totalPlotNetworth;
+    }
     public void AddStatus(BaseStatus newStatus)
     {
         //CanGainStatus();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -368,7 +369,12 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     
     private void NotifyPlayerLoseClient(int id_player)
     {
-        GetPlayer(id_player).HasLost = true;
+        Player player = GetPlayer(id_player);
+
+        int playerLostCount = _listPlayer.Count(player => player.HasLost == true);
+        player.HasLost = true;
+        player.Rank = _listPlayer.Count - playerLostCount;
+        player.FinalNetworth = player.CalculateNetworth();
     }
 
     public void NotifyPlayerLose(int id_player)
