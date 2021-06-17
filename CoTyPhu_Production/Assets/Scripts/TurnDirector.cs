@@ -167,7 +167,6 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC]
     private void CreateNewPlayer(bool isMine, int id, string playerName, MerchantTag merchantTag)
     {
         PlayerObjectPool playerPool;

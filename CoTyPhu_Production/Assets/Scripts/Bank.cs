@@ -108,6 +108,7 @@ public class Bank: MonoBehaviour
 
 		_moneyPlayer.Add(player, 6000);
 		_moneyPlayers.Add(new PairPlayer() { player = player, money = 6000 });
+		GoldChange?.Invoke(player);
 
 		if(player.GetMerchant().TagName == MerchantTag.Birger)
         {
