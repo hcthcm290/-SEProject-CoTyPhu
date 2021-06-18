@@ -145,6 +145,8 @@ public class Bank: MonoBehaviour
 			TurnDirector.Ins.NotifyPlayerLose(player.Id);
 		}
 
+		AddGoldNotification(amount, player);
+
 		GoldChange.Invoke(player);
 	}
 
@@ -187,6 +189,7 @@ public class Bank: MonoBehaviour
 		_moneyPlayers.Find(x => x.player == player).money += amount;
 		_moneyBank -= amount;
 
+		AddGoldNotification(amount, player);
 		GoldChange.Invoke(player);
 	}
 
@@ -239,6 +242,13 @@ public class Bank: MonoBehaviour
 		}
 		_listMoneyTakeModify.Remove(transactionModifier);
 	}
+	#endregion
+
+	#region Thang code for Notification
+	public void AddGoldNotification(int gold, Player p)
+    {
+		FloatingNotificationManager.Ins.AddGoldNotification(gold, p);
+    }
 	#endregion
 
 	//  Event Handlers --------------------------------

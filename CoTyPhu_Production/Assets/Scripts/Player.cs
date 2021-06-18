@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
+public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEnterListener
 {
     [SerializeField] List<IGoldReceiveChange> _listStatusGoldReceive = new List<IGoldReceiveChange>();
     // Properties ------------------------------------
@@ -79,6 +79,11 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
         Plot.plotDictionary[PLOT.PRISON].SubcribePlotPassByListener(this);
         Plot.plotDictionary[PLOT.FESTIVAL].SubcribePlotPassByListener(this);
         Plot.plotDictionary[PLOT.TRAVEL].SubcribePlotPassByListener(this);
+        for(PLOT i = PLOT.START; i <= PLOT.H2; i++)
+        {
+            Debug.Log(i);
+            Plot.plotDictionary[i].SubcribePlotEnter(this);
+        }
         //Thang
         LockMerchant(merchant);
         dest_look = transform.eulerAngles;
@@ -515,6 +520,7 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
 
     public void ChangeMana(int amount)
     {
+        FloatingNotificationManager.Ins.AddManaNotification(amount, this);
         _mana += amount;
         if(_mana >= GetMerchant().MaxMana)
         {
@@ -615,6 +621,29 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
                 dest_look = new Vector3(0, 270, 0);
             }
             if (plot.Id == PLOT.TRAVEL)
+            {
+                dest_look = new Vector3(0, 0, 0);
+            }
+        }
+    }
+
+    public void OnPlotEnter(Player player, Plot plot)
+    {
+        if (player == this)
+        {
+            if ((int)plot.Id / 8 == 0)
+            {
+                dest_look = new Vector3(0, 90, 0);
+            }
+            if ((int)plot.Id / 8 == 1)
+            {
+                dest_look = new Vector3(0, 180, 0);
+            }
+            if ((int)plot.Id / 8 == 2)
+            {
+                dest_look = new Vector3(0, 270, 0);
+            }
+            if ((int)plot.Id / 8 == 3)
             {
                 dest_look = new Vector3(0, 0, 0);
             }
