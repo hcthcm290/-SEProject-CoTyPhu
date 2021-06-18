@@ -137,6 +137,7 @@ public class UIPlayerBox : MonoBehaviourPun
         player.ManaChange += SetMana;
         bank.GoldChange += ListenGoldChange;
         player.ActivateChange += SetActivateSkill;
+        transform.Find("FloatingNotification").GetComponent<FloatingNotification>().Owner = player;
     }
 
     // Update is called once per frame
