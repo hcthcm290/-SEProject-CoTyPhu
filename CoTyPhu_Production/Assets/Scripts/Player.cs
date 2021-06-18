@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEnterListener
+public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
 {
     [SerializeField] List<IGoldReceiveChange> _listStatusGoldReceive = new List<IGoldReceiveChange>();
     // Properties ------------------------------------
@@ -92,11 +92,11 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
         Plot.plotDictionary[PLOT.PRISON].SubcribePlotPassByListener(this);
         Plot.plotDictionary[PLOT.FESTIVAL].SubcribePlotPassByListener(this);
         Plot.plotDictionary[PLOT.TRAVEL].SubcribePlotPassByListener(this);
-        for(PLOT i = PLOT.START; i <= PLOT.H2; i++)
-        {
-            Debug.Log(i);
-            Plot.plotDictionary[i].SubcribePlotEnter(this);
-        }
+        //for(PLOT i = PLOT.START; i <= PLOT.H2; i++)
+        //{
+        //    Debug.Log(i);
+        //    Plot.plotDictionary[i].SubcribePlotEnter(this);
+        //}
         //Thang
         //LockMerchant(merchant);
         dest_look = transform.eulerAngles;
@@ -181,6 +181,8 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
         {
             // Content of the Action
             MoveTo(plotID);
+            // Add by Thang here
+            OnPlotEnter(this, Plot.plotDictionary[plotID]);
         }), null);
 
         action.preAction = () =>

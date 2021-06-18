@@ -106,8 +106,8 @@ public class Bank: MonoBehaviour
 			Debug.LogError("Player added duplicated in Bank.AddPlayer()");
         }
 
-		_moneyPlayer.Add(player, 6000);
-		_moneyPlayers.Add(new PairPlayer() { player = player, money = 6000 });
+		_moneyPlayer.Add(player, 2000);
+		_moneyPlayers.Add(new PairPlayer() { player = player, money = 2000 });
 		GoldChange?.Invoke(player);
 
 		if(player.GetMerchant().TagName == MerchantTag.Birger)

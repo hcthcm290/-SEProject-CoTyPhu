@@ -15,7 +15,6 @@ public class PlotConstruction: Plot
 	//  Events ----------------------------------------
 	List<IPayPlotFeeListener> _payPlotListeners = new List<IPayPlotFeeListener>();
 
-
     //  Properties ------------------------------------
     public int EntryFee { get
         {
@@ -47,8 +46,15 @@ public class PlotConstruction: Plot
 			else
             {
 				float basePrice = _price * _reBuyOffset;
+				if(this is PlotConstructionMarket)
+                {
+					basePrice = EntryFee * 2;
+                }
+				if(this is PlotConstructionTemple)
+                {
+					_price = Mathf.RoundToInt(basePrice);
+                }
 				float delta = 0;
-
 
 				List<IBuyBackPriceChange> listBbStatus = new List<IBuyBackPriceChange>(_listStatusBbPrice);
 				foreach(var status in listBbStatus)
@@ -67,7 +73,7 @@ public class PlotConstruction: Plot
 
 
 	//  Fields ----------------------------------------
-	[SerializeField] protected int _entryFee;
+	[SerializeField] public int _entryFee;
 	[SerializeField] protected int _price;
 	[SerializeField] protected Player _owner;
 	protected static float _reBuyOffset = 1.5f;

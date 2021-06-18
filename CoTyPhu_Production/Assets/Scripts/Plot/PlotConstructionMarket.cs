@@ -5,9 +5,7 @@
 /// </summary>
 public class PlotConstructionMarket : PlotConstruction
 {
-	//  Events ----------------------------------------
-
-
+	public int[] baseFee = new int[5];
 	//  Properties ------------------------------------
 	public int Level 
 	{ 
@@ -22,7 +20,7 @@ public class PlotConstructionMarket : PlotConstruction
 			BuildHouse();
 		}
 	}
-    public float[] UpgradeOffset { get => _upgradeOffset; }
+	public float UpgradePrice;
 
 
 	private Transform _buildPoint;
@@ -32,7 +30,6 @@ public class PlotConstructionMarket : PlotConstruction
 
 	//  Fields ----------------------------------------
 	[SerializeField] protected int _level;
-	protected float[] _upgradeOffset;
 
 
 	//  Initialization --------------------------------
@@ -44,7 +41,7 @@ public class PlotConstructionMarket : PlotConstruction
 	public int UpgradeFee(int from, int to)
 	{
 		float sum = 0;
-		for (; from < to; from++) sum += _upgradeOffset[from] * _price;
+		for (; from < to; from++) sum += UpgradePrice;
 		return Mathf.RoundToInt(sum);
 	}
 
@@ -68,6 +65,7 @@ public class PlotConstructionMarket : PlotConstruction
 			player.ChangeMana(2);
 
 			Debug.Log("Pay the rent");
+			_entryFee = baseFee[_level];
 			var entryFee = EntryFee;
 			Debug.Log(entryFee);
 
@@ -110,6 +108,7 @@ public class PlotConstructionMarket : PlotConstruction
 	public void Upgrade(int level)
     {
 		_level = level;
+		_entryFee = baseFee[_level];
 		BuildHouse();
     }
 
@@ -158,8 +157,6 @@ public class PlotConstructionMarket : PlotConstruction
         {
 			Firework = Instantiate(_fireworkPrefab);
         }
-
-		_upgradeOffset = new float[] { 0.15f, 0.15f, 0.15f, 0.15f, 0.15f, };
 
 	}
 
