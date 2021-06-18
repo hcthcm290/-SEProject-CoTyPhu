@@ -163,7 +163,7 @@ public class Bank: MonoBehaviour
 			TurnDirector.Ins.NotifyPlayerLose(player.Id);
 		}
 
-		AddGoldNotification(amount, player);
+		AddGoldNotification(-amount, player);
 
 		GoldChange.Invoke(player);
 	}

@@ -650,19 +650,19 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
         {
             if (plot.Id == PLOT.START)
             {
-                dest_look= new Vector3(0, 90, 0);
+                dest_look= new Vector3(0, 0, 0);
             }
             if (plot.Id == PLOT.PRISON)
             {
-                dest_look = new Vector3(0, 180, 0);
+                dest_look = new Vector3(0, 90, 0);
             }
             if (plot.Id == PLOT.FESTIVAL)
             {
-                dest_look = new Vector3(0, 270, 0);
+                dest_look = new Vector3(0, 180, 0);
             }
             if (plot.Id == PLOT.TRAVEL)
             {
-                dest_look = new Vector3(0, 0, 0);
+                dest_look = new Vector3(0, 270, 0);
             }
         }
     }
@@ -673,19 +673,19 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
         {
             if ((int)plot.Id / 8 == 0)
             {
-                dest_look = new Vector3(0, 90, 0);
+                dest_look = new Vector3(0, 0, 0);
             }
             if ((int)plot.Id / 8 == 1)
             {
-                dest_look = new Vector3(0, 180, 0);
+                dest_look = new Vector3(0, 90, 0);
             }
             if ((int)plot.Id / 8 == 2)
             {
-                dest_look = new Vector3(0, 270, 0);
+                dest_look = new Vector3(0, 180, 0);
             }
             if ((int)plot.Id / 8 == 3)
             {
-                dest_look = new Vector3(0, 0, 0);
+                dest_look = new Vector3(0, 270, 0);
             }
         }
     }

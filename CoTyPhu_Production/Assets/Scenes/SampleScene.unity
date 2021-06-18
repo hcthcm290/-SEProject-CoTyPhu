@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8423,5 +8423,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas Camera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2098304802303702699, guid: 008546c44977c6a4f84248fa04365594,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2098304802303702698, guid: 008546c44977c6a4f84248fa04365594, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 008546c44977c6a4f84248fa04365594, type: 3}
