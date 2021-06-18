@@ -82,6 +82,8 @@ public class PlotEvent : Plot
             TurnDirector.Ins.EndOfPhase();
         });
         //*/
+        NotifyPlotEnter(obj);
+
         return result;
     }
 }

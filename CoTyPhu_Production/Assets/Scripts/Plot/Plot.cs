@@ -169,11 +169,15 @@ public class Plot : MonoBehaviour
     }
     public virtual IAction ActionOnEnter(Player obj)
     {
-        if(obj.MinePlayer)
+        return new LambdaAction(() =>
         {
-            TurnDirector.Ins.EndOfPhase();
-        }
-        return null;
+            NotifyPlotEnter(obj);
+
+            if (obj.MinePlayer && TurnDirector.Ins.IdPhase == Phase.Stop)
+            {
+                TurnDirector.Ins.EndOfPhase();
+            }
+        });
     }
 
     public void ActiveOnLeave(dynamic obj)

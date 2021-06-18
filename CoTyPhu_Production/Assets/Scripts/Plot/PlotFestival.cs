@@ -65,7 +65,7 @@ public class PlotFestival : Plot
             }
 
             TileChooserManager.GetInstance().Listen(action, action, banned, 10f);
-        });
+        }, base.ActionOnEnter(obj));
 	}
 
     //  Event Handlers --------------------------------
@@ -126,9 +126,6 @@ public class FestivalAction : IPlotChooserAction, ITurnListener
         {
             Debug.Log("Festival: Invalid Plot chosen.");
         }
-
-        if (player.MinePlayer)
-            TurnDirector.Ins.EndOfPhase();
     }
 
     public void OnBeginTurn(int idPlayer)

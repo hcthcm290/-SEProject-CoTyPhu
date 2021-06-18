@@ -42,6 +42,8 @@ public class PlotTravel: Plot
                 10f);
         });
 
+        NotifyPlotEnter(obj);
+
         return result;
     }
 
