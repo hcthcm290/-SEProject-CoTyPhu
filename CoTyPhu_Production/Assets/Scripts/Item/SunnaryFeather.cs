@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class SunnaryFeather : SunnaryItem, IPlotPassByListener
 {
+    public const int maxItemGrant = 4;
     #region Base class override
     public SunnaryWings wingsPrefab;
 
@@ -61,7 +62,7 @@ public class SunnaryFeather : SunnaryItem, IPlotPassByListener
 
         int playerItemSlotRemaining = Owner.itemLimit - Owner.playerItem.Count;
 
-        int itemToAdd = Mathf.Min(playerItemSlotRemaining, SunnaryActivationCount, 4);
+        int itemToAdd = Mathf.Min(playerItemSlotRemaining, SunnaryActivationCount, maxItemGrant);
 
         for (int i = 0; i < itemToAdd; i++)
             Owner.AddItem(Instantiate(wingsPrefab));

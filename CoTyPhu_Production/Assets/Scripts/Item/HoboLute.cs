@@ -61,6 +61,11 @@ public class HoboLute : BaseItem, IPlotEnterListener, ITurnListener
             base.Owner = value;
         }
     }
+
+    public override List<Transform> TargetLocations()
+    {
+        return new List<Transform>();
+    }
     #endregion
 
     // Start is called before the first frame update
@@ -94,6 +99,8 @@ public class HoboLute : BaseItem, IPlotEnterListener, ITurnListener
                 _statusBbPrice.targetPlot = plotConstruction;
 
                 Debug.Log("Hobo's Lute activated");
+                Activate("");
+
                 _statusBbPrice.StartListen();
                 _statusHirePrice.StartListen();
 

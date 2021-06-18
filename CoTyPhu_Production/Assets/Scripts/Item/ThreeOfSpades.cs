@@ -80,4 +80,9 @@ public class ThreeOfSpades : BaseItem, ITransactionModifier
     {
         LoadData();
     }
+
+    public override List<Transform> TargetLocations()
+    {
+        return new List<Transform>();
+    }
 }

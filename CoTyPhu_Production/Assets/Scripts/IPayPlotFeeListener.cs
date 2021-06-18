@@ -7,4 +7,5 @@ using System.Threading.Tasks;
 public interface IPayPlotFeeListener
 {
     void OnPayPlotFee(Player player, PlotConstruction plot);
+    PLOT? AssignedPlot { get; set; }
 }

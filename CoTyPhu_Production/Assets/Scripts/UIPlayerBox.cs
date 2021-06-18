@@ -17,11 +17,13 @@ public class UIPlayerBox : MonoBehaviourPun
     [SerializeField] Text goldTable;
     [SerializeField] Bank bank;
     #endregion
+    public static Dictionary<Player, UIPlayerBox> UILocation = new Dictionary<Player, UIPlayerBox>(); 
     public Player player;
 
     public void Init(Player initPlayer)
     {
         player = initPlayer;
+        UILocation[player] = this;
         SetInfo();
     }
 

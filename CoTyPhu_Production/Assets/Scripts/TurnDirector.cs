@@ -46,6 +46,8 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         }
     }
 
+    public Phase IdPhase { get => _idPhase; set => _idPhase = value; }
+
     public Dictionary<Phase, string> phaseName = new Dictionary<Phase, string>
     {
         { Phase.Dice, "Dice"},
@@ -238,11 +240,11 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     private void _EndOfPhaseServer()
     {
         var nextIdPlayerTurn = _idPlayerTurn;
-        var nextIdPhase = _idPhase;
+        var nextIdPhase = IdPhase;
 
         if (PhotonNetwork.IsMasterClient)
         {
-            switch (_idPhase)
+            switch (IdPhase)
             {
                 case Phase.Dice:
                     nextIdPhase = Phase.Move;
@@ -353,7 +355,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     [PunRPC]
     private void HandlePassPlotStartServer(int idPlayer, string idClient)
     {
-        if(IsMyTurn(idPlayer) && _idPhase == Phase.Move)
+        if(IsMyTurn(idPlayer) && IdPhase == Phase.Move)
         {
             _hasPassPlotStart = true;
         }
@@ -361,7 +363,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
 
     public void NotifyPassPlotStart(Player player)
     {
-        if(IsMyTurn(player.Id) && _idPhase == Phase.Move)
+        if(IsMyTurn(player.Id) && IdPhase == Phase.Move)
         {
             photonView.RPC("HandlePassPlotStartServer", RpcTarget.MasterClient, player.Id, PhotonNetwork.LocalPlayer.UserId);
         }

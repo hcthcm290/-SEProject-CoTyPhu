@@ -141,7 +141,9 @@ public class Plot : MonoBehaviour
         else
             y = (Mathf.Min(num, 32 - num) % 8 - 4) * blockMinorSide;
 
-        transform.localPosition = new Vector3(y, 0, x);
+        //Debug.Log(transform.parent.parent.localScale);
+
+        transform.position = (new Vector3(y, 0, x)) + transform.parent.position;
     }
     public virtual void Update()
     {
@@ -167,12 +169,15 @@ public class Plot : MonoBehaviour
     }
     public virtual IAction ActionOnEnter(Player obj)
     {
-        if(obj.MinePlayer)
+        return new LambdaAction(() =>
         {
             NotifyPlotEnter(obj);
-            TurnDirector.Ins.EndOfPhase();
-        }
-        return null;
+
+            if (obj.MinePlayer && TurnDirector.Ins.IdPhase == Phase.Stop)
+            {
+                TurnDirector.Ins.EndOfPhase();
+            }
+        });
     }
 
     public void ActiveOnLeave(dynamic obj)

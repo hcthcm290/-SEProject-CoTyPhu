@@ -6,6 +6,7 @@ using Photon.Realtime;
 
 public class Dice: MonoBehaviourPunCallbacks
 {
+    static string room = "Long";
     #region Singletone
 
     private static Dice _ins;

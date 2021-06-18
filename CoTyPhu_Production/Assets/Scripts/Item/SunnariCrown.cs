@@ -65,6 +65,7 @@ public class SunnariCrown : BaseItem, IPlotPassByListener
             if (plot.Id == PLOT.FESTIVAL)
             {
                 Debug.Log("Activate Sunnari Crown");
+                Activate("");
 
                 Owner.ChangeMana(1);
 
