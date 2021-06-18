@@ -62,9 +62,9 @@ public class HoboLute : BaseItem, IPlotEnterListener, ITurnListener
         }
     }
 
-    public override List<Transform> TargetLocations()
+    public override List<Vector3> TargetLocations()
     {
-        return new List<Transform>();
+        return new List<Vector3>();
     }
     #endregion
 

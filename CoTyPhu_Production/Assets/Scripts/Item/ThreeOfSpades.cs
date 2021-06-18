@@ -81,8 +81,8 @@ public class ThreeOfSpades : BaseItem, ITransactionModifier
         LoadData();
     }
 
-    public override List<Transform> TargetLocations()
+    public override List<Vector3> TargetLocations()
     {
-        return new List<Transform>();
+        return new List<Vector3>();
     }
 }

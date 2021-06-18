@@ -17,8 +17,13 @@ public class UIPlayerBox : MonoBehaviourPun
     [SerializeField] Text goldTable;
     [SerializeField] Bank bank;
     #endregion
+
     public static Dictionary<Player, UIPlayerBox> UILocation = new Dictionary<Player, UIPlayerBox>(); 
     public Player player;
+    public Image MerchantImage
+    {
+        get => merchantImage;
+    }
 
     public void Init(Player initPlayer)
     {
@@ -139,6 +144,7 @@ public class UIPlayerBox : MonoBehaviourPun
         player.ManaChange += SetMana;
         bank.GoldChange += ListenGoldChange;
         player.ActivateChange += SetActivateSkill;
+        UILocation[player] = this;
         transform.Find("FloatingNotification").GetComponent<FloatingNotification>().Owner = player;
     }
 

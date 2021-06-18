@@ -94,14 +94,14 @@ public abstract class BaseItem : MonoBehaviour
 
 		MoveToCenter(new LambdaAction(() =>
 		{
-			List<Transform> targets = TargetLocations();
+			List<Vector3> targets = TargetLocations();
 
 			var prefab = PrefabContainer.Ins.magicOrb;
 
 			foreach (var target in targets)
             {
 				var orb = Instantiate(prefab);
-				Vector3 targetPos = orb.targetPos = target.position;
+				Vector3 targetPos = orb.targetPos = target;
 				Vector3 pivotOffset = new Vector3(rng.Next(0,15), rng.Next(0, 15), rng.Next(0, 15));
 				Vector3 initialPos = orb.transform.position;
 				orb.pivotPos = initialPos - pivotOffset;
@@ -127,7 +127,7 @@ public abstract class BaseItem : MonoBehaviour
 	public void MoveToCenter(IAction onComplete = null)
     {
 		if (Owner != null)
-			transform.parent = UIPlayerBox.UILocation[Owner].transform.Find("PlayerBox/MerchantImage");
+			transform.parent = UIPlayerBox.UILocation[Owner].MerchantImage.transform;
 		else return;
 
 		// TODO: Add glow
@@ -138,30 +138,35 @@ public abstract class BaseItem : MonoBehaviour
 		moveComponent.Target = new Vector3(0, 0, 0);
     }
 
-	protected List<Transform> InvolvedLocations = new List<Transform>();
-	public virtual List<Transform> TargetLocations()
+	protected List<Vector3> InvolvedLocations = new List<Vector3>();
+	public virtual List<Vector3> TargetLocations()
     {
-		List<Transform> ans = InvolvedLocations;
+		List<Vector3> ans = InvolvedLocations;
 
 		if (this is IPlotChooserAction)
         {
 			PLOT? plot = (this as IPlotChooserAction).plot;
 			if (plot != null)
-				ans.Add(Plot.plotDictionary[plot.Value].transform);
+				ans.Add(Plot.plotDictionary[plot.Value].transform.position);
         }
 
 		if (this is IPayPlotFeeListener)
         {
 			PLOT? plot = (this as IPayPlotFeeListener).AssignedPlot;
 			if (plot != null)
-				ans.Add(Plot.plotDictionary[plot.Value].transform);
+				ans.Add(Plot.plotDictionary[plot.Value].transform.position);
 		}
 
 		// If there is no Target Location found,
 		// Assume Item is Self-buff, and target the Owner
 		if (ans.Count == 0 && Owner != null)
-			ans.Add(UIPlayerBox.UILocation[Owner].transform.Find("PlayerBox/MerchantImage"));
-		
+        {
+			Vector3 targetPosition = UIPlayerBox.UILocation[Owner].MerchantImage.transform.position;
+			targetPosition = Camera.main.ScreenToWorldPoint(targetPosition);
+			ans.Add(targetPosition);
+
+		}
+
 		return ans;
     }
 }

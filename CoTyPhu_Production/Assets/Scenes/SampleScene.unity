@@ -1800,6 +1800,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 920204561}
+  - component: {fileID: 920204562}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1834,6 +1835,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &920204562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920204560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45796efb422c0fe42917895ec38b536d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magicOrb: {fileID: 5575443381073036177, guid: bda0732692559304e8a6ef1ad924948f,
+    type: 3}
 --- !u!114 &930710967 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6860896141438205144, guid: 3b9b2226417ad534faef40d560f9bc85,
@@ -7189,6 +7204,7 @@ MonoBehaviour:
   _id: 16
   _name: Festival
   _description: 
+  _statusPrefab: {fileID: 0}
 --- !u!1 &7294645263144613790
 GameObject:
   m_ObjectHideFlags: 0
