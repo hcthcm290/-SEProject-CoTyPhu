@@ -90,6 +90,8 @@ public class PlotPrison : Plot, IDiceListener, ITurnListener
     {
 		return new LambdaAction(() =>
 		{
+			NotifyPlotEnter(obj);
+
 			Imprison(obj);
 
 			if(obj.MinePlayer)

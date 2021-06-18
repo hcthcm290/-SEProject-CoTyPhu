@@ -169,6 +169,7 @@ public class Plot : MonoBehaviour
     {
         if(obj.MinePlayer)
         {
+            NotifyPlotEnter(obj);
             TurnDirector.Ins.EndOfPhase();
         }
         return null;

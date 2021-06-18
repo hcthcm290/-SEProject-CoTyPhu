@@ -18,6 +18,8 @@ public class PlotTax : Plot
     {
         return new LambdaAction(() =>
         {
+            NotifyPlotEnter(player);
+
             // Calculate the tax fee
             int currentPlayerMoney = Bank.Ins.MoneyPlayer(player);
             int totalPlotNetworth = 0;

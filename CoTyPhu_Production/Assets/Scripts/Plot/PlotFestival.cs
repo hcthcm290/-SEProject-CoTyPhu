@@ -35,6 +35,7 @@ public class PlotFestival : Plot
 		PLOT plot = new PLOT();
 		return new LambdaAction(() =>
 		{
+			NotifyPlotEnter(obj);
 			this.ApplyFestivalEffect(plot);
 		});
 	}

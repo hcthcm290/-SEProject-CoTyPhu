@@ -15,6 +15,7 @@ public class PlotLuckyDraw : Plot
     {
         return new LambdaAction(() =>
         {
+            NotifyPlotEnter(player);
             Bank.Ins.TakeLuckyDrawMoney(player, Bank.Ins.LuckyDrawMoney);
 
             if (player.MinePlayer)

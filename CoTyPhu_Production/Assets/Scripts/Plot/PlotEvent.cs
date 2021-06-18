@@ -34,6 +34,7 @@ public class PlotEvent : Plot
     }
     public override IAction ActionOnEnter(Player obj)
     {
+
         // Get specific event
         EventAction eventAction = EventListManager.GetInstance().GetAction(obj);
 
@@ -42,6 +43,9 @@ public class PlotEvent : Plot
 
         LambdaCompletableAction action = new LambdaCompletableAction(null);                 // 3
         action.preAction = () => {
+            
+            NotifyPlotEnter(obj);
+
             EventDeck.SetActive(true);                                                      // 1
             // Create Event Card 
             GameObject EventCardModel = Instantiate(EventModel);

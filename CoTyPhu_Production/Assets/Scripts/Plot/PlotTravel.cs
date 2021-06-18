@@ -30,6 +30,8 @@ public class PlotTravel: Plot
     {
         IAction result = new LambdaAction(() => 
         {
+            NotifyPlotEnter(obj);
+
             var tileChooser = TileChooserManager.GetInstance();
 
             ActionTravel travel = new ActionTravel(obj);
