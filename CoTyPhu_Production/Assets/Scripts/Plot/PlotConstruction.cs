@@ -54,6 +54,7 @@ public class PlotConstruction: Plot
                 {
 					_price = Mathf.RoundToInt(basePrice);
                 }
+
 				float delta = 0;
 
 				List<IBuyBackPriceChange> listBbStatus = new List<IBuyBackPriceChange>(_listStatusBbPrice);
