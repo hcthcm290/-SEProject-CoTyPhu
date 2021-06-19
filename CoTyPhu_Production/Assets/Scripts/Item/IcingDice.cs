@@ -51,7 +51,6 @@ public class IcingDice : BaseItem, ITurnListener, IPlotEnterListener
             }
         }
         base.Remove(triggerEvent);
-        Destroy(this.gameObject);
         return true;
     }
     public override bool Activate(string activeCase)

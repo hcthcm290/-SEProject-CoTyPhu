@@ -30,7 +30,7 @@ public class B1Event : EventAction, ITransaction
         foreach(Player player in (Source as List<Player>))
             Bank.Ins.TakeMoney(player, moneyAmount);
 
-        if (target.MinePlayer)
+        if (target.MinePlayer && TurnDirector.Ins.IdPhase == Phase.Stop)
             TurnDirector.Ins.EndOfPhase();
     }
 }

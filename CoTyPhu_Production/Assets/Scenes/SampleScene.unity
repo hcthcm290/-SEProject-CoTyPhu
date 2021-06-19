@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.56452316, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7204,7 +7204,8 @@ MonoBehaviour:
   _id: 16
   _name: Festival
   _description: 
-  _statusPrefab: {fileID: 0}
+  _statusPrefab: {fileID: 870394057870898843, guid: da5b3119cf8dc8b4c934aadf6dad0b53,
+    type: 3}
 --- !u!1 &7294645263144613790
 GameObject:
   m_ObjectHideFlags: 0

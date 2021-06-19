@@ -26,7 +26,6 @@ public class SunnariNecklace : SunnaryItem, IPlotPassByListener, IPayPlotFeeList
         {
             if (player==Owner)
             {
-                base.Activate("");
                 
                 foreach (var plot_temp in Plot.BuildingPlot)
                 {
@@ -41,6 +40,7 @@ public class SunnariNecklace : SunnaryItem, IPlotPassByListener, IPayPlotFeeList
                     plotResult.AddStatus(status);
                     AssignedPlot = plotResult.Id;
                 }
+                Activate("");
                 player.RemoveItem(this);
             }    
         }    

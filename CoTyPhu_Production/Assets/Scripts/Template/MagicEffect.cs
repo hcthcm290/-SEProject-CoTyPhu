@@ -16,6 +16,7 @@ public class MagicEffect : MonoBehaviour
     private Vector3 pivotToInitial;
 
     private bool hasStart = false;
+    public IAction onComplete;
 
     public bool HasStart
     {
@@ -23,7 +24,11 @@ public class MagicEffect : MonoBehaviour
         {
             if (hasStart == false && value == true)
                 Init();
+            bool prev = hasStart;
             hasStart = value;
+            if (prev == true && value == false)
+                onComplete?.PerformAction();
+                
         }
     }
 

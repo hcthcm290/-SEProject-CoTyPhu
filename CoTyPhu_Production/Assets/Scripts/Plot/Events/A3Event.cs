@@ -27,7 +27,7 @@ public class A3Event : EventAction, ITransaction
     public override void PerformAction()
     {
         Bank.Ins.TakeMoney(target, moneyAmount);
-        if (target.MinePlayer)
+        if (target.MinePlayer && TurnDirector.Ins.IdPhase == Phase.Stop)
             TurnDirector.Ins.EndOfPhase();
     }
 }

@@ -89,26 +89,13 @@ public abstract class BaseItem : MonoBehaviour
 
 	public virtual bool Activate(string activeCase)
     {
+		
+
 		if(ItemActivate != null)
 			ItemActivate.Invoke(Id);
 
-		MoveToCenter(new LambdaAction(() =>
-		{
-			List<Vector3> targets = TargetLocations();
-
-			var prefab = PrefabContainer.Ins.magicOrb;
-
-			foreach (var target in targets)
-            {
-				var orb = Instantiate(prefab);
-				Vector3 targetPos = orb.targetPos = target;
-				Vector3 pivotOffset = new Vector3(rng.Next(0,15), rng.Next(0, 15), rng.Next(0, 15));
-				Vector3 initialPos = orb.transform.position;
-				orb.pivotPos = initialPos - pivotOffset;
-				orb.HasStart = true;
-            }
-		}));
-
+		Destroy(gameObject);
+		
 		return true;
     }
 
@@ -124,18 +111,59 @@ public abstract class BaseItem : MonoBehaviour
 
 
 	//  Splash effect on use
+	public void AnimationEffect(IAction onComplete = null)
+    {
+		var animation = Instantiate(this);
+
+		animation.MoveToCenter(new LambdaAction(() =>
+		{
+			List<Vector3> targets = TargetLocations();
+
+			var prefab = PrefabContainer.Ins.magicOrb;
+
+			foreach (var target in targets)
+			{
+                MagicEffect orb = Instantiate(prefab);
+				Vector3 targetPos = orb.targetPos = target;
+				Vector3 pivotOffset = new Vector3(rng.Next(0, 15), rng.Next(0, 15), rng.Next(0, 15));
+				Vector3 initialPos = orb.transform.position;
+				orb.pivotPos = initialPos - pivotOffset;
+				orb.HasStart = true;
+				if (orb.onComplete != null)
+				{
+					if (onComplete != null)
+						orb.onComplete.Add(() => onComplete?.PerformAction());
+				}
+				else
+					orb.onComplete = onComplete;
+			}
+		}));
+
+	}
+
 	public void MoveToCenter(IAction onComplete = null)
     {
 		if (Owner != null)
-			transform.parent = UIPlayerBox.UILocation[Owner].MerchantImage.transform;
-		else return;
+		{
+			transform.SetParent(UIPlayerBox.UILocation[Owner].MerchantImage.transform);
+			transform.position = UIPlayerBox.UILocation[Owner].MerchantImage.transform.position;
+			RectTransform t = (transform as RectTransform);
+			t.sizeDelta = t.sizeDelta / 2;
+		}
+		else
+		{
+			Debug.Log("Cannot find item's owner after activation");
+			return;
+		}
 
 		// TODO: Add glow
 
 		MoveStraightEvenly moveComponent = gameObject.AddComponent<MoveStraightEvenly>();
 		if (onComplete != null)
 			moveComponent.ListenTargetReached(onComplete);
-		moveComponent.Target = new Vector3(0, 0, 0);
+		moveComponent.ListenTargetReached(new LambdaAction(() => Destroy(gameObject)));
+		moveComponent.Target = CameraManager.Ins.master.WorldToScreenPoint(new Vector3(0,0,0));
+		moveComponent.speed = (moveComponent.Target - moveComponent.transform.position).magnitude;
     }
 
 	protected List<Vector3> InvolvedLocations = new List<Vector3>();
@@ -162,7 +190,7 @@ public abstract class BaseItem : MonoBehaviour
 		if (ans.Count == 0 && Owner != null)
         {
 			Vector3 targetPosition = UIPlayerBox.UILocation[Owner].MerchantImage.transform.position;
-			targetPosition = Camera.main.ScreenToWorldPoint(targetPosition);
+			targetPosition = CameraManager.Ins.master.ScreenToWorldPoint(targetPosition);
 			ans.Add(targetPosition);
 
 		}
