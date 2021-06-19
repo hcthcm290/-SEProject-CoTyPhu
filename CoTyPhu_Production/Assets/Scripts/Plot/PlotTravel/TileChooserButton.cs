@@ -23,8 +23,10 @@ public class TileChooserButton : MonoBehaviour
     private void Start()
     {
         // Align plot position.
-        float blockMinorSide = 72;
-        float blockMajorSide = 108;
+        float blockMinorSide = 48;
+        float blockMajorSide = 72;
+        float offsetX = 0;
+        float offsetY = 24;
 
         float sideCenter = 3.5f * blockMinorSide + blockMajorSide / 2;
         float x, y;
@@ -38,6 +40,15 @@ public class TileChooserButton : MonoBehaviour
         else
             y = (Mathf.Min(num, 32 - num) % 8 - 4) * blockMinorSide;
 
-        (transform as RectTransform).anchoredPosition = new Vector3(x, y);
+        (transform as RectTransform).anchoredPosition = new Vector3(x + offsetX, y + offsetY);
+        if (num % 8 == 0)
+            (transform as RectTransform).sizeDelta = new Vector2(blockMajorSide, blockMajorSide);
+        else
+        {
+            if (num % 16 < 8)
+                (transform as RectTransform).sizeDelta = new Vector2(blockMajorSide, blockMinorSide);
+            else 
+                (transform as RectTransform).sizeDelta = new Vector2(blockMinorSide, blockMajorSide);
+        }
     }
 }

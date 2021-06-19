@@ -91,7 +91,7 @@ class ActionTravel : IPlotChooserAction, ICompletableAction
 
         System.Action onComplete = () =>
         {
-            Plot.plotDictionary[PLOT.PRISON].ActiveOnEnter(targetPlayer);
+            Plot.plotDictionary[plot.Value].ActiveOnEnter(targetPlayer);
             PerformOnComplete();
         };
 

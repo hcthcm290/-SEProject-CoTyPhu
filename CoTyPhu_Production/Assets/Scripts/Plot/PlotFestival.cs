@@ -38,6 +38,7 @@ public class PlotFestival : Plot
 		{
             // get Action.
             FestivalAction action = new FestivalAction();
+            var defaultAction = base.ActionOnEnter(obj);
             action.player = obj;
             action.statusPrefab = this._statusPrefab;
 
@@ -64,17 +65,25 @@ public class PlotFestival : Plot
                 return;
             }
 
+            if (action.OnActionComplete == null)
+                action.OnActionComplete = defaultAction;
+            else
+                action.OnActionComplete = action.OnActionComplete.Add(defaultAction);
+
             TileChooserManager.GetInstance().Listen(action, action, banned, 10f);
-        }, base.ActionOnEnter(obj));
+        });
 	}
 
     //  Event Handlers --------------------------------
 }
 
-public class FestivalAction : IPlotChooserAction, ITurnListener
+public class FestivalAction : IPlotChooserAction, ITurnListener, ICompletableAction
 {
     PLOT? _plot = null;
     public PLOT? plot { get => _plot; set => _plot = value; }
+    private IAction OnComplete;
+    public IAction OnActionComplete { get => OnComplete; set => OnComplete = value; }
+
     PlotConstruction target;
     public Player player;
     public StatusHirePriceChange statusPrefab;
@@ -126,6 +135,8 @@ public class FestivalAction : IPlotChooserAction, ITurnListener
         {
             Debug.Log("Festival: Invalid Plot chosen.");
         }
+
+        PerformOnComplete();
     }
 
     public void OnBeginTurn(int idPlayer)
@@ -141,5 +152,10 @@ public class FestivalAction : IPlotChooserAction, ITurnListener
     public void OnEndTurn(int idPlayer)
     {
         return;
+    }
+
+    public void PerformOnComplete()
+    {
+        OnComplete?.PerformAction();
     }
 }
