@@ -50,10 +50,6 @@ public class PlotConstruction: Plot
                 {
 					basePrice = EntryFee * 2;
                 }
-				if(this is PlotConstructionTemple)
-                {
-					_price = Mathf.RoundToInt(basePrice);
-                }
 
 				float delta = 0;
 

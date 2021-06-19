@@ -11,6 +11,7 @@ public enum PhaseScreens
     FreeCardUI,
     PlotRebuyUI,
     ShopUI,
+    TempleRebuyUI,
 }
 
 public class StopPhaseUI : MonoBehaviour
@@ -48,8 +49,10 @@ public class StopPhaseUI : MonoBehaviour
     #region Methods
     public void Activate(PhaseScreens screenType, Plot plot)
     {
+        Debug.Log((int)screenType);
         foreach (var screen in listUIScreen)
         {
+            Debug.Log((int)(screen.GetScreenType()));
             if (screen.GetScreenType() == screenType)
             {
                 screen.SetPlot(plot);
