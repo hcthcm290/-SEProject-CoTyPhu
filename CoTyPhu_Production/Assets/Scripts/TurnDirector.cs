@@ -205,9 +205,9 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         }
 
         player.gameObject.SetActive(true);
-        player.LockMerchant(merchantPreb);
         player.Id = id;
         player.Name = playerName;
+        player.LockMerchant(merchantPreb);
         _listPlayer.Add(player);
         Bank.Ins.AddPlayer(player);
     }

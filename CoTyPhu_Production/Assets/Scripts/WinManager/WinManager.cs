@@ -43,7 +43,7 @@ namespace WinCondition
         WinCondition[] winConditions =
         {
             WinConditionBank.GetInstance(),
-            //WinConditionLastStand.GetInstance(),
+            WinConditionLastStand.GetInstance(),
             WinConditionMarket.GetInstance(),
             WinConditionTemple.GetInstance()
         };

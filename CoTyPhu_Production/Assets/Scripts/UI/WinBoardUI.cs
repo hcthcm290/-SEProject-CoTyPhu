@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class WinBoardUI : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class WinBoardUI : MonoBehaviour
     {
         public MerchantTag tag;
         public GameObject merchant;
+        public Sprite splashScreen;
     }
     #region UI properties
     [SerializeField] Image background;
@@ -20,6 +22,8 @@ public class WinBoardUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI winDescription;
     [SerializeField] List<PlayerResultCard> playerResultCards;
     [SerializeField] List<RawMerchantPrefabPair> rawMerchantResources;
+    [SerializeField] List<Sprite> rankSprites;
+    [SerializeField] GameObject WinDescriptionBoard;
     #endregion
 
     private void OnEnable()
@@ -30,7 +34,7 @@ public class WinBoardUI : MonoBehaviour
         }
 
         List<Player> finalListPlayer = new List<Player>(TurnDirector.Ins.ListPlayer);
-        finalListPlayer.OrderBy(player => player.Rank);
+        finalListPlayer.OrderByDescending(player => player.Rank);
         for (int i = 0; i < finalListPlayer.Count; i++)
         {
             var player = finalListPlayer[i];
@@ -38,6 +42,32 @@ public class WinBoardUI : MonoBehaviour
 
             var rawMerchantPrefab = rawMerchantResources.Find(x => x.tag == player.GetMerchant().TagName).merchant;
             playerResultCards[i].SetInfo(player, rawMerchantPrefab);
+
+            if(player.MinePlayer)
+            {
+                rankImage.sprite = rankSprites[player.Rank - 1];
+            }
+
+            if(player.Rank == 1)
+            {
+                background.sprite = rawMerchantResources.Find(x => x.tag == player.GetMerchant().TagName).splashScreen;
+            }
         }
+    }
+
+    public void SetWinDescription(string title, string description)
+    {
+        winTitle.text = title;
+        winDescription.text = description;
+    }
+
+    public void ToggleWinDescriptionOnOff()
+    {
+        WinDescriptionBoard.SetActive(!WinDescriptionBoard.activeSelf);
+    }
+
+    public void Continue()
+    {
+        SceneManager.LoadScene("WaitingRoomScene");
     }
 }

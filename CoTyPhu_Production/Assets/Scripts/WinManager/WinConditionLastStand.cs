@@ -10,7 +10,7 @@ namespace WinCondition
     public class WinConditionLastStand : WinCondition
     {
         // The Win Splash screen to be shown when this victory is achieved.
-        public GameObject WinScreen;
+        public WinBoardUI WinScreen;
 
         // Get Singleton Instance
         static public WinConditionLastStand GetInstance()
@@ -34,7 +34,8 @@ namespace WinCondition
 
         public override void ShowWinScreen()
         {
-            WinScreen?.SetActive(true);
+            WinScreen.SetWinDescription(WinName, WinDescription);
+            WinScreen.gameObject.SetActive(true);
         }
         // Get an Action corresponding to Checking this WinCondition
         static IAction GetWinConCheckAction()

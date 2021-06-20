@@ -14,14 +14,14 @@ public class PlayerResultCard : MonoBehaviour
 
     public void SetInfo(Player player ,GameObject merchantPrefab)
     {
-        if(merchant != null)
-        {
-            Destroy(merchant);
-        }
-        merchant = Instantiate(merchantPrefab, transform);
-        var merchantLocalPosition = merchant.transform.localPosition;
-        merchantLocalPosition.z = -100;
-        merchant.transform.localPosition = merchantLocalPosition;
+        //if(merchant != null)
+        //{
+        //    Destroy(merchant);
+        //}
+        //merchant = Instantiate(merchantPrefab, transform);
+        //var merchantLocalPosition = merchant.transform.localPosition;
+        //merchantLocalPosition.z = -100;
+        //merchant.transform.localPosition = merchantLocalPosition;
         playerName.text = player.Name;
         playerNetworth.text = $"Networth {player.CalculateNetworth()}";
     }
