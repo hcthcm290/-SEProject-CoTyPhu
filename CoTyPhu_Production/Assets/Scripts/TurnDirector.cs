@@ -273,7 +273,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     nextIdPhase = Phase.Dice;
                     nextIdPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
                     while (GetPlayer(nextIdPlayerTurn).HasLost && nextIdPlayerTurn != _idPlayerTurn)
-                        nextIdPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
+                        nextIdPlayerTurn = (nextIdPlayerTurn + 1) % _listPlayer.Count;
 
                     Debug.Log("Turn director: to next player");
 
@@ -303,7 +303,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     break;
             }
 
-            photonView.RPC("_StartPhase", RpcTarget.All, nextIdPlayerTurn, (int)nextIdPhase);
+            photonView.RPC("_StartPhase", RpcTarget.AllBufferedViaServer, nextIdPlayerTurn, (int)nextIdPhase);
         }
     }
 
@@ -388,6 +388,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         int playerLostCount = _listPlayer.Count(player => player.HasLost == true);
         player.HasLost = true;
         player.FinalNetworth = player.CalculateNetworth();
+        player.PlayLostAnimation();
 
         Debug.Log($"Player {player.Name} lost");
 

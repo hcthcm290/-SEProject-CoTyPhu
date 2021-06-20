@@ -901,6 +901,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7419993695926078230, guid: 5b95f0abb35e18940af36b8b7e5ad5ff,
+        type: 3}
+      propertyPath: WinScreen
+      value: 
+      objectReference: {fileID: 6024102223735430828}
+    - target: {fileID: 7419993695926078231, guid: 5b95f0abb35e18940af36b8b7e5ad5ff,
+        type: 3}
+      propertyPath: WinScreen
+      value: 
+      objectReference: {fileID: 6024102223735430828}
+    - target: {fileID: 7419993695926078232, guid: 5b95f0abb35e18940af36b8b7e5ad5ff,
+        type: 3}
+      propertyPath: WinScreen
+      value: 
+      objectReference: {fileID: 6024102223735430828}
+    - target: {fileID: 7419993695926078233, guid: 5b95f0abb35e18940af36b8b7e5ad5ff,
+        type: 3}
+      propertyPath: DrawScreen
+      value: 
+      objectReference: {fileID: 6024102223735430828}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b95f0abb35e18940af36b8b7e5ad5ff, type: 3}
 --- !u!4 &467684557 stripped
@@ -3242,7 +3262,7 @@ PrefabInstance:
     - target: {fileID: 2884856353204831805, guid: b5a3b53b8d4c8c64d9fe50646f137940,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2884856354506023832, guid: b5a3b53b8d4c8c64d9fe50646f137940,
         type: 3}
@@ -3357,7 +3377,7 @@ PrefabInstance:
     - target: {fileID: 2884856354506023833, guid: b5a3b53b8d4c8c64d9fe50646f137940,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2884856354506023835, guid: b5a3b53b8d4c8c64d9fe50646f137940,
         type: 3}
@@ -3367,12 +3387,12 @@ PrefabInstance:
     - target: {fileID: 2884856354920988307, guid: b5a3b53b8d4c8c64d9fe50646f137940,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2884856354920988307, guid: b5a3b53b8d4c8c64d9fe50646f137940,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5a3b53b8d4c8c64d9fe50646f137940, type: 3}
@@ -4040,7 +4060,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
@@ -5365,6 +5385,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964176bced8d54a47ab543f69b400805, type: 3}
+--- !u!1 &6024102223735430828 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3656608591207909450, guid: 964176bced8d54a47ab543f69b400805,
+    type: 3}
+  m_PrefabInstance: {fileID: 6024102223735430827}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6162285271066229789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8575,5 +8601,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas Camera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2098304802303702698, guid: 008546c44977c6a4f84248fa04365594, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 008546c44977c6a4f84248fa04365594, type: 3}

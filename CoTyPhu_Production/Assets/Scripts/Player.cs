@@ -22,21 +22,6 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
     public bool HasLost { get => hasLost;
         set 
         {
-            if(value == true)
-            {
-                if(minePlayer)
-                {
-                    lostNotifier.text = $"You lose";
-                }
-                else
-                {
-                    lostNotifier.text = $"{Name} lose";
-                }
-                lostNotifier.transform.DOScale(1, 1f).onComplete = () =>
-                {
-                    lostNotifier.transform.DOScale(0, 1f);
-                };
-            }
             hasLost = value;
         } 
     }
@@ -615,6 +600,26 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
     public event ItemChangeHandler ItemsChange;
 
     #region Method
+    public void PlayLostAnimation()
+    {
+        if (minePlayer)
+        {
+            lostNotifier.text = $"You lose";
+        }
+        else
+        {
+            lostNotifier.text = $"{Name} lose";
+        }
+
+        lostNotifier.transform.DOScale(1, 0.5f).onComplete = () =>
+        {
+            FutureTask<bool>.Delay(1).then((bool result) =>
+            {
+                lostNotifier.transform.DOScale(0, 0.5f);
+            });
+        };
+    }
+
     public int CalculateNetworth()
     {
         int currentPlayerMoney = Bank.Ins.MoneyPlayer(this);

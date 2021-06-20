@@ -48,8 +48,20 @@ public class PlotTax : Plot
 
             if(player.MinePlayer)
             {
-                Debug.Log("PlotTax: call end turn");
-                TurnDirector.Ins.EndOfPhase();
+
+                int totalAnimationDelay = 0;
+
+                if(player.HasLost)
+                {
+                    totalAnimationDelay += 2;
+                }
+
+                FutureTask<bool>.Delay(totalAnimationDelay).then((bool result) =>
+                {
+
+                    Debug.Log("PlotTax: call end turn");
+                    TurnDirector.Ins.EndOfPhase();
+                });
             }
         });
     }

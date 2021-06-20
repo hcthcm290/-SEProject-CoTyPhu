@@ -106,22 +106,26 @@ namespace WinCondition
             }
 
 
-            // Set rank for player lost
             int currentRank = TurnDirector.Ins.ListPlayer.Count;
-            
-            listPlayerEndTurn.OrderBy(x => x.Item1); // Sort list player lose by the turn count they pass
 
-            int currentTurnCount = listPlayerEndTurn[0].Item1;
-
-            foreach (var playerEndTurn in listPlayerEndTurn)
+            if (listPlayerEndTurn.Count > 0)
             {
-                if(playerEndTurn.Item1 > currentTurnCount)
-                {
-                    currentRank++;
-                    currentTurnCount = playerEndTurn.Item1;
-                }
+                // Set rank for player lost
 
-                playerEndTurn.Item2.Rank = currentRank;
+                listPlayerEndTurn.OrderBy(x => x.Item1); // Sort list player lose by the turn count they pass
+
+                int currentTurnCount = listPlayerEndTurn[0].Item1;
+
+                foreach (var playerEndTurn in listPlayerEndTurn)
+                {
+                    if (playerEndTurn.Item1 > currentTurnCount)
+                    {
+                        currentRank++;
+                        currentTurnCount = playerEndTurn.Item1;
+                    }
+
+                    playerEndTurn.Item2.Rank = currentRank;
+                }
             }
 
             // Set rank for player that hasn't lost but the winner appear
