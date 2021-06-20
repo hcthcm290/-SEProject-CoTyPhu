@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +24,22 @@ namespace WinCondition
 
     public class WinManager : Singleton<WinManager>
     {
+        // this list container the turn count which player lose
+        List<Pair<int, Player>> listPlayerEndTurn = new List<Pair<int, Player>>();
+
+        public void NotifyPlayerLose(Player player)
+        {
+            if(listPlayerEndTurn.Find(x => x.Item2 == player) != null)
+            {
+                Debug.LogError("Get notified lose for player more than once");
+                return;
+            }
+
+            int turnCount = TurnDirector.Ins.TurnCount;
+            Pair<int, Player> playerEndTurn = new Pair<int, Player>(turnCount, player);
+            listPlayerEndTurn.Add(playerEndTurn);
+        }
+
         WinCondition[] winConditions =
         {
             WinConditionBank.GetInstance(),
@@ -55,31 +72,77 @@ namespace WinCondition
                 ExitGame();
 
             TurnDirector ins = TurnDirector.Ins;
-            Player myPlayer = ins.GetPlayer(ins.MyPlayer);
-            bool hasWon = false;
-            foreach (var item in winConditions)
+
+            List<Player> wonPlayers = new List<Player>();
+            WinCondition wonCondition = null;
+
+            foreach (var winCondition in winConditions)
             {
-                bool won = item.CheckWinner(myPlayer);
-                if (won)
+                bool hasPlayerWon = false;
+
+                foreach(var player in TurnDirector.Ins.ListPlayer)
                 {
-                    if (!hasWon)
-                        item.ShowWinScreen();
-                    hasWon |= won;
+                    if (player.HasLost) continue;
+
+                    bool won = winCondition.CheckWinner(player);
+                    
+                    if(won)
+                    {
+                        wonPlayers.Add(player);
+                        hasPlayerWon = true;
+                    }
+                }
+
+                if(hasPlayerWon)
+                {
+                    wonCondition = winCondition;
+                    break;
                 }
             }
 
-            // TODO: check hasWon for meta-progression
-            if (hasWon)
-                Debug.LogWarning("player has Won!");
-            // TODO: Next button move to main screen.
-            ExitGame();
+            foreach(var player in wonPlayers)
+            {
+                player.Rank = 1;
+            }
+
+
+            // Set rank for player lost
+            int currentRank = TurnDirector.Ins.ListPlayer.Count;
+            
+            listPlayerEndTurn.OrderBy(x => x.Item1); // Sort list player lose by the turn count they pass
+
+            int currentTurnCount = listPlayerEndTurn[0].Item1;
+
+            foreach (var playerEndTurn in listPlayerEndTurn)
+            {
+                if(playerEndTurn.Item1 > currentTurnCount)
+                {
+                    currentRank++;
+                    currentTurnCount = playerEndTurn.Item1;
+                }
+
+                playerEndTurn.Item2.Rank = currentRank;
+            }
+
+            // Set rank for player that hasn't lost but the winner appear
+            currentRank++;
+            foreach (var player in TurnDirector.Ins.ListPlayer)
+            {
+                if (wonPlayers.Contains(player) || player.HasLost) continue;
+
+                player.Rank = currentRank;
+            }
+
+            wonCondition.ShowWinScreen();
+
+            //ExitGame();
         }
 
         public void ExitGame()
         {
             // TODO: Kick the player to the main screen.
-            SceneManager.CreateScene("WinScreen");
-            SceneManager.LoadScene("WinScreen");
+            // SceneManager.CreateScene("WinScreen");
+            // SceneManager.LoadScene("WinScreen");
         }
 
         static public IAction GetWinCheckAction()

@@ -36,6 +36,13 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     int _playerReadyCount;
     bool _readied = false;
 
+    // count number of turn has pass since the start of the game
+    int turnCount = 0;
+    public int TurnCount
+    {
+        get => turnCount;
+    }
+
     // The player id corresponding to this user.
     [SerializeField] int _myPlayer;
     public int MyPlayer
@@ -268,6 +275,8 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     while (GetPlayer(nextIdPlayerTurn).HasLost && nextIdPlayerTurn != _idPlayerTurn)
                         nextIdPlayerTurn = (_idPlayerTurn + 1) % _listPlayer.Count;
 
+                    Debug.Log("Turn director: to next player");
+
                     if (WinCondition.WinManager.GetInstance().CheckWinner())
                     {
                         photonView.RPC("InformWinners", RpcTarget.AllBufferedViaServer);
@@ -315,6 +324,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
 
             foreach (var listener in listeners)
             {
+                turnCount++;
                 listener.OnEndTurn(_idPlayerTurn);
                 listener.OnBeginTurn(idPlayer);
             }
@@ -369,18 +379,24 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         }
     }
     
+    [PunRPC]
     private void NotifyPlayerLoseClient(int id_player)
     {
+        Debug.Log("Turn director: notify player lost client");
         Player player = GetPlayer(id_player);
 
         int playerLostCount = _listPlayer.Count(player => player.HasLost == true);
         player.HasLost = true;
-        player.Rank = _listPlayer.Count - playerLostCount;
         player.FinalNetworth = player.CalculateNetworth();
+
+        Debug.Log($"Player {player.Name} lost");
+
+        WinCondition.WinManager.GetInstance().NotifyPlayerLose(player);
     }
 
     public void NotifyPlayerLose(int id_player)
     {
+        Debug.Log("Turn director: notify player lost");
         photonView.RPC("NotifyPlayerLoseClient", RpcTarget.AllBufferedViaServer, id_player);
     }
 

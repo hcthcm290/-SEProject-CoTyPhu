@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using DG.Tweening;
 
 [System.Serializable]
 public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEnterListener
@@ -17,7 +19,27 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
         set { _id = value; }
     }
     private bool hasLost = false;
-    public bool HasLost { get => hasLost; set => hasLost = value; }
+    public bool HasLost { get => hasLost;
+        set 
+        {
+            if(value == true)
+            {
+                if(minePlayer)
+                {
+                    lostNotifier.text = $"You lose";
+                }
+                else
+                {
+                    lostNotifier.text = $"{Name} lose";
+                }
+                lostNotifier.transform.DOScale(1, 1f).onComplete = () =>
+                {
+                    lostNotifier.transform.DOScale(0, 1f);
+                };
+            }
+            hasLost = value;
+        } 
+    }
     public MoveStraightEvenly moveComponent = null;
     public PLOT Location_PlotID;
     bool _isBroke;
@@ -46,6 +68,7 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
 
 
     [SerializeField] Button btnRoll;
+    [SerializeField] TextMeshProUGUI lostNotifier;
 
     // Internal, saves the Actions the UI is supposed to do
     ActionList UIActions = new ActionList();

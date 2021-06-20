@@ -41,12 +41,14 @@ public class PlotTax : Plot
 
             int totalTax = (int)(taxFactor * (currentPlayerMoney + totalPlotNetworth));
 
+            Debug.Log("PlotTax: make player pay tax");
             Bank.Ins.TakeMoney(player, totalTax, false);
 
             Bank.Ins.AddMoneyToLuckyDraw(100);
 
             if(player.MinePlayer)
             {
+                Debug.Log("PlotTax: call end turn");
                 TurnDirector.Ins.EndOfPhase();
             }
         });

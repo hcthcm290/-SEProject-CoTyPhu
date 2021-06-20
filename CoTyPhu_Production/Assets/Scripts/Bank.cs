@@ -160,7 +160,12 @@ public class Bank: MonoBehaviour
 		_moneyPlayers.Find(x => x.player == player).money -= amount;
 		if (_moneyPlayer[player] <= 0)
 		{
-			TurnDirector.Ins.NotifyPlayerLose(player.Id);
+			Debug.Log("Bank: player lose all money, bankrupt");
+			if(player.MinePlayer)
+            {
+				Debug.Log("Bank: Notify player lost");
+				TurnDirector.Ins.NotifyPlayerLose(player.Id);
+			}
 		}
 
 		AddGoldNotification(amount, player);
