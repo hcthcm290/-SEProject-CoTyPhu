@@ -2502,11 +2502,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 918916808}
     m_Modifications:
-    - target: {fileID: 2884856353204831805, guid: b5a3b53b8d4c8c64d9fe50646f137940,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2884856354506023832, guid: b5a3b53b8d4c8c64d9fe50646f137940,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2616,11 +2611,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shop UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 2884856354506023833, guid: b5a3b53b8d4c8c64d9fe50646f137940,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2884856354506023835, guid: b5a3b53b8d4c8c64d9fe50646f137940,
         type: 3}

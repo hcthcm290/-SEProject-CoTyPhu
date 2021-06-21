@@ -18,11 +18,11 @@ public class Shop : MonoBehaviour, UIScreen
 
     //Singleton
     public static Shop Ins;
-	//  Events ----------------------------------------
+    //  Events ----------------------------------------
 
 
-	//  Properties ------------------------------------
-	
+    //  Properties ------------------------------------
+    [SerializeField] Text playerMoney;
 
 	public List<BaseItem> ItemInShop
     {
@@ -76,6 +76,8 @@ public class Shop : MonoBehaviour, UIScreen
 
 			
 		}
+
+        playerMoney.text = Bank.Ins.MoneyPlayer(playerUsingShop).ToString();
     }
 
     public void Open(Player p)
