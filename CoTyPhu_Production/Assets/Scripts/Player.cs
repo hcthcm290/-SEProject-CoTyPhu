@@ -29,6 +29,7 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
     public PLOT Location_PlotID;
     bool _isBroke;
     bool _notSubcribeDice = true;
+    bool _notSubcribePlot = true;
     int _rank;
     public int Rank
     {
@@ -96,10 +97,8 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
             Dice.SubscribeDiceListener(this);
             _notSubcribeDice = false;
         }
-        Plot.plotDictionary[PLOT.START].SubcribePlotPassByListener(this);
-        Plot.plotDictionary[PLOT.PRISON].SubcribePlotPassByListener(this);
-        Plot.plotDictionary[PLOT.FESTIVAL].SubcribePlotPassByListener(this);
-        Plot.plotDictionary[PLOT.TRAVEL].SubcribePlotPassByListener(this);
+
+        
         //for(PLOT i = PLOT.START; i <= PLOT.H2; i++)
         //{
         //    Debug.Log(i);
@@ -117,6 +116,15 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
         {
             Dice.SubscribeDiceListener(this);
             _notSubcribeDice = false;
+        }
+
+        if(_notSubcribePlot)
+        {
+            Plot.plotDictionary[PLOT.START].SubcribePlotPassByListener(this);
+            Plot.plotDictionary[PLOT.PRISON].SubcribePlotPassByListener(this);
+            Plot.plotDictionary[PLOT.FESTIVAL].SubcribePlotPassByListener(this);
+            Plot.plotDictionary[PLOT.TRAVEL].SubcribePlotPassByListener(this);
+            _notSubcribePlot = false;
         }
 
         float temp_y = transform.eulerAngles.y;

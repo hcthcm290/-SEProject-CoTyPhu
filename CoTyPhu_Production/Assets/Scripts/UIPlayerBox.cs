@@ -161,7 +161,7 @@ public class UIPlayerBox : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if(player != null)
+        if(player != null && player.GetMerchant() != null)
         {
             var scale = manaBarInside.transform.localScale;
             scale.x = (float)player.GetMana() / player.GetMerchant().MaxMana;
