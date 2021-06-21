@@ -572,6 +572,7 @@ MonoBehaviour:
   manaText: {fileID: 3382845794839931815}
   goldTable: {fileID: 8702671063424585500}
   bank: {fileID: 0}
+  id: 1
   player: {fileID: 0}
 --- !u!1 &1713995178999685159
 GameObject:
@@ -1986,6 +1987,7 @@ MonoBehaviour:
   manaText: {fileID: 6381305148281398905}
   goldTable: {fileID: 655389730922689776}
   bank: {fileID: 0}
+  id: 4
   player: {fileID: 0}
 --- !u!1 &2876406975292189920
 GameObject:
@@ -2043,6 +2045,7 @@ MonoBehaviour:
   manaText: {fileID: 261468371473759667}
   goldTable: {fileID: 8792069122931345681}
   bank: {fileID: 0}
+  id: 3
   player: {fileID: 0}
 --- !u!1 &2876406975394851099
 GameObject:
@@ -3252,6 +3255,7 @@ MonoBehaviour:
   manaText: {fileID: 5910473967815123580}
   goldTable: {fileID: 2682441948076278000}
   bank: {fileID: 0}
+  id: 2
   player: {fileID: 0}
 --- !u!1 &6723902238420018228
 GameObject:
@@ -4352,7 +4356,7 @@ PrefabInstance:
     - target: {fileID: 5680529583996765421, guid: 263354f3acde1014e895b9677688f904,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -75
+      value: 275
       objectReference: {fileID: 0}
     - target: {fileID: 5680529583996765421, guid: 263354f3acde1014e895b9677688f904,
         type: 3}
@@ -4602,7 +4606,7 @@ PrefabInstance:
     - target: {fileID: 5680529583996765421, guid: 263354f3acde1014e895b9677688f904,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -75
+      value: 275
       objectReference: {fileID: 0}
     - target: {fileID: 5680529583996765421, guid: 263354f3acde1014e895b9677688f904,
         type: 3}

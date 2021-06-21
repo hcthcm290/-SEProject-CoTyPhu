@@ -19,6 +19,9 @@ public class UIPlayerBox : MonoBehaviourPun
     [SerializeField] Bank bank;
     #endregion
 
+    // id of the shop ui, if this id is greater to the number of player in room, this ui get disable
+    [SerializeField] int id;
+
     public static Dictionary<Player, UIPlayerBox> UILocation = new Dictionary<Player, UIPlayerBox>(); 
     public Player player;
     public Image MerchantImage
@@ -147,6 +150,11 @@ public class UIPlayerBox : MonoBehaviourPun
         player.ActivateChange += SetActivateSkill;
         UILocation[player] = this;
         transform.Find("FloatingNotification").GetComponent<FloatingNotification>().Owner = player;
+
+        if(id > PhotonNetwork.PlayerList.Length)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
