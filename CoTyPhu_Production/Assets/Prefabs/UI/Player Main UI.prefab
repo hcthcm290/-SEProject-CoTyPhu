@@ -572,6 +572,7 @@ MonoBehaviour:
   manaText: {fileID: 3382845794839931815}
   goldTable: {fileID: 8702671063424585500}
   bank: {fileID: 0}
+  manaBarInside: {fileID: 7458937987058351215}
   id: 1
   player: {fileID: 0}
 --- !u!1 &1713995178999685159
@@ -1987,6 +1988,7 @@ MonoBehaviour:
   manaText: {fileID: 6381305148281398905}
   goldTable: {fileID: 655389730922689776}
   bank: {fileID: 0}
+  manaBarInside: {fileID: 6494319872819468}
   id: 4
   player: {fileID: 0}
 --- !u!1 &2876406975292189920
@@ -2045,6 +2047,7 @@ MonoBehaviour:
   manaText: {fileID: 261468371473759667}
   goldTable: {fileID: 8792069122931345681}
   bank: {fileID: 0}
+  manaBarInside: {fileID: 8680950015891251806}
   id: 3
   player: {fileID: 0}
 --- !u!1 &2876406975394851099
@@ -3255,6 +3258,7 @@ MonoBehaviour:
   manaText: {fileID: 5910473967815123580}
   goldTable: {fileID: 2682441948076278000}
   bank: {fileID: 0}
+  manaBarInside: {fileID: 5904521067677259310}
   id: 2
   player: {fileID: 0}
 --- !u!1 &6723902238420018228

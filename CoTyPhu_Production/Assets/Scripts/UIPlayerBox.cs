@@ -17,6 +17,7 @@ public class UIPlayerBox : MonoBehaviourPun
     [SerializeField] TextMeshProUGUI manaText;
     [SerializeField] Text goldTable;
     [SerializeField] Bank bank;
+    [SerializeField] GameObject manaBarInside;
     #endregion
 
     // id of the shop ui, if this id is greater to the number of player in room, this ui get disable
@@ -160,5 +161,11 @@ public class UIPlayerBox : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+        if(player != null)
+        {
+            var scale = manaBarInside.transform.localScale;
+            scale.x = (float)player.GetMana() / player.GetMerchant().MaxMana;
+            manaBarInside.transform.localScale = scale;
+        }
     }
 }
