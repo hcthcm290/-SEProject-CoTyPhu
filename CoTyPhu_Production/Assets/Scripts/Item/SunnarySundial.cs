@@ -72,6 +72,8 @@ public class SunnarySundial : SunnaryItem, IPlotPassByListener
                 Owner.ChangeMana(totalBonusMana);
 
                 /* Thanh, why didn't you delete the item when it's used?
+                 */
+                // Thanh: My bad bro
                 Owner.RemoveItem(this);
                 ItemManager.Ins.AddItemToPool(this);
                 //*/
