@@ -39,4 +39,14 @@ public class FloatingNotificationManager : MonoBehaviour
             }
         }
     }
+    public void AddItemNotification(string itemName, bool isGain, Player p)
+    {
+        foreach (FloatingNotification f in listNotiBox)
+        {
+            if (f.Owner == p)
+            {
+                f.AddItemNotification(itemName, isGain);
+            }
+        }
+    }
 }

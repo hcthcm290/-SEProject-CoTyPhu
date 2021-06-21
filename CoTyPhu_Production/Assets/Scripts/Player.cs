@@ -579,6 +579,7 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
         playerItem.Add(item);
         item.Owner = this;
         ItemsChange?.Invoke();
+        FloatingNotificationManager.Ins.AddItemNotification(item.Name, true, this);
         return true;
     }
 
@@ -586,6 +587,7 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
     {
         playerItem.Remove(item);
         ItemsChange?.Invoke();
+        FloatingNotificationManager.Ins.AddItemNotification(item.Name, false, this);
 
         return true;
     }
