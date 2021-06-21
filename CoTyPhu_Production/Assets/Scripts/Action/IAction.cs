@@ -109,4 +109,8 @@ public static partial class Extensions
     {
         return new LambdaAction(action, other);
     }
+    public static IAction Add(this IAction action, IAction other)
+    {
+        return new LambdaAction(action, () => other?.PerformAction());
+    }
 }

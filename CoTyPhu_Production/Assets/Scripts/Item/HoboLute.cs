@@ -48,7 +48,8 @@ public class HoboLute : BaseItem, IPlotEnterListener, ITurnListener
     public override bool Remove(bool triggerEvent)
     {
         TurnDirector.Ins.UnsubscribeTurnListener(this);
-        Destroy(this.gameObject);
+
+        Activate("");
         return base.Remove(triggerEvent);
     }
 
@@ -99,7 +100,6 @@ public class HoboLute : BaseItem, IPlotEnterListener, ITurnListener
                 _statusBbPrice.targetPlot = plotConstruction;
 
                 Debug.Log("Hobo's Lute activated");
-                Activate("");
 
                 _statusBbPrice.StartListen();
                 _statusHirePrice.StartListen();

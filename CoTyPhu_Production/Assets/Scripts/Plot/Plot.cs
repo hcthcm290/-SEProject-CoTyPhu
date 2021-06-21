@@ -173,6 +173,7 @@ public class Plot : MonoBehaviour
         {
             NotifyPlotEnter(obj);
 
+            Debug.Log("Plot is ending phase.");
             if (obj.MinePlayer && TurnDirector.Ins.IdPhase == Phase.Stop)
             {
                 TurnDirector.Ins.EndOfPhase();

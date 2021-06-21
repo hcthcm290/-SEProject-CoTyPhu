@@ -29,7 +29,7 @@ public class B2Event : EventAction, ITransaction
     {
         foreach (Player player in (Source as List<Player>))
             Bank.Ins.TransactBetweenPlayers(player, target, moneyAmount);
-        if (target.MinePlayer)
+        if (target.MinePlayer && TurnDirector.Ins.IdPhase == Phase.Stop)
             TurnDirector.Ins.EndOfPhase();
     }
 }

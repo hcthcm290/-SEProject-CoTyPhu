@@ -33,6 +33,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
     int _count = 0;
     bool _hasPassPlotStart = false;
     bool _isShopStart = true;
+    Phase _extraInterruptPhase;
     int _playerReadyCount;
     bool _readied = false;
 
@@ -60,7 +61,8 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         { Phase.Dice, "Dice"},
         { Phase.Move, "Move"},
         { Phase.Stop, "Stop"},
-        { Phase.Extra, "Extra"}
+        { Phase.Extra, "Extra"},
+        { Phase.Shop, "Shop" }
     };
 
     [SerializeField] AvailableMerchants _availableMerchants;

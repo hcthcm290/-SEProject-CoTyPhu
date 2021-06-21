@@ -39,7 +39,7 @@ public class PlotStart : Plot
                 TurnDirector.Ins.NotifyPassPlotStart(obj);
             }
             NotifyPlotPassBy(obj);
-        });
+        }, base.ActionOnPass(obj));
     }
 
 

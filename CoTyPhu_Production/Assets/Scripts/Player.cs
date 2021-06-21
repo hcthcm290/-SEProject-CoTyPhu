@@ -102,7 +102,6 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
         Plot.plotDictionary[PLOT.TRAVEL].SubcribePlotPassByListener(this);
         for(PLOT i = PLOT.START; i <= PLOT.H2; i++)
         {
-            Debug.Log(i);
             Plot.plotDictionary[i].SubcribePlotEnter(this);
         }
         //Thang

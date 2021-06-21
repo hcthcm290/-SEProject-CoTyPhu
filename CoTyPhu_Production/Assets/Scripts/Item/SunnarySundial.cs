@@ -62,7 +62,6 @@ public class SunnarySundial : SunnaryItem, IPlotPassByListener
             if(plot.Id == PLOT.PRISON)
             {
                 Debug.Log("Activate Sunnary Sundial");
-                Activate("");
 
                 PlotPrison prison = plot as PlotPrison;
 
@@ -76,6 +75,8 @@ public class SunnarySundial : SunnaryItem, IPlotPassByListener
                 Owner.RemoveItem(this);
                 ItemManager.Ins.AddItemToPool(this);
                 //*/
+
+                Activate("");
             }
             else
             {

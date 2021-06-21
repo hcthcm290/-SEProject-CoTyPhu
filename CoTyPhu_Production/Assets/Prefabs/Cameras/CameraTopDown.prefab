@@ -51,7 +51,7 @@ MonoBehaviour:
   initialSize: 0
   targetPos: {x: 0, y: 0, z: 0}
   targetRot: {x: 0, y: 0, z: 0, w: 0}
-  targetSize: 10
+  targetSize: 15
   acumulatedTime: 0
   active: 0
   count: 0

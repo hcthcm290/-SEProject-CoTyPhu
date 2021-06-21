@@ -73,7 +73,6 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
                 {
                     Debug.Log("Burning Dice: on my plot enter");
 
-                    Activate("");
                     // Add 1 mana
                     Owner.ChangeMana(1);
 
@@ -111,7 +110,8 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
         {
             activeStatus.targetPlot.UnsubcribePayPlotFee(this);
             activeStatus.Remove(true);
-            Destroy(this.gameObject);
+
+            Activate("");
         }
     }
 

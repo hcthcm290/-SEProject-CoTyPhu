@@ -550,6 +550,9 @@ public class ItemManager : MonoBehaviourPun
             Debug.LogError("player dont have item to active");
             return;
         }
+
+        if (!player.MinePlayer)
+            item.AnimationEffect();
         item.Activate("");
     }
 

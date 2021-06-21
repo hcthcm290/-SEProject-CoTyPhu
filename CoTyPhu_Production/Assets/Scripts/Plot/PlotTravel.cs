@@ -91,7 +91,7 @@ class ActionTravel : IPlotChooserAction, ICompletableAction
 
         System.Action onComplete = () =>
         {
-            targetPlayer.StartPhase(Phase.Stop);
+            Plot.plotDictionary[plot.Value].ActiveOnEnter(targetPlayer);
             PerformOnComplete();
         };
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SunnaryWings : BaseItem, IPlotChooserAction, ICompletableAction
 {
-    static bool canActivate = true;
+    bool canActivate = true;
 
     #region Base class override
     //public override bool CanActivate { get => canActivate; set => canActivate = value; }
@@ -68,13 +68,8 @@ public class SunnaryWings : BaseItem, IPlotChooserAction, ICompletableAction
 
         // DO NOT add item back to Item pool
         // ItemManager.Ins.AddItemToPool(this);
-        OnActionComplete = OnActionComplete.Add(
-            () => { 
-                Destroy(gameObject);
-                canActivate = true;
-            });
 
-        return base.Activate(activeCase);
+        return true;
     }
     #endregion
     #region fields
@@ -86,7 +81,6 @@ public class SunnaryWings : BaseItem, IPlotChooserAction, ICompletableAction
         LoadData();
     }
 
-    Player Owner;
     PLOT? targetPlot;
     PLOT currentPlot { get => Owner.Location_PlotID; }
 
@@ -102,6 +96,8 @@ public class SunnaryWings : BaseItem, IPlotChooserAction, ICompletableAction
 
     public void PerformAction()
     {
+        base.Activate("");
+
         if (plot == null)
             throw new NullReferenceException();
 
@@ -113,6 +109,7 @@ public class SunnaryWings : BaseItem, IPlotChooserAction, ICompletableAction
 
         System.Action onComplete = () =>
         {
+            Plot.plotDictionary[plot.Value].ActiveOnEnter(Owner);
             // Delay the phase a bit.
             PerformOnComplete();
         };
@@ -122,6 +119,7 @@ public class SunnaryWings : BaseItem, IPlotChooserAction, ICompletableAction
         moveAction.OnActionComplete = new LambdaAction(onComplete, moveAction.OnActionComplete);
 
         moveAction.PerformAction();
+        //AnimationEffect(moveAction);
     }
 
     public void PerformOnComplete()

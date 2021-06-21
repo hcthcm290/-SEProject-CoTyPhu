@@ -13,7 +13,7 @@ public class A1Event : EventAction
         target.MoveTo(PLOT.PRISON);
         target.moveComponent.ListenTargetReached(new LambdaAction(() => 
         {
-            target.StartPhase(Phase.Stop);
+            Plot.plotDictionary[PLOT.PRISON].ActiveOnEnter(target);
         }));
     }
 }

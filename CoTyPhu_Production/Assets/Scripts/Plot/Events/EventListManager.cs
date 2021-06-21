@@ -38,15 +38,16 @@ public class EventListManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void ScrambleList()
+    public void ScrambleList(int seed)
     {
-        EventActions = new Queue<EventAction>(EventActions.OrderBy(item => UnityEngine.Random.Range(0, 500)).ToList());
+        System.Random rng = new System.Random(seed);
+        EventActions = new Queue<EventAction>(EventActions.OrderBy(item => rng.NextDouble()).ToList());
     }
 
     public void Start()
     {
         if (PhotonNetwork.IsMasterClient)
-            photonView.RPC("ScrambleList", RpcTarget.AllBuffered);
+            photonView.RPC("ScrambleList", RpcTarget.AllBuffered, Random.Range(int.MinValue, int.MaxValue));
     }
 
     public EventAction GetAction(Player target)
