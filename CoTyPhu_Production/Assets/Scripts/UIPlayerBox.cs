@@ -6,6 +6,7 @@ using System.Linq;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIPlayerBox : MonoBehaviourPun
 {
@@ -13,7 +14,7 @@ public class UIPlayerBox : MonoBehaviourPun
     [SerializeField] Image merchantImage;
     [SerializeField] Text playerName;
     [SerializeField] Button ultimateButton;
-    [SerializeField] Text manaText;
+    [SerializeField] TextMeshProUGUI manaText;
     [SerializeField] Text goldTable;
     [SerializeField] Bank bank;
     #endregion
