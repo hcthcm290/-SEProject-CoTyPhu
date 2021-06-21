@@ -77,8 +77,8 @@ public class PlotBuyUI : MonoBehaviour, UIScreen
         if (player.MinePlayer && plot == Plot)
         {
             Debug.Log("Buy success");
-            TurnDirector.Ins.EndOfPhase();
             StopPhaseUI.Ins.Deactive(GetScreenType());
+            StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, this._plot);
             _canClick = true;
         }
     }
