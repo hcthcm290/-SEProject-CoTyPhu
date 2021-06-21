@@ -71,7 +71,7 @@ public class Shop : MonoBehaviour, UIScreen
 			initialized = true;
 
 			ItemManager.Ins.InitShopData().then((x) => {
-				LoadNewShop(3);
+				LoadNewShop(3, 0);
 			});
 
 			
@@ -92,7 +92,8 @@ public class Shop : MonoBehaviour, UIScreen
 
 	public void Reload()
     {
-		LoadNewShop(MaxSellItem);
+
+		LoadNewShop(MaxSellItem, 50);
     }
 
 	public BaseItem GetRandomItem()
@@ -100,9 +101,9 @@ public class Shop : MonoBehaviour, UIScreen
 		return null;
 	}
 
-	public void LoadNewShop(int maxShop)
+	public void LoadNewShop(int maxShop, int amountMoney)
     {
-		Future<List<BaseItem>> futureItems = ItemManager.Ins.RequestNewShop(playerUsingShop.Id, maxShop);
+		Future<List<BaseItem>> futureItems = ItemManager.Ins.RequestNewShop(playerUsingShop.Id, maxShop, amountMoney);
 
 		futureItems.then((List<BaseItem> result) =>
 		{
@@ -167,6 +168,7 @@ public class Shop : MonoBehaviour, UIScreen
 
     public void Deactivate()
     {
+        LoadNewShop(3, 0);
         this.gameObject.SetActive(false);
     }
 

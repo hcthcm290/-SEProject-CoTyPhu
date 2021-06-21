@@ -296,7 +296,7 @@ public class ItemManager : MonoBehaviourPun
 
     #region Renew Shop
     [PunRPC]
-    private void RequestNewShopServer(int idPlayer, int itemCount)
+    private void RequestNewShopServer(int idPlayer, int itemCount, int numberMoney)
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
@@ -339,12 +339,18 @@ public class ItemManager : MonoBehaviourPun
         int[] result = randomItems.ToArray();
         Debug.Log("result " + result[0].ToString() + ", " + result[1].ToString() + ", " + result[2].ToString());
 
-        photonView.RPC("RequestNewShopClient", RpcTarget.AllBufferedViaServer, idPlayer, (object)(result));
+        photonView.RPC("RequestNewShopClient", RpcTarget.AllBufferedViaServer, idPlayer, (object)(result), numberMoney);
     }
 
     [PunRPC]
-    private void RequestNewShopClient(int idPlayer, object o_itemsID)
+    private void RequestNewShopClient(int idPlayer, object o_itemsID, int numberMoney)
     {
+        Player player = TurnDirector.Ins.GetPlayer(idPlayer);
+        if(numberMoney != 0)
+        {
+            Bank.Ins.TakeMoney(player, numberMoney);
+        }
+
         if (!_listItemInShop.ContainsKey(idPlayer))
         {
             _listItemInShop.Add(idPlayer, new List<BaseItem>());
@@ -377,12 +383,12 @@ public class ItemManager : MonoBehaviourPun
     /// <param name="idPlayer">Shop's owner's id</param>
     /// <param name="itemCount"></param>
     /// <returns></returns>
-    public Future<List<BaseItem>> RequestNewShop(int idPlayer, int itemCount)
+    public Future<List<BaseItem>> RequestNewShop(int idPlayer, int itemCount, int numberMoney)
     {
         FutureTask<List<BaseItem>> futureItems = new FutureTask<List<BaseItem>>();
         requestNewShopCallback = futureItems;
 
-        photonView.RPC("RequestNewShopServer", RpcTarget.MasterClient, idPlayer, itemCount);
+        photonView.RPC("RequestNewShopServer", RpcTarget.MasterClient, idPlayer, itemCount, numberMoney);
 
         return futureItems.GetFuture();
     }
