@@ -62,6 +62,7 @@ public class PlotFestival : Plot
             if (amountOfValidPlot == 0)
             {
                 Debug.Log("Festival Plot: No targets for festival. Exiting.");
+                defaultAction.PerformAction();
                 return;
             }
 
@@ -111,6 +112,14 @@ public class FestivalAction : IPlotChooserAction, ITurnListener, ICompletableAct
                     Debug.LogError("Uh... why did this happen? I don't know.");
                 }
             }
+
+            //if(plot == null)
+            //{
+            //    if(player.MinePlayer)
+            //    {
+            //        TurnDirector.Ins.EndOfPhase();
+            //    }
+            //}
         }
 
         target = Plot.plotDictionary[plot.Value] as PlotConstruction;

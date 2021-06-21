@@ -93,10 +93,12 @@ class ActionTravel : IPlotChooserAction, ICompletableAction
         {
             Plot.plotDictionary[plot.Value].ActiveOnEnter(targetPlayer);
             PerformOnComplete();
+            targetPlayer.GetMerchant().MerchantAnimator.SetBool("walking", false);
         };
 
         action = new Player.ActionPlayerMove(targetPlayer, new List<int> { dif }, onComplete);
 
+        targetPlayer.GetMerchant().MerchantAnimator.SetBool("walking", true);
         action.PerformAction();
     }
 

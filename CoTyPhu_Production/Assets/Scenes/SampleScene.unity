@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -869,6 +869,7 @@ MonoBehaviour:
   Location_PlotID: 0
   minePlayer: 0
   btnRoll: {fileID: 0}
+  lostNotifier: {fileID: 0}
   didDice: 0
   diceResultInput1: {fileID: 0}
   diceResultInput2: {fileID: 0}
@@ -1039,6 +1040,7 @@ MonoBehaviour:
   Location_PlotID: 0
   minePlayer: 0
   btnRoll: {fileID: 0}
+  lostNotifier: {fileID: 0}
   didDice: 0
   diceResultInput1: {fileID: 0}
   diceResultInput2: {fileID: 0}
@@ -2182,6 +2184,7 @@ MonoBehaviour:
   Location_PlotID: 0
   minePlayer: 1
   btnRoll: {fileID: 301148878}
+  lostNotifier: {fileID: 0}
   didDice: 0
   diceResultInput1: {fileID: 4747106635616327671}
   diceResultInput2: {fileID: 1923374646103148311}
@@ -2273,7 +2276,7 @@ PrefabInstance:
     - target: {fileID: 5943193972120612076, guid: 54f7f446265bb9144a3d46cc3c7d6fe7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5943193972120612076, guid: 54f7f446265bb9144a3d46cc3c7d6fe7,
         type: 3}
@@ -3106,6 +3109,7 @@ MonoBehaviour:
   Location_PlotID: 0
   minePlayer: 0
   btnRoll: {fileID: 0}
+  lostNotifier: {fileID: 0}
   didDice: 0
   diceResultInput1: {fileID: 0}
   diceResultInput2: {fileID: 0}
@@ -4138,6 +4142,12 @@ PrefabInstance:
       propertyPath: eventDeck
       value: 
       objectReference: {fileID: 6233820424181973131}
+    - target: {fileID: 6612843908437430536, guid: 1ca2ef93b3d42a044a54d115c111348a,
+        type: 3}
+      propertyPath: _statusPrefab
+      value: 
+      objectReference: {fileID: 870394057870898843, guid: da5b3119cf8dc8b4c934aadf6dad0b53,
+        type: 3}
     - target: {fileID: 6612843909389023662, guid: 1ca2ef93b3d42a044a54d115c111348a,
         type: 3}
       propertyPath: _plotManager
