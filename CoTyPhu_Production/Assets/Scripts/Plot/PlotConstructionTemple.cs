@@ -64,8 +64,8 @@ public class PlotConstructionTemple : PlotConstruction
             else if (Owner.Id != player.Id)
             {
                 // Active Temple Rebuy UI
-
-                TurnDirector.Ins.EndOfPhase();
+                StopPhaseUI.Ins.Activate(PhaseScreens.TempleRebuyUI, this);
+                //TurnDirector.Ins.EndOfPhase();
             }
         }
         else

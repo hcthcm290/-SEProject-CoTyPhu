@@ -8,7 +8,7 @@ using TMPro;
 using DG.Tweening;
 
 [System.Serializable]
-public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEnterListener
+public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
 {
     [SerializeField] List<IGoldReceiveChange> _listStatusGoldReceive = new List<IGoldReceiveChange>();
     // Properties ------------------------------------
@@ -100,10 +100,11 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
         Plot.plotDictionary[PLOT.PRISON].SubcribePlotPassByListener(this);
         Plot.plotDictionary[PLOT.FESTIVAL].SubcribePlotPassByListener(this);
         Plot.plotDictionary[PLOT.TRAVEL].SubcribePlotPassByListener(this);
-        for(PLOT i = PLOT.START; i <= PLOT.H2; i++)
-        {
-            Plot.plotDictionary[i].SubcribePlotEnter(this);
-        }
+        //for(PLOT i = PLOT.START; i <= PLOT.H2; i++)
+        //{
+        //    Debug.Log(i);
+        //    Plot.plotDictionary[i].SubcribePlotEnter(this);
+        //}
         //Thang
         //LockMerchant(merchant);
         dest_look = transform.eulerAngles;
@@ -188,6 +189,8 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
         {
             // Content of the Action
             MoveTo(plotID);
+            // Add by Thang here
+            OnPlotEnter(this, Plot.plotDictionary[plotID]);
         }), null);
 
         action.preAction = () =>
@@ -677,19 +680,19 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
         {
             if (plot.Id == PLOT.START)
             {
-                dest_look= new Vector3(0, 90, 0);
+                dest_look= new Vector3(0, 0, 0);
             }
             if (plot.Id == PLOT.PRISON)
             {
-                dest_look = new Vector3(0, 180, 0);
+                dest_look = new Vector3(0, 90, 0);
             }
             if (plot.Id == PLOT.FESTIVAL)
             {
-                dest_look = new Vector3(0, 270, 0);
+                dest_look = new Vector3(0, 180, 0);
             }
             if (plot.Id == PLOT.TRAVEL)
             {
-                dest_look = new Vector3(0, 0, 0);
+                dest_look = new Vector3(0, 270, 0);
             }
         }
     }
@@ -700,19 +703,19 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener, IPlotEn
         {
             if ((int)plot.Id / 8 == 0)
             {
-                dest_look = new Vector3(0, 90, 0);
+                dest_look = new Vector3(0, 0, 0);
             }
             if ((int)plot.Id / 8 == 1)
             {
-                dest_look = new Vector3(0, 180, 0);
+                dest_look = new Vector3(0, 90, 0);
             }
             if ((int)plot.Id / 8 == 2)
             {
-                dest_look = new Vector3(0, 270, 0);
+                dest_look = new Vector3(0, 180, 0);
             }
             if ((int)plot.Id / 8 == 3)
             {
-                dest_look = new Vector3(0, 0, 0);
+                dest_look = new Vector3(0, 270, 0);
             }
         }
     }

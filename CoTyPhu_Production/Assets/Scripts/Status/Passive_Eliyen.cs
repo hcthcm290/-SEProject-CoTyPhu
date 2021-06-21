@@ -11,8 +11,8 @@ public class Passive_Eliyen : BaseStatus, IOtherActivate, IPlotEnterListener
     public Passive_Eliyen()
     {
         _id = 3;
-        _name = "Thân thiện";
-        _description = "Giảm 10% giá MUA và THUÊ đất thuộc tộc ELF";
+        _name = "Friendly";
+        _description = "Decrease 10% HIRE PRICE for plot belong to ELF.";
         _isConditional = true;
     }
 

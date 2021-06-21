@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5877556993478752448
+--- !u!1 &7997049293899232350
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2184764014753540529}
-  - component: {fileID: 3831541570453092335}
+  - component: {fileID: 839151215587370931}
+  - component: {fileID: 1328437032349994086}
   m_Layer: 0
-  m_Name: Passive Eliyen
+  m_Name: Passive Giulia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2184764014753540529
+--- !u!4 &839151215587370931
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5877556993478752448}
+  m_GameObject: {fileID: 7997049293899232350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1037.139, y: 523.5035, z: -155.67867}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3831541570453092335
+--- !u!114 &1328437032349994086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5877556993478752448}
+  m_GameObject: {fileID: 7997049293899232350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da50be209f4504042888e4577a754c86, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c4580afd61385c468a2aebdfa468270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 3
-  _name: Friendly
-  _description: Decrease 10% HIRE PRICE for plot belong to ELF.
+  _id: 7
+  _name: Mana thief
+  _description: TAG a player that affect by your SKILL. GAIN ONE MANA each time TAG
+    player gain mana(s). You can only TAG each player once.
   _isConditional: 1
-  _type: Negative
+  _type: Passive
   targetPlayer: {fileID: 0}
-  hire: {fileID: 870394057870898843, guid: da5b3119cf8dc8b4c934aadf6dad0b53, type: 3}

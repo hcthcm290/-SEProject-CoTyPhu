@@ -516,7 +516,8 @@ MonoBehaviour:
   _merchantAnimator: {fileID: 6098760828285500999}
   skillScript: {fileID: 7209748602000069943, guid: 24886532ed2a376459a0e4804b10b19a,
     type: 3}
-  passive: {fileID: 0}
+  passive: {fileID: -7151537861803103971, guid: ec48a4ea9abc7e74e9c5fdcfd394a467,
+    type: 3}
 --- !u!114 &7057089548884822368
 MonoBehaviour:
   m_ObjectHideFlags: 0
