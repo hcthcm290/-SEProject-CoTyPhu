@@ -63,6 +63,16 @@ public class MarketUpgradeUI : MonoBehaviour, UIScreen
                     }
                 }
             }
+
+            // Only show upgrade button level 4 when plot has been upgrade to level 3
+            if(_plot.Level < 3)
+            {
+                _buttonUpgrade[3].gameObject.SetActive(false);
+            }
+            else
+            {
+                _buttonUpgrade[3].gameObject.SetActive(true);
+            }
         }
         else
         {
