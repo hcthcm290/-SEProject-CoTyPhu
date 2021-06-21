@@ -58,4 +58,11 @@ public class FloatingNotification : MonoBehaviour
 
         _notiQueue.Enqueue(no);
     }
+    public void AddItemNotification(string itemName, bool isGain)
+    {
+        var no = Instantiate(template, transform);
+        no.Init(itemName, NotificationType.Item, isGain);
+
+        _notiQueue.Enqueue(no);
+    }
 }

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public enum NotificationType
 {
     Gold,
-    Mana
-
+    Mana,
+    Item,
 }
 
 public class NotificationObject : MonoBehaviour
@@ -82,6 +82,25 @@ public class NotificationObject : MonoBehaviour
             {
                 text = "+ " + amount.ToString() + " Gold";
                 transform.Find("Text").GetComponent<Text>().color = Color.yellow;
+                transform.Find("Text").GetComponent<Text>().text = text;
+            }
+        }
+    }
+
+    public void Init(string name, NotificationType type, bool isGain)
+    {
+        if (type == NotificationType.Item)
+        {
+            if (isGain)
+            {
+                text = "+ 1 " + name;
+                transform.Find("Text").GetComponent<Text>().color = Color.white;
+                transform.Find("Text").GetComponent<Text>().text = text;
+            }
+            else
+            {
+                text = "- 1 " + name;
+                transform.Find("Text").GetComponent<Text>().color = Color.red;
                 transform.Find("Text").GetComponent<Text>().text = text;
             }
         }

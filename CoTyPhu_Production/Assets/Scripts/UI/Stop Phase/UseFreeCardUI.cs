@@ -66,7 +66,7 @@ public class UseFreeCardUI : MonoBehaviour, UIScreen
         // Play fancy animation
 
 
-        StopPhaseUI.Ins.Deactive(PhaseScreens.FreeCardUI);
+        //StopPhaseUI.Ins.Deactive(PhaseScreens.FreeCardUI);
     }
 
     public void Update()

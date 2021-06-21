@@ -24,6 +24,7 @@ public class MosesStaff : BaseItem
         ItemManager.Ins.AddItemToPool(this);
 
         ((PlotPrison)Plot.plotDictionary[PLOT.PRISON]).Release(Owner);
+        StopPhaseUI.Ins.Deactive(PhaseScreens.FreeCardUI);
 
         return base.Activate(activeCase);
     }
