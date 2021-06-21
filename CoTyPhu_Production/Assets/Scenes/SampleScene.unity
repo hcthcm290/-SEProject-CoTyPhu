@@ -644,11 +644,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChooseTile
       objectReference: {fileID: 0}
-    - target: {fileID: 3555864295792990175, guid: ac8f364e906fdf34296e63a3c968231c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac8f364e906fdf34296e63a3c968231c, type: 3}
 --- !u!224 &148289805 stripped
@@ -4415,16 +4410,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 132.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 5066581408216077245, guid: 887ed216bf3d80941a8326093393b71c,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5066581408216077245, guid: 887ed216bf3d80941a8326093393b71c,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5066581408216077245, guid: 887ed216bf3d80941a8326093393b71c,
         type: 3}
@@ -8618,6 +8603,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas Camera
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2098304802303702698, guid: 008546c44977c6a4f84248fa04365594, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 008546c44977c6a4f84248fa04365594, type: 3}
