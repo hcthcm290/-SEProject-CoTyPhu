@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 05d2f04ef41be944daa1be419b87ff81, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b14c911922aab40b8b34704f44f27053, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -152,6 +152,7 @@ MonoBehaviour:
   _name: Hobo's Lute
   _description: 
   _isConditional: 0
+  _type: 
   HirePriceChange: -0.25
   targetPlot: {fileID: 0}
 --- !u!1 &3858596973874352989
@@ -206,5 +207,6 @@ MonoBehaviour:
   _name: Hobo's Lute
   _description: 
   _isConditional: 0
+  _type: 
   targetPlot: {fileID: 0}
   _buybackPriceChange: -0.1

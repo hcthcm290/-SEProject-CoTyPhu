@@ -52,6 +52,7 @@ MonoBehaviour:
   _name: Icing Dice
   _description: 
   _isConditional: 0
+  _type: 
   HirePriceChange: -2
   targetPlot: {fileID: 0}
 --- !u!1 &1877336891160056343
@@ -121,7 +122,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e33e2154b55a3084588ee54ecf6c7cb2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b64e1cf5b800f4809aacd4031300e70c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
