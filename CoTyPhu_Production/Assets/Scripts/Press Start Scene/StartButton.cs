@@ -7,6 +7,7 @@ public class StartButton : MonoBehaviour
 {
     public void onStartClick()
     {
+        SoundManager.Ins.Play(AudioClipEnum.Magic);
         SceneManager.LoadScene("MainMenuScene");
     }
 }

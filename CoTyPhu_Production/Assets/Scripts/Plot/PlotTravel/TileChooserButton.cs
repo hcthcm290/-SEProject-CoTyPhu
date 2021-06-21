@@ -13,6 +13,7 @@ public class TileChooserButton : MonoBehaviour
     public void OnClick()
     {
         TileChooserManager.GetInstance().ChooseTile((int)plot);
+        SoundManager.Ins.Play(AudioClipEnum.Select);
     }
     void Awake()
     {

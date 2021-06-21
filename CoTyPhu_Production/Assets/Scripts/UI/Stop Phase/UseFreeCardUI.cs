@@ -46,11 +46,16 @@ public class UseFreeCardUI : MonoBehaviour, UIScreen
         return PhaseScreens.FreeCardUI;
     }
 
+    void MakeSelectSound() => SoundManager.Ins.Play(AudioClipEnum.Select);
+
     private void Start()
     {
         _useCardButton.onClick.AddListener(UseCard);
         _skipButton.onClick.AddListener(Skip);
         _useMoney.onClick.AddListener(UseMoney);
+
+        _useCardButton.onClick.AddListener(MakeSelectSound);
+        _useMoney.onClick.AddListener(MakeSelectSound);
     }
 
     public void UseCard()

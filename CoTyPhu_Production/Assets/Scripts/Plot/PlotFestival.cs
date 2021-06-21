@@ -45,7 +45,7 @@ public class PlotFestival : Plot
             // get Plots player owns.
             int amountOfValidPlot = 0;
             List<PLOT> banned = Plot.plotDictionary.Keys.ToList();
-            var candidates = Plot.BuildingPlot.Union(Plot.TemplePlot);
+            var candidates = Plot.BuildingPlot;
             foreach (var item in candidates)
             {
                 if (Plot.plotDictionary[item] is PlotConstruction)
@@ -85,7 +85,7 @@ public class FestivalAction : IPlotChooserAction, ITurnListener, ICompletableAct
     private IAction OnComplete;
     public IAction OnActionComplete { get => OnComplete; set => OnComplete = value; }
 
-    PlotConstruction target;
+    PlotConstructionMarket target;
     public Player player;
     public StatusHirePriceChange statusPrefab;
     StatusHirePriceChange activeStatus;
@@ -96,12 +96,12 @@ public class FestivalAction : IPlotChooserAction, ITurnListener, ICompletableAct
         {
             Debug.LogError("Festival: Didn't choose a plot");
             // TODO: continue with the first plot of the player
-            var candidates = Plot.BuildingPlot.Union(Plot.TemplePlot);
+            var candidates = Plot.BuildingPlot;
             foreach (var item in candidates)
             {
-                if (Plot.plotDictionary[item] is PlotConstruction)
+                if (Plot.plotDictionary[item] is PlotConstructionMarket)
                 {
-                    if ((Plot.plotDictionary[item] as PlotConstruction).Owner == player)
+                    if ((Plot.plotDictionary[item] as PlotConstructionMarket).Owner == player)
                     {
                         plot = item;
                         break;
@@ -122,12 +122,14 @@ public class FestivalAction : IPlotChooserAction, ITurnListener, ICompletableAct
             //}
         }
 
-        target = Plot.plotDictionary[plot.Value] as PlotConstruction;
+        target = Plot.plotDictionary[plot.Value] as PlotConstructionMarket;
         if (target.Owner == player)
         {
             Debug.Log("Festival: OnStop action activate.");
 
             // Plot target fancy animation
+            PlotConstructionMarket.Firework.transform.position = target.transform.position;
+            PlotConstructionMarket.Firework.Play();
 
             // Create status
             var newStatus = GameObject.Instantiate(statusPrefab);

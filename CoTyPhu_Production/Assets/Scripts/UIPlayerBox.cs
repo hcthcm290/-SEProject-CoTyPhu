@@ -69,6 +69,7 @@ public class UIPlayerBox : MonoBehaviourPun
         if(ultimateButton != null)
         {
             ultimateButton.onClick.AddListener(RequestActivateSkill);
+            ultimateButton.onClick.AddListener(()=>SoundManager.Ins.Play(AudioClipEnum.Magic));
         }
 
         //transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();

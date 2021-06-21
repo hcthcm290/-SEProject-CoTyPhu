@@ -24,7 +24,9 @@ public class UIItemInShop : MonoBehaviour
         transform.Find("ItemName").GetComponent<Text>().text = value.Name;
         transform.Find("ItemImage").GetComponent<Image>().sprite = value.gameObject.GetComponent<Image>().sprite;
         transform.Find("PanelPrice/Price").GetComponent<Text>().text = value.Price.ToString();
-        transform.Find("Button").GetComponent<Button>().onClick.AddListener(Buy);
+        var temp = transform.Find("Button").GetComponent<Button>().onClick;
+        temp.AddListener(Buy);
+        temp.AddListener(() => SoundManager.Ins.Play(AudioClipEnum.Select));
         playerBuying = Shop.Ins.playerUsingShop;
     }
 

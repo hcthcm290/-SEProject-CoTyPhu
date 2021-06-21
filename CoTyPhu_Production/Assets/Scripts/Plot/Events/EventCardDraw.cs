@@ -40,6 +40,7 @@ public class EventCardDraw : MonoBehaviour
     void Start()
     {
         Reset();
+        SoundManager.Ins.Play(AudioClipEnum.CardDraw);
     }
 
     private void Reset()

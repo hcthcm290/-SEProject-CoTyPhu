@@ -43,10 +43,17 @@ public class SkipButtonUI : MonoBehaviourPunCallbacks
         }
     }
 
-    public void Enable()
+    private void BaseEnable()
     {
         gameObject.SetActive(true);
         Countdown = MaxTime;
+
+        SoundManager.Ins.PlayLooped(AudioClipEnum.Clock);
+    }
+
+    public void Enable()
+    {
+        BaseEnable();
 
         if (!button.activeSelf)
             button.SetActive(true);
@@ -54,8 +61,7 @@ public class SkipButtonUI : MonoBehaviourPunCallbacks
 
     public void EnableTimerOnly()
     {
-        gameObject.SetActive(true);
-        Countdown = MaxTime;
+        BaseEnable();
 
         if (button.activeSelf)
             button.SetActive(false);
@@ -64,6 +70,8 @@ public class SkipButtonUI : MonoBehaviourPunCallbacks
     public void Disable()
     {
         gameObject.SetActive(false);
+
+        SoundManager.Ins.StopPlayLooped(AudioClipEnum.Clock);
 
         OnClick.Clear();
     }
