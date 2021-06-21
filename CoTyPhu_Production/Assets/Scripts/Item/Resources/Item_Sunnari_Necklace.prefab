@@ -52,6 +52,7 @@ MonoBehaviour:
   _name: Sunnari Necklace
   _description: 
   _isConditional: 0
+  _type: 
   HirePriceChange: 0.5
   targetPlot: {fileID: 0}
 --- !u!1 &3566785155592508637
@@ -121,7 +122,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8e5ca100a527bb5439efb69a4a171895, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 253e8dbb3ce6641d89cd2cd014cf44ce, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
