@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.56452316, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4558,6 +4558,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Win board UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656608591207909450, guid: 964176bced8d54a47ab543f69b400805,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3656608591207909454, guid: 964176bced8d54a47ab543f69b400805,
         type: 3}
