@@ -166,6 +166,7 @@ public class UIPlayerBox : MonoBehaviourPun
             var scale = manaBarInside.transform.localScale;
             scale.x = (float)player.GetMana() / player.GetMerchant().MaxMana;
             manaBarInside.transform.localScale = scale;
+            SetMana();
         }
     }
 }
