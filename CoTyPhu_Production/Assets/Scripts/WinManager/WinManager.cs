@@ -120,16 +120,16 @@ namespace WinCondition
                 {
                     if (playerEndTurn.Item1 > currentTurnCount)
                     {
-                        currentRank++;
+                        currentRank--;
                         currentTurnCount = playerEndTurn.Item1;
                     }
 
                     playerEndTurn.Item2.Rank = currentRank;
                 }
+                currentRank--;
             }
 
             // Set rank for player that hasn't lost but the winner appear
-            currentRank++;
             foreach (var player in TurnDirector.Ins.ListPlayer)
             {
                 if (wonPlayers.Contains(player) || player.HasLost) continue;

@@ -1286,12 +1286,12 @@ GameObject:
   - component: {fileID: 3656608591207909451}
   - component: {fileID: 3656608591207909455}
   m_Layer: 5
-  m_Name: Win board UI
+  m_Name: Win board UI (old)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3656608591207909454
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1399,15 +1399,25 @@ MonoBehaviour:
   - tag: 1
     merchant: {fileID: 7081291243905546507, guid: fa1b3d951fdd0d642a412f654f75504c,
       type: 3}
+    splashScreen: {fileID: 0}
   - tag: 2
     merchant: {fileID: 1920380290559758904, guid: 7d59be16a37dbc847aa29917bafa422b,
       type: 3}
+    splashScreen: {fileID: 0}
   - tag: 0
     merchant: {fileID: 7520199822748500723, guid: c9cadfab4a844ff4bb7a5d5b81484353,
       type: 3}
+    splashScreen: {fileID: 0}
   - tag: 3
     merchant: {fileID: 937869390423090864, guid: 24c3c82a354e9c24fb36358fbf394444,
       type: 3}
+    splashScreen: {fileID: 0}
+  rankSprites:
+  - {fileID: 21300000, guid: de110dacea7ae442fb7c2aa2bf7698ae, type: 3}
+  - {fileID: 21300000, guid: 9c8da35ab324f4f90b7de312761403b1, type: 3}
+  - {fileID: 21300000, guid: d2f624721bffa40f68bcf66e430efdd7, type: 3}
+  - {fileID: 21300000, guid: e23a292b2421048deb3fce17e1ce1318, type: 3}
+  WinDescriptionBoard: {fileID: 0}
 --- !u!1 &3656608591247408501
 GameObject:
   m_ObjectHideFlags: 0
