@@ -45,6 +45,7 @@ public class UIItemInPlayer : MonoBehaviour
     {
         _clickField = transform.GetComponent<Button>();
         _clickField.onClick.AddListener(Detail);
+        //_clickField.onClick.AddListener(() => SoundManager.Ins.Play(AudioClipEnum.Select));
     }
 
     // Update is called once per frame

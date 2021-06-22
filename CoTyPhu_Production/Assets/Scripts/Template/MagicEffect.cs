@@ -27,8 +27,10 @@ public class MagicEffect : MonoBehaviour
             bool prev = hasStart;
             hasStart = value;
             if (prev == true && value == false)
+            {
                 onComplete?.PerformAction();
-                
+                SoundManager.Ins.Play(AudioClipEnum.Magic);
+            }   
         }
     }
 

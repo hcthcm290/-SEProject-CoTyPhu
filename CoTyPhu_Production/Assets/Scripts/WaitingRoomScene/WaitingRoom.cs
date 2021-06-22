@@ -66,6 +66,7 @@ public class WaitingRoom : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
+        SoundManager.Ins.Play(AudioClipEnum.Select);
         Debug.Log("prepare loading merchant scene picking");
         PhotonNetwork.LoadLevel("MerchantPickingScene");
     }

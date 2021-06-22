@@ -30,6 +30,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
     [SerializeField] int roomNameLength = 6;
     #endregion
 
+    private void MakeSelectSound()
+    {
+        SoundManager.Ins.Play(AudioClipEnum.Select);
+    }
+
     private void Start()
     {
         createGameButton.onClick.AddListener(OpenTableCreateGame);
@@ -39,8 +44,15 @@ public class MainMenu : MonoBehaviourPunCallbacks
         joinPrivateGame.onClick.AddListener(JoinPrivateRoom);
         createPublicGameButton.onClick.AddListener(CreatePublicGame);
         createPrivateGameButton.onClick.AddListener(CreatePrivateGame);
-        playerNameInputField.text = PhotonNetwork.NickName;
         playerNameInputField.onValueChanged.AddListener(OnPlayerNameChange);
+        playerNameInputField.text = PhotonNetwork.NickName;
+
+
+        createGameButton.onClick.AddListener(MakeSelectSound);
+        publicGamesButton.onClick.AddListener(MakeSelectSound);
+        joinPrivateGame.onClick.AddListener(MakeSelectSound);
+        createPublicGameButton.onClick.AddListener(MakeSelectSound);
+        createPrivateGameButton.onClick.AddListener(MakeSelectSound);
     }
 
     public void OnPlayerNameChange(string value)

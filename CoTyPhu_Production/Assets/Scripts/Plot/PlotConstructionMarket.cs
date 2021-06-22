@@ -25,7 +25,7 @@ public class PlotConstructionMarket : PlotConstruction
 
 	private Transform _buildPoint;
 	GameObject currentHouse;
-	static ParticleSystem Firework;
+	public static ParticleSystem Firework;
 	[SerializeField] ParticleSystem _fireworkPrefab;
 
 	//  Fields ----------------------------------------

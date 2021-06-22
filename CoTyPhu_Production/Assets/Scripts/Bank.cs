@@ -172,6 +172,7 @@ public class Bank: MonoBehaviour
 		AddGoldNotification(-amount, player);
 
 		GoldChange.Invoke(player);
+		SoundManager.Ins.Play(AudioClipEnum.ChaChing);
 	}
 
 	public void SendMoney(Player player, int amount)
@@ -215,6 +216,7 @@ public class Bank: MonoBehaviour
 
 		AddGoldNotification(amount, player);
 		GoldChange.Invoke(player);
+		SoundManager.Ins.Play(AudioClipEnum.ChaChing);
 	}
 
 	public void TransactBetweenPlayers(Player source, Player destination, int amount)

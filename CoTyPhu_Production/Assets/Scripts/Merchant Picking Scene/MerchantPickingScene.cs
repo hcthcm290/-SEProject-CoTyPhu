@@ -126,6 +126,8 @@ namespace MerchantPicking
         [PunRPC]
         private void LockMerchant(string clientID, string merchantname)
         {
+            SoundManager.Ins.Play(AudioClipEnum.CardDraw);
+
             var merchantPrefab = listInstantMerchant.Find(x => x.Name == merchantname);
             var playerCard = playerCards.Find(x => x.GetClientID() == clientID);
 

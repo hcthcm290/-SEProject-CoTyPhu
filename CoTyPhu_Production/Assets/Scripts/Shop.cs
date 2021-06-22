@@ -59,7 +59,9 @@ public class Shop : MonoBehaviour, UIScreen
 		transform.Find("ShopNoticeBoard/SkipButton/Image").GetComponent<Button>().onClick.AddListener(() => {
             StopPhaseUI.Ins.Deactive(PhaseScreens.ShopUI);
         });
-		transform.Find("ShopNoticeBoard/RefreshButton/Image").GetComponent<Button>().onClick.AddListener(Reload);
+        var temp = transform.Find("ShopNoticeBoard/RefreshButton/Image").GetComponent<Button>().onClick;
+        temp.AddListener(Reload);
+        temp.AddListener(() => SoundManager.Ins.Play(AudioClipEnum.Select));
 		//InitPool();
 		//LoadNewShop(3);
 	}

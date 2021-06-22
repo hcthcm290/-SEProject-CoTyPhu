@@ -72,6 +72,7 @@ public class PublicGameScene : MonoBehaviourPunCallbacks
             var newRoomInfoCard = Instantiate(RoomInfoCardPrefab, ListRoomContent.transform);
             newRoomInfoCard.SetInfo(item);
             newRoomInfoCard.onClicked += JoinRoom;
+            newRoomInfoCard.onClicked += (_) => SoundManager.Ins.Play(AudioClipEnum.Select);
             listRoomInfoCards.Add(newRoomInfoCard);
         }
 
