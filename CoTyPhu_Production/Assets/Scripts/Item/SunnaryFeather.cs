@@ -70,6 +70,8 @@ public class SunnaryFeather : SunnaryItem, IPlotPassByListener
         Owner.ChangeMana(1);
 
         activated = true;
+
+        Remove(true);
         return base.Activate(activeCase);
     }
 
@@ -95,5 +97,10 @@ public class SunnaryFeather : SunnaryItem, IPlotPassByListener
     private void Start()
     {
         LoadData();
+    }
+    public override bool Remove(bool triggerEvent)
+    {
+        Destroy(gameObject);
+        return base.Remove(triggerEvent);
     }
 }

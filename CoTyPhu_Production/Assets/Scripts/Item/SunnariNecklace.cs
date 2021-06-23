@@ -17,6 +17,8 @@ public class SunnariNecklace : SunnaryItem, IPlotPassByListener, IPayPlotFeeList
         if (plot == plotResult && player != Owner)
         {
             plotResult.RemoveStatus(status);
+            plotResult.UnsubcribePayPlotFee(this);
+            Destroy(this.gameObject, 0.1f);
         }
     }
     public void OnPlotPassBy(Player player, Plot plot)
@@ -26,22 +28,29 @@ public class SunnariNecklace : SunnaryItem, IPlotPassByListener, IPayPlotFeeList
         {
             if (player==Owner)
             {
-                
+                player.ChangeMana(1);
+
                 foreach (var plot_temp in Plot.BuildingPlot)
                 {
                     if ((Plot.plotDictionary[plot_temp] as PlotConstruction).Owner== player)
                     {
                         plotResult = Plot.plotDictionary[plot_temp] as PlotConstruction;
                     }    
-                }    
+                }
+
                 if (plotResult)
                 {
-                    player.ChangeMana(1);
                     plotResult.AddStatus(status);
                     AssignedPlot = plotResult.Id;
+                    plotResult.SubcribePayPlotFee(this);
+                }
+                else
+                {
+                    Destroy(this.gameObject, 0.1f);
                 }
                 Activate("");
                 player.RemoveItem(this);
+                Plot.plotDictionary[PLOT.START].UnsubcribePlotPassByListner(this);
             }    
         }    
         

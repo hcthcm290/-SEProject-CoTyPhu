@@ -238,7 +238,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient)
         {
             _idPlayerTurn = 0;
-            _idPhase = Phase.Shop;
+            _idPhase = Phase.Dice;
 
             photonView.RPC("_StartPhase", RpcTarget.AllBufferedViaServer, _idPlayerTurn, (int)_idPhase);
         }
@@ -288,24 +288,25 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     break;
                 case Phase.Shop:
                     {
-                        if(_isShopStart)
-                        {
-                            nextIdPhase = Phase.Dice;
-                            _isShopStart = false;
-                        }
-                        else
-                        {
-                            nextIdPhase = Phase.Stop;
-                        }
+                        nextIdPhase = Phase.Stop;
+                        //if (_isShopStart)
+                        //{
+                        //    nextIdPhase = Phase.Dice;
+                        //    _isShopStart = false;
+                        //}
+                        //else
+                        //{
+                        //    nextIdPhase = Phase.Stop;
+                        //}
                     }
                     break;
                 case Phase.Extra:
-                    // TODO
-                    // later
+                    // DEPRECATED
                     break;
             }
 
-            photonView.RPC("_StartPhase", RpcTarget.AllBufferedViaServer, nextIdPlayerTurn, (int)nextIdPhase);
+            photonView.RPC("_StartPhase", RpcTarget.AllBufferedViaServer,
+                nextIdPlayerTurn, (int)nextIdPhase);
         }
     }
 
@@ -391,6 +392,21 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         player.HasLost = true;
         player.FinalNetworth = player.CalculateNetworth();
         player.PlayLostAnimation();
+        
+        // Set all player's plot become unowned
+        foreach(var plotPair in Plot.plotDictionary)
+        {
+            if(plotPair.Value is PlotConstruction)
+            {
+                var plot = plotPair.Value as PlotConstruction;
+                if(plot.Owner == player)
+                {
+                    plot.Owner = null;
+                }
+            }
+        }
+
+        player.gameObject.SetActive(false);
 
         Debug.Log($"Player {player.Name} lost");
 

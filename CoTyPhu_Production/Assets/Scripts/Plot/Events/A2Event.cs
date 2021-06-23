@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 class A2Event : EventAction, ITransaction
 {
-    public int moneyAmount = 1000;
+    public int moneyAmount = 100;
 
     public int MoneyAmount 
     { 

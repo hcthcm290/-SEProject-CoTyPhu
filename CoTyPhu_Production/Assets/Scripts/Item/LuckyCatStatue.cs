@@ -32,6 +32,10 @@ public class LuckyCatStatue : BaseItem
     public override bool Remove(bool triggerEvent)
     {
         base.Remove(triggerEvent);
+        if(this.gameObject != null)
+        {
+            Destroy(this.gameObject, 0.1f);
+        }
         return true;
     }
     #endregion

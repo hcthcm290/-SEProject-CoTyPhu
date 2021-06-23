@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 12
   _name: Three Of Spades
-  _price: 100
+  _price: 50
   _description: 
   _type: 
   _canActivate: 0

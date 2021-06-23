@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 11
   _name: Hobo's Lute
-  _price: 0
+  _price: 150
   _description: 
   _type: 
   _canActivate: 0

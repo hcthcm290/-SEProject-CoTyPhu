@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 8
   _name: Sunnary Feather
-  _price: 700
+  _price: 150
   _description: 
   _type: 
   _canActivate: 0

@@ -32,9 +32,21 @@ public class SunnarySundial : SunnaryItem, IPlotPassByListener
         return true;
     }
 
+    public override bool Remove(bool triggerEvent)
+    {
+        base.Remove(triggerEvent);
+
+        return true;
+    }
+
     public override bool Activate(string activeCase)
     {
         base.Activate(activeCase);
+        if (this.gameObject != null)
+        {
+            Destroy(this.gameObject, 0.1f);
+        }
+        Plot.plotDictionary[PLOT.PRISON].UnsubcribePlotPassByListner(this);
         return true;
     }
     #endregion
@@ -79,6 +91,10 @@ public class SunnarySundial : SunnaryItem, IPlotPassByListener
                 //*/
 
                 Activate("");
+                if(this.gameObject != null)
+                {
+                    Destroy(this.gameObject, 0.1f);
+                }
             }
             else
             {

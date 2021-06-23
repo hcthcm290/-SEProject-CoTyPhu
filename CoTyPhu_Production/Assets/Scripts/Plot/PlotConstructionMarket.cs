@@ -16,8 +16,15 @@ public class PlotConstructionMarket : PlotConstruction
 		set
 		{
 			base.Owner = value;
-			Level = 0;
-			BuildHouse();
+			if(Owner != null)
+            {
+				BuildHouse();
+            }
+			else if(Owner == null)
+            {
+				_level = 0;
+				Destroy(currentHouse);
+			}
 		}
 	}
 	public float UpgradePrice;
@@ -90,12 +97,18 @@ public class PlotConstructionMarket : PlotConstruction
 			else if (Owner.Id == player.Id)
 			{
 				// Activate Market Upgrade UI
-				StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, this);
+				if (Level != 4)
+					StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, this);
+				else
+					TurnDirector.Ins.EndOfPhase();
 			}
 			else if (Owner.Id != player.Id)
 			{
 				// Active Market Rebuy UI
-				StopPhaseUI.Ins.Activate(PhaseScreens.PlotRebuyUI, this);
+				if (Level != 4)
+					StopPhaseUI.Ins.Activate(PhaseScreens.PlotRebuyUI, this);
+				else
+					TurnDirector.Ins.EndOfPhase();
 			}
 		}
         else

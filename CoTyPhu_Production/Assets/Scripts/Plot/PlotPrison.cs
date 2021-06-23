@@ -69,7 +69,7 @@ public class PlotPrison : Plot, IDiceListener, ITurnListener
 		//add player to playerImprisonDuration
 		if(!_playerImprisonDuration.ContainsKey(player))
         {
-			_playerImprisonDuration.Add(player, 1);
+			_playerImprisonDuration.Add(player, 0);
 		}
 	}
 

@@ -59,6 +59,7 @@ public class Skill_Giulia_Enchant : BaseSkill
             if (targetPlayer != null)
             {
                 targetPlayer.ActionMoveTo(Owner.Location_PlotID).PerformAction();
+                //Plot.plotDictionary[Owner.Location_PlotID].ActiveOnEnter(targetPlayer);
 
                 var status = Instantiate(prefab, targetPlayer.transform);
                 status.targetPlayer = targetPlayer;

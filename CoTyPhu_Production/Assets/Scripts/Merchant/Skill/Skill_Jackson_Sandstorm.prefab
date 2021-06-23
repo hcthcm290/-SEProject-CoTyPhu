@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e30acb2fca05db64f9a8a6692ccb443b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3aad44c34c233494da8ded32809aea5e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -89,4 +89,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 0}
-  _statusPrefab: {fileID: 932504646391796250, guid: fdc9ab9a8a0666a4f99eb086a9898e01, type: 3}
+  _statusPrefab: {fileID: 932504646391796250, guid: fdc9ab9a8a0666a4f99eb086a9898e01,
+    type: 3}

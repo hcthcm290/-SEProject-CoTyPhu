@@ -77,19 +77,19 @@ public class ItemManager : MonoBehaviourPun
         //          }
         //      }
 
-        AddItemToPool(Resources.Load<BaseItem>("Item_Three_Spades"), 8);
-        AddItemToPool(Resources.Load<BaseItem>("Lucky Cat Statue"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Three_Spades"), 15);
+        AddItemToPool(Resources.Load<BaseItem>("Lucky Cat Statue"), 3);
         AddItemToPool(Resources.Load<BaseItem>("Item_Burning_Dice"), 8);
-        AddItemToPool(Resources.Load<BaseItem>("Item_Mirror"), 8);
-        AddItemToPool(Resources.Load<BaseItem>("Item_Moses_Staff"), 8);
-        AddItemToPool(Resources.Load<BaseItem>("Item_Icing_Dice"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Mirror"), 10);
+        //AddItemToPool(Resources.Load<BaseItem>("Item_Moses_Staff"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Icing_Dice"), 3);
         
-        AddItemToPool(Resources.Load<BaseItem>("Hobo's Lute"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Hobo's Lute"), 5);
 
-        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Feather"), 8);
-        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Sundial"), 8);
-        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnari_Crown"), 8);
-        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnari_Necklace"), 8);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Feather"), 3);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnary_Sundial"), 3);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnari_Crown"), 3);
+        AddItemToPool(Resources.Load<BaseItem>("Item_Sunnari_Necklace"), 3);
     }
 
     public bool AddItemToPool(BaseItem item)
@@ -479,6 +479,15 @@ public class ItemManager : MonoBehaviourPun
     public void RequestBuyItemServer(int idPlayer, int idItem)
     {
         if (!PhotonNetwork.IsMasterClient) return;
+
+        var itemInShop = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+        var player = TurnDirector.Ins.GetPlayer(idPlayer);
+
+
+        if (itemInShop.Price > Bank.Ins.MoneyPlayer(player))
+        {
+            return;
+        }
 
         if (!_listItemInShop.ContainsKey(idPlayer))
         {

@@ -28,6 +28,21 @@ public class IcingDice : BaseItem, ITurnListener, IPlotEnterListener
         return true;
     }
 
+    public void StopListen()
+    {
+        foreach (var plotPair in Plot.plotDictionary)
+        {
+            var plot = plotPair.Value;
+
+            if (plot is PlotConstruction)
+            {
+                plot.UnsubcribePlotEnter(this);
+            }
+        }
+
+        TurnDirector.Ins.UnsubscribeTurnListener(this);
+    }
+
     private void DecreasePrice()
     {  
         foreach (var plotPair in Plot.plotDictionary)
@@ -51,6 +66,8 @@ public class IcingDice : BaseItem, ITurnListener, IPlotEnterListener
             }
         }
         base.Remove(triggerEvent);
+        StopListen();
+        Destroy(this.gameObject, 0.1f);
         return true;
     }
     public override bool Activate(string activeCase)

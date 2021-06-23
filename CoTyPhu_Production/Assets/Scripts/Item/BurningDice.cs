@@ -12,6 +12,15 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
         return true;
     }
 
+    public override bool Remove(bool triggerEvent)
+    {
+        if(this.gameObject != null)
+        {
+            Destroy(this.gameObject, 0.1f);
+        }
+        return base.Remove(triggerEvent);
+    }
+
     public override bool StartListen()
     {
 
@@ -112,6 +121,7 @@ public class BurningDice : BaseItem, IPlotEnterListener, IPayPlotFeeListener
             activeStatus.Remove(true);
 
             Activate("");
+            Remove(true);
         }
     }
 

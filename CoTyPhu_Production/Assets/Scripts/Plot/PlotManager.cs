@@ -85,7 +85,12 @@ public class PlotManager : MonoBehaviourPun
         Player player = TurnDirector.Ins.GetPlayer(playerId);
         PlotConstruction plot = Plot.plotDictionary[(PLOT)plotId] as PlotConstruction;
 
-        Bank.Ins.TakeMoney(player, plot.PurchasePrice);
+        Bank.Ins.TakeMoney(player, plot.PurchasePrice, true);
+        if(plot.Owner != null)
+        {
+            Bank.Ins.SendMoney(plot.Owner, plot.PurchasePrice, true);
+        }
+
         plot.Owner = player;
 
         OnBuyCallback?.Invoke(player, plot);
