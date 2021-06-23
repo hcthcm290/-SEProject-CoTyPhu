@@ -22,6 +22,7 @@ public class MagicHandMirror : BaseItem
 
         Owner.RemoveItem(this);
         // player active animation
+        Destroy(gameObject);
 
         // Add item back to Item pool
         ItemManager.Ins.AddItemToPool(this);
