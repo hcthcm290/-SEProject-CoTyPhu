@@ -18,7 +18,7 @@ public class B2Event : EventAction, ITransaction
 
     public object Source
     {
-        get => Bank.Ins.AllMoneyPlayers.Keys.Where(item => item != target).ToList();
+        get => Bank.Ins.AllMoneyPlayers.Keys.Where(item => item != target && !item.HasLost).ToList();
     }
     public object Destination
     {
@@ -27,8 +27,11 @@ public class B2Event : EventAction, ITransaction
 
     public override void PerformAction()
     {
-        foreach (Player player in (Source as List<Player>))
-            Bank.Ins.TransactBetweenPlayers(player, target, moneyAmount);
+        IEnumerable<Player> players = Source as IEnumerable<Player>;
+        if (players != null)
+            foreach (Player player in (Source as IEnumerable<Player>))
+                Bank.Ins.TransactBetweenPlayers(player, target, moneyAmount);
+
         if (target.MinePlayer && TurnDirector.Ins.IdPhase == Phase.Stop)
             TurnDirector.Ins.EndOfPhase();
     }
