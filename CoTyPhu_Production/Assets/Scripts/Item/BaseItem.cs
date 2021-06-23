@@ -94,7 +94,6 @@ public abstract class BaseItem : MonoBehaviour
 		if(ItemActivate != null)
 			ItemActivate.Invoke(Id);
 
-		Destroy(gameObject);
 		
 		return true;
     }
