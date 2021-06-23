@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1830,6 +1830,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicOrb: {fileID: 5575443381073036177, guid: bda0732692559304e8a6ef1ad924948f,
     type: 3}
+  mosesStaff: {fileID: 4925132523792847159, guid: a0b93955dbc92bf498ef8b4e617d5386,
+    type: 3}
 --- !u!114 &930710967 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6860896141438205144, guid: 3b9b2226417ad534faef40d560f9bc85,
@@ -2634,34 +2636,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80177d7d52bd71140850f47275c7ae59, type: 3}
---- !u!1 &1495845076 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6364607228407308765, guid: 80177d7d52bd71140850f47275c7ae59,
-    type: 3}
-  m_PrefabInstance: {fileID: 1495845075}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1495845077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1495845076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 1
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &1504374778
 GameObject:
   m_ObjectHideFlags: 0
