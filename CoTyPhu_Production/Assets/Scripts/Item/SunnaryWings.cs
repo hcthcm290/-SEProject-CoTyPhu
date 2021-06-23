@@ -8,6 +8,12 @@ public class SunnaryWings : BaseItem, IPlotChooserAction, ICompletableAction
 {
     bool canActivate = true;
 
+    public override bool Remove(bool triggerEvent)
+    {
+        Destroy(gameObject);
+        return base.Remove(triggerEvent);
+    }
+
     #region Base class override
     //public override bool CanActivate { get => canActivate; set => canActivate = value; }
 

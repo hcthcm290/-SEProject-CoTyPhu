@@ -18,11 +18,7 @@ public class PlotLuckyDraw : Plot
             NotifyPlotEnter(player);
             Bank.Ins.TakeLuckyDrawMoney(player, Bank.Ins.LuckyDrawMoney);
 
-            if (player.MinePlayer)
-            {
-                TurnDirector.Ins.EndOfPhase();
-            }
-        });
+        }, base.ActionOnEnter(player));
     }
     #endregion
 

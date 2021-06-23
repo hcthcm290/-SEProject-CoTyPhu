@@ -60,7 +60,7 @@ public class PlotTax : Plot
                 {
 
                     Debug.Log("PlotTax: call end turn");
-                    TurnDirector.Ins.EndOfPhase();
+                    base.ActionOnEnter(player).PerformAction();
                 });
             }
         });

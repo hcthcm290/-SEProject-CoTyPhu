@@ -96,4 +96,9 @@ public class SunnaryFeather : SunnaryItem, IPlotPassByListener
     {
         LoadData();
     }
+    public override bool Remove(bool triggerEvent)
+    {
+        Destroy(gameObject);
+        return base.Remove(triggerEvent);
+    }
 }

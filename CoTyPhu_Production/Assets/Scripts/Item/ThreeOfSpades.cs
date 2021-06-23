@@ -85,4 +85,10 @@ public class ThreeOfSpades : BaseItem, ITransactionModifier
     {
         return new List<Vector3>();
     }
+
+    public override bool Remove(bool triggerEvent)
+    {
+        Destroy(gameObject);
+        return base.Remove(triggerEvent);
+    }
 }
