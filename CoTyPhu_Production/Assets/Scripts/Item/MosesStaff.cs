@@ -18,6 +18,7 @@ public class MosesStaff : BaseItem
     {
 
         Owner.RemoveItem(this);
+        Destroy(gameObject);
         // player active animation
 
         // Add item back to Item pool

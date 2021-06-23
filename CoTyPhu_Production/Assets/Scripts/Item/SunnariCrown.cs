@@ -81,6 +81,7 @@ public class SunnariCrown : BaseItem, IPlotPassByListener
                 Plot.plotDictionary[PLOT.FESTIVAL].UnsubcribePlotPassByListner(this);
 
                 Activate("");
+                Destroy(gameObject);
             }
             else
             {
