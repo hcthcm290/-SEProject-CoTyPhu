@@ -238,7 +238,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient)
         {
             _idPlayerTurn = 0;
-            _idPhase = Phase.Shop;
+            _idPhase = Phase.Dice;
 
             photonView.RPC("_StartPhase", RpcTarget.AllBufferedViaServer, _idPlayerTurn, (int)_idPhase);
         }
@@ -288,15 +288,16 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     break;
                 case Phase.Shop:
                     {
-                        if(_isShopStart)
-                        {
-                            nextIdPhase = Phase.Dice;
-                            _isShopStart = false;
-                        }
-                        else
-                        {
-                            nextIdPhase = Phase.Stop;
-                        }
+                        nextIdPhase = Phase.Stop;
+                        //if (_isShopStart)
+                        //{
+                        //    nextIdPhase = Phase.Dice;
+                        //    _isShopStart = false;
+                        //}
+                        //else
+                        //{
+                        //    nextIdPhase = Phase.Stop;
+                        //}
                     }
                     break;
                 case Phase.Extra:
