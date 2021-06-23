@@ -480,6 +480,15 @@ public class ItemManager : MonoBehaviourPun
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
+        var itemInShop = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+        var player = TurnDirector.Ins.GetPlayer(idPlayer);
+
+
+        if (itemInShop.Price > Bank.Ins.MoneyPlayer(player))
+        {
+            return;
+        }
+
         if (!_listItemInShop.ContainsKey(idPlayer))
         {
             _listItemInShop.Add(idPlayer, new List<BaseItem>());
