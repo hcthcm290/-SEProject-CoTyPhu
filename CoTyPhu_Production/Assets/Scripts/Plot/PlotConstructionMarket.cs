@@ -97,12 +97,18 @@ public class PlotConstructionMarket : PlotConstruction
 			else if (Owner.Id == player.Id)
 			{
 				// Activate Market Upgrade UI
-				StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, this);
+				if (Level != 4)
+					StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, this);
+				else
+					TurnDirector.Ins.EndOfPhase();
 			}
 			else if (Owner.Id != player.Id)
 			{
 				// Active Market Rebuy UI
-				StopPhaseUI.Ins.Activate(PhaseScreens.PlotRebuyUI, this);
+				if (Level != 4)
+					StopPhaseUI.Ins.Activate(PhaseScreens.PlotRebuyUI, this);
+				else
+					TurnDirector.Ins.EndOfPhase();
 			}
 		}
         else
