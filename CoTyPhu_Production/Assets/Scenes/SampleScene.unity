@@ -4290,17 +4290,6 @@ PrefabInstance:
       propertyPath: eventDeck
       value: 
       objectReference: {fileID: 6233820424181973131}
-    - target: {fileID: 6612843908437430536, guid: 1ca2ef93b3d42a044a54d115c111348a,
-        type: 3}
-      propertyPath: _statusPrefab
-      value: 
-      objectReference: {fileID: 870394057870898843, guid: da5b3119cf8dc8b4c934aadf6dad0b53,
-        type: 3}
-    - target: {fileID: 6612843908766984024, guid: 1ca2ef93b3d42a044a54d115c111348a,
-        type: 3}
-      propertyPath: _price
-      value: 1999
-      objectReference: {fileID: 0}
     - target: {fileID: 6612843909389023662, guid: 1ca2ef93b3d42a044a54d115c111348a,
         type: 3}
       propertyPath: _plotManager
