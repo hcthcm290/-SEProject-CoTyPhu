@@ -16,8 +16,15 @@ public class PlotConstructionMarket : PlotConstruction
 		set
 		{
 			base.Owner = value;
-			Level = 0;
-			BuildHouse();
+			if(Owner != null)
+            {
+				BuildHouse();
+            }
+			else if(Owner == null)
+            {
+				_level = 0;
+				Destroy(currentHouse);
+			}
 		}
 	}
 	public float UpgradePrice;

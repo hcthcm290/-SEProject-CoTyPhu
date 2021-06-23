@@ -391,6 +391,21 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         player.HasLost = true;
         player.FinalNetworth = player.CalculateNetworth();
         player.PlayLostAnimation();
+        
+        // Set all player's plot become unowned
+        foreach(var plotPair in Plot.plotDictionary)
+        {
+            if(plotPair.Value is PlotConstruction)
+            {
+                var plot = plotPair.Value as PlotConstruction;
+                if(plot.Owner == player)
+                {
+                    plot.Owner = null;
+                }
+            }
+        }
+
+        player.gameObject.SetActive(false);
 
         Debug.Log($"Player {player.Name} lost");
 
