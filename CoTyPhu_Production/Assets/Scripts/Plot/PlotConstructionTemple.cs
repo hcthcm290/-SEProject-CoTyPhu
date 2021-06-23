@@ -14,13 +14,33 @@ public class PlotConstructionTemple : PlotConstruction
 	public float StartBonus { get => _startBonus; }
 	public float BonusIncrement { get => _bonusIncrement; }
 
-	//  Fields ----------------------------------------
-	protected float _startBonus = 0f;
+    [SerializeField] Transform _buildPoint;
+    GameObject currentHouse;
+
+    //  Fields ----------------------------------------
+    protected float _startBonus = 0f;
 	protected float _bonusIncrement = 0.5f;
+    public override Player Owner { get => base.Owner; 
+        set
+        { 
+            base.Owner = value;
+            if(Owner == null)
+            {
+                if(currentHouse != null)
+                {
+                    Destroy(currentHouse);
+                }
+            }
+            else if(Owner != null)
+            {
+                BuildHouse();
+            }
+        }
+    }
 
 
-	//  Initialization --------------------------------
-	public PlotConstructionTemple(PLOT id, string name, string description, int entryFee, int price) : base(id, name, description, entryFee, price) { }
+    //  Initialization --------------------------------
+    public PlotConstructionTemple(PLOT id, string name, string description, int entryFee, int price) : base(id, name, description, entryFee, price) { }
 
 	//  Methods ---------------------------------------
 	protected void IncreasePurchasePrice()
@@ -74,6 +94,35 @@ public class PlotConstructionTemple : PlotConstruction
         }
         
         return null;
+    }
+
+    void BuildHouse()
+    {
+        var plotHousePool = PlotHousesPool.Ins;
+
+        if (plotHousePool != null)
+        {
+            var prefab = plotHousePool.GetPrefab(Owner.GetMerchant().TagName, 0);
+
+            if (prefab != null)
+            {
+                GameObject wrapper = new GameObject();
+                wrapper.transform.parent = this.transform;
+                wrapper.transform.position = _buildPoint.transform.position;
+                wrapper.transform.localScale = Vector3.one;
+
+                GameObject house = Instantiate(prefab, wrapper.transform);
+                var currentRotation = house.transform.rotation.eulerAngles;
+                var targetRotationY = _buildPoint.transform.rotation.eulerAngles.y;
+                house.transform.rotation = Quaternion.Euler(currentRotation.x, targetRotationY, currentRotation.z);
+
+                if(currentHouse != null)
+                {
+                    Destroy(currentHouse);
+                }
+                currentHouse = wrapper;
+            }
+        }
     }
     //  Event Handlers --------------------------------
 }
