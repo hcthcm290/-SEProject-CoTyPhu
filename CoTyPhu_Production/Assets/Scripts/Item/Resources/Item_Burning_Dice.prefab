@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 4
   _name: Burning Dice
-  _price: 200
+  _price: 150
   _description: 
   _type: 
   _canActivate: 0

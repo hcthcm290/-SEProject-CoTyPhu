@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 13
   _name: Lucky Cat Statue
-  _price: 0
+  _price: 200
   _description: 
   _type: 
   _canActivate: 0
