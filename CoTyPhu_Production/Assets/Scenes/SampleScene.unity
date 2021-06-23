@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1243,6 +1243,62 @@ MonoBehaviour:
   lockZ: 0
   _target: {x: 0, y: 0, z: 0}
   speed: 5
+--- !u!1 &610046769 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1713995178832167730, guid: 78a360ada01ca4a62aaa0d1716ddfa64,
+    type: 3}
+  m_PrefabInstance: {fileID: 2876406973423944900}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &610046771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610046769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 8
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &647154267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2876406975266698080, guid: 78a360ada01ca4a62aaa0d1716ddfa64,
+    type: 3}
+  m_PrefabInstance: {fileID: 2876406973423944900}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &647154269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647154267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 11
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &680422596
 GameObject:
   m_ObjectHideFlags: 0
@@ -2658,6 +2714,34 @@ Transform:
   m_Father: {fileID: 920204561}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1515159539 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2876406975292189920, guid: 78a360ada01ca4a62aaa0d1716ddfa64,
+    type: 3}
+  m_PrefabInstance: {fileID: 2876406973423944900}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1515159541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515159539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 10
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1734012905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2808,6 +2892,34 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1734012905}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1804967915 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6723902238319609633, guid: 78a360ada01ca4a62aaa0d1716ddfa64,
+    type: 3}
+  m_PrefabInstance: {fileID: 2876406973423944900}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1804967917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804967915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 9
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1805013689
 GameObject:
   m_ObjectHideFlags: 0
