@@ -92,7 +92,7 @@ public abstract class BaseItem : MonoBehaviour
 		if(ItemActivate != null)
 			ItemActivate.Invoke(Id);
 
-		Remove(true);
+		//Remove(true);
 		
 		return true;
     }

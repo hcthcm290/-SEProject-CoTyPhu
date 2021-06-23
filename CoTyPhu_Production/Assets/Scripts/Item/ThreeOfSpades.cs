@@ -57,6 +57,7 @@ public class ThreeOfSpades : BaseItem, ITransactionModifier
         Owner.RemoveItem(this);
 
         activated = true;
+        Remove(true);
         return base.Activate(activeCase);
     }
 

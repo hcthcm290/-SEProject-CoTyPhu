@@ -69,6 +69,7 @@ public class SunnaryWings : BaseItem, IPlotChooserAction, ICompletableAction
             10f);
 
         Owner.RemoveItem(this);
+        Remove(true);
         // player active animation
 
 

@@ -70,6 +70,8 @@ public class SunnaryFeather : SunnaryItem, IPlotPassByListener
         Owner.ChangeMana(1);
 
         activated = true;
+
+        Remove(true);
         return base.Activate(activeCase);
     }
 
