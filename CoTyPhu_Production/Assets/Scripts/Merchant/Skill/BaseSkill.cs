@@ -49,7 +49,7 @@ public abstract class BaseSkill : MonoBehaviour
 	//  Methods ---------------------------------------
 	public virtual bool CanActivate()
 	{
-		if (!Owner.didDice)
+		if (!Owner.didDice && TurnDirector.Ins.IsMyTurn())
 			return true;
 		return false;
 	}
