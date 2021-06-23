@@ -18,7 +18,7 @@ public class B1Event : EventAction, ITransaction
 
     public object Source
     {
-        get => Bank.Ins.AllMoneyPlayers.Keys.ToList();
+        get => Bank.Ins.AllMoneyPlayers.Keys.ToList().Where(item => !item.HasLost);
     }
     public object Destination
     {

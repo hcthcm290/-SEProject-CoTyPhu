@@ -126,9 +126,10 @@ public class Bank: MonoBehaviour
 		}
 	}
 
-	public void TakeMoney(Player player, int amount, bool isBetweenPlayer = false)
+	public bool TakeMoney(Player player, int amount, bool isBetweenPlayer = false)
 	{
-		if (!_moneyPlayer.ContainsKey(player)) return;
+		if (!_moneyPlayer.ContainsKey(player)) return false;
+		if (player.HasLost) return false;
 
 		int baseAmount = amount;
 		int delta = 0;
@@ -173,6 +174,8 @@ public class Bank: MonoBehaviour
 
 		GoldChange.Invoke(player);
 		SoundManager.Ins.Play(AudioClipEnum.ChaChing);
+
+		return true;
 	}
 
 	public void SendMoney(Player player, int amount)
@@ -183,6 +186,7 @@ public class Bank: MonoBehaviour
 	public void SendMoney(Player player, int amount, bool isBetweenPlayer)
     {
 		if (!_moneyPlayer.ContainsKey(player)) return;
+		if (player.HasLost) return;
 
 		int baseAmount = amount;
 		int delta = 0;
@@ -223,8 +227,8 @@ public class Bank: MonoBehaviour
 	{
 		if (!_moneyPlayer.ContainsKey(source) || !_moneyPlayer.ContainsKey(destination) || source == destination) return;
 
-		TakeMoney(source, amount, true);
-		SendMoney(destination, amount, true);
+		if (TakeMoney(source, amount, true))
+			SendMoney(destination, amount, true);
 	}
 
 	public void AddReceiveMoneyStatus(ITransactionModifier transactionModifier)
