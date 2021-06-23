@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 6
   _name: Sunnary Sundial
-  _price: 1000
+  _price: 150
   _description: 
   _type: 
   _canActivate: 0

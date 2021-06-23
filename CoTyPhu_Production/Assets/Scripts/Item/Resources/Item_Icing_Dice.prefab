@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 3
   _name: Icing Dice
-  _price: 0
+  _price: 400
   _description: Decrease all Plot price by 200%
   _type: 
   _canActivate: 1

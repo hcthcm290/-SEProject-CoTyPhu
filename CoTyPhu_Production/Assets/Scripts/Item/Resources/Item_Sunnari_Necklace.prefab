@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 5
   _name: SunnariNecklace
-  _price: 0
+  _price: 150
   _description: 
   _type: 
   _canActivate: 0
