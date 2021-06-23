@@ -22,7 +22,6 @@ public class StatusLuckyCatStatue : BaseStatus, ITransactionModifier
     {
         Bank.Ins.RemoveReceiveMoneyStatus(this);
         item.Remove(triggerEvent);
-        Destroy(this.gameObject);
         base.Remove(triggerEvent);
         return true;
     }

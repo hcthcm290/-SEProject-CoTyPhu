@@ -50,6 +50,10 @@ public class HoboLute : BaseItem, IPlotEnterListener, ITurnListener
         TurnDirector.Ins.UnsubscribeTurnListener(this);
 
         Activate("");
+        if(this.gameObject != null)
+        {
+            Destroy(this.gameObject, 0.1f);
+        }
         return base.Remove(triggerEvent);
     }
 

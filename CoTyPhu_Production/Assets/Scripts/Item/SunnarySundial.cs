@@ -79,6 +79,10 @@ public class SunnarySundial : SunnaryItem, IPlotPassByListener
                 //*/
 
                 Activate("");
+                if(this.gameObject != null)
+                {
+                    Destroy(this.gameObject, 0.1f);
+                }
             }
             else
             {
