@@ -90,8 +90,11 @@ public class UIPlayerBox : MonoBehaviourPun
 
     public void SetGold()
     {
-
-        goldTable.text = bank.MoneyPlayer(player).ToString("#,##0");
+        int money = bank.MoneyPlayer(player);
+        if (money >= 0)
+            goldTable.text = bank.MoneyPlayer(player).ToString("#,##0");
+        else
+            goldTable.text = "LOSE";
     }
     
     public void SetMana()
