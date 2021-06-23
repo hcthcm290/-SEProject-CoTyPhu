@@ -34,7 +34,7 @@ public class WinBoardUI : MonoBehaviour
         }
 
         List<Player> finalListPlayer = new List<Player>(TurnDirector.Ins.ListPlayer);
-        finalListPlayer.OrderByDescending(player => player.Rank);
+        finalListPlayer.OrderBy(player => player.Rank);
         for (int i = 0; i < finalListPlayer.Count; i++)
         {
             var player = finalListPlayer[i];
