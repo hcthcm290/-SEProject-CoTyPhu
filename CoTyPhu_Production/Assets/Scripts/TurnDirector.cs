@@ -301,12 +301,12 @@ public class TurnDirector : MonoBehaviourPunCallbacks
                     }
                     break;
                 case Phase.Extra:
-                    // TODO
-                    // later
+                    // DEPRECATED
                     break;
             }
 
-            photonView.RPC("_StartPhase", RpcTarget.AllBufferedViaServer, nextIdPlayerTurn, (int)nextIdPhase);
+            photonView.RPC("_StartPhase", RpcTarget.AllBufferedViaServer,
+                nextIdPlayerTurn, (int)nextIdPhase);
         }
     }
 

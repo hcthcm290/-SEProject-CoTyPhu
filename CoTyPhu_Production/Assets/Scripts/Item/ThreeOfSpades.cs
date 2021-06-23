@@ -57,6 +57,7 @@ public class ThreeOfSpades : BaseItem, ITransactionModifier
         Owner.RemoveItem(this);
 
         activated = true;
+        Remove(true);
         return base.Activate(activeCase);
     }
 
@@ -84,5 +85,11 @@ public class ThreeOfSpades : BaseItem, ITransactionModifier
     public override List<Vector3> TargetLocations()
     {
         return new List<Vector3>();
+    }
+
+    public override bool Remove(bool triggerEvent)
+    {
+        Destroy(gameObject);
+        return base.Remove(triggerEvent);
     }
 }

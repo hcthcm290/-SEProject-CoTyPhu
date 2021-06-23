@@ -89,11 +89,10 @@ public abstract class BaseItem : MonoBehaviour
 
 	public virtual bool Activate(string activeCase)
     {
-		
-
 		if(ItemActivate != null)
 			ItemActivate.Invoke(Id);
 
+		//Remove(true);
 		
 		return true;
     }
@@ -102,8 +101,12 @@ public abstract class BaseItem : MonoBehaviour
 	{
 		if(triggerEvent)
 			if (ItemDestroy != null)
-				ItemDestroy.Invoke();
-		return true;
+            {
+                ItemDestroy.Invoke();
+				ItemDestroy = null;
+            }
+
+        return true;
 	}
 
 	//  Event Handlers --------------------------------
