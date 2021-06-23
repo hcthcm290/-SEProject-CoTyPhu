@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -609,8 +609,10 @@ MonoBehaviour:
   merchantName: {fileID: 1328390354}
   passiveSkillName: {fileID: 1211542281}
   passiveSkillDesc: {fileID: 1798498455}
+  passiveSkillAvatar: {fileID: 1838971807}
   activeSkillName: {fileID: 1527568117}
   activeSkillDesc: {fileID: 1831916113}
+  activeSkillAvatar: {fileID: 798965782}
 --- !u!1 &622317750
 GameObject:
   m_ObjectHideFlags: 0

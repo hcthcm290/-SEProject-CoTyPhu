@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Passive_Birger : BaseStatus
 {
+    public Sprite avatar;
     public Player targetPlayer;
 
     public Passive_Birger()
