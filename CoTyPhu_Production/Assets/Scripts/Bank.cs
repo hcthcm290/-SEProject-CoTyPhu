@@ -74,7 +74,6 @@ public class Bank: MonoBehaviour
 	}
     #endregion
 
-
     #region Methods
 	public void AddMoneyToLuckyDraw(int amount)
     {
@@ -162,11 +161,28 @@ public class Bank: MonoBehaviour
 		if (_moneyPlayer[player] < 0)
 		{
 			Debug.Log("Bank: player lose all money, bankrupt");
-			player.HasLost = true;
-			if(player.MinePlayer)
-            {
-				Debug.Log("Bank: Notify player lost");
-				TurnDirector.Ins.NotifyPlayerLose(player.Id);
+			Debug.Log("Bank: sell all your propety");
+			foreach (var plotPair in Plot.plotDictionary)
+			{
+				if (plotPair.Value is PlotConstruction)
+				{
+					var plot = plotPair.Value as PlotConstruction;
+					if (plot.Owner == player)
+					{
+						SendMoney(player, plot.PurchasePrice);
+						plot.Owner = null;
+					}
+				}
+			}
+			if (_moneyPlayer[player] < 0)
+			{
+				Debug.Log("Bank: player has nothing else to sell, bankrupt");
+				player.HasLost = true;
+				if (player.MinePlayer)
+				{
+					Debug.Log("Bank: Notify player lost");
+					TurnDirector.Ins.NotifyPlayerLose(player.Id);
+				}
 			}
 		}
 
