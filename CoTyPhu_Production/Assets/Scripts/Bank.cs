@@ -159,7 +159,7 @@ public class Bank: MonoBehaviour
 
 		_moneyPlayer[player] -= amount;
 		_moneyPlayers.Find(x => x.player == player).money -= amount;
-		if (_moneyPlayer[player] <= 0)
+		if (_moneyPlayer[player] < 0)
 		{
 			Debug.Log("Bank: player lose all money, bankrupt");
 			player.HasLost = true;

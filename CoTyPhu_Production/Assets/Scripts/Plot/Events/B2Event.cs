@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class B2Event : EventAction, ITransaction
 {
-    public int moneyAmount = 200;
+    public int moneyAmount = 50;
 
     public int MoneyAmount
     {
