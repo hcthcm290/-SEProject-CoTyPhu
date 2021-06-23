@@ -27,8 +27,10 @@ public class B1Event : EventAction, ITransaction
 
     public override void PerformAction()
     {
-        foreach(Player player in (Source as List<Player>))
-            Bank.Ins.TakeMoney(player, moneyAmount);
+        IEnumerable<Player> players = Source as IEnumerable<Player>;
+        if (players != null)
+            foreach (Player player in (Source as IEnumerable<Player>))
+                Bank.Ins.TakeMoney(player, moneyAmount);
 
         if (target.MinePlayer && TurnDirector.Ins.IdPhase == Phase.Stop)
             TurnDirector.Ins.EndOfPhase();
