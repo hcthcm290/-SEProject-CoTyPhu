@@ -27,7 +27,7 @@ public class PlotConstruction: Plot
 					deltaFee = (int)status.GethirePriceChange(baseEntryFee, deltaFee);
                 }
             }
-			return baseEntryFee + deltaFee;
+			return baseEntryFee + deltaFee > 0 ? baseEntryFee + deltaFee : 0;
         } }
 	public int Price { get => _price; }
 	public virtual Player Owner 
