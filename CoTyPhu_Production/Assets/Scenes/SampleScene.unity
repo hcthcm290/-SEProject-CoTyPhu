@@ -4675,11 +4675,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1251835172}
-    - target: {fileID: 4747106635177666658, guid: 455d8e45abd525943a91811d58d08f93,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RollCheat
-      objectReference: {fileID: 0}
     - target: {fileID: 4874659216275148644, guid: 455d8e45abd525943a91811d58d08f93,
         type: 3}
       propertyPath: m_Pivot.x
