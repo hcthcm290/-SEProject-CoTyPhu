@@ -170,7 +170,7 @@ public class Bank: MonoBehaviour
 					var plot = plotPair.Value as PlotConstruction;
 					if (plot.Owner == player)
 					{
-						SendMoney(player, plot.PurchasePrice);
+						SendMoney(player, (int) (plot.PurchasePrice * 0.5f));
 						plot.Owner = null;
 					}
 				}
