@@ -64,7 +64,7 @@ public class StatusJeweryDeal : BaseStatus, IPlotEnterListener
                     return;
                 }
             }
-            //Mat 200 gold o day
+            //Mat 100 gold o day
             Bank.Ins.TakeMoney(targetPlayer, 100);
             
         }
@@ -72,6 +72,10 @@ public class StatusJeweryDeal : BaseStatus, IPlotEnterListener
 
     public override bool Remove(bool triggerEvent)
     {
+        for (int i = 0; i < 32; i++)
+        {
+            Plot.plotDictionary[(PLOT)i].UnsubcribePlotEnter(this);
+        }
         targetPlayer.RemoveStatus(this);
         base.Remove(triggerEvent);
         Destroy(this.gameObject);

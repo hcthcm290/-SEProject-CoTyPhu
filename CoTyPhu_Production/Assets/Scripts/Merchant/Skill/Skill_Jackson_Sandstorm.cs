@@ -26,13 +26,9 @@ public class Skill_Jackson_Sandstorm : BaseSkill
 
     public override bool Activate()
     {
-        if (CanActivate())
-        {
-            var status = Instantiate(_statusPrefab, Owner.transform);
-            status.targetPlayer = Owner;
-            status.StartListen();
-            return base.Activate();
-        }
-        return false;
+        var status = Instantiate(_statusPrefab, Owner.transform);
+        status.targetPlayer = Owner;
+        status.StartListen();
+        return base.Activate();
     }
 }
