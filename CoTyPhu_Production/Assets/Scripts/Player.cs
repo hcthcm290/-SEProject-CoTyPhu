@@ -389,10 +389,12 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
                 {
                     CameraManager.Ins.BackToCameraMain();
                     merchant.MerchantAnimator.SetBool("walking", false);
-                    if (minePlayer)
+                    IAction endturn = new LambdaAction(() =>
                     {
-                        TurnDirector.Ins.EndOfPhase();
-                    }
+                        if (minePlayer)
+                            TurnDirector.Ins.EndOfPhase();
+                    });
+                    TurnDirector.Ins.HandShake(endturn, TurnDirector.Ins.ListPlayer.Count);
                     break;
                 }
         }

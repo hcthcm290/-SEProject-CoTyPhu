@@ -36,7 +36,7 @@ public class PlotTravel: Plot
 
             ActionTravel travel = new ActionTravel(obj);
 
-            IAction actionEndPhase = new LambdaAction(() => TurnDirector.Ins.EndOfPhase());
+            IAction actionEndPhase = base.ActionOnEnter(obj);
 
             tileChooser.Listen(travel, 
                 actionEndPhase,
@@ -82,7 +82,10 @@ class ActionTravel : IPlotChooserAction, ICompletableAction
 
         if (plot == currentPlot)
         {
-            TurnDirector.Ins.EndOfPhase();
+            if (targetPlayer.MinePlayer && TurnDirector.Ins.IdPhase == Phase.Stop)
+            {
+                TurnDirector.Ins.EndOfPhase();
+            }
             PerformOnComplete();
             return;
         }

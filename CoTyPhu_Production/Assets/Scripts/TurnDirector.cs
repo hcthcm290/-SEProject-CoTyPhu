@@ -336,6 +336,27 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         _listPlayer.Find(x => x.Id == _idPlayerTurn).StartPhase(_idPhase);
     }
 
+    IAction handshakeAction;
+    public void HandShake(IAction action, int amountOfHands)
+    {
+        handshakeAction = action;
+        photonView.RPC("AcceptHandshake", RpcTarget.MasterClient, amountOfHands);
+    }
+    int handsShaken = 0;
+    [PunRPC]
+    private void AcceptHandshake(int amountOfHands)
+    {
+        handsShaken++;
+        if (handsShaken >= amountOfHands)
+            photonView.RPC("ActivateHandshake", RpcTarget.All, amountOfHands);
+    }
+    [PunRPC]
+    private void ActivateHandshake(int amountOfHands)
+    {
+        handsShaken -= amountOfHands;
+        handshakeAction?.PerformAction();
+    }
+
     /// <summary>
     /// This function is called by the player to notify the turn director 
     /// it has finished its phase
