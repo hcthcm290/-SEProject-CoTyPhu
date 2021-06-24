@@ -16,7 +16,7 @@ public class DiceUI : MonoBehaviour
     const float inactiveConfirmDelay = 0.5f;
     float inactiveDuration;
 
-    public delegate void DiceResult(int result);
+    public delegate void DiceResult(DiceUI who ,int result);
     public event DiceResult ReceiveResult;
 
     private void Update()
@@ -44,7 +44,7 @@ public class DiceUI : MonoBehaviour
             {
                 rolled = false;
                 Debug.Log("Roll result: " + (ListCrossVectors.IndexOf(smallestAngleVector) + 1).ToString());
-                ReceiveResult.Invoke(ListCrossVectors.IndexOf(smallestAngleVector) + 1);
+                ReceiveResult.Invoke(this, ListCrossVectors.IndexOf(smallestAngleVector) + 1);
             }
         }
         else

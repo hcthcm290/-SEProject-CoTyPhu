@@ -4902,6 +4902,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Win board UI
       objectReference: {fileID: 0}
+    - target: {fileID: 3656608591207909450, guid: 964176bced8d54a47ab543f69b400805,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3656608591207909454, guid: 964176bced8d54a47ab543f69b400805,
         type: 3}
       propertyPath: m_Pivot.x
