@@ -77,7 +77,7 @@ public class Bank: MonoBehaviour
     #region Methods
 	public void AddMoneyToLuckyDraw(int amount)
     {
-		_moneyBank -= amount;
+		//_moneyBank -= amount;
 		_luckyDrawMoney += amount;
     }
 
@@ -158,6 +158,7 @@ public class Bank: MonoBehaviour
 
 		_moneyPlayer[player] -= amount;
 		_moneyPlayers.Find(x => x.player == player).money -= amount;
+		_moneyBank += amount;
 		if (_moneyPlayer[player] < 0)
 		{
 			Debug.Log("Bank: player lose all money, bankrupt");
