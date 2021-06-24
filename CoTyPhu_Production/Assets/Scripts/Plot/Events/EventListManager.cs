@@ -35,7 +35,7 @@ public class EventListManager : MonoBehaviourPunCallbacks
 
     public static EventListManager GetInstance()
     {
-        return Singleton<EventListManager>.GetInstance();
+        return Locator.GetInstance<EventListManager>();
     }
 
     [PunRPC]

@@ -11,20 +11,28 @@ public enum AudioClipEnum
     Firework,
     Magic,
     Select,
+
+    MainMenu,
+    Game1,
+    Game2,
+    Game3,
+    Game4,
+    Lobby,
+    PickLobby,
 }
 
 public class SoundManager : MonoBehaviour
 {
     public List<AudioClip> audioClips;
     public List<AudioClipEnum> enumOrder;
-    Dictionary<AudioClipEnum, AudioSource> audioSources = new Dictionary<AudioClipEnum, AudioSource>();
+    public Dictionary<AudioClipEnum, AudioSource> audioSources = new Dictionary<AudioClipEnum, AudioSource>();
 
     public AudioSource sourcePrefab;
 
     SoundManager()
     {
         Locator.MarkInstance(this);
-        enumOrder = new List<AudioClipEnum>();  
+        enumOrder = new List<AudioClipEnum>();
         foreach (AudioClipEnum item in Enum.GetValues(typeof(AudioClipEnum)))
         {
             enumOrder.Add(item);
@@ -32,20 +40,6 @@ public class SoundManager : MonoBehaviour
     }
 
     public static SoundManager Ins { get => Locator.GetInstance<SoundManager>(); }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        for (int i=0; i<audioClips.Count; i++)
-        {
-            var item = audioClips[i];
-            if (item != null)
-            {
-                var temp = audioSources[enumOrder[i]] = Instantiate(sourcePrefab, transform);
-                temp.clip = item;
-            }
-        }
-    }
 
     bool CheckAudioAvailable(AudioClipEnum audioClip)
     {
@@ -62,6 +56,16 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this);
+
+        for (int i = 0; i < audioClips.Count; i++)
+        {
+            var item = audioClips[i];
+            if (item != null)
+            {
+                var temp = audioSources[enumOrder[i]] = Instantiate(sourcePrefab, transform);
+                temp.clip = item;
+            }
+        }
     }
 
     public void Play(int audioClip)
