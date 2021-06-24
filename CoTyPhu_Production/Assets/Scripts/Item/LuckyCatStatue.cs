@@ -34,6 +34,7 @@ public class LuckyCatStatue : BaseItem
         base.Remove(triggerEvent);
         if(this.gameObject != null)
         {
+            Owner.RemoveItem(this);
             Destroy(this.gameObject, 0.1f);
         }
         return true;
