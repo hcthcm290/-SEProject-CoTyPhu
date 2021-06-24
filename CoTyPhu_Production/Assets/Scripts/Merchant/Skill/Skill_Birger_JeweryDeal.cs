@@ -27,7 +27,7 @@ public class Skill_Birger_JeweryDeal : BaseSkill
     public override bool Activate()
     {
         var status = Instantiate(_statusPrefab, Owner.transform);
-        //status.targetPlayer = Owner;
+        status.targetPlayer = Owner;
         status.StartListen();
         return base.Activate();
     }
