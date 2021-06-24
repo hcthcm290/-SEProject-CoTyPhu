@@ -50,50 +50,51 @@ public class PlotConstructionTemple : PlotConstruction
 
     public override IAction ActionOnEnter(Player player)
     {
-        NotifyPlotEnter(player);
-        if(Owner == null)
+        return new LambdaAction(() =>
         {
-            player.ChangeMana(1);
-        }
-        else if (Owner.Id != player.Id)
-        {
-            player.ChangeMana(2);
-
-            // TODO
-            // Pay the temple
-            Bank.Ins.TransactBetweenPlayers(player, Owner, EntryFee);
-
-            NotifyPayPlotFee(player);
-        }
-        else if (Owner.Id == player.Id)
-        {
-            player.ChangeMana(1);
-        }
-
-        if (player.MinePlayer)
-        {
+            NotifyPlotEnter(player);
             if (Owner == null)
             {
-                // Activate Temple Buy UI
-                StopPhaseUI.Ins.Activate(PhaseScreens.TempleBuyUI, this);
-            }
-            else if (Owner.Id == player.Id)
-            {
-                TurnDirector.Ins.EndOfPhase();
+                player.ChangeMana(1);
             }
             else if (Owner.Id != player.Id)
             {
-                // Active Temple Rebuy UI
-                StopPhaseUI.Ins.Activate(PhaseScreens.TempleRebuyUI, this);
-                //TurnDirector.Ins.EndOfPhase();
-            }
-        }
-        else
-        {
+                player.ChangeMana(2);
 
-        }
-        
-        return null;
+                // TODO
+                // Pay the temple
+                Bank.Ins.TransactBetweenPlayers(player, Owner, EntryFee);
+
+                NotifyPayPlotFee(player);
+            }
+            else if (Owner.Id == player.Id)
+            {
+                player.ChangeMana(1);
+            }
+
+            if (player.MinePlayer)
+            {
+                if (Owner == null)
+                {
+                    // Activate Temple Buy UI
+                    StopPhaseUI.Ins.Activate(PhaseScreens.TempleBuyUI, this);
+                }
+                else if (Owner.Id == player.Id)
+                {
+                    base.ActionOnEnter(player).PerformAction();
+                }
+                else if (Owner.Id != player.Id)
+                {
+                    // Active Temple Rebuy UI
+                    StopPhaseUI.Ins.Activate(PhaseScreens.TempleRebuyUI, this);
+                    //base.ActionOnEnter(player).PerformAction();
+                }
+            }
+            else
+            {
+
+            }
+        });
     }
 
     void BuildHouse()

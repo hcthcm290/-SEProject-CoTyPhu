@@ -61,61 +61,63 @@ public class PlotConstructionMarket : PlotConstruction
 
     public override IAction ActionOnEnter(Player player)
     {
-		NotifyPlotEnter(player);
+		return new LambdaAction(() =>
+		{
+			NotifyPlotEnter(player);
 
-		if(Owner == null)
-        {
-
-        }
-		else if(Owner.Id != player.Id)
-        {
-			player.ChangeMana(2);
-
-			Debug.Log("Pay the rent");
-			_entryFee = baseFee[_level];
-			var entryFee = EntryFee;
-			Debug.Log(entryFee);
-
-			// TODO
-			// Pay the rent
-			Bank.Ins.TransactBetweenPlayers(player, Owner, entryFee);
-
-			NotifyPayPlotFee(player);
-		}
-		else if(Owner.Id == player.Id)
-        {
-			player.ChangeMana(1);
-		}
-
-		// If this player is in client's control
-		if (player.MinePlayer)
-        {
 			if (Owner == null)
 			{
-				StopPhaseUI.Ins.Activate(PhaseScreens.PlotBuyUI, this);
-			}
-			else if (Owner.Id == player.Id)
-			{
-				// Activate Market Upgrade UI
-				if (Level != 4)
-					StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, this);
-				else
-					TurnDirector.Ins.EndOfPhase();
+
 			}
 			else if (Owner.Id != player.Id)
 			{
-				// Active Market Rebuy UI
-				if (Level != 4)
-					StopPhaseUI.Ins.Activate(PhaseScreens.PlotRebuyUI, this);
-				else
-					TurnDirector.Ins.EndOfPhase();
-			}
-		}
-        else
-        {
+				player.ChangeMana(2);
 
-        }
-		return null;
+				Debug.Log("Pay the rent");
+				_entryFee = baseFee[_level];
+				var entryFee = EntryFee;
+				Debug.Log(entryFee);
+
+				// TODO
+				// Pay the rent
+				Bank.Ins.TransactBetweenPlayers(player, Owner, entryFee);
+
+				NotifyPayPlotFee(player);
+			}
+			else if (Owner.Id == player.Id)
+			{
+				player.ChangeMana(1);
+			}
+
+			// If this player is in client's control
+			if (player.MinePlayer)
+			{
+				if (Owner == null)
+				{
+					StopPhaseUI.Ins.Activate(PhaseScreens.PlotBuyUI, this);
+				}
+				else if (Owner.Id == player.Id)
+				{
+					// Activate Market Upgrade UI
+					if (Level != 4)
+						StopPhaseUI.Ins.Activate(PhaseScreens.MarketUpgradeUI, this);
+					else
+						base.ActionOnEnter(player).PerformAction();
+				}
+				else if (Owner.Id != player.Id)
+				{
+					// Active Market Rebuy UI
+					if (Level != 4)
+						StopPhaseUI.Ins.Activate(PhaseScreens.PlotRebuyUI, this);
+					else
+						base.ActionOnEnter(player).PerformAction();
+				}
+			}
+			else
+			{
+
+			}
+		});
     }
 
 	public void Upgrade(int level)
