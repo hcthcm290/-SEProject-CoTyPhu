@@ -99,7 +99,7 @@ public class PlotConstruction: Plot
     public override IAction ActionOnEnter(Player obj)
     {
 		//TODO: Check Owner --> do action based on Owner state
-		return null;
+		return base.ActionOnEnter(obj);
     }
 
 	public void AddStatus(IHirePriceChange newStatus)
