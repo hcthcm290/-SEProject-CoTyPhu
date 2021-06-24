@@ -495,11 +495,6 @@ public class Player : MonoBehaviour, IDiceListener, IPlotPassByListener
         }//*/
 
         // only the one who roll & that is control by me can announce end of phase
-        if (idPlayer == Id && minePlayer)
-        {
-
-            TurnDirector.Ins.EndOfPhase();
-        }
     }
 
     public int GetDiceListenerPriority()
