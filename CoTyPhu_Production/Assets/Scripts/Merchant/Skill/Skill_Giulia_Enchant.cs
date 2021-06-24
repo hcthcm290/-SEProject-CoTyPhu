@@ -25,50 +25,46 @@ public class Skill_Giulia_Enchant : BaseSkill
 
     public override bool Activate()
     {
-        if (CanActivate())
+        PlayerObjectPool playerPool;
+        if (PlayerObjectPool.Ins == null)
         {
-            PlayerObjectPool playerPool;
-            if (PlayerObjectPool.Ins == null)
+            playerPool = GameObject.Find("PlayerPool").GetComponent<PlayerObjectPool>();
+        }
+        else
+        {
+            playerPool = PlayerObjectPool.Ins;
+        }
+
+        Player myPlayer = null;
+        List<Player> otherPlayers = new List<Player>();
+        for (int i = 0; i < playerPool.transform.childCount; i++)
+        {
+            Player p = playerPool.transform.GetChild(i).GetComponent<Player>();
+            if(p.Id == Owner.Id)
             {
-                playerPool = GameObject.Find("PlayerPool").GetComponent<PlayerObjectPool>();
+                myPlayer = p;
             }
             else
             {
-                playerPool = PlayerObjectPool.Ins;
-            }
-
-            Player myPlayer = null;
-            List<Player> otherPlayers = new List<Player>();
-            for (int i = 0; i < playerPool.transform.childCount; i++)
-            {
-                Player p = playerPool.transform.GetChild(i).GetComponent<Player>();
-                if(p.Id == Owner.Id)
+                if (p.gameObject.activeSelf == true)
                 {
-                    myPlayer = p;
-                }
-                else
-                {
-                    if (p.gameObject.activeSelf == true)
-                    {
-                        otherPlayers.Add(p);
-                    }
+                    otherPlayers.Add(p);
                 }
             }
-
-            Player targetPlayer = ClosestPlayer(myPlayer, otherPlayers);
-            if (targetPlayer != null)
-            {
-                targetPlayer.ActionMoveTo(Owner.Location_PlotID).PerformAction();
-                //Plot.plotDictionary[Owner.Location_PlotID].ActiveOnEnter(targetPlayer);
-
-                var status = Instantiate(prefab, targetPlayer.transform);
-                status.targetPlayer = targetPlayer;
-                status.Owner = Owner;
-                status.StartListen();
-            }
-            return base.Activate();
         }
-        return false;
+
+        Player targetPlayer = ClosestPlayer(myPlayer, otherPlayers);
+        if (targetPlayer != null)
+        {
+            targetPlayer.ActionMoveTo(Owner.Location_PlotID).PerformAction();
+            //Plot.plotDictionary[Owner.Location_PlotID].ActiveOnEnter(targetPlayer);
+
+            var status = Instantiate(prefab, targetPlayer.transform);
+            status.targetPlayer = targetPlayer;
+            status.Owner = Owner;
+            status.StartListen();
+        }
+        return base.Activate();
     }
 
     public Player ClosestPlayer(Player my, List<Player> others)
