@@ -520,7 +520,7 @@ public class ItemManager : MonoBehaviourPun
         {
             FetchShopItems(idPlayer).then((x) =>
             {
-                var itemInShop = _listItemInShop[idPlayer].Find(x => x.Id == idItem);
+                var itemInShop = _listItemInShop[idPlayer].Find(y => y.Id == idItem);
 
                 var item = Instantiate(itemInShop);
 
@@ -599,26 +599,26 @@ public class ItemManager : MonoBehaviourPun
                 com.Add(item);
             }
             Future<List<BaseItem>> b2 = RequestItem(6, 0);
-            b2.then((list) =>
+            b2.then((x) =>
             {
                 Debug.Log("6");
-                foreach (var item in list)
+                foreach (var item in x)
                 {
                     com.Add(item);
                 }
                 Future<List<BaseItem>> b3 = RequestItem(7, 0);
-                b3.then((list) =>
+                b3.then((y) =>
                 {
                     Debug.Log("7");
-                    foreach (var item in list)
+                    foreach (var item in y)
                     {
                         com.Add(item);
                     }
                     Future<List<BaseItem>> b4 = RequestItem(8, 0);
-                    b4.then((list) =>
+                    b4.then((z) =>
                     {
                         Debug.Log("8");
-                        foreach (var item in list)
+                        foreach (var item in z)
                         {
                             com.Add(item);
                         }

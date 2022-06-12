@@ -409,7 +409,7 @@ public class TurnDirector : MonoBehaviourPunCallbacks
         Debug.Log("Turn director: notify player lost client");
         Player player = GetPlayer(id_player);
 
-        int playerLostCount = _listPlayer.Count(player => player.HasLost == true);
+        int playerLostCount = _listPlayer.Count(x => x.HasLost == true);
         player.HasLost = true;
         player.FinalNetworth = player.CalculateNetworth();
         player.PlayLostAnimation();

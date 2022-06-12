@@ -5,6 +5,7 @@ using UnityEngine;
 public class MusicManager : MonoBehaviour
 {
     AudioSource playing;
+
     public List<AudioClipEnum> backgroundMusic;
     // Start is called before the first frame update
     void Start()

@@ -5,13 +5,13 @@ using UnityEngine;
 
 public partial interface IAction
 {
-    public void PerformAction();
+    void PerformAction();
 }
 public interface ICompletableAction : IAction
 {
-    public IAction OnActionComplete { get; set; }
+    IAction OnActionComplete { get; set; }
 
-    public void PerformOnComplete();
+    void PerformOnComplete();
 }
 public class ActionList : ICompletableAction
 {

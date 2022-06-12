@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public interface IPlotChooserAction : IAction
 {
-    public PLOT? plot
+    PLOT? plot
     {
         get;
         set;

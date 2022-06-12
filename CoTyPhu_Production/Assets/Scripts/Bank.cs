@@ -305,16 +305,16 @@ public class Bank: MonoBehaviour
 
 public interface ITransaction
 {
-	public int MoneyAmount
+	int MoneyAmount
     {
 		get;
     }
 	// object Source and Destination may be a List
-	public object Source
+	object Source
     {
 		get;
     }
-	public object Destination
+	object Destination
     {
 		get;
     }

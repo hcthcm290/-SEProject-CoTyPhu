@@ -38,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -118,8 +118,6 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
-    maxJobWorkers: 0
-    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -222,10 +220,10 @@ RectTransform:
   m_Father: {fileID: 687969590}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 32.369835}
-  m_SizeDelta: {x: -380, y: -245.1373}
+  m_AnchorMin: {x: 0.5, y: 0.2562922}
+  m_AnchorMax: {x: 0.5, y: 0.851}
+  m_AnchoredPosition: {x: 0, y: -0.13015747}
+  m_SizeDelta: {x: 700, y: 1.8627014}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &576613165
 MonoBehaviour:
@@ -242,7 +240,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -406,7 +403,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
 --- !u!223 &687969589
 Canvas:
   m_ObjectHideFlags: 0
@@ -504,7 +500,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8784314, g: 0.84313726, b: 0.6666667, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -559,10 +554,10 @@ RectTransform:
   m_Father: {fileID: 576613164}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.0000095367}
-  m_SizeDelta: {x: 700, y: 330.2521}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -31.747894}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &806723331
 MonoBehaviour:
@@ -579,7 +574,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -597,10 +591,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Gi\xE1o vi\xEAn h\u01B0\u1EDBng d\u1EABn:\nTr\u1EA7n Anh D\u0169ng\n\nTh\xE0nh
-    vi\xEAn:\nH\u1ED3 C\xF4ng Th\xE0nh - 18520359\nT\u01B0\u1EDFng Th\xE0nh Long
-    -18520227\nL\u01B0\u01A1ng L\xFD C\xF4ng Th\u1EAFng - 18520357\nNguy\u1EC5n Th\xE0nh
-    Trung - 18520179\nV\xF5 Th\xE0nh Trung - 18520180"
+  m_Text: "Gi\xE1o vi\xEAn h\u01B0\u1EDBng d\u1EABn:\nHu\u1EF3nh Tu\u1EA5n Anh\n\nTh\xE0nh
+    vi\xEAn:\nH\u1ED3 C\xF4ng Th\xE0nh - 18520359\nL\u01B0\u01A1ng L\xFD C\xF4ng
+    Th\u1EAFng - 18520357\nNguy\u1EC5n Th\xE0nh Trung - 18520179"
 --- !u!222 &806723332
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -643,10 +636,10 @@ RectTransform:
   m_Father: {fileID: 687969590}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -441, y: 245}
-  m_SizeDelta: {x: 148.8991, y: 67.743}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 99, y: -59}
+  m_SizeDelta: {x: 148.89911, y: 67.74298}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1041699170
 MonoBehaviour:
@@ -674,7 +667,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
-    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -705,7 +697,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1041699170}
-        m_TargetAssemblyTypeName: Credit, Assembly-CSharp
         m_MethodName: GoToStartScene
         m_Mode: 1
         m_Arguments:
@@ -731,7 +722,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -787,10 +777,10 @@ RectTransform:
   m_Father: {fileID: 687969590}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -213}
-  m_SizeDelta: {x: -380, y: -479.1228}
+  m_AnchorMin: {x: 0.5, y: 0.041}
+  m_AnchorMax: {x: 0.5, y: 0.2562922}
+  m_AnchoredPosition: {x: 0, y: 0.5}
+  m_SizeDelta: {x: 700, y: -2.1228027}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1275871394
 MonoBehaviour:
@@ -807,7 +797,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -862,10 +851,10 @@ RectTransform:
   m_Father: {fileID: 1878266886}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 5.3517}
-  m_SizeDelta: {x: 700, y: 43.5079}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 6}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1476259751
 MonoBehaviour:
@@ -882,7 +871,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -894,7 +882,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -941,10 +929,10 @@ RectTransform:
   m_Father: {fileID: 1275871393}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700, y: 128.3772}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 3}
+  m_SizeDelta: {x: 0, y: 0.37719727}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1479480036
 MonoBehaviour:
@@ -961,29 +949,26 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 1
+    m_MaxSize: 38
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Role: M\u1ECDi th\xE0nh vi\xEAn tr\xEAn \u0111\u1EC1u tham gia trong qu\xE1
-    tr\xECnh s\u1EA3n xu\u1EA5t game, tuy nhi\xEAn c\xF3 nh\u1EEFng role ch\xEDnh
-    nh\u01B0 sau:\n- LeadArtist: Nguy\u1EC5n Th\xE0nh Trung\n- SoundArtist & Architect:
-    T\u01B0\u1EDFng Th\xE0nh Long\n- LeadDeveloper: H\u1ED3 C\xF4ng Th\xE0nh\n- GameDesigner:
-    L\u01B0\u01A1ng L\xFD C\xF4ng Th\u1EAFng\n- Product Manager: V\xF5 Th\xE0nh Trung"
+  m_Text: "- Lead Artist: Nguy\u1EC5n Th\xE0nh Trung\n- Sound Artist & Architect:
+    Nguy\u1EC5n Th\xE0nh Trung\n- Lead Developer: H\u1ED3 C\xF4ng Th\xE0nh\n- Game
+    Designer: L\u01B0\u01A1ng L\xFD C\xF4ng Th\u1EAFng"
 --- !u!222 &1479480037
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1025,10 +1010,10 @@ RectTransform:
   m_Father: {fileID: 687969590}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 241.31}
-  m_SizeDelta: {x: 329.3954, y: 75.121}
+  m_AnchorMin: {x: 0.5, y: 0.8361851}
+  m_AnchorMax: {x: 0.5, y: 0.95500004}
+  m_AnchoredPosition: {x: 0, y: 0.80999756}
+  m_SizeDelta: {x: 329.3954, y: 2.1209717}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1878266887
 MonoBehaviour:
@@ -1045,7 +1030,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1144,7 +1128,6 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &2106633203

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ITransactionModifier
 {
-    public bool isActivated(Player player, int baseAmount, bool isBetweenPlayer);
+    bool isActivated(Player player, int baseAmount, bool isBetweenPlayer);
 
     /// <summary>
     /// 
@@ -13,5 +13,5 @@ public interface ITransactionModifier
     /// <param name="baseAmount"></param>
     /// <param name="amount"></param>
     /// <returns>Tuple<player doing transaction, new base amount, new delta></returns>
-    public System.Tuple<Player, int, int> ModifyTransaction(Player target, int baseAmount, int delta);
+    System.Tuple<Player, int, int> ModifyTransaction(Player target, int baseAmount, int delta);
 }
